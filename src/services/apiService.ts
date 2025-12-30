@@ -1,5 +1,5 @@
 
-const API_BASE = '/api/index.php';
+const API_BASE = '/backend/index.php';
 
 export const apiService = {
   async login(credentials: any) {

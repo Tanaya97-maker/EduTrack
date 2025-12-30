@@ -1,22 +1,21 @@
-
 import React, { useState, useEffect } from 'react';
-import { 
-  User, 
-  UserType, 
-  Student, 
-  Faculty, 
-  Subject, 
-  AttendanceRecord, 
+import type {
+  User,
+  Student,
+  Faculty,
+  Subject,
+  AttendanceRecord,
   TimetableEntry
 } from './types';
-import { 
-  MOCK_USERS, 
-  MOCK_STUDENTS, 
-  MOCK_FACULTY, 
-  MOCK_SUBJECTS, 
-  MOCK_ENROLLMENTS, 
-  MOCK_ATTENDANCE, 
-  MOCK_TIMETABLE 
+import { UserType } from './types';
+import {
+  MOCK_USERS,
+  MOCK_STUDENTS,
+  MOCK_FACULTY,
+  MOCK_SUBJECTS,
+  MOCK_ENROLLMENTS,
+  MOCK_ATTENDANCE,
+  MOCK_TIMETABLE
 } from './mockData';
 import FacultyDashboard from './components/FacultyDashboard';
 import StudentDashboard from './components/StudentDashboard';
@@ -98,30 +97,31 @@ const App: React.FC = () => {
 
     try {
       const loggedInUser = await apiService.login({ email, password });
-      
+
       if (loggedInUser && !loggedInUser.error) {
         setUser(loggedInUser);
         setIsDemoMode(false);
+        setError('');
       } else {
-        // Correcting login: Fallback to mock for demo if PHP is missing or credentials failed in DB
         const mockMatch = MOCK_USERS.find(u => u.email === email && u.password_hash === password);
         if (mockMatch) {
           setUser(mockMatch);
           setIsDemoMode(true);
           console.info("Logged in via Demo Mode (Mock Data)");
+          setError('');
         } else {
           setError(loggedInUser?.error || 'Invalid credentials.');
         }
       }
     } catch (err) {
-      // Automatic fallback if PHP server isn't running at all
       const mockMatch = MOCK_USERS.find(u => u.email === email && (u.password_hash === password || password === '123'));
       if (mockMatch) {
         setUser(mockMatch);
         setIsDemoMode(true);
         console.warn("Backend connection failed. Entered Demo Mode.");
+        setError('');
       } else {
-        setError('Backend connection failed. Please check if PHP server is running.');
+        setError('Backend connection failed. Please ensure the PHP server is running and database is configured.');
       }
     } finally {
       setIsLoading(false);
@@ -167,24 +167,24 @@ const App: React.FC = () => {
               </div>
             )}
             <div className="space-y-4">
-              <input 
+              <input
                 type="email" placeholder="Email Address" className="w-full px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold text-sm"
                 value={email} onChange={e => setEmail(e.target.value)} required
               />
-              <input 
+              <input
                 type="password" placeholder="Secure Password" className="w-full px-6 py-4 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold text-sm"
                 value={password} onChange={e => setPassword(e.target.value)} required
               />
             </div>
-            <button 
+            <button
               disabled={isLoading}
-              type="submit" 
+              type="submit"
               className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 px-6 rounded-[2rem] shadow-2xl shadow-indigo-100 transition-all active:scale-95 text-sm uppercase tracking-widest disabled:opacity-50"
             >
               {isLoading ? 'Processing...' : 'Authenticate'}
             </button>
             <div className="text-center text-[10px] text-slate-300 font-bold uppercase tracking-widest pt-2">
-              Password is "123" for Demo
+              Default password is "123" for testing
             </div>
           </form>
         </div>
@@ -192,21 +192,24 @@ const App: React.FC = () => {
     );
   }
 
+  const facultyData = faculty.find(f => f.user_id === user.user_id);
+  const studentData = students.find(s => s.user_id === user.user_id);
+
   return (
     <div className="min-h-screen bg-slate-50 flex">
-      <Sidebar 
-        userType={user.user_type} 
-        activeTab={activeTab} 
-        onTabChange={setActiveTab} 
+      <Sidebar
+        userType={user.user_type}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
       />
-      
+
       <div className="flex-1 flex flex-col min-h-screen">
-        <Header 
-          user={user} 
-          pageTitle={activeTab} 
-          onLogout={() => setUser(null)} 
+        <Header
+          user={user}
+          pageTitle={activeTab}
+          onLogout={() => setUser(null)}
         />
-        
+
         <main className="flex-1 p-8 lg:p-12 max-w-7xl mx-auto w-full">
           {isDemoMode && (
             <div className="bg-amber-50 border border-amber-100 text-amber-700 text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl mb-6 flex justify-between items-center shadow-sm">
@@ -214,79 +217,83 @@ const App: React.FC = () => {
               <button onClick={() => setIsDemoMode(false)} className="underline">Retry Live Sync</button>
             </div>
           )}
-          
+
           {user.user_type === UserType.ADMIN ? (
             <>
               {activeTab === 'dashboard' && (
-                <AdminDashboard 
+                <AdminDashboard
                   students={students}
                   faculty={faculty}
                   subjects={subjects}
                   enrollments={enrollments}
                   attendance={attendanceRecords}
                   onRemoveStudent={handleRemoveStudent}
-                  onRemoveFaculty={id => apiService.manageUser('remove_faculty', {id}).then(fetchData)}
-                  onRemoveSubject={id => apiService.manageSubject('remove', {id}).then(fetchData)}
+                  onRemoveFaculty={id => apiService.manageUser('remove_faculty', { id }).then(fetchData)}
+                  onRemoveSubject={id => apiService.manageSubject('remove', { id }).then(fetchData)}
                   onUpdateSubject={s => apiService.manageSubject('edit', s).then(fetchData)}
                   onUpdateFaculty={f => apiService.manageUser('edit_faculty', f).then(fetchData)}
                   onUpdateStudent={s => apiService.manageUser('edit_student', s).then(fetchData)}
                 />
               )}
               {activeTab === 'schedule' && (
-                <AdminSchedule 
-                  subjects={subjects} 
-                  timetable={timetable} 
-                  onAddTimetable={t => apiService.manageSubject('add_timetable', t).then(fetchData)} 
-                  onRemoveTimetable={id => apiService.manageSubject('remove_timetable', {id}).then(fetchData)} 
+                <AdminSchedule
+                  subjects={subjects}
+                  timetable={timetable}
+                  onAddTimetable={t => apiService.manageSubject('add_timetable', t).then(fetchData)}
+                  onRemoveTimetable={id => apiService.manageSubject('remove_timetable', { id }).then(fetchData)}
                 />
               )}
               {activeTab === 'user-management' && (
-                <UserManagement 
-                  students={students} 
-                  faculty={faculty} 
-                  subjects={subjects} 
+                <UserManagement
+                  students={students}
+                  faculty={faculty}
+                  subjects={subjects}
                   enrollments={enrollments}
                   onAddStudent={handleAddStudent}
                   onAddFaculty={handleAddFaculty}
-                  onEnrollStudent={(studId, subId) => apiService.manageUser('enroll', {studId, subId}).then(fetchData)}
+                  onEnrollStudent={(studId, subId) => apiService.manageUser('enroll', { studId, subId }).then(fetchData)}
                 />
               )}
               {activeTab === 'subject-management' && (
-                <SubjectManagement 
-                  subjects={subjects} 
-                  faculty={faculty} 
-                  students={students} 
+                <SubjectManagement
+                  subjects={subjects}
+                  faculty={faculty}
+                  students={students}
                   onAddSubject={s => apiService.manageSubject('add', s).then(fetchData)}
                   onAssignFaculty={handleAssignFaculty}
                 />
               )}
               {activeTab === 'reports' && (
-                <Reports 
-                  students={students} 
-                  subjects={subjects} 
-                  attendance={attendanceRecords} 
-                  enrollments={enrollments} 
+                <Reports
+                  students={students}
+                  subjects={subjects}
+                  attendance={attendanceRecords}
+                  enrollments={enrollments}
                 />
               )}
             </>
           ) : user.user_type === UserType.FACULTY ? (
-            <FacultyDashboard 
-              faculty={faculty.find(f => f.user_id === user.user_id)!}
-              subjects={subjects}
-              students={students}
-              enrollments={enrollments}
-              attendance={attendanceRecords}
-              timetable={timetable}
-              onAttendanceUpdate={fetchData} 
-            />
+            facultyData ? (
+              <FacultyDashboard
+                faculty={facultyData}
+                subjects={subjects}
+                students={students}
+                enrollments={enrollments}
+                attendance={attendanceRecords}
+                timetable={timetable}
+                onAttendanceUpdate={fetchData}
+              />
+            ) : <div className="text-center p-12 text-slate-400 font-bold uppercase tracking-widest">Loading Faculty Profile...</div>
           ) : (
-            <StudentDashboard 
-              student={students.find(s => s.user_id === user.user_id)!}
-              subjects={subjects}
-              enrollments={enrollments}
-              attendance={attendanceRecords}
-              timetable={timetable}
-            />
+            studentData ? (
+              <StudentDashboard
+                student={studentData}
+                subjects={subjects}
+                enrollments={enrollments}
+                attendance={attendanceRecords}
+                timetable={timetable}
+              />
+            ) : <div className="text-center p-12 text-slate-400 font-bold uppercase tracking-widest">Loading Student Profile...</div>
           )}
         </main>
       </div>
