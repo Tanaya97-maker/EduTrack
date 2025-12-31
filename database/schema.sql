@@ -23,6 +23,7 @@ CREATE TABLE students (
     roll_no VARCHAR(50) UNIQUE NOT NULL,
     stud_name VARCHAR(255) NOT NULL,
     email VARCHAR(255),
+    semester VARCHAR(10), -- added semester
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
@@ -31,7 +32,7 @@ CREATE TABLE subjects (
     subject_code VARCHAR(50) UNIQUE NOT NULL,
     subject_name VARCHAR(255) NOT NULL,
     faculty_id INT,
-    semester INT,
+    semester VARCHAR(10), -- Changed to VARCHAR for sem1-sem8
     credits INT,
     FOREIGN KEY (faculty_id) REFERENCES faculty(faculty_id) ON DELETE SET NULL
 );

@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { 
-  Users, 
-  GraduationCap, 
-  BookOpen, 
-  CheckCircle, 
-  Calendar, 
-  Clock, 
+import {
+  Users,
+  GraduationCap,
+  BookOpen,
+  CheckCircle,
+  Calendar,
+  Clock,
   ShieldCheck,
   LayoutDashboard,
   LogOut,
@@ -22,7 +22,8 @@ import {
   Plus,
   Settings,
   Filter,
-  ArrowRight
+  ArrowRight,
+  X
 } from 'lucide-react';
 
 export const ICONS = {
@@ -47,7 +48,8 @@ export const ICONS = {
   Plus: <Plus size={18} />,
   Settings: <Settings size={18} />,
   Filter: <Filter size={18} />,
-  ArrowRight: <ArrowRight size={16} />
+  ArrowRight: <ArrowRight size={16} />,
+  X: <X size={18} />
 };
 
 export const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];

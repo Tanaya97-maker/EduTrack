@@ -62,7 +62,6 @@ switch ($action) {
         unset($input['op']);
 
         if ($op === 'add_student') {
-            // First create user
             $stmt = $pdo->prepare("INSERT INTO users (email, password_hash, user_type, is_active) VALUES (?, '123', 'student', 1)");
             $stmt->execute([$input['email']]);
             $user_id = $pdo->lastInsertId();
@@ -70,8 +69,79 @@ switch ($action) {
             $stmt = $pdo->prepare("INSERT INTO students (user_id, roll_no, stud_name, email) VALUES (?, ?, ?, ?)");
             $success = $stmt->execute([$user_id, $input['roll_no'], $input['stud_name'], $input['email']]);
             echo json_encode(['success' => $success]);
+        } elseif ($op === 'add_faculty') {
+            $stmt = $pdo->prepare("INSERT INTO users (email, password_hash, user_type, is_active) VALUES (?, '123', 'faculty', 1)");
+            $stmt->execute([$input['email']]);
+            $user_id = $pdo->lastInsertId();
+
+            $stmt = $pdo->prepare("INSERT INTO faculty (user_id, faculty_name, email) VALUES (?, ?, ?)");
+            $success = $stmt->execute([$user_id, $input['faculty_name'], $input['email']]);
+            echo json_encode(['success' => $success]);
+        } elseif ($op === 'edit_student') {
+            $stmt = $pdo->prepare("UPDATE students SET stud_name = ?, email = ?, roll_no = ? WHERE stud_id = ?");
+            $success = $stmt->execute([$input['stud_name'], $input['email'], $input['roll_no'], $input['stud_id']]);
+            
+            // Update email in users table as well
+            $stmt = $pdo->prepare("UPDATE users SET email = ? WHERE user_id = (SELECT user_id FROM students WHERE stud_id = ?)");
+            $stmt->execute([$input['email'], $input['stud_id']]);
+            
+            echo json_encode(['success' => $success]);
+        } elseif ($op === 'edit_faculty') {
+            $stmt = $pdo->prepare("UPDATE faculty SET faculty_name = ?, email = ? WHERE faculty_id = ?");
+            $success = $stmt->execute([$input['faculty_name'], $input['email'], $input['faculty_id']]);
+
+            // Update email in users table as well
+            $stmt = $pdo->prepare("UPDATE users SET email = ? WHERE user_id = (SELECT user_id FROM faculty WHERE faculty_id = ?)");
+            $stmt->execute([$input['email'], $input['faculty_id']]);
+
+            echo json_encode(['success' => $success]);
+        } elseif ($op === 'delete_student') {
+            // Get user_id first
+            $stmt = $pdo->prepare("SELECT user_id FROM students WHERE stud_id = ?");
+            $stmt->execute([$input['stud_id']]);
+            $uid = $stmt->fetchColumn();
+
+            // Cascading delete should handle students table, but we explicitly delete from users
+            if ($uid) {
+                $stmt = $pdo->prepare("DELETE FROM users WHERE user_id = ?");
+                $success = $stmt->execute([$uid]);
+                echo json_encode(['success' => $success]);
+            } else {
+                 echo json_encode(['success' => false]);
+            }
+        } elseif ($op === 'delete_faculty') {
+            // Get user_id first
+            $stmt = $pdo->prepare("SELECT user_id FROM faculty WHERE faculty_id = ?");
+            $stmt->execute([$input['faculty_id']]);
+            $uid = $stmt->fetchColumn();
+
+             if ($uid) {
+                $stmt = $pdo->prepare("DELETE FROM users WHERE user_id = ?");
+                $success = $stmt->execute([$uid]);
+                echo json_encode(['success' => $success]);
+            } else {
+                 echo json_encode(['success' => false]);
+            }
         }
-        // ... more ops would be added here ...
+        break;
+
+    case 'manage_subject':
+        $op = $input['op'];
+        unset($input['op']);
+
+        if ($op === 'add_subject') {
+            $stmt = $pdo->prepare("INSERT INTO subjects (subject_code, subject_name, semester, credits, faculty_id) VALUES (?, ?, ?, ?, ?)");
+            $success = $stmt->execute([$input['subject_code'], $input['subject_name'], $input['semester'], $input['credits'], $input['faculty_id']]);
+            echo json_encode(['success' => $success]);
+        } elseif ($op === 'edit_subject') {
+            $stmt = $pdo->prepare("UPDATE subjects SET subject_code = ?, subject_name = ?, semester = ?, credits = ?, faculty_id = ? WHERE subject_id = ?");
+            $success = $stmt->execute([$input['subject_code'], $input['subject_name'], $input['semester'], $input['credits'], $input['faculty_id'], $input['subject_id']]);
+            echo json_encode(['success' => $success]);
+        } elseif ($op === 'delete_subject') {
+            $stmt = $pdo->prepare("DELETE FROM subjects WHERE subject_id = ?");
+            $success = $stmt->execute([$input['subject_id']]);
+             echo json_encode(['success' => $success]);
+        }
         break;
 
     default:

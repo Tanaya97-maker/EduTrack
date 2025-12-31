@@ -25,6 +25,7 @@ export interface Student {
   roll_no: string;
   stud_name: string;
   email: string;
+  semester: string; // sem1 to sem8
 }
 
 export interface Faculty {
@@ -39,9 +40,10 @@ export interface Subject {
   subject_code: string;
   subject_name: string;
   faculty_id: number | null;
-  semester: number;
+  semester: string; // Changed to string sem1-sem8
   credits: number;
-  progress?: number; // Course completion %
+  progress?: number;
+  enrollment_count?: number; // Calculated field
 }
 
 export interface AttendanceRecord {

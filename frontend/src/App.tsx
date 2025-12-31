@@ -128,25 +128,55 @@ const App: React.FC = () => {
     }
   };
 
+  // --- Handlers ---
+
+  // Student
   const handleAddStudent = async (s: any) => {
     if (!isDemoMode) await apiService.manageUser('add_student', s);
     fetchData();
   };
+  const handleEditStudent = async (s: any) => {
+    if (!isDemoMode) await apiService.manageUser('edit_student', s);
+    fetchData();
+  };
+  const handleDeleteStudent = async (id: number) => {
+    if (!isDemoMode) await apiService.manageUser('delete_student', { stud_id: id });
+    fetchData();
+  };
 
+  // Faculty
   const handleAddFaculty = async (f: any) => {
     if (!isDemoMode) await apiService.manageUser('add_faculty', f);
     fetchData();
   };
+  const handleEditFaculty = async (f: any) => {
+    if (!isDemoMode) await apiService.manageUser('edit_faculty', f);
+    fetchData();
+  };
+  const handleDeleteFaculty = async (id: number) => {
+    if (!isDemoMode) await apiService.manageUser('delete_faculty', { faculty_id: id });
+    fetchData();
+  };
+
+  // Subject
+  const handleAddSubject = async (s: any) => {
+    if (!isDemoMode) await apiService.manageSubject('add_subject', s);
+    fetchData();
+  };
+  const handleEditSubject = async (s: any) => {
+    if (!isDemoMode) await apiService.manageSubject('edit_subject', s);
+    fetchData();
+  };
+  const handleDeleteSubject = async (id: number) => {
+    if (!isDemoMode) await apiService.manageSubject('delete_subject', { subject_id: id });
+    fetchData();
+  };
 
   const handleAssignFaculty = async (subject_id: number, faculty_id: number) => {
-    if (!isDemoMode) await apiService.manageSubject('assign_faculty', { subject_id, faculty_id });
+    if (!isDemoMode) await apiService.manageSubject('edit_subject', { subject_id, faculty_id }); // Using edit_subject to update faculty
     fetchData();
   };
 
-  const handleRemoveStudent = async (id: number) => {
-    if (!isDemoMode) await apiService.manageUser('remove_student', { id });
-    fetchData();
-  };
 
   if (!user) {
     return (
@@ -227,12 +257,12 @@ const App: React.FC = () => {
                   subjects={subjects}
                   enrollments={enrollments}
                   attendance={attendanceRecords}
-                  onRemoveStudent={handleRemoveStudent}
-                  onRemoveFaculty={id => apiService.manageUser('remove_faculty', { id }).then(fetchData)}
-                  onRemoveSubject={id => apiService.manageSubject('remove', { id }).then(fetchData)}
-                  onUpdateSubject={s => apiService.manageSubject('edit', s).then(fetchData)}
-                  onUpdateFaculty={f => apiService.manageUser('edit_faculty', f).then(fetchData)}
-                  onUpdateStudent={s => apiService.manageUser('edit_student', s).then(fetchData)}
+                  onRemoveStudent={handleDeleteStudent}
+                  onRemoveFaculty={handleDeleteFaculty}
+                  onRemoveSubject={handleDeleteSubject}
+                  onUpdateSubject={handleEditSubject}
+                  onUpdateFaculty={handleEditFaculty}
+                  onUpdateStudent={handleEditStudent}
                 />
               )}
               {activeTab === 'schedule' && (
@@ -251,6 +281,10 @@ const App: React.FC = () => {
                   enrollments={enrollments}
                   onAddStudent={handleAddStudent}
                   onAddFaculty={handleAddFaculty}
+                  onEditStudent={handleEditStudent}
+                  onEditFaculty={handleEditFaculty}
+                  onDeleteStudent={handleDeleteStudent}
+                  onDeleteFaculty={handleDeleteFaculty}
                   onEnrollStudent={(studId, subId) => apiService.manageUser('enroll', { studId, subId }).then(fetchData)}
                 />
               )}
@@ -259,7 +293,9 @@ const App: React.FC = () => {
                   subjects={subjects}
                   faculty={faculty}
                   students={students}
-                  onAddSubject={s => apiService.manageSubject('add', s).then(fetchData)}
+                  onAddSubject={handleAddSubject}
+                  onEditSubject={handleEditSubject}
+                  onDeleteSubject={handleDeleteSubject}
                   onAssignFaculty={handleAssignFaculty}
                 />
               )}
