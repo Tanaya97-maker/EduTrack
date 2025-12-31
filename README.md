@@ -6,9 +6,9 @@ EduTrack is a modern, high-performance web portal designed to streamline academi
 ## Project Overview
 
 EduTrack provides a unified platform for three primary user roles:
-- **Administrators**: Manage the entire ecosystem including students, faculty, subjects, and the master timetable.Admin login-admin@edu.com,Password-123
-- **Faculty**: Mark daily attendance, view personal lecture schedules, and manage assigned cohorts.Faculty login-faculty.john@edu.com,Password-123
-- **Students**: Track personal attendance percentages and view their weekly schedule.Student login-student.bob@edu.com,Password-123
+- **Administrators**: Manage the entire ecosystem including students, faculty, subjects, and the master timetable. Admin login - admin@edu.com, Password - 123
+- **Faculty**: Mark daily attendance, view personal lecture schedules, and manage assigned cohorts. Faculty login - faculty.john@edu.com, Password - 123
+- **Students**: Track personal attendance percentages and view their weekly schedule. Student login - student.bob@edu.com, Password - 123
 
 ## Core Objectives
 
