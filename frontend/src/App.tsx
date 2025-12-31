@@ -45,6 +45,8 @@ const App: React.FC = () => {
   const [enrollments, setEnrollments] = useState<any[]>([]);
   const [attendanceRecords, setAttendanceRecords] = useState<AttendanceRecord[]>([]);
   const [timetable, setTimetable] = useState<TimetableEntry[]>([]);
+  const [stats, setStats] = useState<any>({ total_users: 0, total_courses: 0 });
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Fetch data on mount or user login
   const fetchData = async () => {
@@ -63,6 +65,7 @@ const App: React.FC = () => {
         setEnrollments(data.enrollments || []);
         setAttendanceRecords(data.attendance || []);
         setTimetable(data.timetable || []);
+        setStats(data.stats || { total_users: (data.students?.length || 0) + (data.faculty?.length || 0), total_courses: data.subjects?.length || 0 });
       } else {
         throw new Error(data?.error || "Empty data");
       }
@@ -172,6 +175,23 @@ const App: React.FC = () => {
     fetchData();
   };
 
+  const handleAddTimetable = async (t: any) => {
+    if (!isDemoMode) await apiService.manageSubject('add_timetable', t);
+    else {
+      // Mock local update if in demo mode
+      setTimetable(prev => [...prev, { ...t, timetable_id: Math.max(0, ...prev.map(st => st.timetable_id)) + 1 }]);
+    }
+    fetchData();
+  };
+
+  const handleRemoveTimetable = async (id: number) => {
+    if (!isDemoMode) await apiService.manageSubject('remove_timetable', { id });
+    else {
+      setTimetable(prev => prev.filter(t => t.timetable_id !== id));
+    }
+    fetchData();
+  };
+
   const handleAssignFaculty = async (subject_id: number, faculty_id: number) => {
     if (!isDemoMode) await apiService.manageSubject('edit_subject', { subject_id, faculty_id }); // Using edit_subject to update faculty
     fetchData();
@@ -187,7 +207,7 @@ const App: React.FC = () => {
               {ICONS.GraduationCap}
             </div>
             <h1 className="text-4xl font-black tracking-tight">EduTrack</h1>
-            <p className="text-indigo-100 text-[10px] font-black uppercase tracking-[0.2em] mt-3 opacity-60">PHP/MySQL Cloud Portal</p>
+            <p className="text-indigo-100 text-[10px] font-black uppercase tracking-[0.2em] mt-3 opacity-60">Attendance Tracking System</p>
           </div>
           <form onSubmit={handleLogin} className="p-12 space-y-6">
             {error && (
@@ -225,6 +245,22 @@ const App: React.FC = () => {
   const facultyData = faculty.find(f => f.user_id === user.user_id);
   const studentData = students.find(s => s.user_id === user.user_id);
 
+  const filteredStudents = students.filter(s =>
+    s.stud_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    s.roll_no.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    s.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const filteredFaculty = faculty.filter(f =>
+    f.faculty_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    f.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const filteredSubjects = subjects.filter(s =>
+    s.subject_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    s.subject_code.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="min-h-screen bg-slate-50 flex">
       <Sidebar
@@ -238,6 +274,8 @@ const App: React.FC = () => {
           user={user}
           pageTitle={activeTab}
           onLogout={() => setUser(null)}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
         />
 
         <main className="flex-1 p-8 lg:p-12 max-w-7xl mx-auto w-full">
@@ -252,9 +290,9 @@ const App: React.FC = () => {
             <>
               {activeTab === 'dashboard' && (
                 <AdminDashboard
-                  students={students}
-                  faculty={faculty}
-                  subjects={subjects}
+                  students={filteredStudents}
+                  faculty={filteredFaculty}
+                  subjects={filteredSubjects}
                   enrollments={enrollments}
                   attendance={attendanceRecords}
                   onRemoveStudent={handleDeleteStudent}
@@ -267,17 +305,17 @@ const App: React.FC = () => {
               )}
               {activeTab === 'schedule' && (
                 <AdminSchedule
-                  subjects={subjects}
+                  subjects={filteredSubjects}
                   timetable={timetable}
-                  onAddTimetable={t => apiService.manageSubject('add_timetable', t).then(fetchData)}
-                  onRemoveTimetable={id => apiService.manageSubject('remove_timetable', { id }).then(fetchData)}
+                  onAddTimetable={handleAddTimetable}
+                  onRemoveTimetable={handleRemoveTimetable}
                 />
               )}
               {activeTab === 'user-management' && (
                 <UserManagement
-                  students={students}
-                  faculty={faculty}
-                  subjects={subjects}
+                  students={filteredStudents}
+                  faculty={filteredFaculty}
+                  subjects={filteredSubjects}
                   enrollments={enrollments}
                   onAddStudent={handleAddStudent}
                   onAddFaculty={handleAddFaculty}
@@ -290,7 +328,7 @@ const App: React.FC = () => {
               )}
               {activeTab === 'subject-management' && (
                 <SubjectManagement
-                  subjects={subjects}
+                  subjects={filteredSubjects}
                   faculty={faculty}
                   students={students}
                   onAddSubject={handleAddSubject}
@@ -301,10 +339,11 @@ const App: React.FC = () => {
               )}
               {activeTab === 'reports' && (
                 <Reports
-                  students={students}
-                  subjects={subjects}
+                  students={filteredStudents}
+                  subjects={filteredSubjects}
                   attendance={attendanceRecords}
                   enrollments={enrollments}
+                  stats={stats}
                 />
               )}
             </>

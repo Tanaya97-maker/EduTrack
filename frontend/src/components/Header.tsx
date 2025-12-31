@@ -7,24 +7,28 @@ interface HeaderProps {
   user: User;
   pageTitle: string;
   onLogout: () => void;
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ user, pageTitle, onLogout }) => {
+const Header: React.FC<HeaderProps> = ({ user, pageTitle, onLogout, searchQuery, onSearchChange }) => {
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
 
   return (
     <header className="h-20 bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-30 px-8 flex items-center justify-between">
       <div className="flex items-center gap-8 flex-1">
         <h2 className="text-xl font-black text-slate-800 capitalize min-w-[150px]">{pageTitle.replace('-', ' ')}</h2>
-        
+
         <div className="relative max-w-md w-full hidden md:block">
           <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-slate-400">
             {ICONS.Search}
           </div>
-          <input 
-            type="text" 
+          <input
+            type="text"
             placeholder="Search records, students, subjects..."
             className="w-full bg-slate-50 border-none rounded-xl py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
           />
         </div>
       </div>
@@ -38,7 +42,7 @@ const Header: React.FC<HeaderProps> = ({ user, pageTitle, onLogout }) => {
         <div className="h-8 w-[1px] bg-slate-200 mx-2"></div>
 
         <div className="relative">
-          <button 
+          <button
             onClick={() => setShowProfileDropdown(!showProfileDropdown)}
             className="flex items-center gap-3 p-1 pl-3 pr-1 rounded-full border border-slate-100 hover:bg-slate-50 transition-all active:scale-95"
           >
@@ -68,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({ user, pageTitle, onLogout }) => {
                   {ICONS.Settings} Account Settings
                 </button>
                 <div className="my-2 border-t border-slate-50"></div>
-                <button 
+                <button
                   onClick={onLogout}
                   className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-rose-500 hover:bg-rose-50 rounded-xl transition-colors"
                 >

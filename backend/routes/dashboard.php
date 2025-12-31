@@ -12,6 +12,10 @@ if ($action === 'get_all') {
         'enrollments' => $pdo->query("SELECT * FROM enrollments")->fetchAll(),
         'attendance' => $pdo->query("SELECT * FROM attendance")->fetchAll(),
         'timetable' => $pdo->query("SELECT * FROM timetable")->fetchAll(),
+        'stats' => [
+            'total_users' => $pdo->query("SELECT COUNT(*) FROM users WHERE is_active = 1")->fetchColumn(),
+            'total_courses' => $pdo->query("SELECT COUNT(*) FROM subjects")->fetchColumn(),
+        ]
     ];
     echo json_encode($data);
 } elseif ($action === 'attendance') {

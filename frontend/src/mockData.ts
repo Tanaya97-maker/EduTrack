@@ -13,14 +13,14 @@ export const MOCK_FACULTY = [
 ];
 
 export const MOCK_STUDENTS = [
-  { stud_id: 1, user_id: 3, roll_no: 'CS101', stud_name: 'Alice Johnson', email: 'student.alice@edu.com' },
-  { stud_id: 2, user_id: 4, roll_no: 'CS102', stud_name: 'Bob Miller', email: 'student.bob@edu.com' }
+  { stud_id: 1, user_id: 3, roll_no: 'CS101', stud_name: 'Alice Johnson', email: 'student.alice@edu.com', semester: 'sem1' },
+  { stud_id: 2, user_id: 4, roll_no: 'CS102', stud_name: 'Bob Miller', email: 'student.bob@edu.com', semester: 'sem1' }
 ];
 
 export const MOCK_SUBJECTS = [
-  { subject_id: 1, subject_code: 'CS301', subject_name: 'Database Systems', faculty_id: 1, semester: 3, credits: 4 },
-  { subject_id: 2, subject_code: 'CS302', subject_name: 'Web Engineering', faculty_id: 1, semester: 3, credits: 3 },
-  { subject_id: 3, subject_code: 'MAT101', subject_name: 'Advanced Calculus', faculty_id: null, semester: 1, credits: 4 }
+  { subject_id: 1, subject_code: 'CS301', subject_name: 'Database Systems', faculty_id: 1, semester: 'sem3', credits: 4 },
+  { subject_id: 2, subject_code: 'CS302', subject_name: 'Web Engineering', faculty_id: 1, semester: 'sem3', credits: 3 },
+  { subject_id: 3, subject_code: 'MAT101', subject_name: 'Advanced Calculus', faculty_id: null, semester: 'sem1', credits: 4 }
 ];
 
 export const MOCK_ENROLLMENTS = [

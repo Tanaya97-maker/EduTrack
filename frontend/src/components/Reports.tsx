@@ -4,14 +4,16 @@ import { Subject, Student, AttendanceRecord } from '../types';
 import { calculatePercentage } from '../services/attendanceService';
 import { ICONS } from '../constants';
 
+
 interface Props {
   students: Student[];
   subjects: Subject[];
   attendance: AttendanceRecord[];
   enrollments: { stud_id: number; subject_id: number }[];
+  stats: { total_users: number; total_courses: number };
 }
 
-const Reports: React.FC<Props> = ({ students, subjects, attendance, enrollments }) => {
+const Reports: React.FC<Props> = ({ students, subjects, attendance, enrollments, stats }) => {
   return (
     <div className="space-y-12">
       <div className="bg-indigo-600 rounded-[2.5rem] p-12 text-white shadow-2xl shadow-indigo-100 flex flex-col md:flex-row justify-between items-center gap-8 relative overflow-hidden">
@@ -22,11 +24,11 @@ const Reports: React.FC<Props> = ({ students, subjects, attendance, enrollments 
         </div>
         <div className="z-10 grid grid-cols-2 gap-4">
           <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl text-center min-w-[140px]">
-            <div className="text-3xl font-black">78%</div>
-            <div className="text-[10px] font-black uppercase tracking-widest opacity-60">Avg Attendance</div>
+            <div className="text-3xl font-black">{stats.total_users}</div>
+            <div className="text-[10px] font-black uppercase tracking-widest opacity-60">Total Users</div>
           </div>
           <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl text-center min-w-[140px]">
-            <div className="text-3xl font-black">12</div>
+            <div className="text-3xl font-black">{stats.total_courses}</div>
             <div className="text-[10px] font-black uppercase tracking-widest opacity-60">Active Modules</div>
           </div>
         </div>
@@ -35,13 +37,13 @@ const Reports: React.FC<Props> = ({ students, subjects, attendance, enrollments 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <section className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm">
           <h3 className="text-xl font-black text-slate-800 mb-8 flex items-center gap-3">
-            {ICONS.CheckCircle} Student Performance Overview
+            {ICONS.CheckCircle} Student Attendance Overview
           </h3>
           <div className="space-y-4">
             {students.map(s => {
-              const studentEnrolls = enrollments.filter(e => e.stud_id === s.stud_id);
+              const studentEnrolls = enrollments.filter(e => Number(e.stud_id) === Number(s.stud_id));
               const totalAtt = studentEnrolls.length ? Math.round(studentEnrolls.reduce((acc, curr) => acc + calculatePercentage(attendance, s.stud_id, curr.subject_id), 0) / studentEnrolls.length) : 0;
-              
+
               return (
                 <div key={s.stud_id} className="p-4 bg-slate-50 rounded-2xl flex items-center justify-between border border-transparent hover:border-indigo-100 transition-all">
                   <div className="flex items-center gap-4">
@@ -65,11 +67,16 @@ const Reports: React.FC<Props> = ({ students, subjects, attendance, enrollments 
 
         <section className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm">
           <h3 className="text-xl font-black text-slate-800 mb-8 flex items-center gap-3">
-            {ICONS.BookOpen} Course Completion Progress
+            {ICONS.BookOpen} Course Progress
           </h3>
           <div className="space-y-6">
             {subjects.map(sub => {
-              const progress = Math.floor(Math.random() * 40) + 60; // Mock real-time progress
+              // Logic: Count total attendance sessions conducted for this subject 
+              // divide by an estimated target (e.g. 20 sessions per credit?)
+              const sessionsConducted = attendance.filter(a => Number(a.subject_id) === Number(sub.subject_id)).length;
+              const targetSessions = (sub.credits || 3) * 5;
+              const progress = Math.min(100, Math.round((sessionsConducted / targetSessions) * 100)) || 0;
+
               return (
                 <div key={sub.subject_id} className="space-y-2">
                   <div className="flex justify-between items-center text-xs font-bold text-slate-600">

@@ -184,7 +184,7 @@ const AdminDashboard: React.FC<Props> = ({
         <div className="p-10 flex justify-between items-center border-b border-slate-50">
           <div>
             <h3 className="text-2xl font-black text-slate-800 tracking-tight">Course Catalog</h3>
-            <p className="text-sm text-slate-400 font-bold mt-1">Archiving {subjects.length} active educational modules</p>
+            <p className="text-sm text-slate-400 font-bold mt-1">{subjects.length} active courses</p>
           </div>
           <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
             {ICONS.BookOpen}
@@ -195,13 +195,13 @@ const AdminDashboard: React.FC<Props> = ({
           <TableContainer>
             <table className="w-full border-separate border-spacing-y-2">
               <thead>
-                <tr className="text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">
-                  <th className="px-8 pb-4">Display Code</th>
-                  <th className="px-8 pb-4">Module Name</th>
-                  <th className="px-8 pb-4">Faculty Lead</th>
+                <tr className="text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                  <th className="px-8 pb-4">Code</th>
+                  <th className="px-8 pb-4">Name</th>
+                  <th className="px-8 pb-4">Faculty Incharge</th>
                   <th className="px-8 pb-4">Sem</th>
                   <th className="px-8 pb-4">Credits</th>
-                  <th className="px-8 pb-4 text-right">Persistent Actions</th>
+                  <th className="px-8 pb-4 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -210,21 +210,16 @@ const AdminDashboard: React.FC<Props> = ({
                     <td className="px-8 py-5 text-sm font-black text-indigo-600">{s.subject_code}</td>
                     <td className="px-8 py-5 text-sm font-bold text-slate-700">{s.subject_name}</td>
                     <td className="px-8 py-5">
-                      <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 bg-white rounded-lg flex items-center justify-center text-[10px] font-black text-slate-400 border border-slate-100">
-                          {faculty.find(f => f.faculty_id === s.faculty_id)?.faculty_name.charAt(0) || '?'}
-                        </div>
-                        <span className="text-xs font-bold text-slate-500 whitespace-nowrap">
-                          {faculty.find(f => f.faculty_id === s.faculty_id)?.faculty_name || 'Unassigned'}
-                        </span>
-                      </div>
+                      <span className="text-xs font-bold text-slate-500 whitespace-nowrap">
+                        {faculty.find(f => f.faculty_id === s.faculty_id)?.faculty_name || 'Unassigned'}
+                      </span>
                     </td>
                     <td className="px-8 py-5 text-sm font-black text-slate-800 uppercase tracking-tighter">{s.semester}</td>
                     <td className="px-8 py-5 text-sm font-black text-slate-800">{s.credits}</td>
                     <td className="px-8 py-5 text-right">
                       <div className="flex justify-end gap-1">
-                        <button onClick={() => setEditItem({ type: 'course', data: s })} className="p-2.5 text-slate-400 hover:text-indigo-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-indigo-100">{ICONS.Edit}</button>
-                        <button onClick={() => setDeleteConfirm({ type: 'course', id: s.subject_id, name: s.subject_name })} className="p-2.5 text-slate-400 hover:text-rose-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-rose-100">{ICONS.Delete}</button>
+                        <button onClick={() => setEditItem({ type: 'course', data: s })} className="p-2.5 text-indigo-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-indigo-100">{ICONS.Edit}</button>
+                        <button onClick={() => setDeleteConfirm({ type: 'course', id: s.subject_id, name: s.subject_name })} className="p-2.5 text-rose-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-rose-100">{ICONS.Delete}</button>
                       </div>
                     </td>
                   </tr>
@@ -239,8 +234,8 @@ const AdminDashboard: React.FC<Props> = ({
       <section className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden flex flex-col">
         <div className="p-10 flex justify-between items-center border-b border-slate-50">
           <div>
-            <h3 className="text-2xl font-black text-slate-800 tracking-tight">Faculty Roster</h3>
-            <p className="text-sm text-slate-400 font-bold mt-1">Found {faculty.length} registered academic leads</p>
+            <h3 className="text-2xl font-black text-slate-800 tracking-tight">Faculty Directory</h3>
+            <p className="text-sm text-slate-400 font-bold mt-1">{faculty.length} registered faculty incharge</p>
           </div>
           <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
             {ICONS.Users}
@@ -251,12 +246,12 @@ const AdminDashboard: React.FC<Props> = ({
           <TableContainer>
             <table className="w-full border-separate border-spacing-y-2">
               <thead>
-                <tr className="text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">
-                  <th className="px-8 pb-4">Faculty Name</th>
-                  <th className="px-8 pb-4">Core Contact</th>
-                  <th className="px-8 pb-4">Subjects Teaching</th>
-                  <th className="px-8 pb-4">Efficiency</th>
-                  <th className="px-8 pb-4 text-right">Persistent Actions</th>
+                <tr className="text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                  <th className="px-8 pb-4">Name</th>
+                  <th className="px-8 pb-4">Email Address</th>
+                  <th className="px-8 pb-4">Subjects Incharge</th>
+                  <th className="px-8 pb-4">Course Completed</th>
+                  <th className="px-8 pb-4 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -266,7 +261,6 @@ const AdminDashboard: React.FC<Props> = ({
                     <tr key={f.faculty_id} className="bg-slate-50/20 hover:bg-slate-50 transition-colors group rounded-3xl">
                       <td className="px-8 py-5">
                         <div className="text-sm font-black text-slate-800">{f.faculty_name}</div>
-                        <div className="text-[10px] font-black text-indigo-400 uppercase tracking-tighter opacity-70">Senior Faculty</div>
                       </td>
                       <td className="px-8 py-5 text-sm text-slate-400 font-bold">{f.email}</td>
                       <td className="px-8 py-5">
@@ -278,8 +272,8 @@ const AdminDashboard: React.FC<Props> = ({
                       <td className="px-8 py-5">{renderProgressCircle(98)}</td>
                       <td className="px-8 py-5 text-right">
                         <div className="flex justify-end gap-1">
-                          <button onClick={() => setEditItem({ type: 'faculty', data: f })} className="p-2.5 text-slate-400 hover:text-indigo-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-indigo-100">{ICONS.Edit}</button>
-                          <button onClick={() => setDeleteConfirm({ type: 'faculty', id: f.faculty_id, name: f.faculty_name })} className="p-2.5 text-slate-400 hover:text-rose-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-rose-100">{ICONS.Delete}</button>
+                          <button onClick={() => setEditItem({ type: 'faculty', data: f })} className="p-2.5 text-indigo-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-indigo-100">{ICONS.Edit}</button>
+                          <button onClick={() => setDeleteConfirm({ type: 'faculty', id: f.faculty_id, name: f.faculty_name })} className="p-2.5 text-rose-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-rose-100">{ICONS.Delete}</button>
                         </div>
                       </td>
                     </tr>
@@ -296,7 +290,7 @@ const AdminDashboard: React.FC<Props> = ({
         <div className="p-10 flex justify-between items-center border-b border-slate-50">
           <div>
             <h3 className="text-2xl font-black text-slate-800 tracking-tight">Student Directory</h3>
-            <p className="text-sm text-slate-400 font-bold mt-1">Listing {students.length} active enrollments</p>
+            <p className="text-sm text-slate-400 font-bold mt-1">{students.length} active students</p>
           </div>
           <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
             {ICONS.GraduationCap}
@@ -307,13 +301,13 @@ const AdminDashboard: React.FC<Props> = ({
           <TableContainer>
             <table className="w-full border-separate border-spacing-y-2">
               <thead>
-                <tr className="text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">
+                <tr className="text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
                   <th className="px-8 pb-4">Student Name</th>
                   <th className="px-8 pb-4">Roll Number</th>
                   <th className="px-8 pb-4">Academic Email</th>
                   <th className="px-8 pb-4">Subjects Enrolled</th>
                   <th className="px-8 pb-4">Avg. Attendance</th>
-                  <th className="px-8 pb-4 text-right">Persistent Actions</th>
+                  <th className="px-8 pb-4 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -334,7 +328,7 @@ const AdminDashboard: React.FC<Props> = ({
                       <td className="px-8 py-5">
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-black text-slate-700">{studentEnrolled.length}</span>
-                          <span className="text-[9px] font-bold text-slate-300 uppercase tracking-widest whitespace-nowrap">Subjects Linked</span>
+                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Subjects Enrolled</span>
                         </div>
                         <div className="flex flex-wrap gap-1 mt-2">
                           {studentEnrolled.slice(0, 3).map(e => (
@@ -346,8 +340,8 @@ const AdminDashboard: React.FC<Props> = ({
                       <td className="px-8 py-5">{renderProgressCircle(avgAttendance)}</td>
                       <td className="px-8 py-5 text-right">
                         <div className="flex justify-end gap-1">
-                          <button onClick={() => setEditItem({ type: 'student', data: s })} className="p-2.5 text-slate-400 hover:text-indigo-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-indigo-100">{ICONS.Edit}</button>
-                          <button onClick={() => setDeleteConfirm({ type: 'student', id: s.stud_id, name: s.stud_name })} className="p-2.5 text-slate-400 hover:text-rose-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-rose-100">{ICONS.Delete}</button>
+                          <button onClick={() => setEditItem({ type: 'student', data: s })} className="p-2.5 text-indigo-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-indigo-100">{ICONS.Edit}</button>
+                          <button onClick={() => setDeleteConfirm({ type: 'student', id: s.stud_id, name: s.stud_name })} className="p-2.5 text-rose-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-rose-100">{ICONS.Delete}</button>
                         </div>
                       </td>
                     </tr>

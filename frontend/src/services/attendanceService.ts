@@ -35,7 +35,7 @@ export const calculatePercentage = (
   stud_id: number,
   subject_id: number
 ) => {
-  const filtered = attendanceRecords.filter(r => r.stud_id === stud_id && r.subject_id === subject_id);
+  const filtered = attendanceRecords.filter(r => Number(r.stud_id) === Number(stud_id) && Number(r.subject_id) === Number(subject_id));
   const workingDays = filtered.length;
   if (workingDays === 0) return 0;
 

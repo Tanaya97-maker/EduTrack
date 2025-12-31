@@ -69,14 +69,14 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
     <div className="space-y-8">
       <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col md:flex-row justify-between items-center gap-6">
         <div>
-          <h3 className="text-xl font-black text-slate-800 tracking-tight">Curriculum Architecture</h3>
-          <p className="text-sm font-bold text-slate-400 mt-1">Found {subjects.length} active educational modules</p>
+          <h3 className="text-xl font-black text-slate-800 tracking-tight">Courses</h3>
+          <p className="text-sm font-bold text-slate-400 mt-1">{subjects.length} active courses</p>
         </div>
         <button
           onClick={() => { resetForm(); setShowForm(true); }}
           className="w-full md:w-auto bg-indigo-600 text-white px-8 py-4 rounded-2xl font-black text-sm flex items-center justify-center gap-2 shadow-xl shadow-indigo-100 active:scale-95 transition-all"
         >
-          {ICONS.Plus} Register New Subject
+          {ICONS.Plus} Add New Course
         </button>
       </div>
 
@@ -84,18 +84,18 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
         <div className="bg-white p-10 rounded-[2.5rem] border-2 border-indigo-50 shadow-2xl shadow-indigo-50/50 animate-in fade-in slide-in-from-top-4 duration-300">
           <div className="flex justify-between items-center mb-8">
             <h4 className="font-black text-indigo-900 uppercase tracking-[0.2em] text-sm">
-              {editId ? 'Refine' : 'Architect'} Subject Schema
+              {editId ? 'Update' : 'Add New'} Subject
             </h4>
             <button onClick={resetForm} className="text-slate-300 hover:text-slate-500 transition-colors">{ICONS.X}</button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.1em] ml-2">Display Code</label>
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.1em] ml-2">Code</label>
               <input placeholder="Ex: CS101" className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-indigo-100 focus:bg-white transition-all font-bold text-sm outline-none" value={formData.code} onChange={e => setFormData({ ...formData, code: e.target.value })} />
             </div>
             <div className="space-y-2 lg:col-span-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.1em] ml-2">Module Title</label>
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.1em] ml-2">Title</label>
               <input placeholder="Ex: Introduction to Algorithms" className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-indigo-100 focus:bg-white transition-all font-bold text-sm outline-none" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
             </div>
             <div className="space-y-2">
@@ -111,7 +111,7 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.1em] ml-2">Assignment Lead</label>
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.1em] ml-2">Faculty Incharge</label>
               <select className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-indigo-100 focus:bg-white transition-all font-bold text-sm outline-none appearance-none" value={formData.faculty_id} onChange={e => setFormData({ ...formData, faculty_id: e.target.value })}>
                 <option value="">Vacant (Unassigned)</option>
                 {faculty.map(f => <option key={f.faculty_id} value={f.faculty_id}>{f.faculty_name}</option>)}
@@ -120,9 +120,9 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
           </div>
 
           <div className="flex justify-end mt-10 gap-4">
-            <button onClick={resetForm} className="px-8 py-4 text-slate-400 font-black text-sm hover:text-slate-600 transition-colors">DISCARD</button>
+            <button onClick={resetForm} className="px-8 py-4 text-slate-400 font-black text-sm hover:text-slate-600 transition-colors">Cancel</button>
             <button onClick={handleSubmit} className="px-10 py-4 bg-indigo-600 text-white font-black rounded-2xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 active:scale-95 transition-all outline-none">
-              {editId ? 'UPDATE SCHEMA' : 'DEPLOY SUBJECT'}
+              {editId ? 'Update' : 'Add'}
             </button>
           </div>
         </div>
@@ -156,7 +156,7 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
 
             <div className="p-8 flex-1 space-y-8 bg-white">
               <div className="space-y-3">
-                <label className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] ml-1">Assigned Academic Lead</label>
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Faculty Incharge</label>
                 <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100/50">
                   <div className="w-8 h-8 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center font-black text-xs">
                     {faculty.find(f => f.faculty_id === sub.faculty_id)?.faculty_name.charAt(0) || '?'}
@@ -169,11 +169,11 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-5 bg-gradient-to-br from-indigo-50 to-white rounded-3xl text-center border border-indigo-100/50 shadow-sm">
-                  <div className="text-[10px] font-black text-indigo-300 uppercase tracking-widest mb-1 leading-none">Credits</div>
+                  <div className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-1 leading-none">Credits</div>
                   <div className="text-2xl font-black text-indigo-900">{sub.credits}</div>
                 </div>
                 <div className="p-5 bg-gradient-to-br from-slate-50 to-white rounded-3xl text-center border border-slate-100/50 shadow-sm">
-                  <div className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-1 leading-none">Enrolled</div>
+                  <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 leading-none">Enrolled</div>
                   <div className="text-2xl font-black text-slate-800">{sub.enrollment_count || 0}</div>
                 </div>
               </div>

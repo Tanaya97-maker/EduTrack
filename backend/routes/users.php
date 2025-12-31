@@ -42,6 +42,13 @@ if ($action === 'login') {
 
         $stmt = $pdo->prepare("INSERT INTO faculty (user_id, faculty_name, email) VALUES (?, ?, ?)");
         $success = $stmt->execute([$user_id, $input['faculty_name'], $input['email']]);
+
+        if ($success && isset($input['subject_ids']) && is_array($input['subject_ids'])) {
+            $faculty_id = $pdo->lastInsertId();
+            foreach ($input['subject_ids'] as $subject_id) {
+                $pdo->prepare("UPDATE subjects SET faculty_id = ? WHERE subject_id = ?")->execute([$faculty_id, $subject_id]);
+            }
+        }
         echo json_encode(['success' => $success]);
     } elseif ($op === 'edit_student') {
         $stmt = $pdo->prepare("UPDATE students SET stud_name = ?, email = ?, roll_no = ?, semester = ? WHERE stud_id = ?");
@@ -64,6 +71,14 @@ if ($action === 'login') {
 
         $stmt = $pdo->prepare("UPDATE users SET email = ? WHERE user_id = (SELECT user_id FROM faculty WHERE faculty_id = ?)");
         $stmt->execute([$input['email'], $input['faculty_id']]);
+
+        if (isset($input['subject_ids']) && is_array($input['subject_ids'])) {
+            // Reset previous assignments
+            $pdo->prepare("UPDATE subjects SET faculty_id = NULL WHERE faculty_id = ?")->execute([$input['faculty_id']]);
+            foreach ($input['subject_ids'] as $subject_id) {
+                $pdo->prepare("UPDATE subjects SET faculty_id = ? WHERE subject_id = ?")->execute([$input['faculty_id'], $subject_id]);
+            }
+        }
 
         echo json_encode(['success' => $success]);
     } elseif ($op === 'delete_student') {
