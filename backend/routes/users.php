@@ -5,7 +5,7 @@ if ($action === 'login') {
     $email = $input['email'] ?? '';
     $password = $input['password'] ?? '';
 
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND is_active = 1");
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND is_active = true");
     $stmt->execute([$email]);
     $user = $stmt->fetch();
 
@@ -21,7 +21,7 @@ if ($action === 'login') {
     unset($input['op']);
 
     if ($op === 'add_student') {
-        $stmt = $pdo->prepare("INSERT INTO users (email, password_hash, user_type, is_active) VALUES (?, '123', 'student', 1)");
+        $stmt = $pdo->prepare("INSERT INTO users (email, password_hash, user_type, is_active) VALUES (?, '123', 'student', true)");
         $stmt->execute([$input['email']]);
         $user_id = $pdo->lastInsertId();
 
@@ -36,7 +36,7 @@ if ($action === 'login') {
         }
         echo json_encode(['success' => $success]);
     } elseif ($op === 'add_faculty') {
-        $stmt = $pdo->prepare("INSERT INTO users (email, password_hash, user_type, is_active) VALUES (?, '123', 'faculty', 1)");
+        $stmt = $pdo->prepare("INSERT INTO users (email, password_hash, user_type, is_active) VALUES (?, '123', 'faculty', true)");
         $stmt->execute([$input['email']]);
         $user_id = $pdo->lastInsertId();
 

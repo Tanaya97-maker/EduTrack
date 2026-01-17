@@ -57,7 +57,7 @@ const App: React.FC = () => {
 
     setIsLoading(true);
     try {
-      const data = await apiService.getAllData();
+      const data = await apiService.getAllData(user?.user_id, user?.user_type);
       if (data && !data.error) {
         setStudents(data.students || []);
         setFaculty(data.faculty || []);

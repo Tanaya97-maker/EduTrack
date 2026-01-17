@@ -18,7 +18,6 @@ try {
         $dbRelativePath = getenv('DB_PATH') ?: '../../database/edutrack.db';
         $dbPath = realpath(__DIR__ . DIRECTORY_SEPARATOR . $dbRelativePath);
 
-        // If realpath fails (file doesn't exist yet), we build it manually
         if (!$dbPath) {
             $dbPath = __DIR__ . DIRECTORY_SEPARATOR . $dbRelativePath;
         }
@@ -29,12 +28,18 @@ try {
         $pdo->exec("PRAGMA foreign_keys = ON;");
     } else {
         $host = getenv('DB_HOST') ?: '127.0.0.1';
+        $port = getenv('DB_PORT') ?: ($dbType === 'pgsql' ? '5432' : '3306');
         $db = getenv('DB_NAME') ?: 'edutrack_db';
         $user = getenv('DB_USER') ?: 'root';
         $pass = getenv('DB_PASS') ?: '';
         $charset = 'utf8mb4';
 
-        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        if ($dbType === 'pgsql') {
+            $dsn = "pgsql:host=$host;port=$port;dbname=$db";
+        } else {
+            $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
+        }
+
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

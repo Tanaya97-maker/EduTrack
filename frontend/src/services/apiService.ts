@@ -16,9 +16,13 @@ export const apiService = {
     }
   },
 
-  async getAllData() {
+  async getAllData(userId?: number, userType?: string) {
     try {
-      const res = await fetch(`${API_BASE}?action=get_all`);
+      let url = `${API_BASE}?action=get_all`;
+      if (userId && userType) {
+        url += `&user_id=${userId}&user_type=${userType}`;
+      }
+      const res = await fetch(url);
       if (!res.ok) throw new Error("Sync failed");
       return await res.json();
     } catch (e) {
