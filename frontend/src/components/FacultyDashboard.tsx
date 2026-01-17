@@ -104,7 +104,10 @@ const FacultyDashboard: React.FC<Props> = ({
   const getDayState = (date: Date) => {
     if (!selectedSubject) return 'pending';
 
-    const dateStr = date.toISOString().split('T')[0];
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const dateStr = `${year}-${month}-${day}`;
 
     // Holiday check (Sunday)
     if (date.getDay() === 0) return 'holiday';
@@ -112,7 +115,7 @@ const FacultyDashboard: React.FC<Props> = ({
     // Check if attendance exists
     const hasAttendance = attendance.some(
       r => Number(r.subject_id) === Number(selectedSubject.subject_id) &&
-        r.attendance_date === dateStr
+        r.attendance_date.substring(0, 10) === dateStr
     );
 
     return hasAttendance ? 'completed' : 'pending';
@@ -122,7 +125,10 @@ const FacultyDashboard: React.FC<Props> = ({
     if (date.getDay() === 0) return; // Prevent marking on holidays
     if (!selectedSubject) return;
 
-    const dateStr = date.toISOString().split('T')[0];
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const dateStr = `${year}-${month}-${day}`;
     setMarkingDate(dateStr);
 
     // Initialize temp attendance
@@ -133,7 +139,7 @@ const FacultyDashboard: React.FC<Props> = ({
     const initialTemp: Record<number, AttendanceStatus> = {};
     const existingAttendance = attendance.filter(
       r => Number(r.subject_id) === Number(selectedSubject.subject_id) &&
-        r.attendance_date === dateStr
+        r.attendance_date.substring(0, 10) === dateStr
     );
 
     enrolledStudents.forEach(s => {
@@ -324,7 +330,7 @@ const FacultyDashboard: React.FC<Props> = ({
                     ${state === 'pending' ? 'bg-white border-slate-200 text-slate-700 hover:border-indigo-400 hover:shadow-md' : ''}
                     ${state === 'holiday' ? 'bg-slate-100 border-slate-100 text-slate-400 cursor-not-allowed' : ''}
                     ${isToday ? 'border-indigo-600 !border-2' : ''}
-                    ${markingDate === date.toISOString().split('T')[0] ? 'ring-2 ring-indigo-400 ring-offset-2' : ''}
+                    ${markingDate === date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0') ? 'ring-2 ring-indigo-400 ring-offset-2' : ''}
                   `}
                 >
                   <span className={`text-lg font-bold ${isToday && state === 'pending' ? 'text-indigo-600' : ''}`}>
