@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Student, Faculty, Subject, UserType } from '../types';
 import { ICONS } from '../constants';
+import { Download, Upload, Plus, Edit2, Trash2, X } from 'lucide-react';
 
 interface Props {
   students: Student[];
@@ -41,7 +42,7 @@ const UserManagement: React.FC<Props> = ({
 
   const handleEditClick = (item: any) => {
     const itemEnrolled = mode === UserType.STUDENT
-      ? enrollments.filter(e => e.stud_id === item.stud_id).map(e => e.subject_id)
+      ? enrollments.filter(e => e.stud_id === (item.stud_id || item.faculty_id)).map(e => e.subject_id)
       : subjects.filter(s => s.faculty_id === item.faculty_id).map(s => s.subject_id);
 
     setEditId(mode === UserType.STUDENT ? item.stud_id : item.faculty_id);
@@ -73,7 +74,7 @@ const UserManagement: React.FC<Props> = ({
       const payload = {
         faculty_name: formData.name,
         email: formData.email,
-        subject_ids: formData.subject_ids // Not directly supported by manage_user for faculty yet, but added for future sync
+        subject_ids: formData.subject_ids
       };
       if (editId) {
         onEditFaculty({ faculty_id: editId, ...payload });
@@ -105,7 +106,8 @@ const UserManagement: React.FC<Props> = ({
 
   return (
     <div className="space-y-8">
-      <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col md:flex-row justify-between items-center gap-6">
+      {/* Top Bar with Mode Switch and Buttons */}
+      <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col lg:flex-row justify-between items-center gap-6">
         <div className="flex gap-4 p-1 bg-slate-50 rounded-2xl">
           <button
             onClick={() => { setMode(UserType.STUDENT); resetForm(); }}
@@ -120,12 +122,21 @@ const UserManagement: React.FC<Props> = ({
             Faculty Directory
           </button>
         </div>
-        <button
-          onClick={() => { resetForm(); setShowForm(true); }}
-          className="w-full md:w-auto bg-indigo-600 text-white px-8 py-4 rounded-2xl font-black text-sm flex items-center justify-center gap-2 shadow-xl shadow-indigo-100 active:scale-95 transition-all"
-        >
-          {ICONS.Plus} Register {mode === UserType.STUDENT ? 'Student' : 'Faculty'}
-        </button>
+
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <button className="flex items-center gap-2 px-4 py-2 bg-slate-50 text-slate-600 rounded-xl text-xs font-black border border-slate-100 hover:bg-slate-100 transition-all">
+            <Download className="w-4 h-4" /> Import (.csv)
+          </button>
+          <button className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-xs font-black border border-indigo-100 hover:bg-indigo-100 transition-all">
+            <Upload className="w-4 h-4" /> Export (.csv)
+          </button>
+          <button
+            onClick={() => { resetForm(); setShowForm(true); }}
+            className="bg-indigo-600 text-white px-8 py-4 rounded-2xl font-black text-sm flex items-center justify-center gap-2 shadow-xl shadow-indigo-100 active:scale-95 transition-all outline-none"
+          >
+            <Plus className="w-5 h-5" /> Register {mode === UserType.STUDENT ? 'Student' : 'Faculty'}
+          </button>
+        </div>
       </div>
 
       {showForm && (
@@ -134,7 +145,7 @@ const UserManagement: React.FC<Props> = ({
             <h4 className="font-black text-indigo-900 uppercase tracking-[0.2em] text-sm">
               {editId ? 'Modify' : 'New Registration'}: {mode === UserType.STUDENT ? 'Student' : 'Faculty'}
             </h4>
-            <button onClick={resetForm} className="text-slate-300 hover:text-slate-500 transition-colors">{ICONS.X}</button>
+            <button onClick={resetForm} className="text-slate-300 hover:text-slate-500 transition-colors"><X className="w-5 h-5" /></button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -154,7 +165,7 @@ const UserManagement: React.FC<Props> = ({
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.1em] ml-2">Semester</label>
-                  <select className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-indigo-100 focus:bg-white transition-all font-bold text-sm outline-none" value={formData.sem} onChange={e => setFormData({ ...formData, sem: e.target.value })}>
+                  <select className="w-full p-4 rounded-2xl bg-slate-50 border-2 border-transparent focus:border-indigo-100 focus:bg-white transition-all font-bold text-sm outline-none appearance-none cursor-pointer" value={formData.sem} onChange={e => setFormData({ ...formData, sem: e.target.value })}>
                     {[1, 2, 3, 4, 5, 6, 7, 8].map(s => <option key={s} value={`sem${s}`}>Semester {s}</option>)}
                   </select>
                 </div>
@@ -182,102 +193,111 @@ const UserManagement: React.FC<Props> = ({
           </div>
 
           <div className="flex justify-end gap-4 mt-10">
-            <button onClick={resetForm} className="px-8 py-4 text-slate-400 font-black text-sm hover:text-slate-600 transition-colors">CANCEL</button>
-            <button onClick={handleSubmit} className="px-10 py-4 bg-indigo-600 text-white font-black rounded-2xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 active:scale-95 transition-all outline-none">
-              SAVE
+            <button onClick={resetForm} className="px-8 py-4 text-slate-400 font-black text-sm hover:text-slate-600 transition-colors uppercase tracking-widest">Cancel</button>
+            <button onClick={handleSubmit} className="px-10 py-4 bg-indigo-600 text-white font-black rounded-2xl shadow-2xl shadow-indigo-200 hover:bg-indigo-700 active:scale-95 transition-all outline-none uppercase tracking-widest">
+              Save
             </button>
           </div>
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {(mode === UserType.STUDENT ? students : faculty).map((item: any) => (
-          <div key={item.stud_id || item.faculty_id} className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-indigo-50/50 hover:border-indigo-100 transition-all group relative overflow-hidden">
-            <div className="flex justify-between items-start mb-8">
-              <div className="flex items-center gap-5">
-                <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-indigo-600 text-white rounded-[1.5rem] flex items-center justify-center font-black text-2xl shadow-lg shadow-indigo-100 ring-4 ring-white">
-                  {(item.stud_name || item.faculty_name).charAt(0)}
-                </div>
-                <div>
-                  <h5 className="font-black text-slate-800 text-lg leading-tight">{item.stud_name || item.faculty_name}</h5>
-                  <p className="text-xs text-slate-700 font-bold mt-1 tracking-tighter opacity-70">{item.email}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              {mode === UserType.STUDENT && (
-                <div className="flex gap-4">
-                  <div className="flex-1 bg-slate-50 p-3 rounded-2xl text-center border border-slate-100/50">
-                    <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Roll Number</p>
-                    <p className="text-sm font-black text-indigo-900">{item.roll_no}</p>
-                  </div>
-                  <div className="flex-1 bg-slate-50 p-3 rounded-2xl text-center border border-slate-100/50">
-                    <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Semester</p>
-                    <p className="text-sm font-black text-indigo-900 uppercase">{item.semester || 'N/A'}</p>
-                  </div>
-                </div>
-              )}
-
-              <div className="p-6 bg-white border-2 rounded-[2rem] text-slate-900 shadow-sm">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.2em]">
-                    {mode === UserType.STUDENT ? 'Subjects Enrolled' : 'Subjects Teaching'}
-                  </span>
-                  <div className="w-6 h-6 bg-indigo-600 rounded-lg flex items-center justify-center text-[10px] font-black text-white">
-                    {mode === UserType.STUDENT
-                      ? enrollments.filter(e => Number(e.stud_id) === Number(item.stud_id)).length
-                      : subjects.filter(s => Number(s.faculty_id) === Number(item.faculty_id)).length}
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {mode === UserType.STUDENT ? (
-                    (() => {
-                      const studentEnrolled = enrollments.filter(e => Number(e.stud_id) === Number(item.stud_id));
-                      return studentEnrolled.length > 0 ? (
-                        studentEnrolled.map(e => {
-                          const sub = subjects.find(s => Number(s.subject_id) === Number(e.subject_id));
-                          return <span key={e.subject_id} className="px-3 py-1.5 bg-white border border-slate-900 rounded-xl text-[9px] font-black tracking-wider text-slate-900">{sub?.subject_code || 'N/A'}</span>;
-                        })
-                      ) : (
-                        <span className="text-xs text-slate-400 font-bold italic">No subjects enrolled</span>
-                      );
-                    })()
-                  ) : (
-                    (() => {
-                      const teaching = subjects.filter(s => Number(s.faculty_id) === Number(item.faculty_id));
-                      return teaching.length > 0 ? (
-                        teaching.map(s => (
-                          <span key={s.subject_id} className="px-3 py-1.5 bg-white border border-slate-900 rounded-xl text-[9px] font-black tracking-wider text-slate-900">{s.subject_code}</span>
+      {/* Directory Table UI */}
+      <div className="bg-white border border-slate-100">
+        <div className="p-8 border-b border-slate-50 bg-slate-50/30">
+          <h4 className="text-xl font-black text-indigo-900 uppercase tracking-widest">User Directory</h4>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="bg-slate-50/50">
+                {mode === UserType.STUDENT ? (
+                  <>
+                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest">Name</th>
+                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest">Roll No</th>
+                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest">Email</th>
+                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest">Semester</th>
+                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest">Subjects Enrolled</th>
+                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest">Edit</th>
+                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-right">Delete</th>
+                  </>
+                ) : (
+                  <>
+                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest">Name</th>
+                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest">Email</th>
+                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest">Subjects Teaching</th>
+                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest">Edit</th>
+                    <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-right">Delete</th>
+                  </>
+                )}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-50">
+              {(mode === UserType.STUDENT ? students : faculty).map((item: any) => (
+                <tr key={item.stud_id || item.faculty_id} className="hover:bg-slate-50/50 transition-colors group">
+                  <td className="px-8 py-3 text-sm font-bold">{item.stud_name || item.faculty_name}</td>
+                  {mode === UserType.STUDENT && (
+                    <td className="px-8 py-3 text-sm font-bold text-slate-600">{item.roll_no}</td>
+                  )}
+                  <td className="px-8 py-3 text-sm font-medium text-slate-500">{item.email}</td>
+                  {mode === UserType.STUDENT && (
+                    <td className="px-8 py-3">
+                      <span className="text-xs font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full">{item.semester || 'SEM 1'}</span>
+                    </td>
+                  )}
+                  <td className="px-8 py-3">
+                    <div className="flex flex-wrap gap-1.5 max-w-[300px]">
+                      {mode === UserType.STUDENT ? (
+                        enrollments.filter(e => Number(e.stud_id) === Number(item.stud_id)).map(e => (
+                          <span key={e.subject_id} className="px-2 py-1 bg-white border border-slate-200 text-[9px] font-black text-slate-500 rounded-lg shadow-sm">
+                            {subjects.find(s => Number(s.subject_id) === Number(e.subject_id))?.subject_code}
+                          </span>
                         ))
                       ) : (
-                        <span className="text-xs text-slate-400 font-bold italic">No assignments found</span>
-                      );
-                    })()
+                        subjects.filter(s => Number(s.faculty_id) === Number(item.faculty_id)).map(s => (
+                          <span key={s.subject_id} className="px-2 py-1 bg-white border border-slate-200 text-[9px] font-black text-indigo-500 rounded-lg shadow-sm">
+                            {s.subject_code}
+                          </span>
+                        ))
+                      )}
+                      {(mode === UserType.STUDENT ?
+                        enrollments.filter(e => Number(e.stud_id) === Number(item.stud_id)).length :
+                        subjects.filter(s => Number(s.faculty_id) === Number(item.faculty_id)).length) === 0 && (
+                          <span className="text-[10px] text-slate-300 italic">No assignments</span>
+                        )}
+                    </div>
+                  </td>
+                  {mode === UserType.STUDENT ? (
+                    <>
+                      <td className="px-8 py-5">
+                        <button onClick={() => handleEditClick(item)} className="p-2 text-indigo-500 hover:bg-indigo-50 rounded-lg transition-all">
+                          <Edit2 className="w-4 h-4" />
+                        </button>
+                      </td>
+                      <td className="px-8 py-5 text-right">
+                        <button onClick={() => handleDelete((item.stud_id || item.faculty_id))} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-all">
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </td>
+                    </>
+                  ) : (
+                    <>
+                      <td className="px-8 py-5">
+                        <button onClick={() => handleEditClick(item)} className="p-2 text-indigo-500 hover:bg-indigo-50 rounded-lg transition-all">
+                          <Edit2 className="w-4 h-4" />
+                        </button>
+                      </td>
+                      <td className="px-8 py-5 text-right">
+                        <button onClick={() => handleDelete((item.stud_id || item.faculty_id))} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-all">
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </td>
+                    </>
                   )}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex justify-end gap-1 z-10 mt-2 bg-white/80 backdrop-blur-sm p-1 rounded-xl">
-              <button onClick={() => handleEditClick(item)} className="p-2.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all">
-                {/* Edit Icon */}
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-              </button>
-              <button
-                onClick={() => handleDelete((item.stud_id || item.faculty_id))}
-                className="p-2.5 text-rose-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-all border border-transparent hover:border-rose-100 group/del"
-                title="Permanent Removal"
-              >
-                {/* Trash Icon */}
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-              </button>
-            </div>
-
-            {/* Added subtle accent decor */}
-            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-indigo-50/50 rounded-full blur-3xl group-hover:bg-indigo-100 transition-colors duration-500"></div>
-          </div>
-        ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

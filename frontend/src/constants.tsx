@@ -23,7 +23,8 @@ import {
   Settings,
   Filter,
   ArrowRight,
-  X
+  X,
+  FileText
 } from 'lucide-react';
 
 export const ICONS = {
@@ -40,6 +41,7 @@ export const ICONS = {
   User: <UserIcon size={20} />,
   Search: <Search size={18} />,
   Bell: <Bell size={20} />,
+  FileText: <FileText size={20} />,
   More: <MoreVertical size={16} />,
   Edit: <Edit2 size={16} />,
   Delete: <Trash2 size={16} />,

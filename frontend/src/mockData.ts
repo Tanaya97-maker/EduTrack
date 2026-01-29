@@ -9,7 +9,7 @@ export const MOCK_USERS = [
 ];
 
 export const MOCK_FACULTY = [
-  { faculty_id: 1, user_id: 2, faculty_name: 'Dr. John Smith', email: 'faculty.john@edu.com' }
+  { faculty_id: 1, user_id: 2, faculty_name: 'Dr. John Smith', email: 'faculty.john@edu.com', department: 'comp' as 'comp' }
 ];
 
 export const MOCK_STUDENTS = [
@@ -38,4 +38,21 @@ export const MOCK_TIMETABLE = [
 export const MOCK_ATTENDANCE = [
   { attendance_id: 1, stud_id: 1, subject_id: 1, faculty_id: 1, attendance_date: '2023-10-01', status: AttendanceStatus.PRESENT },
   { attendance_id: 2, stud_id: 2, subject_id: 1, faculty_id: 1, attendance_date: '2023-10-01', status: AttendanceStatus.ABSENT },
+];
+
+export const MOCK_FACULTY_ATTENDANCE = [
+  { faculty_attendance_id: 1, faculty_id: 1, attendance_date: '2026-01-20', status: 'present' },
+  { faculty_attendance_id: 2, faculty_id: 1, attendance_date: '2026-01-19', status: 'present' },
+];
+
+export const MOCK_FACULTY_LEAVES = [
+  { leave_id: 1, faculty_id: 1, leave_date: '2026-02-10', reason: 'Family medical issue', status: 'pending' }
+];
+
+export const MOCK_FACULTY_NOTES = [
+  { note_id: 1, faculty_id: 1, title: 'Database Lecture Plan', content: 'Focus on normalization and ACID properties.', created_at: '2026-01-15', updated_at: '2026-01-15' }
+];
+
+export const MOCK_FACULTY_ANNOUNCEMENTS = [
+  { announcement_id: 1, faculty_id: 1, target_type: 'student', semester: 'sem3', subject_id: 1, title: 'Quiz postponed', message: 'The quiz scheduled for Monday is postponed to Wednesday.', created_at: '2026-01-18' }
 ];

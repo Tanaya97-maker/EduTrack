@@ -9,6 +9,11 @@ const app = express();
 const prisma = new PrismaClient();
 const port = 8000;
 
+const safeInt = (val) => {
+    const p = parseInt(val);
+    return isNaN(p) ? null : p;
+};
+
 app.use(cors());
 app.use(express.json());
 
@@ -42,6 +47,18 @@ const apiHandler = async (req, res) => {
                 break;
             case 'attendance':
                 await handleAttendance(input, res);
+                break;
+            case 'manage_announcement':
+                await handleManageAnnouncement(input, res);
+                break;
+            case 'manage_note':
+                await handleManageNote(input, res);
+                break;
+            case 'manage_leave':
+                await handleManageLeave(input, res);
+                break;
+            case 'manage_faculty_attendance':
+                await handleFacultyAttendance(input, res);
                 break;
             default:
                 res.status(400).json({ error: 'Invalid action' });
@@ -97,7 +114,7 @@ async function handleManageUser(input, res) {
         if (data.subject_ids && Array.isArray(data.subject_ids)) {
             for (const subject_id of data.subject_ids) {
                 await prisma.enrollment.create({
-                    data: { stud_id: student.stud_id, subject_id: parseInt(subject_id) }
+                    data: { stud_id: student.stud_id, subject_id: safeInt(subject_id) }
                 });
             }
         }
@@ -115,13 +132,14 @@ async function handleManageUser(input, res) {
             data: {
                 user_id: user.user_id,
                 faculty_name: data.faculty_name,
-                email: data.email
+                email: data.email,
+                department: data.department || null
             }
         });
         if (data.subject_ids && Array.isArray(data.subject_ids)) {
             for (const subject_id of data.subject_ids) {
                 await prisma.subject.update({
-                    where: { subject_id: parseInt(subject_id) },
+                    where: { subject_id: safeInt(subject_id) },
                     data: { faculty_id: faculty.faculty_id }
                 });
             }
@@ -129,7 +147,7 @@ async function handleManageUser(input, res) {
         success = true;
     } else if (op === 'edit_student') {
         await prisma.student.update({
-            where: { stud_id: parseInt(data.stud_id) },
+            where: { stud_id: safeInt(data.stud_id) },
             data: {
                 stud_name: data.stud_name,
                 email: data.email,
@@ -137,54 +155,55 @@ async function handleManageUser(input, res) {
                 semester: data.semester
             }
         });
-        const student = await prisma.student.findUnique({ where: { stud_id: parseInt(data.stud_id) } });
+        const student = await prisma.student.findUnique({ where: { stud_id: safeInt(data.stud_id) } });
         await prisma.user.update({
             where: { user_id: student.user_id },
             data: { email: data.email }
         });
         if (data.subject_ids && Array.isArray(data.subject_ids)) {
-            await prisma.enrollment.deleteMany({ where: { stud_id: parseInt(data.stud_id) } });
+            await prisma.enrollment.deleteMany({ where: { stud_id: safeInt(data.stud_id) } });
             for (const subject_id of data.subject_ids) {
                 await prisma.enrollment.create({
-                    data: { stud_id: parseInt(data.stud_id), subject_id: parseInt(subject_id) }
+                    data: { stud_id: safeInt(data.stud_id), subject_id: safeInt(subject_id) }
                 });
             }
         }
         success = true;
     } else if (op === 'edit_faculty') {
         await prisma.faculty.update({
-            where: { faculty_id: parseInt(data.faculty_id) },
+            where: { faculty_id: safeInt(data.faculty_id) },
             data: {
                 faculty_name: data.faculty_name,
-                email: data.email
+                email: data.email,
+                department: data.department || null
             }
         });
-        const faculty = await prisma.faculty.findUnique({ where: { faculty_id: parseInt(data.faculty_id) } });
+        const faculty = await prisma.faculty.findUnique({ where: { faculty_id: safeInt(data.faculty_id) } });
         await prisma.user.update({
             where: { user_id: faculty.user_id },
             data: { email: data.email }
         });
         if (data.subject_ids && Array.isArray(data.subject_ids)) {
             await prisma.subject.updateMany({
-                where: { faculty_id: parseInt(data.faculty_id) },
+                where: { faculty_id: safeInt(data.faculty_id) },
                 data: { faculty_id: null }
             });
             for (const subject_id of data.subject_ids) {
                 await prisma.subject.update({
-                    where: { subject_id: parseInt(subject_id) },
-                    data: { faculty_id: parseInt(data.faculty_id) }
+                    where: { subject_id: safeInt(subject_id) },
+                    data: { faculty_id: safeInt(data.faculty_id) }
                 });
             }
         }
         success = true;
     } else if (op === 'delete_student') {
-        const student = await prisma.student.findUnique({ where: { stud_id: parseInt(data.stud_id) } });
+        const student = await prisma.student.findUnique({ where: { stud_id: safeInt(data.stud_id) } });
         if (student) {
             await prisma.user.delete({ where: { user_id: student.user_id } });
             success = true;
         }
     } else if (op === 'delete_faculty') {
-        const faculty = await prisma.faculty.findUnique({ where: { faculty_id: parseInt(data.faculty_id) } });
+        const faculty = await prisma.faculty.findUnique({ where: { faculty_id: safeInt(data.faculty_id) } });
         if (faculty) {
             await prisma.user.delete({ where: { user_id: faculty.user_id } });
             success = true;
@@ -244,7 +263,7 @@ async function handleManageSubject(input, res) {
 }
 
 async function handleGetAll(query, res) {
-    const userId = query.user_id ? parseInt(query.user_id) : null;
+    const userId = query.user_id ? safeInt(query.user_id) : null;
     const userType = query.user_type || 'admin';
 
     let data = {};
@@ -263,6 +282,10 @@ async function handleGetAll(query, res) {
             enrollments: await prisma.enrollment.findMany(),
             attendance: await prisma.attendance.findMany(),
             timetable: await prisma.timetable.findMany(),
+            facultyAttendance: await prisma.facultyAttendance.findMany(),
+            announcements: await prisma.facultyAnnouncement.findMany({ orderBy: { created_at: 'desc' } }),
+            notes: await prisma.facultyNote.findMany({ orderBy: { created_at: 'desc' } }),
+            leaves: await prisma.facultyLeave.findMany({ orderBy: { created_at: 'desc' } }),
             stats: {
                 total_users: await prisma.user.count({ where: { is_active: true } }),
                 total_courses: await prisma.subject.count()
@@ -308,7 +331,34 @@ async function handleGetAll(query, res) {
                     }
                 }
             }),
+            announcements: await prisma.facultyAnnouncement.findMany({
+                where: {
+                    OR: [
+                        { faculty_id: facultyId },
+                        { target_type: 'faculty', department: null },
+                        { target_type: 'faculty', department: faculty.department }
+                    ]
+                },
+                orderBy: { created_at: 'desc' }
+            }),
+            facultyAttendance: await prisma.facultyAttendance.findMany({
+                where: { faculty_id: facultyId },
+                orderBy: { attendance_date: 'desc' }
+            }),
+            notes: await prisma.facultyNote.findMany({
+                where: { faculty_id: facultyId },
+                orderBy: { created_at: 'desc' }
+            }),
+            leaves: await prisma.facultyLeave.findMany({
+                where: { faculty_id: facultyId },
+                orderBy: { created_at: 'desc' }
+            }),
         };
+
+        // Calculate attendance percentage
+        const totalPossible = await prisma.facultyAttendance.count({ where: { faculty_id: facultyId } });
+        const totalPresent = await prisma.facultyAttendance.count({ where: { faculty_id: facultyId, status: 'present' } });
+        data.attendancePercentage = totalPossible > 0 ? Math.round((totalPresent / totalPossible) * 100) : 100;
     } else if (userType === 'student') {
         const student = await prisma.student.findFirst({ where: { user_id: userId } });
         if (!student) return res.json({ error: 'Student record not found' });
@@ -338,6 +388,15 @@ async function handleGetAll(query, res) {
                     }
                 }
             }),
+            announcements: await prisma.facultyAnnouncement.findMany({
+                where: {
+                    OR: [
+                        { target_type: 'student', semester: null },
+                        { target_type: 'student', semester: student.semester }
+                    ]
+                },
+                orderBy: { created_at: 'desc' }
+            }),
         };
     }
 
@@ -356,19 +415,19 @@ async function handleAttendance(input, res) {
         const result = await prisma.attendance.upsert({
             where: {
                 stud_id_subject_id_attendance_date: {
-                    stud_id: parseInt(stud_id),
-                    subject_id: parseInt(subject_id),
+                    stud_id: safeInt(stud_id),
+                    subject_id: safeInt(subject_id),
                     attendance_date: dateObj
                 }
             },
             update: {
                 status: status,
-                faculty_id: parseInt(faculty_id)
+                faculty_id: safeInt(faculty_id)
             },
             create: {
-                stud_id: parseInt(stud_id),
-                subject_id: parseInt(subject_id),
-                faculty_id: parseInt(faculty_id),
+                stud_id: safeInt(stud_id),
+                subject_id: safeInt(subject_id),
+                faculty_id: safeInt(faculty_id),
                 attendance_date: dateObj,
                 status: status
             }
@@ -376,6 +435,171 @@ async function handleAttendance(input, res) {
         res.json({ success: true });
     } catch (e) {
         console.error('Attendance Error:', e);
+        res.json({ success: false, error: e.message });
+    }
+}
+
+async function handleManageAnnouncement(input, res) {
+    const { op, ...data } = input;
+    let success = false;
+
+    try {
+        if (op === 'add_announcement') {
+            await prisma.facultyAnnouncement.create({
+                data: {
+                    faculty_id: safeInt(data.faculty_id),
+                    target_type: data.target_type,
+                    semester: data.semester || null,
+                    subject_id: data.subject_id ? safeInt(data.subject_id) : null,
+                    department: data.department || null,
+                    title: data.title,
+                    message: data.message
+                }
+            });
+            success = true;
+        } else if (op === 'edit_announcement') {
+            await prisma.facultyAnnouncement.update({
+                where: { announcement_id: safeInt(data.announcement_id) },
+                data: {
+                    title: data.title,
+                    message: data.message,
+                    target_type: data.target_type,
+                    semester: data.semester || null,
+                    subject_id: data.subject_id ? safeInt(data.subject_id) : null,
+                    department: data.department || null
+                }
+            });
+            success = true;
+        } else if (op === 'delete_announcement') {
+            await prisma.facultyAnnouncement.delete({
+                where: { announcement_id: safeInt(data.announcement_id) }
+            });
+            success = true;
+        }
+        res.json({ success });
+    } catch (e) {
+        console.error('Manage Announcement Error:', e);
+        res.json({ success: false, error: e.message });
+    }
+}
+
+async function handleManageNote(input, res) {
+    const { op, ...data } = input;
+    let success = false;
+
+    try {
+        if (op === 'add_note') {
+            await prisma.facultyNote.create({
+                data: {
+                    faculty_id: safeInt(data.faculty_id),
+                    title: data.title,
+                    content: data.content
+                }
+            });
+            success = true;
+        } else if (op === 'edit_note') {
+            await prisma.facultyNote.update({
+                where: { note_id: safeInt(data.note_id) },
+                data: {
+                    title: data.title,
+                    content: data.content,
+                    updated_at: new Date()
+                }
+            });
+            success = true;
+        } else if (op === 'delete_note') {
+            await prisma.facultyNote.delete({
+                where: { note_id: safeInt(data.note_id) }
+            });
+            success = true;
+        }
+        res.json({ success });
+    } catch (e) {
+        console.error('Manage Note Error:', e);
+        res.json({ success: false, error: e.message });
+    }
+}
+
+async function handleManageLeave(input, res) {
+    const { op, ...data } = input;
+    let success = false;
+
+    try {
+        if (op === 'apply_leave') {
+            await prisma.facultyLeave.create({
+                data: {
+                    faculty_id: safeInt(data.faculty_id),
+                    leave_date: new Date(data.leave_date),
+                    reason: data.reason,
+                    status: 'pending'
+                }
+            });
+            success = true;
+        } else if (op === 'update_status') {
+            await prisma.facultyLeave.update({
+                where: { leave_id: safeInt(data.leave_id) },
+                data: {
+                    status: data.status
+                }
+            });
+            success = true;
+        }
+        res.json({ success });
+    } catch (e) {
+        console.error('Manage Leave Error:', e);
+        res.json({ success: false, error: e.message });
+    }
+}
+
+async function handleFacultyAttendance(input, res) {
+    const { op, faculty_id, date, time } = input;
+    try {
+        const dateObj = new Date(date);
+        dateObj.setUTCHours(0, 0, 0, 0);
+
+        // Convert time string "HH:mm" to Date object with Time type
+        let timeObj = null;
+        if (time) {
+            const [hours, minutes] = time.split(':');
+            timeObj = new Date();
+            timeObj.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+        }
+
+        if (op === 'check_in') {
+            await prisma.facultyAttendance.upsert({
+                where: {
+                    faculty_id_attendance_date: {
+                        faculty_id: safeInt(faculty_id),
+                        attendance_date: dateObj
+                    }
+                },
+                update: {
+                    check_in_time: timeObj,
+                    status: 'present'
+                },
+                create: {
+                    faculty_id: safeInt(faculty_id),
+                    attendance_date: dateObj,
+                    check_in_time: timeObj,
+                    status: 'present'
+                }
+            });
+        } else if (op === 'check_out') {
+            await prisma.facultyAttendance.update({
+                where: {
+                    faculty_id_attendance_date: {
+                        faculty_id: safeInt(faculty_id),
+                        attendance_date: dateObj
+                    }
+                },
+                data: {
+                    check_out_time: timeObj
+                }
+            });
+        }
+        res.json({ success: true });
+    } catch (e) {
+        console.error('Faculty Attendance Error:', e);
         res.json({ success: false, error: e.message });
     }
 }

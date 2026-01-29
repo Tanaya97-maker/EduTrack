@@ -33,6 +33,46 @@ export interface Faculty {
   user_id: number;
   faculty_name: string;
   email: string;
+  department?: 'comp' | 'mech' | 'ece';
+}
+
+export interface FacultyAttendance {
+  faculty_attendance_id: number;
+  faculty_id: number;
+  attendance_date: string;
+  check_in_time?: string;
+  check_out_time?: string;
+  leave_date?: string;
+  status: 'present' | 'absent' | 'leave';
+}
+
+export interface FacultyLeave {
+  leave_id: number;
+  faculty_id: number;
+  leave_date: string;
+  reason: string;
+  status: 'pending' | 'approved' | 'rejected';
+}
+
+export interface FacultyNote {
+  note_id: number;
+  faculty_id: number;
+  title: string;
+  content: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FacultyAnnouncement {
+  announcement_id: number;
+  faculty_id: number;
+  target_type: 'student' | 'faculty';
+  semester?: string;
+  subject_id?: number;
+  department?: 'comp' | 'mech' | 'ece';
+  title: string;
+  message: string;
+  created_at: string;
 }
 
 export interface Subject {

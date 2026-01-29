@@ -1,8 +1,9 @@
 
 import React, { useState } from 'react';
 import { Student, Faculty, Subject, TimetableEntry, AttendanceRecord, AttendanceStatus } from '../types';
-import { ICONS } from '../constants';
+import { ICONS } from '../constants.tsx';
 import { calculatePercentage } from '../services/attendanceService';
+import { Download, Upload, AlertCircle } from 'lucide-react';
 
 interface Props {
   students: Student[];
@@ -16,13 +17,15 @@ interface Props {
   onUpdateSubject: (s: Subject) => void;
   onUpdateFaculty: (f: Faculty) => void;
   onUpdateStudent: (s: Student) => void;
+  leaves: any[];
+  onUpdateLeaveStatus: (leaveId: number, status: 'approved' | 'rejected') => void;
 }
 
 type ViewMode = 'table' | 'chart';
 
 const AdminDashboard: React.FC<Props> = ({
-  students, faculty, subjects, enrollments, attendance,
-  onRemoveStudent, onRemoveFaculty, onRemoveSubject, onUpdateSubject, onUpdateFaculty, onUpdateStudent
+  students, faculty, subjects, enrollments, attendance, leaves,
+  onRemoveStudent, onRemoveFaculty, onRemoveSubject, onUpdateSubject, onUpdateFaculty, onUpdateStudent, onUpdateLeaveStatus
 }) => {
   const [editItem, setEditItem] = useState<{ type: 'course' | 'faculty' | 'student'; data: any } | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<{ type: string; id: number; name: string } | null>(null);
@@ -162,7 +165,7 @@ const AdminDashboard: React.FC<Props> = ({
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setDeleteConfirm(null)}></div>
           <div className="relative bg-white p-10 rounded-[2.5rem] shadow-2xl max-w-sm w-full animate-in zoom-in duration-200 text-center">
             <div className="w-20 h-20 bg-rose-50 text-rose-500 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-inner shadow-rose-100/50">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6V14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
             </div>
             <h3 className="text-2xl font-black text-slate-900 mb-2">Are you sure?</h3>
             <p className="text-slate-500 text-sm mb-10 leading-relaxed font-medium">You are about to delete <strong>{deleteConfirm.name}</strong>. Permanent data loss will occur.</p>
@@ -186,8 +189,16 @@ const AdminDashboard: React.FC<Props> = ({
             <h3 className="text-2xl font-black text-slate-800 tracking-tight">Course Catalog</h3>
             <p className="text-sm text-slate-400 font-bold mt-1">{subjects.length} active courses</p>
           </div>
-          <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
-            {ICONS.BookOpen}
+          <div className="flex items-center gap-3">
+            <button className="flex items-center gap-2 px-4 py-2 bg-slate-50 text-slate-600 rounded-xl text-xs font-black border border-slate-100 hover:bg-slate-100 transition-all">
+              <Download className="w-4 h-4" /> Import (.csv)
+            </button>
+            <button className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-xs font-black border border-indigo-100 hover:bg-indigo-100 transition-all">
+              <Upload className="w-4 h-4" /> Export (.csv)
+            </button>
+            <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
+              {ICONS.BookOpen}
+            </div>
           </div>
         </div>
 
@@ -237,8 +248,16 @@ const AdminDashboard: React.FC<Props> = ({
             <h3 className="text-2xl font-black text-slate-800 tracking-tight">Faculty Directory</h3>
             <p className="text-sm text-slate-400 font-bold mt-1">{faculty.length} registered faculty incharge</p>
           </div>
-          <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
-            {ICONS.Users}
+          <div className="flex items-center gap-3">
+            <button className="flex items-center gap-2 px-4 py-2 bg-slate-50 text-slate-600 rounded-xl text-xs font-black border border-slate-100 hover:bg-slate-100 transition-all">
+              <Download className="w-4 h-4" /> Import (.csv)
+            </button>
+            <button className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-xs font-black border border-indigo-100 hover:bg-indigo-100 transition-all">
+              <Upload className="w-4 h-4" /> Export (.csv)
+            </button>
+            <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
+              {ICONS.Users}
+            </div>
           </div>
         </div>
 
@@ -292,8 +311,16 @@ const AdminDashboard: React.FC<Props> = ({
             <h3 className="text-2xl font-black text-slate-800 tracking-tight">Student Directory</h3>
             <p className="text-sm text-slate-400 font-bold mt-1">{students.length} active students</p>
           </div>
-          <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
-            {ICONS.GraduationCap}
+          <div className="flex items-center gap-3">
+            <button className="flex items-center gap-2 px-4 py-2 bg-slate-50 text-slate-600 rounded-xl text-xs font-black border border-slate-100 hover:bg-slate-100 transition-all">
+              <Download className="w-4 h-4" /> Import (.csv)
+            </button>
+            <button className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-xs font-black border border-indigo-100 hover:bg-indigo-100 transition-all">
+              <Upload className="w-4 h-4" /> Export (.csv)
+            </button>
+            <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
+              {ICONS.GraduationCap}
+            </div>
           </div>
         </div>
 
@@ -347,6 +374,68 @@ const AdminDashboard: React.FC<Props> = ({
                     </tr>
                   );
                 })}
+              </tbody>
+            </table>
+          </TableContainer>
+        </div>
+      </section>
+
+      {/* Section: Faculty Leave Verification */}
+      <section className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+        <div className="p-10 flex justify-between items-center border-b border-slate-50">
+          <div>
+            <h3 className="text-2xl font-black text-slate-800 tracking-tight">Faculty Leave Verification</h3>
+            <p className="text-sm text-slate-400 font-bold mt-1">{leaves.filter(l => l.status === 'pending').length} pending requests</p>
+          </div>
+          <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600">
+            <AlertCircle className="w-6 h-6" />
+          </div>
+        </div>
+
+        <div className="p-6">
+          <TableContainer>
+            <table className="w-full border-separate border-spacing-y-2">
+              <thead>
+                <tr className="text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                  <th className="px-8 pb-4">Faculty Name</th>
+                  <th className="px-8 pb-4">Leave Date</th>
+                  <th className="px-8 pb-4">Reason</th>
+                  <th className="px-8 pb-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {leaves.filter(l => l.status === 'pending').map(l => (
+                  <tr key={l.leave_id} className="bg-slate-50/20 hover:bg-slate-50 transition-colors group rounded-3xl">
+                    <td className="px-8 py-5">
+                      <div className="text-sm font-black text-slate-800">
+                        {faculty.find(f => f.faculty_id === l.faculty_id)?.faculty_name || 'Unknown Faculty'}
+                      </div>
+                    </td>
+                    <td className="px-8 py-5 text-sm font-black text-indigo-600">{l.leave_date}</td>
+                    <td className="px-8 py-5 text-sm text-slate-400 font-bold">{l.reason}</td>
+                    <td className="px-8 py-5 text-right">
+                      <div className="flex justify-end gap-2">
+                        <button
+                          onClick={() => onUpdateLeaveStatus(l.leave_id, 'approved')}
+                          className="px-4 py-2 bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-600 hover:text-white transition-all"
+                        >
+                          Approve
+                        </button>
+                        <button
+                          onClick={() => onUpdateLeaveStatus(l.leave_id, 'rejected')}
+                          className="px-4 py-2 bg-rose-50 text-rose-600 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-rose-600 hover:text-white transition-all"
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+                {leaves.filter(l => l.status === 'pending').length === 0 && (
+                  <tr>
+                    <td colSpan={4} className="px-8 py-10 text-center text-slate-300 font-bold italic">No pending leave requests.</td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </TableContainer>

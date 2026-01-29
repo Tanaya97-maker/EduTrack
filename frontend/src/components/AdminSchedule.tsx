@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Subject, TimetableEntry } from '../types';
 import { ICONS, DAYS_OF_WEEK } from '../constants';
+import { Download, Upload } from 'lucide-react';
 
 interface Props {
   subjects: Subject[];
@@ -55,16 +56,26 @@ const AdminSchedule: React.FC<Props> = ({ subjects, timetable, onAddTimetable, o
           <h3 className="text-2xl font-black text-slate-900 tracking-tight">Schedule</h3>
           <p className="text-sm font-bold text-slate-400 mt-1 uppercase tracking-widest text-[10px]">Weekly Curriculum</p>
         </div>
-        <div className="flex items-center gap-4 bg-slate-50 p-2 rounded-2xl w-full md:w-auto">
-          <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-4">Filter:</label>
-          <select
-            value={targetSem}
-            onChange={(e) => setTargetSem(e.target.value)}
-            className="bg-white border-2 border-indigo-50 rounded-xl px-6 py-3 text-sm font-black text-indigo-900 focus:ring-4 focus:ring-indigo-50 outline-none transition-all appearance-none cursor-pointer min-w-[160px]"
-          >
-            <option value="all">All Semesters</option>
-            {semesters.map(s => <option key={s} value={s}>{s.toUpperCase().replace('SEM', 'Semester ')}</option>)}
-          </select>
+        <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
+          <div className="flex items-center gap-3">
+            <button className="flex items-center gap-2 px-4 py-2 bg-slate-50 text-slate-600 rounded-xl text-xs font-black border border-slate-100 hover:bg-slate-100 transition-all">
+              <Download className="w-4 h-4" /> Import (.csv)
+            </button>
+            <button className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-xs font-black border border-indigo-100 hover:bg-indigo-100 transition-all">
+              <Upload className="w-4 h-4" /> Export (.csv)
+            </button>
+          </div>
+          <div className="flex items-center gap-4 bg-slate-50 p-2 rounded-2xl w-full md:w-auto">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-4">Filter:</label>
+            <select
+              value={targetSem}
+              onChange={(e) => setTargetSem(e.target.value)}
+              className="bg-white border-2 border-indigo-50 rounded-xl px-6 py-3 text-sm font-black text-indigo-900 focus:ring-4 focus:ring-indigo-50 outline-none transition-all appearance-none cursor-pointer min-w-[160px]"
+            >
+              <option value="all">All Semesters</option>
+              {semesters.map(s => <option key={s} value={s}>{s.toUpperCase().replace('SEM', 'Semester ')}</option>)}
+            </select>
+          </div>
         </div>
       </div>
 
