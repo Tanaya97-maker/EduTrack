@@ -5,9 +5,15 @@ import { PrismaClient } from '@prisma/client';
 
 dotenv.config();
 
+if (!process.env.DATABASE_URL) {
+    console.error('CRITICAL: DATABASE_URL is not defined in environment variables.');
+}
+
 const app = express();
-const prisma = new PrismaClient();
-const port = 8000;
+const prisma = new PrismaClient({
+    log: ['error', 'warn'],
+});
+const port = process.env.PORT || 8000;
 
 const safeInt = (val) => {
     const p = parseInt(val);
