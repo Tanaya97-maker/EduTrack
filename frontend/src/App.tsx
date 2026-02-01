@@ -49,7 +49,6 @@ const App: React.FC = () => {
     const [leaves, setLeaves] = useState<any[]>([]);
     const [stats, setStats] = useState<any>({ total_users: 0, total_courses: 0 });
     const [facultyStats, setFacultyStats] = useState<any>({});
-    const [searchQuery, setSearchQuery] = useState('');
 
     // Fetch data on mount or user login
     const fetchData = async () => {
@@ -215,8 +214,14 @@ const App: React.FC = () => {
     };
 
     const handleCheckIn = async (facultyId: number) => {
-        const today = new Date().toISOString().split('T')[0];
-        const time = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+        // Use local date to avoid timezone shift issues
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const today = `${year}-${month}-${day}`;
+        const time = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
         if (!isDemoMode) {
             await apiService.manageFacultyAttendance('check_in', { faculty_id: facultyId, date: today, time });
         } else {
@@ -233,13 +238,19 @@ const App: React.FC = () => {
     };
 
     const handleCheckOut = async (facultyId: number) => {
-        const today = new Date().toISOString().split('T')[0];
-        const time = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+        // Use local date to avoid timezone shift issues
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const today = `${year}-${month}-${day}`;
+        const time = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
         if (!isDemoMode) {
             await apiService.manageFacultyAttendance('check_out', { faculty_id: facultyId, date: today, time });
         } else {
             setFacultyAttendance(prev => prev.map(rec =>
-                rec.faculty_id === facultyId && rec.attendance_date === today
+                rec.faculty_id === facultyId && rec.attendance_date.startsWith(today)
                     ? { ...rec, check_out_time: time }
                     : rec
             ));
@@ -342,21 +353,6 @@ const App: React.FC = () => {
         );
     }
 
-    const filteredStudents = students.filter(s =>
-        s.stud_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        s.roll_no.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        s.email.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    const filteredFaculty = faculty.filter(f =>
-        f.faculty_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        f.email.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    const filteredSubjects = subjects.filter(s =>
-        s.subject_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        s.subject_code.toLowerCase().includes(searchQuery.toLowerCase())
-    );
 
     return (
         <BrowserRouter>
@@ -368,8 +364,6 @@ const App: React.FC = () => {
                         user={user}
                         pageTitle={""}
                         onLogout={() => setUser(null)}
-                        searchQuery={searchQuery}
-                        onSearchChange={setSearchQuery}
                     />
 
                     <main className="flex-1 p-8 lg:p-12 max-w-7xl mx-auto w-full">
@@ -382,9 +376,9 @@ const App: React.FC = () => {
 
                         <AppRoutes
                             user={user}
-                            students={filteredStudents}
-                            faculty={filteredFaculty}
-                            subjects={filteredSubjects}
+                            students={students}
+                            faculty={faculty}
+                            subjects={subjects}
                             enrollments={enrollments}
                             attendance={attendanceRecords}
                             timetable={timetable}

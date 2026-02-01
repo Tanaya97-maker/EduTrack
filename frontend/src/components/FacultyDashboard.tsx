@@ -1,11 +1,11 @@
 
 import React from 'react';
 import { Faculty, Subject, Student, AttendanceRecord, TimetableEntry } from '../types';
-import { PieChart } from 'lucide-react';
+import { PieChart, Clock, Calendar as CalendarIcon } from 'lucide-react';
 import AttendanceSummary from './faculty/AttendanceSummary';
 import AnnouncementSection from './faculty/AnnouncementSection';
 import FacultyNotes from './faculty/FacultyNotes';
-
+import DataTable from './common/DataTable';
 
 interface Props {
   faculty: Faculty;
@@ -55,9 +55,74 @@ const FacultyDashboard: React.FC<Props> = ({
   const demoFacultyAttendance = facultyAttendance || [];
   const demoLeaves = leaves || [];
 
+  const formatLocalTime = (time: string | Date | null) => {
+    if (!time) return '--:--';
+    if (typeof time === 'string') {
+      const match = time.match(/(\d{2}:\d{2})/);
+      return match ? match[0] : '--:--';
+    }
+    return time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  };
+
+  const calculateWorkingHours = (checkIn?: string | Date, checkOut?: string | Date) => {
+    if (!checkIn || !checkOut) return null;
+    try {
+      const timeInStr = formatLocalTime(checkIn);
+      const timeOutStr = formatLocalTime(checkOut);
+      const [inH, inM] = timeInStr.split(':').map(Number);
+      const [outH, outM] = timeOutStr.split(':').map(Number);
+      const diffMinutes = (outH * 60 + outM) - (inH * 60 + inM);
+      if (diffMinutes < 0) return null;
+      const hours = Math.floor(diffMinutes / 60);
+      const mins = diffMinutes % 60;
+      return `${hours}h ${mins}m`;
+    } catch { return null; }
+  };
+
+  const attendanceLogColumns = [
+    {
+      header: 'Date',
+      key: 'attendance_date',
+      sortable: true,
+      render: (a: any) => new Date(a.attendance_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+    },
+    {
+      header: 'Status',
+      key: 'status',
+      sortable: true,
+      render: (a: any) => (
+        <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full border ${a.status === 'present' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-rose-50 text-rose-600 border-rose-100'
+          }`}>
+          {a.status}
+        </span>
+      )
+    },
+    {
+      header: 'Check In',
+      key: 'check_in_time',
+      sortable: true,
+      render: (a: any) => <span className="text-slate-600 font-bold">{formatLocalTime(a.check_in_time)}</span>
+    },
+    {
+      header: 'Check Out',
+      key: 'check_out_time',
+      sortable: true,
+      render: (a: any) => <span className="text-slate-600 font-bold">{formatLocalTime(a.check_out_time)}</span>
+    },
+    {
+      header: 'Work Period',
+      key: 'duration',
+      align: 'right' as const,
+      render: (a: any) => {
+        const h = calculateWorkingHours(a.check_in_time, a.check_out_time);
+        return h ? <span className="text-indigo-600 font-black text-xs">{h}</span> : <span className="text-slate-300 italic text-[10px]">--:--</span>;
+      }
+    }
+  ];
+
   return (
-    <div className="space-y-8 p-4">
-      <header className="mb-8 ">
+    <div className="space-y-8 pb-12">
+      <header>
         <div className="flex justify-between items-end">
           <div>
             <h1 className="text-3xl font-black text-slate-900 tracking-tight">
@@ -72,16 +137,13 @@ const FacultyDashboard: React.FC<Props> = ({
         </div>
       </header>
 
-      {/* Stats and Attendance Row - Grid 2 columns */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Overall Faculty Attendance Summary */}
         <AttendanceSummary
           faculty={faculty}
           attendance={demoFacultyAttendance}
           leaves={demoLeaves}
         />
 
-        {/* Academic Stats */}
         <div className="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100 flex flex-col justify-between overflow-hidden">
           <div className="flex items-center gap-8 mb-6 h-full">
             <div className="flex-shrink-0 w-24 h-24 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-600">
@@ -113,7 +175,14 @@ const FacultyDashboard: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* Announcements Section */}
+      <DataTable
+        title="My Attendance Log"
+        data={demoFacultyAttendance}
+        columns={attendanceLogColumns as any}
+        onExport={() => { }}
+        searchPlaceholder="Filter dates..."
+      />
+
       <AnnouncementSection
         faculty={faculty}
         subjects={subjects}
@@ -122,7 +191,6 @@ const FacultyDashboard: React.FC<Props> = ({
         onDeleteAnnouncement={onDeleteAnnouncement || (async () => { })}
       />
 
-      {/* Notes Section - Remove outer div */}
       <FacultyNotes
         faculty={faculty}
         notes={notes || []}

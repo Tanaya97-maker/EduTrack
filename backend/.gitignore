@@ -1,5 +1,23 @@
-node_modules
-# Keep environment variables out of version control
-.env
+# Dependencies
+node_modules/
 
-/generated/prisma
+# Environment
+.env
+.env.*
+!.env.example
+
+# Build/Logs
+dist/
+build/
+*.log
+npm-debug.log*
+
+# System
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel/
+
+# Prisma
+# Note: Keep prisma/schema.prisma as it is required for migrations and client generation on CI/CD

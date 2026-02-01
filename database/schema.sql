@@ -75,7 +75,6 @@ CREATE TABLE faculty_attendance (
     attendance_date DATE NOT NULL,
     check_in_time TIME,
     check_out_time TIME,
-    leave_date DATE,
     status VARCHAR(20) NOT NULL CHECK (status IN ('present', 'absent', 'leave')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (faculty_id) REFERENCES faculty(faculty_id) ON DELETE CASCADE,
@@ -115,14 +114,3 @@ CREATE TABLE faculty_announcements (
     FOREIGN KEY (faculty_id) REFERENCES faculty(faculty_id) ON DELETE CASCADE,
     FOREIGN KEY (subject_id) REFERENCES subjects(subject_id) ON DELETE SET NULL
 );
-
--- Seed Data
-INSERT INTO users (email, password_hash, user_type) VALUES 
-('admin@edu.com', '123', 'admin'),
-('faculty.john@edu.com', '123', 'faculty'),
-('student.alice@edu.com', '123', 'student');
-
-INSERT INTO faculty (user_id, faculty_name, email) VALUES (2, 'Dr. John Smith', 'faculty.john@edu.com');
-INSERT INTO students (user_id, roll_no, stud_name, email) VALUES (3, 'CS101', 'Alice Johnson', 'student.alice@edu.com');
-INSERT INTO subjects (subject_code, subject_name, faculty_id, semester, credits) VALUES ('CS301', 'Database Systems', 1, '3', 4);
-INSERT INTO enrollments (stud_id, subject_id) VALUES (1, 1);

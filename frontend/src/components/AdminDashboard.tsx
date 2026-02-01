@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { Student, Faculty, Subject, TimetableEntry, AttendanceRecord, AttendanceStatus } from '../types';
 import { ICONS } from '../constants.tsx';
 import { calculatePercentage } from '../services/attendanceService';
-import { Download, Upload, AlertCircle } from 'lucide-react';
+import { Download, Upload, AlertCircle, Edit2, Trash2 } from 'lucide-react';
+import DataTable from './common/DataTable';
 
 interface Props {
   students: Student[];
@@ -21,8 +22,6 @@ interface Props {
   onUpdateLeaveStatus: (leaveId: number, status: 'approved' | 'rejected') => void;
 }
 
-type ViewMode = 'table' | 'chart';
-
 const AdminDashboard: React.FC<Props> = ({
   students, faculty, subjects, enrollments, attendance, leaves,
   onRemoveStudent, onRemoveFaculty, onRemoveSubject, onUpdateSubject, onUpdateFaculty, onUpdateStudent, onUpdateLeaveStatus
@@ -30,8 +29,8 @@ const AdminDashboard: React.FC<Props> = ({
   const [editItem, setEditItem] = useState<{ type: 'course' | 'faculty' | 'student'; data: any } | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<{ type: string; id: number; name: string } | null>(null);
 
-  const renderProgressCircle = (percent: number, size = 40) => {
-    const stroke = 3;
+  const renderProgressCircle = (percent: number, size = 32) => {
+    const stroke = 2.5;
     const radius = (size - stroke * 2) / 2;
     const circ = 2 * Math.PI * radius;
     const offset = circ - (percent / 100) * circ;
@@ -45,19 +44,171 @@ const AdminDashboard: React.FC<Props> = ({
             className={`transition-all duration-1000 ${percent >= 75 ? 'text-emerald-500' : percent >= 50 ? 'text-amber-500' : 'text-rose-500'}`}
           />
         </svg>
-        <span className="absolute text-[9px] font-black">{percent}%</span>
+        <span className="absolute text-[8px] font-black">{percent}%</span>
       </div>
     );
   };
 
-  const TableContainer = ({ children }: { children: React.ReactNode }) => (
-    <div className="max-h-[360px] overflow-y-auto scrollbar-thin scrollbar-thumb-indigo-100 scrollbar-track-transparent pr-2">
-      {children}
-    </div>
-  );
+  const courseColumns = [
+    { header: 'Code', key: 'subject_code', sortable: true, align: 'right' as const },
+    { header: 'Name', key: 'subject_name', sortable: true },
+    {
+      header: 'Faculty Incharge',
+      key: 'faculty_id',
+      sortable: true,
+      render: (s: Subject) => faculty.find(f => f.faculty_id === s.faculty_id)?.faculty_name || 'Unassigned'
+    },
+    { header: 'Sem', key: 'semester', sortable: true, align: 'right' as const },
+    { header: 'Credits', key: 'credits', sortable: true, align: 'right' as const },
+    {
+      header: 'Actions',
+      key: 'actions',
+      sortable: false,
+      align: 'right' as const,
+      render: (s: Subject) => (
+        <div className="flex justify-end gap-1">
+          <button onClick={() => setEditItem({ type: 'course', data: s })} className="p-1.5 text-indigo-500 hover:bg-white rounded-lg transition-all border border-transparent hover:border-indigo-100 shadow-sm">
+            <Edit2 className="w-3.5 h-3.5" />
+          </button>
+          <button onClick={() => setDeleteConfirm({ type: 'course', id: s.subject_id, name: s.subject_name })} className="p-1.5 text-rose-500 hover:bg-white rounded-lg transition-all border border-transparent hover:border-rose-100 shadow-sm">
+            <Trash2 className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )
+    }
+  ];
+
+  const facultyColumns = [
+    { header: 'Name', key: 'faculty_name', sortable: true },
+    { header: 'Email Address', key: 'email', sortable: true },
+    {
+      header: 'Subjects Incharge',
+      key: 'teaching',
+      sortable: false,
+      render: (f: Faculty) => {
+        const teaching = subjects.filter(s => s.faculty_id === f.faculty_id);
+        return (
+          <div className="flex flex-wrap gap-1 max-w-[200px]">
+            {teaching.map(t => <span key={t.subject_id} className="px-1.5 py-0.5 bg-indigo-50 text-[8px] font-black text-indigo-600 rounded-md border border-indigo-100/50">{t.subject_code}</span>)}
+            {teaching.length === 0 && <span className="text-[10px] text-slate-300 italic">No Assignments</span>}
+          </div>
+        );
+      }
+    },
+    {
+      header: 'Course Progress',
+      key: 'progress',
+      sortable: true,
+      align: 'right' as const,
+      render: () => renderProgressCircle(Math.floor(Math.random() * 40) + 60) // Mocking progress for now as per original
+    },
+    {
+      header: 'Actions',
+      key: 'actions',
+      sortable: false,
+      align: 'right' as const,
+      render: (f: Faculty) => (
+        <div className="flex justify-end gap-1">
+          <button onClick={() => setEditItem({ type: 'faculty', data: f })} className="p-1.5 text-indigo-500 hover:bg-white rounded-lg transition-all border border-transparent hover:border-indigo-100 shadow-sm">
+            <Edit2 className="w-3.5 h-3.5" />
+          </button>
+          <button onClick={() => setDeleteConfirm({ type: 'faculty', id: f.faculty_id, name: f.faculty_name })} className="p-1.5 text-rose-500 hover:bg-white rounded-lg transition-all border border-transparent hover:border-rose-100 shadow-sm">
+            <Trash2 className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )
+    }
+  ];
+
+  const studentColumns = [
+    { header: 'Student Name', key: 'stud_name', sortable: true },
+    { header: 'Roll Number', key: 'roll_no', sortable: true, align: 'right' as const },
+    { header: 'Academic Email', key: 'email', sortable: true },
+    {
+      header: 'Subjects Enrolled',
+      key: 'enrolled',
+      sortable: false,
+      render: (s: Student) => {
+        const studentEnrolled = enrollments.filter(e => Number(e.stud_id) === Number(s.stud_id));
+        return (
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-black text-slate-700">{studentEnrolled.length}</span>
+            <div className="flex flex-wrap gap-0.5">
+              {studentEnrolled.slice(0, 2).map(e => (
+                <span key={e.subject_id} className="px-1 py-0.5 bg-slate-50 text-slate-500 text-[7px] font-black rounded border border-slate-100">{subjects.find(sub => Number(sub.subject_id) === Number(e.subject_id))?.subject_code}</span>
+              ))}
+              {studentEnrolled.length > 2 && <span className="text-[7px] font-black text-slate-300 ml-0.5">+{studentEnrolled.length - 2}</span>}
+            </div>
+          </div>
+        );
+      }
+    },
+    {
+      header: 'Avg. Attendance',
+      key: 'attendance',
+      sortable: true,
+      align: 'right' as const,
+      render: (s: Student) => {
+        const studentEnrolled = enrollments.filter(e => Number(e.stud_id) === Number(s.stud_id));
+        const avgAttendance = studentEnrolled.length
+          ? Math.round(studentEnrolled.reduce((acc, curr) => acc + calculatePercentage(attendance, s.stud_id, curr.subject_id), 0) / studentEnrolled.length)
+          : 0;
+        return renderProgressCircle(avgAttendance);
+      }
+    },
+    {
+      header: 'Actions',
+      key: 'actions',
+      sortable: false,
+      align: 'right' as const,
+      render: (s: Student) => (
+        <div className="flex justify-end gap-1">
+          <button onClick={() => setEditItem({ type: 'student', data: s })} className="p-1.5 text-indigo-500 hover:bg-white rounded-lg transition-all border border-transparent hover:border-indigo-100 shadow-sm">
+            <Edit2 className="w-3.5 h-3.5" />
+          </button>
+          <button onClick={() => setDeleteConfirm({ type: 'student', id: s.stud_id, name: s.stud_name })} className="p-1.5 text-rose-500 hover:bg-white rounded-lg transition-all border border-transparent hover:border-rose-100 shadow-sm">
+            <Trash2 className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )
+    }
+  ];
+
+  const leaveColumns = [
+    {
+      header: 'Faculty Name',
+      key: 'faculty_name',
+      sortable: true,
+      render: (l: any) => faculty.find(f => f.faculty_id === l.faculty_id)?.faculty_name || 'Unknown Faculty'
+    },
+    { header: 'Leave Date', key: 'leave_date', sortable: true, align: 'right' as const },
+    { header: 'Reason', key: 'reason', sortable: true },
+    {
+      header: 'Actions',
+      key: 'actions',
+      sortable: false,
+      align: 'right' as const,
+      render: (l: any) => (
+        <div className="flex justify-end gap-2">
+          <button
+            onClick={() => onUpdateLeaveStatus(l.leave_id, 'approved')}
+            className="px-3 py-1 bg-emerald-50 text-emerald-600 text-[9px] font-black uppercase tracking-widest rounded-lg border border-emerald-100/50 hover:bg-emerald-600 hover:text-white transition-all"
+          >
+            Approve
+          </button>
+          <button
+            onClick={() => onUpdateLeaveStatus(l.leave_id, 'rejected')}
+            className="px-3 py-1 bg-rose-50 text-rose-600 text-[9px] font-black uppercase tracking-widest rounded-lg border border-rose-100/50 hover:bg-rose-600 hover:text-white transition-all"
+          >
+            Reject
+          </button>
+        </div>
+      )
+    }
+  ];
 
   return (
-    <div className="space-y-12 pb-12">
+    <div className="space-y-8 pb-12">
       {/* Drawer for Editing */}
       {editItem && (
         <div className="fixed inset-0 z-50 flex justify-end">
@@ -76,23 +227,23 @@ const AdminDashboard: React.FC<Props> = ({
               if (editItem.type === 'course') {
                 onUpdateSubject({
                   ...editItem.data,
-                  subject_name: formData.get('subject_name'),
-                  subject_code: formData.get('subject_code'),
+                  subject_name: formData.get('subject_name') as string,
+                  subject_code: formData.get('subject_code') as string,
                   semester: formData.get('semester') as string,
                   credits: parseInt(formData.get('credits') as string),
                 });
               } else if (editItem.type === 'faculty') {
                 onUpdateFaculty({
                   ...editItem.data,
-                  faculty_name: formData.get('faculty_name'),
-                  email: formData.get('email')
+                  faculty_name: formData.get('faculty_name') as string,
+                  email: formData.get('email') as string
                 });
               } else if (editItem.type === 'student') {
                 onUpdateStudent({
                   ...editItem.data,
-                  stud_name: formData.get('stud_name'),
-                  roll_no: formData.get('roll_no'),
-                  email: formData.get('email')
+                  stud_name: formData.get('stud_name') as string,
+                  roll_no: formData.get('roll_no') as string,
+                  email: formData.get('email') as string
                 });
               }
               setEditItem(null);
@@ -165,7 +316,7 @@ const AdminDashboard: React.FC<Props> = ({
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setDeleteConfirm(null)}></div>
           <div className="relative bg-white p-10 rounded-[2.5rem] shadow-2xl max-w-sm w-full animate-in zoom-in duration-200 text-center">
             <div className="w-20 h-20 bg-rose-50 text-rose-500 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-inner shadow-rose-100/50">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6V14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+              <Trash2 className="w-8 h-8" />
             </div>
             <h3 className="text-2xl font-black text-slate-900 mb-2">Are you sure?</h3>
             <p className="text-slate-500 text-sm mb-10 leading-relaxed font-medium">You are about to delete <strong>{deleteConfirm.name}</strong>. Permanent data loss will occur.</p>
@@ -182,264 +333,52 @@ const AdminDashboard: React.FC<Props> = ({
         </div>
       )}
 
-      {/* Section: Courses */}
-      <section className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden flex flex-col">
-        <div className="p-10 flex justify-between items-center border-b border-slate-50">
-          <div>
-            <h3 className="text-2xl font-black text-slate-800 tracking-tight">Course Catalog</h3>
-            <p className="text-sm text-slate-400 font-bold mt-1">{subjects.length} active courses</p>
-          </div>
+      <DataTable
+        title="Course Catalog"
+        data={subjects}
+        columns={courseColumns as any}
+        onImport={() => { }}
+        onExport={() => { }}
+        searchPlaceholder="Search courses..."
+      />
+
+      <DataTable
+        title="Faculty Directory"
+        data={faculty}
+        columns={facultyColumns as any}
+        onImport={() => { }}
+        onExport={() => { }}
+        searchPlaceholder="Search faculty..."
+      />
+
+      <DataTable
+        title="Student Directory"
+        data={students}
+        columns={studentColumns as any}
+        onImport={() => { }}
+        onExport={() => { }}
+        searchPlaceholder="Search students..."
+      />
+
+      <section className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+        <div className="px-6 py-4 flex justify-between items-center border-b border-slate-100 bg-slate-50/50">
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 bg-slate-50 text-slate-600 rounded-xl text-xs font-black border border-slate-100 hover:bg-slate-100 transition-all">
-              <Download className="w-4 h-4" /> Import (.csv)
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-xs font-black border border-indigo-100 hover:bg-indigo-100 transition-all">
-              <Upload className="w-4 h-4" /> Export (.csv)
-            </button>
-            <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
-              {ICONS.BookOpen}
+            <div className="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 shadow-sm border border-amber-100/50">
+              <AlertCircle className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-slate-800 tracking-tight">Faculty Leave Verification</h3>
+              <p className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">{leaves.filter(l => l.status === 'pending').length} pending requests</p>
             </div>
           </div>
         </div>
 
-        <div className="p-6">
-          <TableContainer>
-            <table className="w-full border-separate border-spacing-y-2">
-              <thead>
-                <tr className="text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                  <th className="px-8 pb-4">Code</th>
-                  <th className="px-8 pb-4">Name</th>
-                  <th className="px-8 pb-4">Faculty Incharge</th>
-                  <th className="px-8 pb-4">Sem</th>
-                  <th className="px-8 pb-4">Credits</th>
-                  <th className="px-8 pb-4 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {subjects.map(s => (
-                  <tr key={s.subject_id} className="bg-slate-50/20 hover:bg-slate-50 transition-colors group rounded-3xl">
-                    <td className="px-8 py-5 text-sm font-black text-indigo-600">{s.subject_code}</td>
-                    <td className="px-8 py-5 text-sm font-bold text-slate-700">{s.subject_name}</td>
-                    <td className="px-8 py-5">
-                      <span className="text-xs font-bold text-slate-500 whitespace-nowrap">
-                        {faculty.find(f => f.faculty_id === s.faculty_id)?.faculty_name || 'Unassigned'}
-                      </span>
-                    </td>
-                    <td className="px-8 py-5 text-sm font-black text-slate-800 uppercase tracking-tighter">{s.semester}</td>
-                    <td className="px-8 py-5 text-sm font-black text-slate-800">{s.credits}</td>
-                    <td className="px-8 py-5 text-right">
-                      <div className="flex justify-end gap-1">
-                        <button onClick={() => setEditItem({ type: 'course', data: s })} className="p-2.5 text-indigo-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-indigo-100">{ICONS.Edit}</button>
-                        <button onClick={() => setDeleteConfirm({ type: 'course', id: s.subject_id, name: s.subject_name })} className="p-2.5 text-rose-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-rose-100">{ICONS.Delete}</button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </TableContainer>
-        </div>
-      </section>
-
-      {/* Section: Faculty */}
-      <section className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden flex flex-col">
-        <div className="p-10 flex justify-between items-center border-b border-slate-50">
-          <div>
-            <h3 className="text-2xl font-black text-slate-800 tracking-tight">Faculty Directory</h3>
-            <p className="text-sm text-slate-400 font-bold mt-1">{faculty.length} registered faculty incharge</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 bg-slate-50 text-slate-600 rounded-xl text-xs font-black border border-slate-100 hover:bg-slate-100 transition-all">
-              <Download className="w-4 h-4" /> Import (.csv)
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-xs font-black border border-indigo-100 hover:bg-indigo-100 transition-all">
-              <Upload className="w-4 h-4" /> Export (.csv)
-            </button>
-            <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
-              {ICONS.Users}
-            </div>
-          </div>
-        </div>
-
-        <div className="p-6">
-          <TableContainer>
-            <table className="w-full border-separate border-spacing-y-2">
-              <thead>
-                <tr className="text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                  <th className="px-8 pb-4">Name</th>
-                  <th className="px-8 pb-4">Email Address</th>
-                  <th className="px-8 pb-4">Subjects Incharge</th>
-                  <th className="px-8 pb-4">Course Completed</th>
-                  <th className="px-8 pb-4 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {faculty.map(f => {
-                  const teaching = subjects.filter(s => s.faculty_id === f.faculty_id);
-                  return (
-                    <tr key={f.faculty_id} className="bg-slate-50/20 hover:bg-slate-50 transition-colors group rounded-3xl">
-                      <td className="px-8 py-5">
-                        <div className="text-sm font-black text-slate-800">{f.faculty_name}</div>
-                      </td>
-                      <td className="px-8 py-5 text-sm text-slate-400 font-bold">{f.email}</td>
-                      <td className="px-8 py-5">
-                        <div className="flex flex-wrap gap-1.5 max-w-[200px]">
-                          {teaching.map(t => <span key={t.subject_id} className="px-2.5 py-1 bg-white border border-slate-100 text-[9px] font-black text-indigo-600 rounded-lg shadow-sm">{t.subject_code}</span>)}
-                          {teaching.length === 0 && <span className="text-[10px] text-slate-300 italic font-medium">No Active Assignments</span>}
-                        </div>
-                      </td>
-                      <td className="px-8 py-5">{renderProgressCircle(98)}</td>
-                      <td className="px-8 py-5 text-right">
-                        <div className="flex justify-end gap-1">
-                          <button onClick={() => setEditItem({ type: 'faculty', data: f })} className="p-2.5 text-indigo-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-indigo-100">{ICONS.Edit}</button>
-                          <button onClick={() => setDeleteConfirm({ type: 'faculty', id: f.faculty_id, name: f.faculty_name })} className="p-2.5 text-rose-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-rose-100">{ICONS.Delete}</button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </TableContainer>
-        </div>
-      </section>
-
-      {/* Section: Students */}
-      <section className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden flex flex-col">
-        <div className="p-10 flex justify-between items-center border-b border-slate-50">
-          <div>
-            <h3 className="text-2xl font-black text-slate-800 tracking-tight">Student Directory</h3>
-            <p className="text-sm text-slate-400 font-bold mt-1">{students.length} active students</p>
-          </div>
-          <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 bg-slate-50 text-slate-600 rounded-xl text-xs font-black border border-slate-100 hover:bg-slate-100 transition-all">
-              <Download className="w-4 h-4" /> Import (.csv)
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-xs font-black border border-indigo-100 hover:bg-indigo-100 transition-all">
-              <Upload className="w-4 h-4" /> Export (.csv)
-            </button>
-            <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600">
-              {ICONS.GraduationCap}
-            </div>
-          </div>
-        </div>
-
-        <div className="p-6">
-          <TableContainer>
-            <table className="w-full border-separate border-spacing-y-2">
-              <thead>
-                <tr className="text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                  <th className="px-8 pb-4">Student Name</th>
-                  <th className="px-8 pb-4">Roll Number</th>
-                  <th className="px-8 pb-4">Academic Email</th>
-                  <th className="px-8 pb-4">Subjects Enrolled</th>
-                  <th className="px-8 pb-4">Avg. Attendance</th>
-                  <th className="px-8 pb-4 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {students.map(s => {
-                  const studentEnrolled = enrollments.filter(e => Number(e.stud_id) === Number(s.stud_id));
-                  const avgAttendance = studentEnrolled.length
-                    ? Math.round(studentEnrolled.reduce((acc, curr) => acc + calculatePercentage(attendance, s.stud_id, curr.subject_id), 0) / studentEnrolled.length)
-                    : 0;
-                  return (
-                    <tr key={s.stud_id} className="bg-slate-50/20 hover:bg-slate-50 transition-colors group rounded-3xl">
-                      <td className="px-8 py-5">
-                        <div className="text-sm font-black text-slate-800">{s.stud_name}</div>
-                      </td>
-                      <td className="px-8 py-5">
-                        <div className="text-[10px] font-black text-indigo-600 uppercase tracking-widest opacity-70">{s.roll_no}</div>
-                      </td>
-                      <td className="px-8 py-5 text-sm text-slate-400 font-bold">{s.email}</td>
-                      <td className="px-8 py-5">
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm font-black text-slate-700">{studentEnrolled.length}</span>
-                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Subjects Enrolled</span>
-                        </div>
-                        <div className="flex flex-wrap gap-1 mt-2">
-                          {studentEnrolled.slice(0, 3).map(e => (
-                            <span key={e.subject_id} className="px-1.5 py-0.5 bg-indigo-50 text-indigo-600 text-[8px] font-black rounded-md">{subjects.find(sub => Number(sub.subject_id) === Number(e.subject_id))?.subject_code}</span>
-                          ))}
-                          {studentEnrolled.length > 3 && <span className="text-[8px] font-black text-slate-300 ml-1">+{studentEnrolled.length - 3}</span>}
-                        </div>
-                      </td>
-                      <td className="px-8 py-5">{renderProgressCircle(avgAttendance)}</td>
-                      <td className="px-8 py-5 text-right">
-                        <div className="flex justify-end gap-1">
-                          <button onClick={() => setEditItem({ type: 'student', data: s })} className="p-2.5 text-indigo-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-indigo-100">{ICONS.Edit}</button>
-                          <button onClick={() => setDeleteConfirm({ type: 'student', id: s.stud_id, name: s.stud_name })} className="p-2.5 text-rose-600 hover:bg-white rounded-xl transition-all shadow-sm border border-transparent hover:border-rose-100">{ICONS.Delete}</button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </TableContainer>
-        </div>
-      </section>
-
-      {/* Section: Faculty Leave Verification */}
-      <section className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden flex flex-col">
-        <div className="p-10 flex justify-between items-center border-b border-slate-50">
-          <div>
-            <h3 className="text-2xl font-black text-slate-800 tracking-tight">Faculty Leave Verification</h3>
-            <p className="text-sm text-slate-400 font-bold mt-1">{leaves.filter(l => l.status === 'pending').length} pending requests</p>
-          </div>
-          <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600">
-            <AlertCircle className="w-6 h-6" />
-          </div>
-        </div>
-
-        <div className="p-6">
-          <TableContainer>
-            <table className="w-full border-separate border-spacing-y-2">
-              <thead>
-                <tr className="text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                  <th className="px-8 pb-4">Faculty Name</th>
-                  <th className="px-8 pb-4">Leave Date</th>
-                  <th className="px-8 pb-4">Reason</th>
-                  <th className="px-8 pb-4 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {leaves.filter(l => l.status === 'pending').map(l => (
-                  <tr key={l.leave_id} className="bg-slate-50/20 hover:bg-slate-50 transition-colors group rounded-3xl">
-                    <td className="px-8 py-5">
-                      <div className="text-sm font-black text-slate-800">
-                        {faculty.find(f => f.faculty_id === l.faculty_id)?.faculty_name || 'Unknown Faculty'}
-                      </div>
-                    </td>
-                    <td className="px-8 py-5 text-sm font-black text-indigo-600">{l.leave_date}</td>
-                    <td className="px-8 py-5 text-sm text-slate-400 font-bold">{l.reason}</td>
-                    <td className="px-8 py-5 text-right">
-                      <div className="flex justify-end gap-2">
-                        <button
-                          onClick={() => onUpdateLeaveStatus(l.leave_id, 'approved')}
-                          className="px-4 py-2 bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-emerald-600 hover:text-white transition-all"
-                        >
-                          Approve
-                        </button>
-                        <button
-                          onClick={() => onUpdateLeaveStatus(l.leave_id, 'rejected')}
-                          className="px-4 py-2 bg-rose-50 text-rose-600 text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-rose-600 hover:text-white transition-all"
-                        >
-                          Reject
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-                {leaves.filter(l => l.status === 'pending').length === 0 && (
-                  <tr>
-                    <td colSpan={4} className="px-8 py-10 text-center text-slate-300 font-bold italic">No pending leave requests.</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </TableContainer>
-        </div>
+        <DataTable
+          title=""
+          data={leaves.filter(l => l.status === 'pending')}
+          columns={leaveColumns as any}
+          searchPlaceholder="Search leave requests..."
+        />
       </section>
     </div>
   );

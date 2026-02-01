@@ -49,7 +49,6 @@ The frontend is a modern SPA (Single Page Application) built with React and styl
 
 1.  **Install Dependencies**:
     ```bash
-    cd frontend
     npm install
     ```
 
@@ -59,9 +58,8 @@ The frontend is a modern SPA (Single Page Application) built with React and styl
     ```
 
 3.  **Start Backend**:
-    Run a local PHP server targeting the `backend/public` directory:
     ```bash
-    & "C:\Program Files\xampp\php\php.exe" -S localhost:8000 -t backend/public
+    npm run dev
     ```
 
 4.  **Database**:

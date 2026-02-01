@@ -1,7 +1,7 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const { PrismaClient } = require('@prisma/client');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { PrismaClient } from '@prisma/client';
 
 dotenv.config();
 
@@ -218,15 +218,16 @@ async function handleManageSubject(input, res) {
     let success = false;
 
     if (op === 'add_subject') {
-        await prisma.subject.create({
-            data: {
-                subject_code: data.subject_code,
-                subject_name: data.subject_name,
-                semester: data.semester,
-                credits: parseInt(data.credits),
-                faculty_id: data.faculty_id ? parseInt(data.faculty_id) : null
-            }
-        });
+        // Don't include subject_id - let database auto-generate it
+        const createData = {
+            subject_code: data.subject_code,
+            subject_name: data.subject_name,
+            semester: data.semester,
+            credits: parseInt(data.credits),
+            faculty_id: data.faculty_id ? parseInt(data.faculty_id) : null
+        };
+
+        await prisma.subject.create({ data: createData });
         success = true;
     } else if (op === 'edit_subject') {
         await prisma.subject.update({
@@ -566,6 +567,7 @@ async function handleFacultyAttendance(input, res) {
         }
 
         if (op === 'check_in') {
+            // Check-in: Create or update record with check-in time and status 'present'
             await prisma.facultyAttendance.upsert({
                 where: {
                     faculty_id_attendance_date: {
@@ -585,15 +587,22 @@ async function handleFacultyAttendance(input, res) {
                 }
             });
         } else if (op === 'check_out') {
-            await prisma.facultyAttendance.update({
+            // Check-out: Update existing record or create if doesn't exist
+            await prisma.facultyAttendance.upsert({
                 where: {
                     faculty_id_attendance_date: {
                         faculty_id: safeInt(faculty_id),
                         attendance_date: dateObj
                     }
                 },
-                data: {
+                update: {
                     check_out_time: timeObj
+                },
+                create: {
+                    faculty_id: safeInt(faculty_id),
+                    attendance_date: dateObj,
+                    check_out_time: timeObj,
+                    status: 'present'
                 }
             });
         }
