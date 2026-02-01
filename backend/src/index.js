@@ -613,6 +613,10 @@ async function handleFacultyAttendance(input, res) {
     }
 }
 
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-});
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    app.listen(port, () => {
+        console.log(`Server running on http://localhost:${port}`);
+    });
+}
+
+export default app;

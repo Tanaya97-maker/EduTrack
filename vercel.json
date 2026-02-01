@@ -9,14 +9,18 @@
             }
         },
         {
-            "src": "backend/public/index.php",
-            "use": "vercel-php@0.7.1"
+            "src": "backend/src/index.js",
+            "use": "@vercel/node"
         }
     ],
     "rewrites": [
         {
+            "source": "/api/(.*)",
+            "destination": "/backend/src/index.js"
+        },
+        {
             "source": "/api",
-            "destination": "/backend/public/index.php"
+            "destination": "/backend/src/index.js"
         },
         {
             "source": "/((?!api/).*)",
