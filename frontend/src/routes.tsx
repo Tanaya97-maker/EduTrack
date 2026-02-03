@@ -2,15 +2,16 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { User, UserType, Student, Faculty, Subject, AttendanceRecord, TimetableEntry } from './types';
-import AdminDashboard from './components/AdminDashboard';
-import AdminSchedule from './components/AdminSchedule';
-import UserManagement from './components/UserManagement';
-import SubjectManagement from './components/SubjectManagement';
-import Reports from './components/Reports';
-import FacultyDashboard from './components/FacultyDashboard';
+import AdminDashboard from './components/admin/AdminDashboard';
+import AdminSchedule from './components/admin/AdminSchedule';
+import UserManagement from './components/admin/UserManagement';
+import SubjectManagement from './components/admin/SubjectManagement';
+import Reports from './components/admin/Reports';
+import FacultyDashboard from './components/faculty/FacultyDashboard';
 import TakeStudentAttendance from './components/faculty/TakeStudentAttendance';
 import MyAttendance from './components/faculty/MyAttendance';
-import StudentDashboard from './components/StudentDashboard';
+import StudentDashboard from './components/student/StudentDashboard';
+import ScheduleGrid from './components/common/ScheduleGrid';
 
 interface AppRoutesProps {
     user: User;
@@ -184,7 +185,11 @@ const AppRoutes: React.FC<AppRoutesProps> = (props) => {
                     />
                 } />
                 <Route path="/schedule" element={
-                    <div className="p-8 text-center text-slate-400 font-bold">Faculty Schedule (To be implemented)</div>
+                    <ScheduleGrid
+                        title={`${facultyData.faculty_name}'s Teaching Schedule`}
+                        schedule={props.timetable}
+                        isHoliday={(day) => day === 7} // Sunday is holiday
+                    />
                 } />
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />
             </Routes>
@@ -208,7 +213,11 @@ const AppRoutes: React.FC<AppRoutesProps> = (props) => {
                     />
                 } />
                 <Route path="/schedule" element={
-                    <div className="p-8 text-center text-slate-400 font-bold">Student Schedule (To be implemented)</div>
+                    <ScheduleGrid
+                        title={`${studentData.semester?.toUpperCase()} Academic Schedule`}
+                        schedule={props.timetable}
+                        isHoliday={(day) => day === 7}
+                    />
                 } />
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

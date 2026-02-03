@@ -45,6 +45,7 @@ model Student {
   stud_name   String       @db.VarChar(255)
   email       String?      @db.VarChar(255)
   semester    String?      @db.VarChar(10)
+  department  String?      @db.VarChar(20)
   attendance  Attendance[]
   enrollments Enrollment[]
   User        User?        @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction)
@@ -58,6 +59,7 @@ model Subject {
   subject_name  String                @db.VarChar(255)
   faculty_id    Int?
   semester      String?               @db.VarChar(10)
+  department    String?               @db.VarChar(20)
   credits       Int?
   attendance    Attendance[]
   enrollments   Enrollment[]
@@ -87,7 +89,18 @@ model Timetable {
   room_no      String?   @db.VarChar(50)
   Subject      Subject?  @relation(fields: [subject_id], references: [subject_id], onDelete: Cascade, onUpdate: NoAction)
 
+  @@index([day_of_week])
+  @@index([start_time])
   @@map("timetable")
+}
+
+model Holiday {
+  holiday_id   Int      @id @default(autoincrement())
+  holiday_name String?  @db.VarChar(255)
+  holiday_date DateTime @unique @db.Date
+  year         Int      @default(2026)
+
+  @@map("holidays")
 }
 
 model Attendance {

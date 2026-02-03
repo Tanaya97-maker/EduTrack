@@ -1,9 +1,9 @@
-
 import React, { useState } from 'react';
-import { Student, Faculty, Subject, UserType } from '../types';
-import { ICONS } from '../constants';
+import { Student, Faculty, Subject, UserType } from '../../types';
+import { ICONS } from '../../constants';
 import { Download, Upload, Plus, Edit2, Trash2, X } from 'lucide-react';
-import DataTable from './common/DataTable';
+import DataTable from '../common/DataTable';
+import { exportToExcel, importFromExcel } from '../../utils/excelUtils';
 
 interface Props {
   students: Student[];
@@ -32,11 +32,12 @@ const UserManagement: React.FC<Props> = ({
     email: '',
     roll: '',
     sem: 'sem1',
+    department: 'comp',
     subject_ids: [] as number[]
   });
 
   const resetForm = () => {
-    setFormData({ name: '', email: '', roll: '', sem: 'sem1', subject_ids: [] });
+    setFormData({ name: '', email: '', roll: '', sem: 'sem1', department: 'comp', subject_ids: [] });
     setEditId(null);
     setShowForm(false);
   };
@@ -52,6 +53,7 @@ const UserManagement: React.FC<Props> = ({
       email: item.email,
       roll: item.roll_no || '',
       sem: item.semester || 'sem1',
+      department: item.department || 'comp',
       subject_ids: itemEnrolled
     });
     setShowForm(true);
@@ -64,6 +66,7 @@ const UserManagement: React.FC<Props> = ({
         email: formData.email,
         roll_no: formData.roll,
         semester: formData.sem,
+        department: formData.department,
         subject_ids: formData.subject_ids
       };
       if (editId) {
@@ -75,6 +78,7 @@ const UserManagement: React.FC<Props> = ({
       const payload = {
         faculty_name: formData.name,
         email: formData.email,
+        department: formData.department,
         subject_ids: formData.subject_ids
       };
       if (editId) {
@@ -105,6 +109,39 @@ const UserManagement: React.FC<Props> = ({
     }
   };
 
+  const handleExport = () => {
+    const data = mode === UserType.STUDENT ? students : faculty;
+    const fileName = mode === UserType.STUDENT ? 'Students_List' : 'Faculty_List';
+    exportToExcel(data, fileName);
+  };
+
+  const handleImport = async (file: File) => {
+    try {
+      const importedData = await importFromExcel(file);
+      for (const item of importedData) {
+        if (mode === UserType.STUDENT) {
+          onAddStudent({
+            stud_name: item.stud_name || item.name,
+            email: item.email,
+            roll_no: item.roll_no || item.roll,
+            semester: item.semester || item.sem || 'sem1',
+            department: item.department || item.dept || 'comp'
+          });
+        } else {
+          onAddFaculty({
+            faculty_name: item.faculty_name || item.name,
+            email: item.email,
+            department: item.department || item.dept || 'comp',
+            subject_ids: []
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Import failed:", error);
+      alert("Failed to import Excel file. Please ensure the format is correct.");
+    }
+  };
+
   const studentColumns = [
     { header: 'Name', key: 'stud_name', sortable: true },
     { header: 'Roll No', key: 'roll_no', sortable: true, align: 'right' as const },
@@ -120,20 +157,13 @@ const UserManagement: React.FC<Props> = ({
       )
     },
     {
-      header: 'Subjects Enrolled',
-      key: 'subjects',
-      sortable: false,
+      header: 'Dept',
+      key: 'department',
+      sortable: true,
       render: (item: Student) => (
-        <div className="flex flex-wrap gap-1 max-w-[200px]">
-          {enrollments.filter(e => Number(e.stud_id) === Number(item.stud_id)).map(e => (
-            <span key={e.subject_id} className="px-1.5 py-0.5 bg-slate-50 border border-slate-100 text-[8px] font-black text-slate-500 rounded-md">
-              {subjects.find(s => Number(s.subject_id) === Number(e.subject_id))?.subject_code}
-            </span>
-          ))}
-          {enrollments.filter(e => Number(e.stud_id) === Number(item.stud_id)).length === 0 && (
-            <span className="text-[10px] text-slate-300 italic">No assignments</span>
-          )}
-        </div>
+        <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100/50">
+          {item.department || 'COMP'}
+        </span>
       )
     },
     {
@@ -157,6 +187,16 @@ const UserManagement: React.FC<Props> = ({
   const facultyColumns = [
     { header: 'Name', key: 'faculty_name', sortable: true },
     { header: 'Email', key: 'email', sortable: true },
+    {
+      header: 'Dept',
+      key: 'department',
+      sortable: true,
+      render: (item: Faculty) => (
+        <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100/50">
+          {item.department || 'COMP'}
+        </span>
+      )
+    },
     {
       header: 'Subjects Teaching',
       key: 'subjects',
@@ -245,32 +285,57 @@ const UserManagement: React.FC<Props> = ({
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">Semester</label>
-                  <select className="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indigo-400 focus:bg-white transition-all font-bold text-sm outline-none appearance-none cursor-pointer" value={formData.sem} onChange={e => setFormData({ ...formData, sem: e.target.value })}>
+                  <select
+                    className="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indigo-400 focus:bg-white transition-all font-bold text-sm outline-none appearance-none cursor-pointer"
+                    value={formData.sem}
+                    onChange={e => setFormData({ ...formData, sem: e.target.value, subject_ids: [] })}
+                  >
                     {[1, 2, 3, 4, 5, 6, 7, 8].map(s => <option key={s} value={`sem${s}`}>Semester {s}</option>)}
                   </select>
                 </div>
               </>
             )}
-          </div>
-
-          <div className="mt-6 space-y-3">
-            <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">
-              {mode === UserType.STUDENT ? 'Courses Enrolled' : 'Courses Teaching'}
-              <span className="text-[8px] lowercase opacity-60"> (select all that apply)</span>
-            </label>
-            <div className="flex flex-wrap gap-2 p-4 bg-slate-50 rounded-2xl border border-slate-100 min-h-[80px]">
-              {subjects.map(sub => (
-                <button
-                  key={sub.subject_id}
-                  onClick={() => toggleSubject(sub.subject_id)}
-                  className={`px-3 py-1.5 rounded-lg text-[10px] font-black border transition-all flex items-center gap-1.5 ${formData.subject_ids.includes(sub.subject_id) ? 'bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-100' : 'bg-white border-slate-200 text-slate-400 hover:border-indigo-300'}`}
-                >
-                  {sub.subject_code} - {sub.subject_name}
-                  {formData.subject_ids.includes(sub.subject_id) && <X className="w-3 h-3 opacity-60" />}
-                </button>
-              ))}
+            <div className="space-y-1.5">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">Department</label>
+              <select
+                className="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indigo-400 focus:bg-white transition-all font-bold text-sm outline-none appearance-none cursor-pointer"
+                value={formData.department}
+                onChange={e => setFormData({ ...formData, department: e.target.value, subject_ids: [] })}
+              >
+                <option value="comp">Computer</option>
+                <option value="mech">Mechanical</option>
+                <option value="ece">Electronics</option>
+              </select>
             </div>
           </div>
+
+          {mode === UserType.FACULTY && (
+            <div className="mt-6 space-y-3">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                Courses Teaching
+                <span className="text-[8px] lowercase opacity-60"> (select all that apply, filtered by department)</span>
+              </label>
+              <div className="flex flex-wrap gap-2 p-4 bg-slate-50 rounded-2xl border border-slate-100 min-h-[80px]">
+                {subjects
+                  .filter(sub => !formData.department || sub.department?.toLowerCase() === formData.department.toLowerCase())
+                  .map(sub => (
+                    <button
+                      key={sub.subject_id}
+                      onClick={() => toggleSubject(sub.subject_id)}
+                      className={`px-3 py-1.5 rounded-lg text-[10px] font-black border transition-all flex items-center gap-1.5 ${formData.subject_ids.includes(sub.subject_id) ? 'bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-100' : 'bg-white border-slate-200 text-slate-400 hover:border-indigo-300'}`}
+                    >
+                      {sub.subject_code} - {sub.subject_name}
+                      {formData.subject_ids.includes(sub.subject_id) && <X className="w-3 h-3 opacity-60" />}
+                    </button>
+                  ))}
+                {subjects.filter(sub => !formData.department || sub.department?.toLowerCase() === formData.department.toLowerCase()).length === 0 && (
+                  <div className="w-full py-4 text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest italic">
+                    No subjects found for {formData.department?.toUpperCase()}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
           <div className="flex justify-end gap-3 mt-8">
             <button onClick={resetForm} className="px-6 py-2.5 text-slate-400 font-bold text-xs hover:text-slate-600 transition-colors uppercase tracking-widest">Cancel</button>
@@ -286,8 +351,8 @@ const UserManagement: React.FC<Props> = ({
         title={`${mode === UserType.STUDENT ? 'Student' : 'Faculty'} Directory`}
         data={(mode === UserType.STUDENT ? students : faculty) as any}
         columns={(mode === UserType.STUDENT ? studentColumns : facultyColumns) as any}
-        onImport={() => { }}
-        onExport={() => { }}
+        onImport={handleImport}
+        onExport={handleExport}
         searchPlaceholder={`Search ${mode === UserType.STUDENT ? 'students' : 'faculty'}...`}
       />
     </div>

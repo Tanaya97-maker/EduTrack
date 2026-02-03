@@ -1,9 +1,10 @@
 
 import React, { useState, useMemo } from 'react';
-import { Student, Subject, AttendanceRecord, AttendanceStatus, TimetableEntry } from '../types';
-import { calculatePercentage } from '../services/attendanceService';
-import { ICONS, DAYS_OF_WEEK } from '../constants';
-import { ChevronLeft, ChevronRight, ArrowLeft, AlertCircle, CheckCircle2, Calendar, BookOpen, Clock, Plus } from 'lucide-react';
+import { Student, Subject, AttendanceRecord, AttendanceStatus, TimetableEntry } from '../../types';
+import { calculatePercentage } from '../../services/attendanceService';
+import { ICONS, DAYS_OF_WEEK } from '../../constants';
+import { ChevronLeft, ChevronRight, ArrowLeft, AlertCircle, CheckCircle2, Calendar, BookOpen, Clock, Plus, Info } from 'lucide-react';
+import StudentAttendance from './StudentAttendance';
 
 interface Props {
   student: Student;
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const StudentDashboard: React.FC<Props> = ({ student, subjects, enrollments, attendance, timetable, announcements }) => {
+  const [showAttendance, setShowAttendance] = useState(false);
   const studentEnrollments = enrollments.filter(e => Number(e.stud_id) === Number(student.stud_id));
   const enrolledSubjects = subjects.filter(s => studentEnrollments.some(e => Number(e.subject_id) === Number(s.subject_id)));
 
@@ -84,39 +86,23 @@ const StudentDashboard: React.FC<Props> = ({ student, subjects, enrollments, att
             </div>
           </div>
 
-          <button className="w-full py-4 bg-slate-900 hover:bg-black text-white font-black rounded-2xl transition-all duration-300 uppercase tracking-widest text-xs shadow-lg shadow-slate-200">
-            View Subject Details
+          <button
+            onClick={() => setShowAttendance(true)}
+            className="w-full py-4 bg-slate-900 hover:bg-black text-white font-black rounded-2xl transition-all duration-300 uppercase tracking-widest text-xs shadow-lg shadow-slate-200"
+          >
+            View Attendance
           </button>
         </div>
-
-        {/* Timetable Section */}
-        <div className="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100 overflow-hidden flex flex-col">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-black text-slate-800 flex items-center gap-3">
-              <Clock className="w-6 h-6 text-indigo-600" />
-              Today's Timetable
-            </h3>
-          </div>
-
-          <div className="space-y-4 flex-1">
-            {timetable.length > 0 ? (
-              timetable.slice(0, 3).map((entry, idx) => (
-                <div key={idx} className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100/50">
-                  <div className="bg-white p-3 rounded-xl shadow-sm text-center min-w-[80px]">
-                    <p className="text-[10px] font-black text-indigo-600">{entry.start_time}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-black text-slate-800">{subjects.find(s => s.subject_id === entry.subject_id)?.subject_name || 'Subject'}</p>
-                    <p className="text-xs font-bold text-slate-400">Room: {entry.room_no || 'TBD'}</p>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="text-center py-8 text-slate-400 font-bold">No classes scheduled for today.</div>
-            )}
-          </div>
-        </div>
       </div>
+
+      <StudentAttendance
+        isOpen={showAttendance}
+        onClose={() => setShowAttendance(false)}
+        student={student}
+        subjects={subjects}
+        enrollments={enrollments}
+        attendance={attendance}
+      />
 
       {/* Row 2 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

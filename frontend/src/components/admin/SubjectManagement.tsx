@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
-import { Subject, Faculty, Student } from '../types';
+import { Subject, Faculty, Student } from '../../types';
 import { Download, Upload, Plus, Edit2, Trash2, X } from 'lucide-react';
-import DataTable from './common/DataTable';
+import DataTable from '../common/DataTable';
+import { exportToExcel, importFromExcel } from '../../utils/excelUtils';
 
 interface Props {
   subjects: Subject[];
@@ -22,13 +22,14 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
     name: '',
     sem: 'sem1',
     credits: '1',
-    faculty_id: ''
+    faculty_id: '',
+    department: 'comp'
   });
 
   const semesters = ['sem1', 'sem2', 'sem3', 'sem4', 'sem5', 'sem6', 'sem7', 'sem8'];
 
   const resetForm = () => {
-    setFormData({ code: '', name: '', sem: 'sem1', credits: '1', faculty_id: '' });
+    setFormData({ code: '', name: '', sem: 'sem1', credits: '1', faculty_id: '', department: 'comp' });
     setEditId(null);
     setShowForm(false);
   };
@@ -40,7 +41,8 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
       name: sub.subject_name,
       sem: sub.semester || 'sem1',
       credits: sub.credits.toString(),
-      faculty_id: sub.faculty_id?.toString() || ''
+      faculty_id: sub.faculty_id?.toString() || '',
+      department: sub.department || 'comp'
     });
     setShowForm(true);
   };
@@ -51,7 +53,8 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
       subject_name: formData.name,
       semester: formData.sem,
       credits: parseInt(formData.credits),
-      faculty_id: formData.faculty_id ? parseInt(formData.faculty_id) : null
+      faculty_id: formData.faculty_id ? parseInt(formData.faculty_id) : null,
+      department: formData.department
     };
 
     if (editId) {
@@ -68,6 +71,29 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
     }
   };
 
+  const handleExport = (semSubjects: Subject[]) => {
+    exportToExcel(semSubjects, `Subjects_${semSubjects[0]?.semester || 'List'}`);
+  };
+
+  const handleImport = async (file: File) => {
+    try {
+      const importedData = await importFromExcel(file);
+      for (const item of importedData) {
+        onAddSubject({
+          subject_code: item.subject_code || item.code,
+          subject_name: item.subject_name || item.name,
+          semester: item.semester || item.sem || 'sem1',
+          credits: parseInt(item.credits) || 3,
+          department: item.department || item.dept || 'comp',
+          faculty_id: null
+        });
+      }
+    } catch (error) {
+      console.error("Import failed:", error);
+      alert("Failed to import Excel file.");
+    }
+  };
+
   const subjectColumns = [
     { header: 'Subject Name', key: 'subject_name', sortable: true },
     { header: 'Code', key: 'subject_code', sortable: true, align: 'right' as const },
@@ -76,6 +102,16 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
       key: 'faculty_id',
       sortable: true,
       render: (sub: Subject) => faculty.find(f => f.faculty_id === sub.faculty_id)?.faculty_name || 'Unassigned'
+    },
+    {
+      header: 'Dept',
+      key: 'department',
+      sortable: true,
+      render: (sub: Subject) => (
+        <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100/50">
+          {sub.department || 'COMP'}
+        </span>
+      )
     },
     { header: 'Credits', key: 'credits', sortable: true, align: 'right' as const },
     {
@@ -109,7 +145,6 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
 
   return (
     <div className="space-y-10">
-      {/* Top Header with Global Actions */}
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <div>
           <h3 className="text-xl font-black text-slate-800 tracking-tight">Academic Curriculum</h3>
@@ -156,10 +191,25 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
               </select>
             </div>
             <div className="space-y-1.5">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">Department</label>
+              <select
+                className="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indigo-400 focus:bg-white transition-all font-bold text-sm outline-none appearance-none cursor-pointer"
+                value={formData.department}
+                onChange={e => setFormData({ ...formData, department: e.target.value })}
+              >
+                <option value="comp">Computer</option>
+                <option value="mech">Mechanical</option>
+                <option value="ece">Electronics</option>
+              </select>
+            </div>
+            <div className="space-y-1.5">
               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">Faculty Incharge</label>
               <select className="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indigo-400 focus:bg-white transition-all font-bold text-sm outline-none appearance-none cursor-pointer" value={formData.faculty_id} onChange={e => setFormData({ ...formData, faculty_id: e.target.value })}>
                 <option value="">Vacant (Unassigned)</option>
-                {faculty.map(f => <option key={f.faculty_id} value={f.faculty_id}>{f.faculty_name}</option>)}
+                {faculty
+                  .filter(f => !formData.department || f.department?.toLowerCase() === formData.department.toLowerCase())
+                  .map(f => <option key={f.faculty_id} value={f.faculty_id}>{f.faculty_name}</option>)
+                }
               </select>
             </div>
           </div>
@@ -173,7 +223,6 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
         </div>
       )}
 
-      {/* Semester Grouped Tables */}
       <div className="space-y-8">
         {semesters.map(sem => {
           const semSubjects = subjects.filter(s => s.semester === sem);
@@ -185,8 +234,8 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
               title={sem.replace('sem', 'Semester ')}
               data={semSubjects}
               columns={subjectColumns as any}
-              onImport={() => { }}
-              onExport={() => { }}
+              onImport={handleImport}
+              onExport={() => handleExport(semSubjects)}
               searchPlaceholder={`Search within ${sem.replace('sem', 'Semester ')}...`}
             />
           );

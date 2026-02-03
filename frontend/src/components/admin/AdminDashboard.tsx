@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import { Student, Faculty, Subject, TimetableEntry, AttendanceRecord, AttendanceStatus } from '../types';
-import { ICONS } from '../constants.tsx';
-import { calculatePercentage } from '../services/attendanceService';
+import { Student, Faculty, Subject, TimetableEntry, AttendanceRecord, AttendanceStatus } from '../../types';
+import { ICONS } from '../../constants.tsx';
+import { calculatePercentage } from '../../services/attendanceService';
 import { Download, Upload, AlertCircle, Edit2, Trash2 } from 'lucide-react';
-import DataTable from './common/DataTable';
+import DataTable from '../common/DataTable';
 
 interface Props {
   students: Student[];

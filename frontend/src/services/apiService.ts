@@ -119,5 +119,30 @@ export const apiService = {
         } catch (e) {
             return { success: false };
         }
+    },
+
+    async getStudentSchedule(studId: number) {
+        const res = await fetch(`/api/schedule/student/${studId}`);
+        if (!res.ok) throw new Error("Failed to fetch student schedule");
+        return await res.json();
+    },
+
+    async getFacultySchedule(facultyId: number) {
+        const res = await fetch(`/api/schedule/faculty/${facultyId}`);
+        if (!res.ok) throw new Error("Failed to fetch faculty schedule");
+        return await res.json();
+    },
+
+    async updateSchedule(data: any) {
+        const res = await fetch('/api/schedule/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
+        if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.error || "Failed to update schedule");
+        }
+        return await res.json();
     }
 };

@@ -194,11 +194,10 @@ const AnnouncementSection: React.FC<Props> = ({
                                         className="w-full px-4 py-3 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold text-sm"
                                     >
                                         <option value="">All Departments</option>
-                                        <option value="CS">Computer Science</option>
-                                        <option value="IT">Information Technology</option>
+                                        <option value="Comp">Computer</option>
+                                        <option value="Mech">Mechanical</option>
                                         <option value="EC">Electronics</option>
-                                        <option value="ME">Mechanical</option>
-                                        <option value="CE">Civil</option>
+                                        <option value="IT">Information Technology</option>
                                     </select>
                                 </div>
                             )}

@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { Subject, Student, AttendanceRecord } from '../types';
-import { calculatePercentage } from '../services/attendanceService';
-import { ICONS } from '../constants';
-import DataTable from './common/DataTable';
+import { Subject, Student, AttendanceRecord } from '../../types';
+import { calculatePercentage } from '../../services/attendanceService';
+import { ICONS } from '../../constants';
+import DataTable from '../common/DataTable';
 
 interface Props {
   students: Student[];

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Subject, TimetableEntry } from '../types';
-import { ICONS, DAYS_OF_WEEK } from '../constants';
+import { Subject, TimetableEntry } from '../../types';
+import { ICONS, DAYS_OF_WEEK } from '../../constants';
 import { Download, Upload, Plus, Trash2, X } from 'lucide-react';
-import DataTable from './common/DataTable';
+import DataTable from '../common/DataTable';
 
 interface Props {
   subjects: Subject[];

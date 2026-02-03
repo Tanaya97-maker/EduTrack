@@ -81,6 +81,139 @@ app.all('/api', apiHandler);
 app.all('/index.php', apiHandler);
 app.all('/api/index.php', apiHandler);
 
+// --- New Schedule Endpoints ---
+
+app.get('/api/schedule/student/:stud_id', async (req, res) => {
+    const { stud_id } = req.params;
+    try {
+        const student = await prisma.student.findUnique({
+            where: { stud_id: safeInt(stud_id) }
+        });
+
+        if (!student) return res.status(404).json({ error: 'Student not found' });
+
+        const schedule = await prisma.timetable.findMany({
+            include: {
+                Subject: {
+                    include: {
+                        Faculty: true
+                    }
+                }
+            },
+            where: {
+                Subject: {
+                    enrollments: {
+                        some: { stud_id: safeInt(stud_id) }
+                    }
+                }
+            }
+        });
+
+        const filteredSchedule = schedule.filter(item => {
+            const facultyDept = item.Subject?.Faculty?.department;
+            if (facultyDept === 'Mech') {
+                return true;
+            }
+            if (facultyDept === 'Comp') {
+                return item.Subject.semester === student.semester;
+            }
+            return true;
+        });
+
+        const holidays = await prisma.holiday.findMany();
+        const finalSchedule = filteredSchedule.map(item => {
+            return {
+                ...item,
+                is_holiday: item.day_of_week === 7
+            };
+        });
+
+        res.json(finalSchedule);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
+app.get('/api/schedule/faculty/:faculty_id', async (req, res) => {
+    const { faculty_id } = req.params;
+    try {
+        const faculty = await prisma.faculty.findUnique({
+            where: { faculty_id: safeInt(faculty_id) }
+        });
+
+        if (!faculty) return res.status(404).json({ error: 'Faculty not found' });
+
+        const schedule = await prisma.timetable.findMany({
+            include: {
+                Subject: true
+            },
+            where: {
+                Subject: {
+                    faculty_id: safeInt(faculty_id)
+                }
+            }
+        });
+
+        const mappedSchedule = schedule.map(item => ({
+            ...item,
+            display_info: `${item.Subject.subject_code}(${item.Subject.semester || ''}, ${item.room_no || ''})`
+        }));
+
+        res.json(mappedSchedule);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
+app.post('/api/schedule/update', async (req, res) => {
+    const { timetable_id, subject_id, day_of_week, start_time, end_time, room_no, faculty_user_id } = req.body;
+
+    try {
+        const faculty = await prisma.faculty.findFirst({
+            where: { user_id: safeInt(faculty_user_id) }
+        });
+
+        if (!faculty) return res.status(403).json({ error: 'Unauthorized: Not a faculty' });
+
+        const subject = await prisma.subject.findUnique({
+            where: { subject_id: safeInt(subject_id) }
+        });
+
+        if (!subject) return res.status(404).json({ error: 'Subject not found' });
+
+        if (subject.faculty_id === faculty.faculty_id) {
+            return res.status(403).json({ error: 'Permission denied: Cannot edit own timetable entry' });
+        }
+
+        if (timetable_id) {
+            const updated = await prisma.timetable.update({
+                where: { timetable_id: safeInt(timetable_id) },
+                data: {
+                    subject_id: safeInt(subject_id),
+                    day_of_week: safeInt(day_of_week),
+                    start_time: start_time ? new Date(`1970-01-01T${start_time}`) : undefined,
+                    end_time: end_time ? new Date(`1970-01-01T${end_time}`) : undefined,
+                    room_no
+                }
+            });
+            res.json(updated);
+        } else {
+            const created = await prisma.timetable.create({
+                data: {
+                    subject_id: safeInt(subject_id),
+                    day_of_week: safeInt(day_of_week),
+                    start_time: start_time ? new Date(`1970-01-01T${start_time}`) : undefined,
+                    end_time: end_time ? new Date(`1970-01-01T${end_time}`) : undefined,
+                    room_no
+                }
+            });
+            res.json(created);
+        }
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
 async function handleLogin(input, res) {
     const { email, password } = input;
     const user = await prisma.user.findFirst({
@@ -114,15 +247,30 @@ async function handleManageUser(input, res) {
                 roll_no: data.roll_no,
                 stud_name: data.stud_name,
                 email: data.email,
-                semester: data.semester || 'sem1'
+                semester: data.semester || 'sem1',
+                department: data.department || null
             }
         });
-        if (data.subject_ids && Array.isArray(data.subject_ids)) {
-            for (const subject_id of data.subject_ids) {
-                await prisma.enrollment.create({
-                    data: { stud_id: student.stud_id, subject_id: safeInt(subject_id) }
-                });
+        const semesterSubjects = await prisma.subject.findMany({
+            where: {
+                semester: student.semester,
+                department: student.department || undefined
             }
+        });
+        for (const sub of semesterSubjects) {
+            await prisma.enrollment.upsert({
+                where: {
+                    stud_id_subject_id: {
+                        stud_id: student.stud_id,
+                        subject_id: sub.subject_id
+                    }
+                },
+                update: {},
+                create: {
+                    stud_id: student.stud_id,
+                    subject_id: sub.subject_id
+                }
+            });
         }
         success = true;
     } else if (op === 'add_faculty') {
@@ -152,27 +300,41 @@ async function handleManageUser(input, res) {
         }
         success = true;
     } else if (op === 'edit_student') {
-        await prisma.student.update({
-            where: { stud_id: safeInt(data.stud_id) },
+        const studentId = safeInt(data.stud_id);
+        const updatedStudent = await prisma.student.update({
+            where: { stud_id: studentId },
             data: {
                 stud_name: data.stud_name,
                 email: data.email,
                 roll_no: data.roll_no,
-                semester: data.semester
+                semester: data.semester,
+                department: data.department || null
             }
         });
-        const student = await prisma.student.findUnique({ where: { stud_id: safeInt(data.stud_id) } });
         await prisma.user.update({
-            where: { user_id: student.user_id },
+            where: { user_id: updatedStudent.user_id },
             data: { email: data.email }
         });
-        if (data.subject_ids && Array.isArray(data.subject_ids)) {
-            await prisma.enrollment.deleteMany({ where: { stud_id: safeInt(data.stud_id) } });
-            for (const subject_id of data.subject_ids) {
-                await prisma.enrollment.create({
-                    data: { stud_id: safeInt(data.stud_id), subject_id: safeInt(subject_id) }
-                });
+        const semesterSubjects = await prisma.subject.findMany({
+            where: {
+                semester: updatedStudent.semester,
+                department: updatedStudent.department || undefined
             }
+        });
+        for (const sub of semesterSubjects) {
+            await prisma.enrollment.upsert({
+                where: {
+                    stud_id_subject_id: {
+                        stud_id: studentId,
+                        subject_id: sub.subject_id
+                    }
+                },
+                update: {},
+                create: {
+                    stud_id: studentId,
+                    subject_id: sub.subject_id
+                }
+            });
         }
         success = true;
     } else if (op === 'edit_faculty') {
@@ -230,7 +392,8 @@ async function handleManageSubject(input, res) {
             subject_name: data.subject_name,
             semester: data.semester,
             credits: parseInt(data.credits),
-            faculty_id: data.faculty_id ? parseInt(data.faculty_id) : null
+            faculty_id: data.faculty_id ? parseInt(data.faculty_id) : null,
+            department: data.department || null
         };
 
         await prisma.subject.create({ data: createData });
@@ -243,7 +406,8 @@ async function handleManageSubject(input, res) {
                 subject_name: data.subject_name,
                 semester: data.semester,
                 credits: parseInt(data.credits),
-                faculty_id: data.faculty_id ? parseInt(data.faculty_id) : null
+                faculty_id: data.faculty_id ? parseInt(data.faculty_id) : null,
+                department: data.department || null
             }
         });
         success = true;
@@ -412,6 +576,24 @@ async function handleGetAll(query, res) {
 
 async function handleAttendance(input, res) {
     const { stud_id, subject_id, faculty_id, attendance_date, status } = input;
+
+    // Security Check: Verify faculty teaches the subject
+    const subject = await prisma.subject.findFirst({
+        where: {
+            subject_id: safeInt(subject_id),
+            faculty_id: safeInt(faculty_id)
+        }
+    });
+    if (!subject) return res.status(403).json({ error: 'Permission denied: This faculty does not teach this subject' });
+
+    // Security Check: Verify student is enrolled in the subject
+    const enrollment = await prisma.enrollment.findFirst({
+        where: {
+            stud_id: safeInt(stud_id),
+            subject_id: safeInt(subject_id)
+        }
+    });
+    if (!enrollment) return res.status(400).json({ error: 'Student is not enrolled in this subject' });
 
     // UPSERT logic for attendance
     try {

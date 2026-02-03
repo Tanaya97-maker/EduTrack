@@ -8,19 +8,6 @@ import type {
     TimetableEntry
 } from './types';
 import { UserType } from './types';
-import {
-    MOCK_USERS,
-    MOCK_STUDENTS,
-    MOCK_FACULTY,
-    MOCK_SUBJECTS,
-    MOCK_ENROLLMENTS,
-    MOCK_ATTENDANCE,
-    MOCK_TIMETABLE,
-    MOCK_FACULTY_ATTENDANCE,
-    MOCK_FACULTY_ANNOUNCEMENTS,
-    MOCK_FACULTY_NOTES,
-    MOCK_FACULTY_LEAVES
-} from './mockData';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import { ICONS } from './constants';
@@ -34,7 +21,6 @@ const App: React.FC = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [isDemoMode, setIsDemoMode] = useState(false);
 
     // Live Backend State
     const [students, setStudents] = useState<Student[]>([]);
@@ -52,11 +38,6 @@ const App: React.FC = () => {
 
     // Fetch data on mount or user login
     const fetchData = async () => {
-        if (isDemoMode) {
-            loadMockData();
-            return;
-        }
-
         setIsLoading(true);
         try {
             const data = await apiService.getAllData(user?.user_id, user?.user_type);
@@ -66,7 +47,17 @@ const App: React.FC = () => {
                 setSubjects(data.subjects || []);
                 setEnrollments(data.enrollments || []);
                 setAttendanceRecords(data.attendance || []);
-                setTimetable(data.timetable || []);
+
+                // Fetch specialized schedule
+                if (user?.user_type === 'student' && (data.students?.[0]?.stud_id)) {
+                    const sched = await apiService.getStudentSchedule(data.students[0].stud_id);
+                    setTimetable(sched || []);
+                } else if (user?.user_type === 'faculty' && (data.faculty?.[0]?.faculty_id)) {
+                    const sched = await apiService.getFacultySchedule(data.faculty[0].faculty_id);
+                    setTimetable(sched || []);
+                } else {
+                    setTimetable(data.timetable || []);
+                }
                 setAnnouncements(data.announcements || []);
                 setNotes(data.notes || []);
                 setLeaves(data.leaves || []);
@@ -83,26 +74,13 @@ const App: React.FC = () => {
                 throw new Error(data?.error || "Empty data");
             }
         } catch (err) {
-            console.warn("API unavailable, falling back to Mock Data.");
-            loadMockData();
-            setIsDemoMode(true);
+            console.error("API Error:", err);
+            setError("Failed to fetch data from server.");
         } finally {
             setIsLoading(false);
         }
     };
 
-    const loadMockData = () => {
-        setStudents(MOCK_STUDENTS);
-        setFaculty(MOCK_FACULTY);
-        setSubjects(MOCK_SUBJECTS);
-        setEnrollments(MOCK_ENROLLMENTS);
-        setAttendanceRecords(MOCK_ATTENDANCE);
-        setTimetable(MOCK_TIMETABLE);
-        setFacultyAttendance(MOCK_FACULTY_ATTENDANCE);
-        setAnnouncements(MOCK_FACULTY_ANNOUNCEMENTS);
-        setNotes(MOCK_FACULTY_NOTES);
-        setLeaves(MOCK_FACULTY_LEAVES);
-    };
 
     useEffect(() => {
         if (user) {
@@ -120,29 +98,12 @@ const App: React.FC = () => {
 
             if (loggedInUser && !loggedInUser.error) {
                 setUser(loggedInUser);
-                setIsDemoMode(false);
                 setError('');
             } else {
-                const mockMatch = MOCK_USERS.find(u => u.email === email && u.password_hash === password);
-                if (mockMatch) {
-                    setUser(mockMatch);
-                    setIsDemoMode(true);
-                    console.info("Logged in via Demo Mode (Mock Data)");
-                    setError('');
-                } else {
-                    setError(loggedInUser?.error || 'Invalid credentials.');
-                }
+                setError(loggedInUser?.error || 'Invalid credentials.');
             }
         } catch (err) {
-            const mockMatch = MOCK_USERS.find(u => u.email === email && (u.password_hash === password || password === '123'));
-            if (mockMatch) {
-                setUser(mockMatch);
-                setIsDemoMode(true);
-                console.warn("Backend connection failed. Entered Demo Mode.");
-                setError('');
-            } else {
-                setError('Backend connection failed. Please ensure the PHP server is running and database is configured.');
-            }
+            setError('Backend connection failed. Please ensure the server is running.');
         } finally {
             setIsLoading(false);
         }
@@ -152,69 +113,62 @@ const App: React.FC = () => {
 
     // Student
     const handleAddStudent = async (s: any) => {
-        if (!isDemoMode) await apiService.manageUser('add_student', s);
+        await apiService.manageUser('add_student', s);
         fetchData();
     };
     const handleEditStudent = async (s: any) => {
-        if (!isDemoMode) await apiService.manageUser('edit_student', s);
+        await apiService.manageUser('edit_student', s);
         fetchData();
     };
     const handleDeleteStudent = async (id: number) => {
-        if (!isDemoMode) await apiService.manageUser('delete_student', { stud_id: id });
+        await apiService.manageUser('delete_student', { stud_id: id });
         fetchData();
     };
 
     // Faculty
     const handleAddFaculty = async (f: any) => {
-        if (!isDemoMode) await apiService.manageUser('add_faculty', f);
+        await apiService.manageUser('add_faculty', f);
         fetchData();
     };
     const handleEditFaculty = async (f: any) => {
-        if (!isDemoMode) await apiService.manageUser('edit_faculty', f);
+        await apiService.manageUser('edit_faculty', f);
         fetchData();
     };
     const handleDeleteFaculty = async (id: number) => {
-        if (!isDemoMode) await apiService.manageUser('delete_faculty', { faculty_id: id });
+        await apiService.manageUser('delete_faculty', { faculty_id: id });
         fetchData();
     };
 
     // Subject
     const handleAddSubject = async (s: any) => {
-        if (!isDemoMode) await apiService.manageSubject('add_subject', s);
+        await apiService.manageSubject('add_subject', s);
         fetchData();
     };
     const handleEditSubject = async (s: any) => {
-        if (!isDemoMode) await apiService.manageSubject('edit_subject', s);
+        await apiService.manageSubject('edit_subject', s);
         fetchData();
     };
     const handleDeleteSubject = async (id: number) => {
-        if (!isDemoMode) await apiService.manageSubject('delete_subject', { subject_id: id });
+        await apiService.manageSubject('delete_subject', { subject_id: id });
         fetchData();
     };
 
     const handleAddTimetable = async (t: any) => {
-        if (!isDemoMode) await apiService.manageSubject('add_timetable', t);
-        else {
-            setTimetable(prev => [...prev, { ...t, timetable_id: Math.max(0, ...prev.map(st => st.timetable_id)) + 1 }]);
-        }
+        await apiService.manageSubject('add_timetable', t);
         fetchData();
     };
 
     const handleRemoveTimetable = async (id: number) => {
-        if (!isDemoMode) await apiService.manageSubject('remove_timetable', { id });
-        else {
-            setTimetable(prev => prev.filter(t => t.timetable_id !== id));
-        }
+        await apiService.manageSubject('remove_timetable', { id });
         fetchData();
     };
 
     const handleAssignFaculty = async (subject_id: number, faculty_id: number) => {
-        if (!isDemoMode) await apiService.manageSubject('edit_subject', { subject_id, faculty_id });
+        await apiService.manageSubject('edit_subject', { subject_id, faculty_id });
         fetchData();
     };
 
     const handleCheckIn = async (facultyId: number) => {
-        // Use local date to avoid timezone shift issues
         const now = new Date();
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -222,23 +176,11 @@ const App: React.FC = () => {
         const today = `${year}-${month}-${day}`;
         const time = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
-        if (!isDemoMode) {
-            await apiService.manageFacultyAttendance('check_in', { faculty_id: facultyId, date: today, time });
-        } else {
-            const newRecord = {
-                faculty_attendance_id: Date.now(),
-                faculty_id: facultyId,
-                attendance_date: today,
-                check_in_time: time,
-                status: 'present'
-            };
-            setFacultyAttendance(prev => [...prev, newRecord]);
-        }
+        await apiService.manageFacultyAttendance('check_in', { faculty_id: facultyId, date: today, time });
         fetchData();
     };
 
     const handleCheckOut = async (facultyId: number) => {
-        // Use local date to avoid timezone shift issues
         const now = new Date();
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -246,72 +188,49 @@ const App: React.FC = () => {
         const today = `${year}-${month}-${day}`;
         const time = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
-        if (!isDemoMode) {
-            await apiService.manageFacultyAttendance('check_out', { faculty_id: facultyId, date: today, time });
-        } else {
-            setFacultyAttendance(prev => prev.map(rec =>
-                rec.faculty_id === facultyId && rec.attendance_date.startsWith(today)
-                    ? { ...rec, check_out_time: time }
-                    : rec
-            ));
-        }
+        await apiService.manageFacultyAttendance('check_out', { faculty_id: facultyId, date: today, time });
         fetchData();
     };
 
     const handleApplyLeave = async (facultyId: number, reason: string) => {
-        if (!isDemoMode) {
-            await apiService.manageLeave('apply_leave', {
-                faculty_id: facultyId,
-                leave_date: new Date().toISOString().split('T')[0],
-                reason: reason
-            });
-        } else {
-            const newLeave = {
-                leave_id: Date.now(),
-                faculty_id: facultyId,
-                leave_date: new Date().toISOString().split('T')[0],
-                reason: reason,
-                status: 'pending'
-            };
-            setLeaves(prev => [...prev, newLeave]);
-        }
+        await apiService.manageLeave('apply_leave', {
+            faculty_id: facultyId,
+            leave_date: new Date().toISOString().split('T')[0],
+            reason: reason
+        });
         fetchData();
     };
 
     const handleUpdateLeaveStatus = async (leaveId: number, status: 'approved' | 'rejected') => {
-        if (!isDemoMode) {
-            await apiService.manageLeave('update_status', { leave_id: leaveId, status });
-        } else {
-            setLeaves(prev => prev.map(l => l.leave_id === leaveId ? { ...l, status } : l));
-        }
+        await apiService.manageLeave('update_status', { leave_id: leaveId, status });
         fetchData();
     };
 
     // Announcements
     const handleAddAnnouncement = async (a: any) => {
-        if (!isDemoMode) await apiService.manageAnnouncement('add_announcement', a);
+        await apiService.manageAnnouncement('add_announcement', a);
         fetchData();
     };
     const handleEditAnnouncement = async (a: any) => {
-        if (!isDemoMode) await apiService.manageAnnouncement('edit_announcement', a);
+        await apiService.manageAnnouncement('edit_announcement', a);
         fetchData();
     };
     const handleDeleteAnnouncement = async (id: number) => {
-        if (!isDemoMode) await apiService.manageAnnouncement('delete_announcement', { announcement_id: id });
+        await apiService.manageAnnouncement('delete_announcement', { announcement_id: id });
         fetchData();
     };
 
     // Notes
     const handleAddNote = async (n: any) => {
-        if (!isDemoMode) await apiService.manageNote('add_note', n);
+        await apiService.manageNote('add_note', n);
         fetchData();
     };
     const handleEditNote = async (n: any) => {
-        if (!isDemoMode) await apiService.manageNote('edit_note', n);
+        await apiService.manageNote('edit_note', n);
         fetchData();
     };
     const handleDeleteNote = async (id: number) => {
-        if (!isDemoMode) await apiService.manageNote('delete_note', { note_id: id });
+        await apiService.manageNote('delete_note', { note_id: id });
         fetchData();
     };
 
@@ -367,12 +286,6 @@ const App: React.FC = () => {
                     />
 
                     <main className="flex-1 p-8 lg:p-12 max-w-7xl mx-auto w-full">
-                        {isDemoMode && (
-                            <div className="bg-amber-50 border border-amber-100 text-amber-700 text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl mb-6 flex justify-between items-center shadow-sm">
-                                <span>Running in Offline/Demo Mode (Backend Unavailable)</span>
-                                <button onClick={() => setIsDemoMode(false)} className="underline">Retry Live Sync</button>
-                            </div>
-                        )}
 
                         <AppRoutes
                             user={user}

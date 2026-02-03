@@ -26,6 +26,7 @@ export interface Student {
   stud_name: string;
   email: string;
   semester: string; // sem1 to sem8
+  department?: string;
 }
 
 export interface Faculty {
@@ -81,6 +82,7 @@ export interface Subject {
   subject_name: string;
   faculty_id: number | null;
   semester: string; // Changed to string sem1-sem8
+  department?: string;
   credits: number;
   progress?: number;
   enrollment_count?: number; // Calculated field
@@ -102,7 +104,16 @@ export interface TimetableEntry {
   start_time: string;
   end_time: string;
   room_no: string | null;
-  semester?: number;
+  semester?: string;
+  display_info?: string;
+  is_holiday?: boolean;
+}
+
+export interface Holiday {
+  holiday_id: number;
+  holiday_name: string;
+  holiday_date: string;
+  year: number;
 }
 
 export type AdminTab = 'dashboard' | 'schedule' | 'user-management' | 'subject-management' | 'reports';

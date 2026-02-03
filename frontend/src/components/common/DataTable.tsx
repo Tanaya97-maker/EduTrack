@@ -1,5 +1,4 @@
-
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import { Search, Download, Upload, ChevronUp, ChevronDown } from 'lucide-react';
 
 interface Column<T> {
@@ -14,7 +13,7 @@ interface DataTableProps<T> {
     title: string;
     data: T[];
     columns: Column<T>[];
-    onImport?: () => void;
+    onImport?: (file: File) => void;
     onExport?: () => void;
     searchPlaceholder?: string;
 }
@@ -29,6 +28,7 @@ const DataTable = <T extends Record<string, any>>({
 }: DataTableProps<T>) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' } | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleSort = (key: string) => {
         let direction: 'asc' | 'desc' = 'asc';
@@ -36,6 +36,19 @@ const DataTable = <T extends Record<string, any>>({
             direction = 'desc';
         }
         setSortConfig({ key, direction });
+    };
+
+    const handleImportClick = () => {
+        fileInputRef.current?.click();
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file && onImport) {
+            onImport(file);
+        }
+        // Reset the value so the same file can be imported again if needed
+        e.target.value = '';
     };
 
     const filteredAndSortedData = useMemo(() => {
@@ -88,12 +101,21 @@ const DataTable = <T extends Record<string, any>>({
 
                     <div className="flex items-center gap-2">
                         {onImport && (
-                            <button
-                                onClick={onImport}
-                                className="flex items-center gap-2 px-3 py-2 text-slate-600 border border-slate-200 rounded-lg text-xs font-bold hover:bg-slate-50 hover:text-slate-900 transition-all"
-                            >
-                                <Download className="w-3.5 h-3.5" /> Import
-                            </button>
+                            <>
+                                <input
+                                    type="file"
+                                    ref={fileInputRef}
+                                    className="hidden"
+                                    accept=".xlsx, .xls"
+                                    onChange={handleFileChange}
+                                />
+                                <button
+                                    onClick={handleImportClick}
+                                    className="flex items-center gap-2 px-3 py-2 text-slate-600 border border-slate-200 rounded-lg text-xs font-bold hover:bg-slate-50 hover:text-slate-900 transition-all"
+                                >
+                                    <Download className="w-3.5 h-3.5" /> Import
+                                </button>
+                            </>
                         )}
                         {onExport && (
                             <button

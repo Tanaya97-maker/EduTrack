@@ -1,11 +1,11 @@
 
 import React from 'react';
-import { Faculty, Subject, Student, AttendanceRecord, TimetableEntry } from '../types';
+import { Faculty, Subject, Student, AttendanceRecord, TimetableEntry } from '../../types';
 import { PieChart, Clock, Calendar as CalendarIcon } from 'lucide-react';
-import AttendanceSummary from './faculty/AttendanceSummary';
-import AnnouncementSection from './faculty/AnnouncementSection';
-import FacultyNotes from './faculty/FacultyNotes';
-import DataTable from './common/DataTable';
+import AttendanceSummary from './AttendanceSummary';
+import AnnouncementSection from './AnnouncementSection';
+import FacultyNotes from './FacultyNotes';
+import DataTable from '../common/DataTable';
 
 interface Props {
   faculty: Faculty;
