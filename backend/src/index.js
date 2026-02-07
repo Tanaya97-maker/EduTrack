@@ -12,14 +12,18 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 
 // Load API_KEY from frontend config
-let API_KEY = process.env.API_KEY;
+let API_KEY = process.env.API_KEY || 'Pass@123';
 try {
     const configPath = path.resolve(__dirname, '../../frontend/public/config.json');
     if (fs.existsSync(configPath)) {
-        const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+        const configData = fs.readFileSync(configPath, 'utf8');
+        const config = JSON.parse(configData);
         if (config.API_KEY) {
             API_KEY = config.API_KEY;
+            console.log('API_KEY loaded from config.json:', API_KEY);
         }
+    } else {
+        console.warn('config.json not found at:', configPath, 'using default API_KEY');
     }
 } catch (err) {
     console.error('Error loading config.json:', err.message);
