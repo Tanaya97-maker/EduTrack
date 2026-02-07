@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Faculty, Subject, Student, AttendanceRecord, TimetableEntry } from '../../types';
+import { Faculty, Subject, Student, AttendanceRecord, TimetableEntry, Department, FacultySubject } from '../../types';
 import { PieChart, Clock, Calendar as CalendarIcon } from 'lucide-react';
 import AttendanceSummary from './AttendanceSummary';
 import AnnouncementSection from './AnnouncementSection';
@@ -28,6 +28,8 @@ interface Props {
   onCheckIn?: () => void;
   onCheckOut?: () => void;
   onApplyLeave?: (reason: string) => void;
+  departments: Department[];
+  facultySubjects: FacultySubject[];
 }
 
 const FacultyDashboard: React.FC<Props> = ({
@@ -50,7 +52,9 @@ const FacultyDashboard: React.FC<Props> = ({
   onDeleteAnnouncement,
   onCheckIn,
   onCheckOut,
-  onApplyLeave
+  onApplyLeave,
+  departments,
+  facultySubjects
 }) => {
   const demoFacultyAttendance = facultyAttendance || [];
   const demoLeaves = leaves || [];
@@ -189,6 +193,8 @@ const FacultyDashboard: React.FC<Props> = ({
         announcements={announcements || []}
         onPostAnnouncement={onAddAnnouncement || (async () => { })}
         onDeleteAnnouncement={onDeleteAnnouncement || (async () => { })}
+        departments={departments}
+        facultySubjects={facultySubjects}
       />
 
       <FacultyNotes

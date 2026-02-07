@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from './generated/client/index.js';
 
 dotenv.config();
 
@@ -248,13 +248,13 @@ async function handleManageUser(input, res) {
                 stud_name: data.stud_name,
                 email: data.email,
                 semester: data.semester || 'sem1',
-                department: data.department || null
+                dept_id: safeInt(data.dept_id)
             }
         });
         const semesterSubjects = await prisma.subject.findMany({
             where: {
                 semester: student.semester,
-                department: student.department || undefined
+                dept_id: student.dept_id || undefined
             }
         });
         for (const sub of semesterSubjects) {
@@ -287,14 +287,16 @@ async function handleManageUser(input, res) {
                 user_id: user.user_id,
                 faculty_name: data.faculty_name,
                 email: data.email,
-                department: data.department || null
+                dept_id: safeInt(data.dept_id)
             }
         });
         if (data.subject_ids && Array.isArray(data.subject_ids)) {
             for (const subject_id of data.subject_ids) {
-                await prisma.subject.update({
-                    where: { subject_id: safeInt(subject_id) },
-                    data: { faculty_id: faculty.faculty_id }
+                await prisma.facultySubject.create({
+                    data: {
+                        faculty_id: faculty.faculty_id,
+                        subject_id: safeInt(subject_id)
+                    }
                 });
             }
         }
@@ -308,7 +310,7 @@ async function handleManageUser(input, res) {
                 email: data.email,
                 roll_no: data.roll_no,
                 semester: data.semester,
-                department: data.department || null
+                dept_id: safeInt(data.dept_id)
             }
         });
         await prisma.user.update({
@@ -318,7 +320,7 @@ async function handleManageUser(input, res) {
         const semesterSubjects = await prisma.subject.findMany({
             where: {
                 semester: updatedStudent.semester,
-                department: updatedStudent.department || undefined
+                dept_id: updatedStudent.dept_id || undefined
             }
         });
         for (const sub of semesterSubjects) {
@@ -343,7 +345,7 @@ async function handleManageUser(input, res) {
             data: {
                 faculty_name: data.faculty_name,
                 email: data.email,
-                department: data.department || null
+                dept_id: safeInt(data.dept_id)
             }
         });
         const faculty = await prisma.faculty.findUnique({ where: { faculty_id: safeInt(data.faculty_id) } });
@@ -352,14 +354,15 @@ async function handleManageUser(input, res) {
             data: { email: data.email }
         });
         if (data.subject_ids && Array.isArray(data.subject_ids)) {
-            await prisma.subject.updateMany({
-                where: { faculty_id: safeInt(data.faculty_id) },
-                data: { faculty_id: null }
+            await prisma.facultySubject.deleteMany({
+                where: { faculty_id: safeInt(data.faculty_id) }
             });
             for (const subject_id of data.subject_ids) {
-                await prisma.subject.update({
-                    where: { subject_id: safeInt(subject_id) },
-                    data: { faculty_id: safeInt(data.faculty_id) }
+                await prisma.facultySubject.create({
+                    data: {
+                        faculty_id: safeInt(data.faculty_id),
+                        subject_id: safeInt(subject_id)
+                    }
                 });
             }
         }
@@ -386,14 +389,12 @@ async function handleManageSubject(input, res) {
     let success = false;
 
     if (op === 'add_subject') {
-        // Don't include subject_id - let database auto-generate it
         const createData = {
             subject_code: data.subject_code,
             subject_name: data.subject_name,
             semester: data.semester,
             credits: parseInt(data.credits),
-            faculty_id: data.faculty_id ? parseInt(data.faculty_id) : null,
-            department: data.department || null
+            dept_id: safeInt(data.dept_id)
         };
 
         await prisma.subject.create({ data: createData });
@@ -406,8 +407,7 @@ async function handleManageSubject(input, res) {
                 subject_name: data.subject_name,
                 semester: data.semester,
                 credits: parseInt(data.credits),
-                faculty_id: data.faculty_id ? parseInt(data.faculty_id) : null,
-                department: data.department || null
+                dept_id: safeInt(data.dept_id)
             }
         });
         success = true;
@@ -450,6 +450,7 @@ async function handleGetAll(query, res) {
                     }
                 }
             }),
+            departments: await prisma.department.findMany(),
             enrollments: await prisma.enrollment.findMany(),
             attendance: await prisma.attendance.findMany(),
             timetable: await prisma.timetable.findMany(),

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { User, UserType, Student, Faculty, Subject, AttendanceRecord, TimetableEntry } from './types';
+import { User, UserType, Student, Faculty, Subject, AttendanceRecord, TimetableEntry, Department, FacultySubject } from './types';
 import AdminDashboard from './components/admin/AdminDashboard';
 import AdminSchedule from './components/admin/AdminSchedule';
 import UserManagement from './components/admin/UserManagement';
@@ -18,6 +18,8 @@ interface AppRoutesProps {
     students: Student[];
     faculty: Faculty[];
     subjects: Subject[];
+    departments: Department[];
+    facultySubjects: FacultySubject[];
     enrollments: any[];
     attendance: AttendanceRecord[];
     timetable: TimetableEntry[];
@@ -65,6 +67,7 @@ const AppRoutes: React.FC<AppRoutesProps> = (props) => {
                         students={props.students}
                         faculty={props.faculty}
                         subjects={props.subjects}
+                        departments={props.departments}
                         enrollments={props.enrollments}
                         attendance={props.attendance}
                         leaves={props.leaves || []}
@@ -98,6 +101,8 @@ const AppRoutes: React.FC<AppRoutesProps> = (props) => {
                         onDeleteStudent={props.handleDeleteStudent}
                         onDeleteFaculty={props.handleDeleteFaculty}
                         onEnrollStudent={props.onEnrollStudent}
+                        departments={props.departments}
+                        facultySubjects={props.facultySubjects}
                     />
                 } />
                 <Route path="/subject-management" element={
@@ -109,6 +114,7 @@ const AppRoutes: React.FC<AppRoutesProps> = (props) => {
                         onEditSubject={props.handleEditSubject}
                         onDeleteSubject={props.handleDeleteSubject}
                         onAssignFaculty={props.handleAssignFaculty}
+                        departments={props.departments}
                     />
                 } />
                 <Route path="/reports" element={
@@ -131,8 +137,8 @@ const AppRoutes: React.FC<AppRoutesProps> = (props) => {
 
         const filteredAnnouncements = (props.announcements || []).filter(a => {
             if (a.faculty_id === facultyData.faculty_id) return true;
-            if (a.target === 'faculty') {
-                return !a.department || a.department === facultyData.department;
+            if (a.target_type === 'faculty') {
+                return !a.dept_id || a.dept_id === facultyData.dept_id;
             }
             return false;
         });
@@ -143,12 +149,14 @@ const AppRoutes: React.FC<AppRoutesProps> = (props) => {
                     <FacultyDashboard
                         faculty={facultyData}
                         subjects={props.subjects}
+                        facultySubjects={props.facultySubjects}
                         students={props.students}
                         enrollments={props.enrollments}
                         attendance={props.attendance}
                         timetable={props.timetable}
                         announcements={filteredAnnouncements}
                         notes={props.notes || []}
+                        departments={props.departments}
                         leaves={props.leaves || []}
                         facultyAttendance={props.facultyAttendance || []}
                         facultyStats={props.facultyStats}
@@ -189,6 +197,8 @@ const AppRoutes: React.FC<AppRoutesProps> = (props) => {
                         title={`${facultyData.faculty_name}'s Teaching Schedule`}
                         schedule={props.timetable}
                         isHoliday={(day) => day === 7} // Sunday is holiday
+                        departments={props.departments}
+                        subjects={props.subjects}
                     />
                 } />
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />
@@ -217,6 +227,8 @@ const AppRoutes: React.FC<AppRoutesProps> = (props) => {
                         title={`${studentData.semester?.toUpperCase()} Academic Schedule`}
                         schedule={props.timetable}
                         isHoliday={(day) => day === 7}
+                        departments={props.departments}
+                        subjects={props.subjects}
                     />
                 } />
                 <Route path="*" element={<Navigate to="/" replace />} />

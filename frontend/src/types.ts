@@ -19,6 +19,11 @@ export interface User {
   avatar?: string;
 }
 
+export interface Department {
+  dept_id: number;
+  dept_name: string;
+}
+
 export interface Student {
   stud_id: number;
   user_id: number;
@@ -26,7 +31,7 @@ export interface Student {
   stud_name: string;
   email: string;
   semester: string; // sem1 to sem8
-  department?: string;
+  dept_id?: number;
 }
 
 export interface Faculty {
@@ -34,7 +39,7 @@ export interface Faculty {
   user_id: number;
   faculty_name: string;
   email: string;
-  department?: 'comp' | 'mech' | 'ece';
+  dept_id?: number;
 }
 
 export interface FacultyAttendance {
@@ -70,7 +75,7 @@ export interface FacultyAnnouncement {
   target_type: 'student' | 'faculty';
   semester?: string;
   subject_id?: number;
-  department?: 'comp' | 'mech' | 'ece';
+  dept_id?: number;
   title: string;
   message: string;
   created_at: string;
@@ -82,7 +87,7 @@ export interface Subject {
   subject_name: string;
   faculty_id: number | null;
   semester: string; // Changed to string sem1-sem8
-  department?: string;
+  dept_id?: number;
   credits: number;
   progress?: number;
   enrollment_count?: number; // Calculated field
@@ -107,6 +112,16 @@ export interface TimetableEntry {
   semester?: string;
   display_info?: string;
   is_holiday?: boolean;
+}
+
+export interface Department {
+  dept_id: number;
+  dept_name: string;
+}
+
+export interface FacultySubject {
+  faculty_id: number;
+  subject_id: number;
 }
 
 export interface Holiday {

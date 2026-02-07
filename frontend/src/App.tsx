@@ -5,7 +5,9 @@ import type {
     Faculty,
     Subject,
     AttendanceRecord,
-    TimetableEntry
+    TimetableEntry,
+    Department,
+    FacultySubject
 } from './types';
 import { UserType } from './types';
 import Sidebar from './components/Sidebar';
@@ -35,6 +37,8 @@ const App: React.FC = () => {
     const [leaves, setLeaves] = useState<any[]>([]);
     const [stats, setStats] = useState<any>({ total_users: 0, total_courses: 0 });
     const [facultyStats, setFacultyStats] = useState<any>({});
+    const [departments, setDepartments] = useState<Department[]>([]);
+    const [facultySubjects, setFacultySubjects] = useState<FacultySubject[]>([]);
 
     // Fetch data on mount or user login
     const fetchData = async () => {
@@ -62,6 +66,8 @@ const App: React.FC = () => {
                 setNotes(data.notes || []);
                 setLeaves(data.leaves || []);
                 setFacultyAttendance(data.facultyAttendance || []);
+                setDepartments(data.departments || []);
+                setFacultySubjects(data.facultySubjects || []);
                 if (user?.user_type === 'faculty') {
                     setFacultyStats({ attendancePercentage: data.attendancePercentage });
                 }
@@ -292,6 +298,8 @@ const App: React.FC = () => {
                             students={students}
                             faculty={faculty}
                             subjects={subjects}
+                            departments={departments}
+                            facultySubjects={facultySubjects}
                             enrollments={enrollments}
                             attendance={attendanceRecords}
                             timetable={timetable}

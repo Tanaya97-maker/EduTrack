@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Subject, Faculty, Student } from '../../types';
+import { Subject, Faculty, Student, Department } from '../../types';
 import { Download, Upload, Plus, Edit2, Trash2, X } from 'lucide-react';
 import DataTable from '../common/DataTable';
 import { exportToExcel, importFromExcel } from '../../utils/excelUtils';
@@ -12,9 +12,10 @@ interface Props {
   onEditSubject: (s: any) => void;
   onDeleteSubject: (id: number) => void;
   onAssignFaculty: (subId: number, facId: number) => void;
+  departments: Department[];
 }
 
-const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAddSubject, onEditSubject, onDeleteSubject, onAssignFaculty }) => {
+const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, departments, onAddSubject, onEditSubject, onDeleteSubject, onAssignFaculty }) => {
   const [showForm, setShowForm] = useState(false);
   const [editId, setEditId] = useState<number | null>(null);
   const [formData, setFormData] = useState({
@@ -23,13 +24,14 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
     sem: 'sem1',
     credits: '1',
     faculty_id: '',
-    department: 'comp'
+    dept_id: 1
   });
 
   const semesters = ['sem1', 'sem2', 'sem3', 'sem4', 'sem5', 'sem6', 'sem7', 'sem8'];
 
   const resetForm = () => {
-    setFormData({ code: '', name: '', sem: 'sem1', credits: '1', faculty_id: '', department: 'comp' });
+    const defaultDept = departments.find(d => d.dept_name.toLowerCase() === 'comp')?.dept_id || departments[0]?.dept_id || 1;
+    setFormData({ code: '', name: '', sem: 'sem1', credits: '1', faculty_id: '', dept_id: defaultDept });
     setEditId(null);
     setShowForm(false);
   };
@@ -42,7 +44,7 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
       sem: sub.semester || 'sem1',
       credits: sub.credits.toString(),
       faculty_id: sub.faculty_id?.toString() || '',
-      department: sub.department || 'comp'
+      dept_id: sub.dept_id || 1
     });
     setShowForm(true);
   };
@@ -54,7 +56,7 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
       semester: formData.sem,
       credits: parseInt(formData.credits),
       faculty_id: formData.faculty_id ? parseInt(formData.faculty_id) : null,
-      department: formData.department
+      dept_id: formData.dept_id
     };
 
     if (editId) {
@@ -84,7 +86,7 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
           subject_name: item.subject_name || item.name,
           semester: item.semester || item.sem || 'sem1',
           credits: parseInt(item.credits) || 3,
-          department: item.department || item.dept || 'comp',
+          dept_id: departments.find(d => d.dept_name.toLowerCase() === (item.department || item.dept || 'comp').toLowerCase())?.dept_id || 1,
           faculty_id: null
         });
       }
@@ -96,7 +98,7 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
 
   const subjectColumns = [
     { header: 'Subject Name', key: 'subject_name', sortable: true },
-    { header: 'Code', key: 'subject_code', sortable: true, align: 'right' as const },
+    { header: 'Code', key: 'subject_code', sortable: true },
     {
       header: 'Faculty Incharge',
       key: 'faculty_id',
@@ -105,20 +107,19 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
     },
     {
       header: 'Dept',
-      key: 'department',
+      key: 'dept_id',
       sortable: true,
       render: (sub: Subject) => (
         <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100/50">
-          {sub.department || 'COMP'}
+          {departments.find(d => d.dept_id === sub.dept_id)?.dept_name || 'COMP'}
         </span>
       )
     },
-    { header: 'Credits', key: 'credits', sortable: true, align: 'right' as const },
+    { header: 'Credits', key: 'credits', sortable: true },
     {
       header: 'Enrolled',
       key: 'enrollment_count',
       sortable: true,
-      align: 'right' as const,
       render: (sub: Subject) => (
         <span className="text-[10px] font-black text-slate-900 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200/50">
           {sub.enrollment_count || 0} Students
@@ -194,12 +195,12 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">Department</label>
               <select
                 className="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indigo-400 focus:bg-white transition-all font-bold text-sm outline-none appearance-none cursor-pointer"
-                value={formData.department}
-                onChange={e => setFormData({ ...formData, department: e.target.value })}
+                value={formData.dept_id}
+                onChange={e => setFormData({ ...formData, dept_id: parseInt(e.target.value) })}
               >
-                <option value="comp">Computer</option>
-                <option value="mech">Mechanical</option>
-                <option value="ece">Electronics</option>
+                {departments.map(dept => (
+                  <option key={dept.dept_id} value={dept.dept_id}>{dept.dept_name.toUpperCase()}</option>
+                ))}
               </select>
             </div>
             <div className="space-y-1.5">
@@ -207,7 +208,7 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, onAdd
               <select className="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indigo-400 focus:bg-white transition-all font-bold text-sm outline-none appearance-none cursor-pointer" value={formData.faculty_id} onChange={e => setFormData({ ...formData, faculty_id: e.target.value })}>
                 <option value="">Vacant (Unassigned)</option>
                 {faculty
-                  .filter(f => !formData.department || f.department?.toLowerCase() === formData.department.toLowerCase())
+                  .filter(f => !formData.dept_id || f.dept_id === formData.dept_id)
                   .map(f => <option key={f.faculty_id} value={f.faculty_id}>{f.faculty_name}</option>)
                 }
               </select>

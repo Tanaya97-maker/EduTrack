@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Student, Faculty, Subject, UserType } from '../../types';
+import { Student, Faculty, Subject, UserType, Department, FacultySubject } from '../../types';
 import { ICONS } from '../../constants';
 import { Download, Upload, Plus, Edit2, Trash2, X } from 'lucide-react';
 import DataTable from '../common/DataTable';
@@ -17,10 +17,12 @@ interface Props {
   onDeleteStudent: (id: number) => void;
   onDeleteFaculty: (id: number) => void;
   onEnrollStudent: (studId: number, subId: number) => void;
+  departments: Department[];
+  facultySubjects: FacultySubject[];
 }
 
 const UserManagement: React.FC<Props> = ({
-  students, faculty, subjects, enrollments,
+  students, faculty, subjects, enrollments, departments, facultySubjects,
   onAddStudent, onAddFaculty, onEditStudent, onEditFaculty,
   onDeleteStudent, onDeleteFaculty, onEnrollStudent
 }) => {
@@ -32,12 +34,13 @@ const UserManagement: React.FC<Props> = ({
     email: '',
     roll: '',
     sem: 'sem1',
-    department: 'comp',
+    dept_id: 1,
     subject_ids: [] as number[]
   });
 
   const resetForm = () => {
-    setFormData({ name: '', email: '', roll: '', sem: 'sem1', department: 'comp', subject_ids: [] });
+    const defaultDept = departments.find(d => d.dept_name.toLowerCase() === 'comp')?.dept_id || departments[0]?.dept_id || 1;
+    setFormData({ name: '', email: '', roll: '', sem: 'sem1', dept_id: defaultDept, subject_ids: [] });
     setEditId(null);
     setShowForm(false);
   };
@@ -45,7 +48,7 @@ const UserManagement: React.FC<Props> = ({
   const handleEditClick = (item: any) => {
     const itemEnrolled = mode === UserType.STUDENT
       ? enrollments.filter(e => e.stud_id === (item.stud_id || item.faculty_id)).map(e => e.subject_id)
-      : subjects.filter(s => s.faculty_id === item.faculty_id).map(s => s.subject_id);
+      : facultySubjects.filter(fs => fs.faculty_id === item.faculty_id).map(fs => fs.subject_id);
 
     setEditId(mode === UserType.STUDENT ? item.stud_id : item.faculty_id);
     setFormData({
@@ -53,7 +56,7 @@ const UserManagement: React.FC<Props> = ({
       email: item.email,
       roll: item.roll_no || '',
       sem: item.semester || 'sem1',
-      department: item.department || 'comp',
+      dept_id: item.dept_id || 1,
       subject_ids: itemEnrolled
     });
     setShowForm(true);
@@ -66,7 +69,7 @@ const UserManagement: React.FC<Props> = ({
         email: formData.email,
         roll_no: formData.roll,
         semester: formData.sem,
-        department: formData.department,
+        dept_id: formData.dept_id,
         subject_ids: formData.subject_ids
       };
       if (editId) {
@@ -78,7 +81,7 @@ const UserManagement: React.FC<Props> = ({
       const payload = {
         faculty_name: formData.name,
         email: formData.email,
-        department: formData.department,
+        dept_id: formData.dept_id,
         subject_ids: formData.subject_ids
       };
       if (editId) {
@@ -125,13 +128,13 @@ const UserManagement: React.FC<Props> = ({
             email: item.email,
             roll_no: item.roll_no || item.roll,
             semester: item.semester || item.sem || 'sem1',
-            department: item.department || item.dept || 'comp'
+            dept_id: departments.find(d => d.dept_name.toLowerCase() === (item.department || item.dept || 'comp').toLowerCase())?.dept_id || 1
           });
         } else {
           onAddFaculty({
             faculty_name: item.faculty_name || item.name,
             email: item.email,
-            department: item.department || item.dept || 'comp',
+            dept_id: departments.find(d => d.dept_name.toLowerCase() === (item.department || item.dept || 'comp').toLowerCase())?.dept_id || 1,
             subject_ids: []
           });
         }
@@ -144,7 +147,7 @@ const UserManagement: React.FC<Props> = ({
 
   const studentColumns = [
     { header: 'Name', key: 'stud_name', sortable: true },
-    { header: 'Roll No', key: 'roll_no', sortable: true, align: 'right' as const },
+    { header: 'Roll No', key: 'roll_no', sortable: true },
     { header: 'Email', key: 'email', sortable: true },
     {
       header: 'Semester',
@@ -158,11 +161,11 @@ const UserManagement: React.FC<Props> = ({
     },
     {
       header: 'Dept',
-      key: 'department',
+      key: 'dept_id',
       sortable: true,
       render: (item: Student) => (
         <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100/50">
-          {item.department || 'COMP'}
+          {departments.find(d => d.dept_id === item.dept_id)?.dept_name || 'COMP'}
         </span>
       )
     },
@@ -189,11 +192,11 @@ const UserManagement: React.FC<Props> = ({
     { header: 'Email', key: 'email', sortable: true },
     {
       header: 'Dept',
-      key: 'department',
+      key: 'dept_id',
       sortable: true,
       render: (item: Faculty) => (
         <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100/50">
-          {item.department || 'COMP'}
+          {departments.find(d => d.dept_id === item.dept_id)?.dept_name || 'COMP'}
         </span>
       )
     },
@@ -203,12 +206,15 @@ const UserManagement: React.FC<Props> = ({
       sortable: false,
       render: (item: Faculty) => (
         <div className="flex flex-wrap gap-1 max-w-[250px]">
-          {subjects.filter(s => Number(s.faculty_id) === Number(item.faculty_id)).map(s => (
-            <span key={s.subject_id} className="px-1.5 py-0.5 bg-indigo-50/50 border border-indigo-100/50 text-[8px] font-black text-indigo-600 rounded-md">
-              {s.subject_code}
-            </span>
-          ))}
-          {subjects.filter(s => Number(s.faculty_id) === Number(item.faculty_id)).length === 0 && (
+          {facultySubjects.filter(fs => Number(fs.faculty_id) === Number(item.faculty_id)).map(fs => {
+            const s = subjects.find(sub => sub.subject_id === fs.subject_id);
+            return s ? (
+              <span key={s.subject_id} className="px-1.5 py-0.5 bg-indigo-50/50 border border-indigo-100/50 text-[8px] font-black text-indigo-600 rounded-md">
+                {s.subject_code}
+              </span>
+            ) : null;
+          })}
+          {facultySubjects.filter(fs => Number(fs.faculty_id) === Number(item.faculty_id)).length === 0 && (
             <span className="text-[10px] text-slate-300 italic">No assignments</span>
           )}
         </div>
@@ -299,12 +305,12 @@ const UserManagement: React.FC<Props> = ({
               <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">Department</label>
               <select
                 className="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indigo-400 focus:bg-white transition-all font-bold text-sm outline-none appearance-none cursor-pointer"
-                value={formData.department}
-                onChange={e => setFormData({ ...formData, department: e.target.value, subject_ids: [] })}
+                value={formData.dept_id}
+                onChange={e => setFormData({ ...formData, dept_id: parseInt(e.target.value), subject_ids: [] })}
               >
-                <option value="comp">Computer</option>
-                <option value="mech">Mechanical</option>
-                <option value="ece">Electronics</option>
+                {departments.map(dept => (
+                  <option key={dept.dept_id} value={dept.dept_id}>{dept.dept_name.toUpperCase()}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -317,7 +323,7 @@ const UserManagement: React.FC<Props> = ({
               </label>
               <div className="flex flex-wrap gap-2 p-4 bg-slate-50 rounded-2xl border border-slate-100 min-h-[80px]">
                 {subjects
-                  .filter(sub => !formData.department || sub.department?.toLowerCase() === formData.department.toLowerCase())
+                  .filter(sub => !formData.dept_id || sub.dept_id === formData.dept_id)
                   .map(sub => (
                     <button
                       key={sub.subject_id}
@@ -328,9 +334,9 @@ const UserManagement: React.FC<Props> = ({
                       {formData.subject_ids.includes(sub.subject_id) && <X className="w-3 h-3 opacity-60" />}
                     </button>
                   ))}
-                {subjects.filter(sub => !formData.department || sub.department?.toLowerCase() === formData.department.toLowerCase()).length === 0 && (
+                {subjects.filter(sub => !formData.dept_id || sub.dept_id === formData.dept_id).length === 0 && (
                   <div className="w-full py-4 text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest italic">
-                    No subjects found for {formData.department?.toUpperCase()}
+                    No subjects found for this department
                   </div>
                 )}
               </div>

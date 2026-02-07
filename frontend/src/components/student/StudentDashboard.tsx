@@ -28,12 +28,13 @@ const StudentDashboard: React.FC<Props> = ({ student, subjects, enrollments, att
 
   const filteredAnnouncements = useMemo(() => {
     if (!announcements) return [];
-    return announcements.filter(a => {
-      if (a.target === 'faculty') return false;
-      // If student target, check semester and subject
+    return (announcements || []).filter(a => {
+      if (a.target_type === 'faculty') return false;
+      // If student target, check semester, subject, and department
       const isCorrectSem = !a.semester || a.semester === student.semester;
       const isCorrectSub = !a.subject_id || enrolledSubjects.some(s => Number(s.subject_id) === Number(a.subject_id));
-      return isCorrectSem && isCorrectSub;
+      const isCorrectDept = !a.dept_id || a.dept_id === student.dept_id;
+      return isCorrectSem && isCorrectSub && isCorrectDept;
     });
   }, [announcements, student.semester, enrolledSubjects]);
 

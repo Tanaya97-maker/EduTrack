@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Faculty, Subject } from '../../types';
+import { Faculty, Subject, Department, FacultySubject } from '../../types';
 import { Bell, Plus, Send, Trash2, X } from 'lucide-react';
 
 interface Props {
@@ -9,6 +9,8 @@ interface Props {
     announcements: any[];
     onPostAnnouncement: (a: any) => Promise<void>;
     onDeleteAnnouncement: (id: number) => Promise<void>;
+    departments: Department[];
+    facultySubjects: FacultySubject[];
 }
 
 const AnnouncementSection: React.FC<Props> = ({
@@ -16,13 +18,17 @@ const AnnouncementSection: React.FC<Props> = ({
     subjects,
     announcements,
     onPostAnnouncement,
-    onDeleteAnnouncement
+    onDeleteAnnouncement,
+    departments,
+    facultySubjects
 }) => {
     const [showAnnounceModal, setShowAnnounceModal] = useState(false);
     const [targetType, setTargetType] = useState<'student' | 'faculty'>('student');
     const [selectedSemester, setSelectedSemester] = useState<string>('');
 
-    const facultySubjects = subjects.filter(s => s.faculty_id === faculty.faculty_id);
+    const facultySubjectsAssigned = subjects.filter(s =>
+        facultySubjects.some(fs => fs.faculty_id === faculty.faculty_id && fs.subject_id === s.subject_id)
+    );
 
     const handlePostAnnouncementInternal = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -35,7 +41,7 @@ const AnnouncementSection: React.FC<Props> = ({
             target_type: targetType,
             semester: targetType === 'student' ? formData.get('semester') : null,
             subject_id: targetType === 'student' ? formData.get('subject_id') : null,
-            department: targetType === 'faculty' ? formData.get('department') : null,
+            dept_id: targetType === 'faculty' ? (formData.get('dept_id') ? parseInt(formData.get('dept_id') as string) : null) : null,
         };
 
         if (onPostAnnouncement) {
@@ -81,7 +87,7 @@ const AnnouncementSection: React.FC<Props> = ({
                                     <td className="px-8 py-6 text-xs font-bold text-slate-500 whitespace-nowrap">
                                         {ann.target_type === 'student'
                                             ? `${ann.semester || 'All Semesters'} • ${subjects.find(s => s.subject_id === ann.subject_id)?.subject_name || 'All Subjects'}`
-                                            : `Faculty • ${ann.department || 'All Departments'}`}
+                                            : `Faculty • ${departments.find(d => d.dept_id === ann.dept_id)?.dept_name || 'All Departments'}`}
                                     </td>
                                     <td className="px-8 py-6 text-xs font-bold text-slate-500 whitespace-nowrap">
                                         {new Date(ann.created_at).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
@@ -176,7 +182,7 @@ const AnnouncementSection: React.FC<Props> = ({
                                             className="w-full px-4 py-3 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold text-sm"
                                         >
                                             <option value="">All Subjects</option>
-                                            {facultySubjects.map(sub => (
+                                            {facultySubjectsAssigned.map(sub => (
                                                 <option key={sub.subject_id} value={sub.subject_id}>
                                                     {sub.subject_name} ({sub.subject_code})
                                                 </option>
@@ -186,21 +192,18 @@ const AnnouncementSection: React.FC<Props> = ({
                                 </>
                             )}
 
-                            {targetType === 'faculty' && (
-                                <div className="space-y-2">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Department</label>
-                                    <select
-                                        name="department"
-                                        className="w-full px-4 py-3 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold text-sm"
-                                    >
-                                        <option value="">All Departments</option>
-                                        <option value="Comp">Computer</option>
-                                        <option value="Mech">Mechanical</option>
-                                        <option value="EC">Electronics</option>
-                                        <option value="IT">Information Technology</option>
-                                    </select>
-                                </div>
-                            )}
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Department</label>
+                                <select
+                                    name="dept_id"
+                                    className="w-full px-4 py-3 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold text-sm"
+                                >
+                                    <option value="">All Departments</option>
+                                    {departments.map(dept => (
+                                        <option key={dept.dept_id} value={dept.dept_id}>{dept.dept_name.toUpperCase()}</option>
+                                    ))}
+                                </select>
+                            </div>
 
                             <div className="space-y-2">
                                 <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Title</label>

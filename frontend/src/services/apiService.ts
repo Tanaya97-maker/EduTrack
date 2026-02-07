@@ -1,12 +1,25 @@
 
+declare global {
+    interface Window {
+        RUNTIME_CONFIG: {
+            API_KEY: string;
+        };
+    }
+}
+
 const API_BASE = '/api';
+
+const getHeaders = () => ({
+    'Content-Type': 'application/json',
+    'X-API-Key': window.RUNTIME_CONFIG?.API_KEY || ''
+});
 
 export const apiService = {
     async login(credentials: any) {
         try {
             const res = await fetch(`${API_BASE}?action=login`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: getHeaders(),
                 body: JSON.stringify(credentials),
             });
             if (!res.ok) throw new Error("Server error");
@@ -22,7 +35,9 @@ export const apiService = {
             if (userId && userType) {
                 url += `&user_id=${userId}&user_type=${userType}`;
             }
-            const res = await fetch(url);
+            const res = await fetch(url, {
+                headers: getHeaders()
+            });
             if (!res.ok) throw new Error("Sync failed");
             return await res.json();
         } catch (e) {
@@ -34,7 +49,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=attendance`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: getHeaders(),
                 body: JSON.stringify(data),
             });
             return await res.json();
@@ -47,7 +62,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=manage_user`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: getHeaders(),
                 body: JSON.stringify({ op, ...data }),
             });
             return await res.json();
@@ -60,7 +75,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=manage_subject`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: getHeaders(),
                 body: JSON.stringify({ op, ...data }),
             });
             return await res.json();
@@ -73,7 +88,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=manage_announcement`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: getHeaders(),
                 body: JSON.stringify({ op, ...data }),
             });
             return await res.json();
@@ -86,7 +101,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=manage_note`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: getHeaders(),
                 body: JSON.stringify({ op, ...data }),
             });
             return await res.json();
@@ -99,7 +114,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=manage_leave`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: getHeaders(),
                 body: JSON.stringify({ op, ...data }),
             });
             return await res.json();
@@ -112,7 +127,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=manage_faculty_attendance`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: getHeaders(),
                 body: JSON.stringify({ op, ...data }),
             });
             return await res.json();
@@ -122,13 +137,17 @@ export const apiService = {
     },
 
     async getStudentSchedule(studId: number) {
-        const res = await fetch(`/api/schedule/student/${studId}`);
+        const res = await fetch(`/api/schedule/student/${studId}`, {
+            headers: getHeaders()
+        });
         if (!res.ok) throw new Error("Failed to fetch student schedule");
         return await res.json();
     },
 
     async getFacultySchedule(facultyId: number) {
-        const res = await fetch(`/api/schedule/faculty/${facultyId}`);
+        const res = await fetch(`/api/schedule/faculty/${facultyId}`, {
+            headers: getHeaders()
+        });
         if (!res.ok) throw new Error("Failed to fetch faculty schedule");
         return await res.json();
     },
@@ -136,7 +155,7 @@ export const apiService = {
     async updateSchedule(data: any) {
         const res = await fetch('/api/schedule/update', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             body: JSON.stringify(data),
         });
         if (!res.ok) {

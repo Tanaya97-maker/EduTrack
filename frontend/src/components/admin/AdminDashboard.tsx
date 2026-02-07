@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Student, Faculty, Subject, TimetableEntry, AttendanceRecord, AttendanceStatus } from '../../types';
+import { Student, Faculty, Subject, TimetableEntry, AttendanceRecord, AttendanceStatus, Department } from '../../types';
 import { ICONS } from '../../constants.tsx';
 import { calculatePercentage } from '../../services/attendanceService';
 import { Download, Upload, AlertCircle, Edit2, Trash2 } from 'lucide-react';
@@ -10,6 +10,7 @@ interface Props {
   students: Student[];
   faculty: Faculty[];
   subjects: Subject[];
+  departments: Department[];
   enrollments: { stud_id: number; subject_id: number }[];
   attendance: AttendanceRecord[];
   onRemoveStudent: (id: number) => void;
@@ -23,7 +24,7 @@ interface Props {
 }
 
 const AdminDashboard: React.FC<Props> = ({
-  students, faculty, subjects, enrollments, attendance, leaves,
+  students, faculty, subjects, departments, enrollments, attendance, leaves,
   onRemoveStudent, onRemoveFaculty, onRemoveSubject, onUpdateSubject, onUpdateFaculty, onUpdateStudent, onUpdateLeaveStatus
 }) => {
   const [editItem, setEditItem] = useState<{ type: 'course' | 'faculty' | 'student'; data: any } | null>(null);
@@ -50,16 +51,27 @@ const AdminDashboard: React.FC<Props> = ({
   };
 
   const courseColumns = [
-    { header: 'Code', key: 'subject_code', sortable: true, align: 'right' as const },
+    { header: 'Code', key: 'subject_code', sortable: true },
     { header: 'Name', key: 'subject_name', sortable: true },
     {
-      header: 'Faculty Incharge',
-      key: 'faculty_id',
+      header: 'Department',
+      key: 'dept_id',
       sortable: true,
-      render: (s: Subject) => faculty.find(f => f.faculty_id === s.faculty_id)?.faculty_name || 'Unassigned'
+      render: (s: Subject) => (
+        <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100/50">
+          {departments.find(d => d.dept_id === s.dept_id)?.dept_name || 'COMP'}
+        </span>
+      )
     },
-    { header: 'Sem', key: 'semester', sortable: true, align: 'right' as const },
-    { header: 'Credits', key: 'credits', sortable: true, align: 'right' as const },
+    {
+      header: 'Semester', key: 'semester', sortable: true,
+      render: (s: Subject) => (
+        <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-100/50">
+          {s.semester || 'SEM 1'}
+        </span>
+      )
+    },
+    { header: 'Credits', key: 'credits', sortable: true },
     {
       header: 'Actions',
       key: 'actions',
@@ -82,18 +94,14 @@ const AdminDashboard: React.FC<Props> = ({
     { header: 'Name', key: 'faculty_name', sortable: true },
     { header: 'Email Address', key: 'email', sortable: true },
     {
-      header: 'Subjects Incharge',
-      key: 'teaching',
-      sortable: false,
-      render: (f: Faculty) => {
-        const teaching = subjects.filter(s => s.faculty_id === f.faculty_id);
-        return (
-          <div className="flex flex-wrap gap-1 max-w-[200px]">
-            {teaching.map(t => <span key={t.subject_id} className="px-1.5 py-0.5 bg-indigo-50 text-[8px] font-black text-indigo-600 rounded-md border border-indigo-100/50">{t.subject_code}</span>)}
-            {teaching.length === 0 && <span className="text-[10px] text-slate-300 italic">No Assignments</span>}
-          </div>
-        );
-      }
+      header: 'Department',
+      key: 'dept_id',
+      sortable: true,
+      render: (f: Faculty) => (
+        <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100/50">
+          {departments.find(d => d.dept_id === f.dept_id)?.dept_name || 'COMP'}
+        </span>
+      )
     },
     {
       header: 'Course Progress',
@@ -122,39 +130,27 @@ const AdminDashboard: React.FC<Props> = ({
 
   const studentColumns = [
     { header: 'Student Name', key: 'stud_name', sortable: true },
-    { header: 'Roll Number', key: 'roll_no', sortable: true, align: 'right' as const },
+    { header: 'Roll Number', key: 'roll_no', sortable: true },
     { header: 'Academic Email', key: 'email', sortable: true },
     {
-      header: 'Subjects Enrolled',
-      key: 'enrolled',
-      sortable: false,
-      render: (s: Student) => {
-        const studentEnrolled = enrollments.filter(e => Number(e.stud_id) === Number(s.stud_id));
-        return (
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-black text-slate-700">{studentEnrolled.length}</span>
-            <div className="flex flex-wrap gap-0.5">
-              {studentEnrolled.slice(0, 2).map(e => (
-                <span key={e.subject_id} className="px-1 py-0.5 bg-slate-50 text-slate-500 text-[7px] font-black rounded border border-slate-100">{subjects.find(sub => Number(sub.subject_id) === Number(e.subject_id))?.subject_code}</span>
-              ))}
-              {studentEnrolled.length > 2 && <span className="text-[7px] font-black text-slate-300 ml-0.5">+{studentEnrolled.length - 2}</span>}
-            </div>
-          </div>
-        );
-      }
+      header: 'Dept',
+      key: 'dept_id',
+      sortable: true,
+      render: (s: Student) => (
+        <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100/50">
+          {departments.find(d => d.dept_id === s.dept_id)?.dept_name || 'COMP'}
+        </span>
+      )
     },
     {
-      header: 'Avg. Attendance',
-      key: 'attendance',
+      header: 'Semester',
+      key: 'semester',
       sortable: true,
-      align: 'right' as const,
-      render: (s: Student) => {
-        const studentEnrolled = enrollments.filter(e => Number(e.stud_id) === Number(s.stud_id));
-        const avgAttendance = studentEnrolled.length
-          ? Math.round(studentEnrolled.reduce((acc, curr) => acc + calculatePercentage(attendance, s.stud_id, curr.subject_id), 0) / studentEnrolled.length)
-          : 0;
-        return renderProgressCircle(avgAttendance);
-      }
+      render: (s: Student) => (
+        <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-100/50">
+          {s.semester || 'SEM 1'}
+        </span >
+      )
     },
     {
       header: 'Actions',
@@ -181,7 +177,7 @@ const AdminDashboard: React.FC<Props> = ({
       sortable: true,
       render: (l: any) => faculty.find(f => f.faculty_id === l.faculty_id)?.faculty_name || 'Unknown Faculty'
     },
-    { header: 'Leave Date', key: 'leave_date', sortable: true, align: 'right' as const },
+    { header: 'Leave Date', key: 'leave_date', sortable: true },
     { header: 'Reason', key: 'reason', sortable: true },
     {
       header: 'Actions',

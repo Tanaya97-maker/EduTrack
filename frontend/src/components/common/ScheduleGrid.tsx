@@ -1,19 +1,40 @@
-import React from 'react';
-import { TimetableEntry } from '../../types';
+import React, { useState, useEffect } from 'react';
+import { TimetableEntry, Department, Subject } from '../../types';
 import { DAYS_OF_WEEK } from '../../constants';
-import { MapPin } from 'lucide-react';
+import { MapPin, ChevronDown } from 'lucide-react';
 
 interface Props {
     schedule: TimetableEntry[];
     title?: string;
     isHoliday?: (day: number) => boolean;
+    departments: Department[];
+    subjects: Subject[];
 }
 
 const HOURS = Array.from({ length: 9 }, (_, i) => i + 9); // 9 AM to 5 PM
 
-const ScheduleGrid: React.FC<Props> = ({ schedule, title, isHoliday }) => {
+const ScheduleGrid: React.FC<Props> = ({ schedule, title, isHoliday, departments, subjects }) => {
+    // Default to 'comp' department. Find ID for 'comp' or default to 1
+    const compDept = departments.find(d => d.dept_name.toLowerCase() === 'comp');
+    const [selectedDeptId, setSelectedDeptId] = React.useState<number | string>(compDept?.dept_id || '');
+
+    // Handle initial state if departments load later
+    React.useEffect(() => {
+        if (!selectedDeptId && departments.length > 0) {
+            const comp = departments.find(d => d.dept_name.toLowerCase() === 'comp');
+            if (comp) setSelectedDeptId(comp.dept_id);
+            else setSelectedDeptId(departments[0].dept_id);
+        }
+    }, [departments]);
+
+    const filteredSchedule = schedule.filter(entry => {
+        if (!selectedDeptId) return true;
+        const sub = subjects.find(s => Number(s.subject_id) === Number(entry.subject_id));
+        return Number(sub?.dept_id) === Number(selectedDeptId);
+    });
+
     const getEntryForSlot = (day: number, hour: number) => {
-        return schedule.find(entry => {
+        return filteredSchedule.find(entry => {
             if (entry.day_of_week !== day) return false;
             const startHour = parseInt(entry.start_time.split(':')[0]);
             return startHour === hour;
@@ -26,6 +47,24 @@ const ScheduleGrid: React.FC<Props> = ({ schedule, title, isHoliday }) => {
                 <h3 className="text-lg font-bold text-slate-800 tracking-tight">
                     {title || 'Weekly Schedule'}
                 </h3>
+
+                <div className="flex items-center gap-3 bg-slate-50 p-1.5 rounded-xl border border-slate-200">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Department:</label>
+                    <div className="relative">
+                        <select
+                            value={selectedDeptId}
+                            onChange={(e) => setSelectedDeptId(Number(e.target.value))}
+                            className="bg-white border-none rounded-lg pl-4 pr-10 py-1.5 text-xs font-bold text-slate-700 focus:ring-2 focus:ring-indigo-500/20 outline-none cursor-pointer appearance-none min-w-[140px] shadow-sm"
+                        >
+                            {departments.map(dept => (
+                                <option key={dept.dept_id} value={dept.dept_id}>
+                                    {dept.dept_name.toUpperCase()}
+                                </option>
+                            ))}
+                        </select>
+                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" />
+                    </div>
+                </div>
             </div>
 
             <div className="overflow-x-auto">
