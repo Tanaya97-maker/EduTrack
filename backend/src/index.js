@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 
 // Load API_KEY from frontend config
-let API_KEY = process.env.API_KEY || '123';
+let API_KEY = process.env.API_KEY;
 try {
     const configPath = path.resolve(__dirname, '../../frontend/public/config.json');
     if (fs.existsSync(configPath)) {
@@ -256,7 +256,7 @@ async function handleManageUser(input, res) {
         const user = await prisma.user.create({
             data: {
                 email: data.email,
-                password_hash: '123',
+                password_hash: API_KEY,
                 user_type: 'student',
                 is_active: true
             }
@@ -297,7 +297,7 @@ async function handleManageUser(input, res) {
         const user = await prisma.user.create({
             data: {
                 email: data.email,
-                password_hash: '123',
+                password_hash: API_KEY,
                 user_type: 'faculty',
                 is_active: true
             }
