@@ -1,17 +1,28 @@
-
-declare global {
-    interface Window {
-        RUNTIME_CONFIG: {
-            API_KEY: string;
-        };
-    }
-}
-
 const API_BASE = '/api';
 
-const getHeaders = () => ({
+let cachedApiKey: string | null = null;
+let configLoader: Promise<string> | null = null;
+
+const getApiKey = async () => {
+    if (cachedApiKey) return cachedApiKey;
+    if (configLoader) return configLoader;
+
+    configLoader = fetch('/config.json')
+        .then(res => res.json())
+        .then(data => {
+            cachedApiKey = data.API_KEY || '';
+            return cachedApiKey as string;
+        })
+        .catch(() => {
+            cachedApiKey = '';
+            return '';
+        });
+    return configLoader;
+};
+
+const getHeaders = async () => ({
     'Content-Type': 'application/json',
-    'X-API-Key': window.RUNTIME_CONFIG?.API_KEY || ''
+    'X-API-Key': await getApiKey()
 });
 
 export const apiService = {
@@ -19,7 +30,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=login`, {
                 method: 'POST',
-                headers: getHeaders(),
+                headers: await getHeaders(),
                 body: JSON.stringify(credentials),
             });
             if (!res.ok) throw new Error("Server error");
@@ -36,7 +47,7 @@ export const apiService = {
                 url += `&user_id=${userId}&user_type=${userType}`;
             }
             const res = await fetch(url, {
-                headers: getHeaders()
+                headers: await getHeaders()
             });
             if (!res.ok) throw new Error("Sync failed");
             return await res.json();
@@ -49,7 +60,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=attendance`, {
                 method: 'POST',
-                headers: getHeaders(),
+                headers: await getHeaders(),
                 body: JSON.stringify(data),
             });
             return await res.json();
@@ -62,7 +73,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=manage_user`, {
                 method: 'POST',
-                headers: getHeaders(),
+                headers: await getHeaders(),
                 body: JSON.stringify({ op, ...data }),
             });
             return await res.json();
@@ -75,7 +86,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=manage_subject`, {
                 method: 'POST',
-                headers: getHeaders(),
+                headers: await getHeaders(),
                 body: JSON.stringify({ op, ...data }),
             });
             return await res.json();
@@ -88,7 +99,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=manage_announcement`, {
                 method: 'POST',
-                headers: getHeaders(),
+                headers: await getHeaders(),
                 body: JSON.stringify({ op, ...data }),
             });
             return await res.json();
@@ -101,7 +112,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=manage_note`, {
                 method: 'POST',
-                headers: getHeaders(),
+                headers: await getHeaders(),
                 body: JSON.stringify({ op, ...data }),
             });
             return await res.json();
@@ -114,7 +125,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=manage_leave`, {
                 method: 'POST',
-                headers: getHeaders(),
+                headers: await getHeaders(),
                 body: JSON.stringify({ op, ...data }),
             });
             return await res.json();
@@ -127,7 +138,7 @@ export const apiService = {
         try {
             const res = await fetch(`${API_BASE}?action=manage_faculty_attendance`, {
                 method: 'POST',
-                headers: getHeaders(),
+                headers: await getHeaders(),
                 body: JSON.stringify({ op, ...data }),
             });
             return await res.json();
@@ -138,7 +149,7 @@ export const apiService = {
 
     async getStudentSchedule(studId: number) {
         const res = await fetch(`/api/schedule/student/${studId}`, {
-            headers: getHeaders()
+            headers: await getHeaders()
         });
         if (!res.ok) throw new Error("Failed to fetch student schedule");
         return await res.json();
@@ -146,7 +157,7 @@ export const apiService = {
 
     async getFacultySchedule(facultyId: number) {
         const res = await fetch(`/api/schedule/faculty/${facultyId}`, {
-            headers: getHeaders()
+            headers: await getHeaders()
         });
         if (!res.ok) throw new Error("Failed to fetch faculty schedule");
         return await res.json();
@@ -155,7 +166,7 @@ export const apiService = {
     async updateSchedule(data: any) {
         const res = await fetch('/api/schedule/update', {
             method: 'POST',
-            headers: getHeaders(),
+            headers: await getHeaders(),
             body: JSON.stringify(data),
         });
         if (!res.ok) {
