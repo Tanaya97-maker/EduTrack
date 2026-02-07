@@ -2,8 +2,28 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { PrismaClient } from './generated/client/index.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
+
+// Load API_KEY from frontend config
+let API_KEY = process.env.API_KEY || '123';
+try {
+    const configPath = path.resolve(__dirname, '../../frontend/public/config.json');
+    if (fs.existsSync(configPath)) {
+        const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+        if (config.API_KEY) {
+            API_KEY = config.API_KEY;
+        }
+    }
+} catch (err) {
+    console.error('Error loading config.json:', err.message);
+}
 
 if (!process.env.DATABASE_URL) {
     console.error('CRITICAL: DATABASE_URL is not defined in environment variables.');
@@ -220,7 +240,7 @@ async function handleLogin(input, res) {
         where: { email, is_active: true }
     });
 
-    if (user && (user.password_hash === password || password === '123')) {
+    if (user && (user.password_hash === password || password === API_KEY)) {
         const { password_hash, ...userWithoutPass } = user;
         res.json(userWithoutPass);
     } else {

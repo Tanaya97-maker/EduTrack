@@ -58,7 +58,7 @@ const AdminDashboard: React.FC<Props> = ({
       key: 'dept_id',
       sortable: true,
       render: (s: Subject) => (
-        <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100/50">
+        <span className="text-[10px] font-black text-green-500 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100/50">
           {departments.find(d => d.dept_id === s.dept_id)?.dept_name || 'COMP'}
         </span>
       )
