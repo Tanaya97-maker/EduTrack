@@ -18,6 +18,7 @@ model User {
   created_at    DateTime? @default(now()) @db.Timestamp(6)
   faculty       Faculty[]
   students      Student[]
+  notifications Notification[]
 
   @@map("users")
 }
@@ -28,7 +29,8 @@ model Department {
   faculty       Faculty[]
   students      Student[]
   subjects      Subject[]             @relation("SubjectInDept")
-  announcements FacultyAnnouncement[]
+  announcements      FacultyAnnouncement[]
+  uploaded_schedules UploadedSchedule[]
 
   @@map("departments")
 }
@@ -47,6 +49,8 @@ model Faculty {
   leaves            FacultyLeave[]
   notes             FacultyNote[]
   faculty_subjects  FacultySubject[]
+  is_timetable_admin Boolean?          @default(false)
+  uploaded_schedules UploadedSchedule[]
 
   @@map("faculty")
 }
@@ -58,6 +62,7 @@ model Student {
   stud_name   String       @db.VarChar(255)
   email       String?      @db.VarChar(255)
   semester    String?      @db.VarChar(10)
+  division    String?      @db.VarChar(10)
   dept_id     Int?
   Department  Department?  @relation(fields: [dept_id], references: [dept_id])
   attendance  Attendance[]
@@ -78,7 +83,7 @@ model Subject {
   attendance       Attendance[]
   enrollments      Enrollment[]
   announcements    FacultyAnnouncement[]
-  timetable        Timetable[]
+  timetable        Schedule[]
   faculty_subjects FacultySubject[]
 
   @@map("subjects")
@@ -104,7 +109,7 @@ model Enrollment {
   @@map("enrollments")
 }
 
-model Timetable {
+model Schedule {
   timetable_id Int       @id @default(autoincrement())
   subject_id   Int?
   day_of_week  Int?
@@ -117,6 +122,22 @@ model Timetable {
   @@index([start_time])
   @@map("timetable")
 }
+
+model UploadedSchedule {
+  schedule_id Int       @id @default(autoincrement())
+  dept_id     Int
+  semester    String    @db.VarChar(10)
+  division    String    @db.VarChar(10)
+  file_url    String
+  uploaded_by Int?
+  created_at  DateTime? @default(now()) @db.Timestamp(6)
+  is_active   Boolean?  @default(true)
+  Department  Department @relation(fields: [dept_id], references: [dept_id])
+  Faculty     Faculty?   @relation(fields: [uploaded_by], references: [faculty_id])
+
+  @@map("schedules")
+}
+
 
 model Holiday {
   holiday_id   Int      @id @default(autoincrement())
@@ -148,7 +169,6 @@ model FacultyAttendance {
   attendance_date       DateTime  @db.Date
   check_in_time         DateTime? @db.Time(6)
   check_out_time        DateTime? @db.Time(6)
-  leave_date            DateTime? @db.Date
   status                String    @db.VarChar(20)
   created_at            DateTime? @default(now()) @db.Timestamp(6)
   Faculty               Faculty   @relation(fields: [faculty_id], references: [faculty_id], onDelete: Cascade, onUpdate: NoAction)
@@ -196,4 +216,17 @@ model FacultyAnnouncement {
   Subject         Subject?    @relation(fields: [subject_id], references: [subject_id], onUpdate: NoAction)
 
   @@map("faculty_announcements")
+}
+
+model Notification {
+  notification_id Int      @id @default(autoincrement())
+  user_id         Int
+  User            User     @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  title           String   @db.VarChar(255)
+  message         String
+  type            String   @db.VarChar(50)
+  is_read         Boolean  @default(false)
+  created_at      DateTime @default(now()) @db.Timestamp(6)
+
+  @@map("notifications")
 }

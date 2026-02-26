@@ -34,13 +34,17 @@ const UserManagement: React.FC<Props> = ({
     email: '',
     roll: '',
     sem: 'sem1',
+    division: '',
     dept_id: 1,
-    subject_ids: [] as number[]
+    subject_ids: [] as number[],
+    is_timetable_admin: false
   });
+
+  const compDeptId = departments.find(d => d.dept_name.toLowerCase() === 'comp')?.dept_id || 1;
 
   const resetForm = () => {
     const defaultDept = departments.find(d => d.dept_name.toLowerCase() === 'comp')?.dept_id || departments[0]?.dept_id || 1;
-    setFormData({ name: '', email: '', roll: '', sem: 'sem1', dept_id: defaultDept, subject_ids: [] });
+    setFormData({ name: '', email: '', roll: '', sem: 'sem1', division: '', dept_id: defaultDept, subject_ids: [], is_timetable_admin: false });
     setEditId(null);
     setShowForm(false);
   };
@@ -56,8 +60,10 @@ const UserManagement: React.FC<Props> = ({
       email: item.email,
       roll: item.roll_no || '',
       sem: item.semester || 'sem1',
+      division: item.division || '',
       dept_id: item.dept_id || 1,
-      subject_ids: itemEnrolled
+      subject_ids: itemEnrolled,
+      is_timetable_admin: item.is_timetable_admin || false
     });
     setShowForm(true);
   };
@@ -69,6 +75,7 @@ const UserManagement: React.FC<Props> = ({
         email: formData.email,
         roll_no: formData.roll,
         semester: formData.sem,
+        division: formData.division,
         dept_id: formData.dept_id,
         subject_ids: formData.subject_ids
       };
@@ -82,7 +89,8 @@ const UserManagement: React.FC<Props> = ({
         faculty_name: formData.name,
         email: formData.email,
         dept_id: formData.dept_id,
-        subject_ids: formData.subject_ids
+        subject_ids: formData.subject_ids,
+        is_timetable_admin: formData.is_timetable_admin
       };
       if (editId) {
         onEditFaculty({ faculty_id: editId, ...payload });
@@ -201,6 +209,16 @@ const UserManagement: React.FC<Props> = ({
       )
     },
     {
+      header: 'Incharge',
+      key: 'is_timetable_admin',
+      sortable: true,
+      render: (item: Faculty) => item.is_timetable_admin ? (
+        <span className="text-[8px] font-black text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100/50">
+          Timetable
+        </span>
+      ) : null
+    },
+    {
       header: 'Subjects Teaching',
       key: 'subjects',
       sortable: false,
@@ -299,6 +317,10 @@ const UserManagement: React.FC<Props> = ({
                     {[1, 2, 3, 4, 5, 6, 7, 8].map(s => <option key={s} value={`sem${s}`}>Semester {s}</option>)}
                   </select>
                 </div>
+                <div className="space-y-1.5">
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">Division</label>
+                  <input placeholder="Ex: A" className="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-indigo-400 focus:bg-white transition-all font-bold text-sm outline-none uppercase" value={formData.division} onChange={e => setFormData({ ...formData, division: e.target.value })} />
+                </div>
               </>
             )}
             <div className="space-y-1.5">
@@ -316,29 +338,45 @@ const UserManagement: React.FC<Props> = ({
           </div>
 
           {mode === UserType.FACULTY && (
-            <div className="mt-6 space-y-3">
-              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">
-                Courses Teaching
-                <span className="text-[8px] lowercase opacity-60"> (select all that apply, filtered by department)</span>
-              </label>
-              <div className="flex flex-wrap gap-2 p-4 bg-slate-50 rounded-2xl border border-slate-100 min-h-[80px]">
-                {subjects
-                  .filter(sub => !formData.dept_id || sub.dept_id === formData.dept_id)
-                  .map(sub => (
-                    <button
-                      key={sub.subject_id}
-                      onClick={() => toggleSubject(sub.subject_id)}
-                      className={`px-3 py-1.5 rounded-lg text-[10px] font-black border transition-all flex items-center gap-1.5 ${formData.subject_ids.includes(sub.subject_id) ? 'bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-100' : 'bg-white border-slate-200 text-slate-400 hover:border-indigo-300'}`}
-                    >
-                      {sub.subject_code} - {sub.subject_name}
-                      {formData.subject_ids.includes(sub.subject_id) && <X className="w-3 h-3 opacity-60" />}
-                    </button>
-                  ))}
-                {subjects.filter(sub => !formData.dept_id || sub.dept_id === formData.dept_id).length === 0 && (
-                  <div className="w-full py-4 text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest italic">
-                    No subjects found for this department
-                  </div>
-                )}
+            <div className="mt-6 space-y-6">
+              <div className="space-y-3">
+                <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">
+                  Courses Teaching
+                  <span className="text-[8px] lowercase opacity-60"> (select all that apply, filtered by department)</span>
+                </label>
+                <div className="flex flex-wrap gap-2 p-4 bg-slate-50 rounded-2xl border border-slate-100 min-h-[80px]">
+                  {subjects
+                    .filter(sub => !formData.dept_id || sub.dept_id === formData.dept_id)
+                    .map(sub => (
+                      <button
+                        key={sub.subject_id}
+                        onClick={() => toggleSubject(sub.subject_id)}
+                        className={`px-3 py-1.5 rounded-lg text-[10px] font-black border transition-all flex items-center gap-1.5 ${formData.subject_ids.includes(sub.subject_id) ? 'bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-100' : 'bg-white border-slate-200 text-slate-400 hover:border-indigo-300'}`}
+                      >
+                        {sub.subject_code} - {sub.subject_name}
+                        {formData.subject_ids.includes(sub.subject_id) && <X className="w-3 h-3 opacity-60" />}
+                      </button>
+                    ))}
+                  {subjects.filter(sub => !formData.dept_id || sub.dept_id === formData.dept_id).length === 0 && (
+                    <div className="w-full py-4 text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest italic">
+                      No subjects found for this department
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 p-4 bg-indigo-50/50 rounded-2xl border border-indigo-100/50">
+                <input
+                  type="checkbox"
+                  id="timetable_admin"
+                  className="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500"
+                  checked={formData.is_timetable_admin}
+                  onChange={e => setFormData({ ...formData, is_timetable_admin: e.target.checked })}
+                />
+                <label htmlFor="timetable_admin" className="text-[10px] font-black text-indigo-900 uppercase tracking-widest cursor-pointer">
+                  Assign as Timetable Incharge
+                  <span className="block text-[8px] lowercase font-bold text-slate-500 mt-0.5 tracking-normal">Allows uploading timetable files for {departments.find(d => d.dept_id === formData.dept_id)?.dept_name || 'department'}</span>
+                </label>
               </div>
             </div>
           )}
@@ -360,6 +398,8 @@ const UserManagement: React.FC<Props> = ({
         onImport={handleImport}
         onExport={handleExport}
         searchPlaceholder={`Search ${mode === UserType.STUDENT ? 'students' : 'faculty'}...`}
+        departments={departments}
+        initialDeptId={compDeptId}
       />
     </div>
   );

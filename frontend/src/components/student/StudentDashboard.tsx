@@ -13,9 +13,18 @@ interface Props {
   attendance: AttendanceRecord[];
   timetable: TimetableEntry[];
   announcements?: any[];
+  uploadedSchedules?: any[];
 }
 
-const StudentDashboard: React.FC<Props> = ({ student, subjects, enrollments, attendance, timetable, announcements }) => {
+const StudentDashboard: React.FC<Props> = ({
+  student,
+  subjects,
+  enrollments,
+  attendance,
+  timetable,
+  announcements,
+  uploadedSchedules
+}) => {
   const [showAttendance, setShowAttendance] = useState(false);
   const studentEnrollments = enrollments.filter(e => Number(e.stud_id) === Number(student.stud_id));
   const enrolledSubjects = subjects.filter(s => studentEnrollments.some(e => Number(e.subject_id) === Number(s.subject_id)));
@@ -30,13 +39,30 @@ const StudentDashboard: React.FC<Props> = ({ student, subjects, enrollments, att
     if (!announcements) return [];
     return (announcements || []).filter(a => {
       if (a.target_type === 'faculty') return false;
-      // If student target, check semester, subject, and department
-      const isCorrectSem = !a.semester || a.semester === student.semester;
+
+      // Calculate student semester number (e.g. "sem1" -> "1")
+      const studentSemNum = student.semester?.replace(/sem/i, '') || '';
+
+      // Check filters
+      const isCorrectSem = !a.semester || a.semester.toString() === studentSemNum;
       const isCorrectSub = !a.subject_id || enrolledSubjects.some(s => Number(s.subject_id) === Number(a.subject_id));
-      const isCorrectDept = !a.dept_id || a.dept_id === student.dept_id;
-      return isCorrectSem && isCorrectSub && isCorrectDept;
+      const isCorrectDept = !a.dept_id || Number(a.dept_id) === Number(student.dept_id);
+      const isCorrectDiv = !a.division || (student.division && a.division.toUpperCase() === student.division.toUpperCase());
+
+      return isCorrectSem && isCorrectSub && isCorrectDept && isCorrectDiv;
     });
-  }, [announcements, student.semester, enrolledSubjects]);
+  }, [announcements, student.semester, student.dept_id, student.division, enrolledSubjects]);
+
+  const studentSchedule = useMemo(() => {
+    if (!uploadedSchedules) return null;
+    // Extract sem number from "sem1"
+    const semNum = parseInt(student.semester?.replace('sem', '') || '1');
+    return uploadedSchedules.find(s =>
+      s.dept_id === student.dept_id &&
+      s.semester === semNum &&
+      (s.division || '').toUpperCase() === (student.division || '').toUpperCase()
+    );
+  }, [uploadedSchedules, student]);
 
   const renderCircularProgress = (percent: number) => {
     const radius = 35;

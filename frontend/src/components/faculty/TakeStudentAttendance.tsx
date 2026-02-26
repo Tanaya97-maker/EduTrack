@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { Faculty, Subject, Student, AttendanceRecord, AttendanceStatus, TimetableEntry } from '../../types';
+import { Faculty, Subject, Student, AttendanceRecord, AttendanceStatus, TimetableEntry, FacultySubject } from '../../types';
 import { ICONS } from '../../constants';
 import { markAttendance } from '../../services/attendanceService';
 import { ChevronLeft, ChevronRight, Save, X, Edit2, Check, UserMinus, Clock, Download } from 'lucide-react';
@@ -13,6 +13,7 @@ interface Props {
     attendance: AttendanceRecord[];
     timetable: TimetableEntry[];
     onAttendanceUpdate: () => void;
+    facultySubjects: FacultySubject[];
 }
 
 const TakeStudentAttendance: React.FC<Props> = ({
@@ -22,9 +23,15 @@ const TakeStudentAttendance: React.FC<Props> = ({
     enrollments,
     attendance,
     timetable,
-    onAttendanceUpdate
+    onAttendanceUpdate,
+    facultySubjects: assignments
 }) => {
-    const facultySubjects = useMemo(() => subjects.filter(s => Number(s.faculty_id) === Number(faculty.faculty_id)), [subjects, faculty.faculty_id]);
+    const facultySubjects = useMemo(() => {
+        const assignedIds = assignments
+            .filter(fs => fs.faculty_id === faculty.faculty_id)
+            .map(fs => fs.subject_id);
+        return subjects.filter(s => assignedIds.includes(s.subject_id));
+    }, [subjects, assignments, faculty.faculty_id]);
 
     const [selectedSubject, setSelectedSubject] = useState<Subject | null>(facultySubjects[0] || null);
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -295,10 +302,10 @@ const TakeStudentAttendance: React.FC<Props> = ({
                         )}
                     </div>
                     <div className="flex items-center space-x-2">
-                        <button onClick={handlePrevMonth} className="p-2.5 hover:bg-white hover:shadow-md rounded-xl transition-all border border-transparent hover:border-slate-100">
+                        <button onClick={handlePrevMonth} className="p-2.5 bg-white rounded-xl">
                             <ChevronLeft className="w-5 h-5 text-slate-600" />
                         </button>
-                        <button onClick={handleNextMonth} className="p-2.5 hover:bg-white hover:shadow-md rounded-xl transition-all border border-transparent hover:border-slate-100">
+                        <button onClick={handleNextMonth} className="p-2.5 bg-white rounded-xl">
                             <ChevronRight className="w-5 h-5 text-slate-600" />
                         </button>
                     </div>

@@ -30,8 +30,8 @@ interface AppRoutesProps {
     notes?: any[];
     leaves?: any[];
     onAttendanceUpdate: () => void;
-    handleCheckIn: (facultyId: number) => Promise<void>;
-    handleCheckOut: (facultyId: number) => Promise<void>;
+    handleCheckIn: (facultyId: number, time?: string) => Promise<void>;
+    handleCheckOut: (facultyId: number, time?: string) => Promise<void>;
     handleApplyLeave: (facultyId: number, reason: string) => Promise<void>;
     handleUpdateLeaveStatus: (leaveId: number, status: 'approved' | 'rejected') => Promise<void>;
     // Admin handlers
@@ -54,6 +54,7 @@ interface AppRoutesProps {
     handleAddAnnouncement: (a: any) => Promise<void>;
     handleEditAnnouncement: (a: any) => Promise<void>;
     handleDeleteAnnouncement: (id: number) => Promise<void>;
+    uploadedSchedules?: any[];
 }
 
 const AppRoutes: React.FC<AppRoutesProps> = (props) => {
@@ -115,6 +116,7 @@ const AppRoutes: React.FC<AppRoutesProps> = (props) => {
                         onDeleteSubject={props.handleDeleteSubject}
                         onAssignFaculty={props.handleAssignFaculty}
                         departments={props.departments}
+                        facultySubjects={props.facultySubjects}
                     />
                 } />
                 <Route path="/reports" element={
@@ -166,9 +168,10 @@ const AppRoutes: React.FC<AppRoutesProps> = (props) => {
                         onDeleteNote={props.handleDeleteNote}
                         onAddAnnouncement={props.handleAddAnnouncement}
                         onDeleteAnnouncement={props.handleDeleteAnnouncement}
-                        onCheckIn={() => props.handleCheckIn(facultyData.faculty_id)}
-                        onCheckOut={() => props.handleCheckOut(facultyData.faculty_id)}
+                        onCheckIn={(time) => props.handleCheckIn(facultyData.faculty_id, time)}
+                        onCheckOut={(time) => props.handleCheckOut(facultyData.faculty_id, time)}
                         onApplyLeave={(reason) => props.handleApplyLeave(facultyData.faculty_id, reason)}
+                        uploadedSchedules={props.uploadedSchedules}
                     />
                 } />
                 <Route path="/take-attendance" element={
@@ -180,6 +183,7 @@ const AppRoutes: React.FC<AppRoutesProps> = (props) => {
                         attendance={props.attendance}
                         timetable={props.timetable}
                         onAttendanceUpdate={props.onAttendanceUpdate}
+                        facultySubjects={props.facultySubjects}
                     />
                 } />
                 <Route path="/my-attendance" element={
@@ -187,18 +191,20 @@ const AppRoutes: React.FC<AppRoutesProps> = (props) => {
                         faculty={facultyData}
                         attendance={props.facultyAttendance || []}
                         leaves={props.leaves || []}
-                        onCheckIn={() => props.handleCheckIn(facultyData.faculty_id)}
-                        onCheckOut={() => props.handleCheckOut(facultyData.faculty_id)}
+                        onCheckIn={(time) => props.handleCheckIn(facultyData.faculty_id, time)}
+                        onCheckOut={(time) => props.handleCheckOut(facultyData.faculty_id, time)}
                         onApplyLeave={(reason) => props.handleApplyLeave(facultyData.faculty_id, reason)}
                     />
                 } />
                 <Route path="/schedule" element={
                     <ScheduleGrid
-                        title={`${facultyData.faculty_name}'s Teaching Schedule`}
-                        schedule={props.timetable}
-                        isHoliday={(day) => day === 7} // Sunday is holiday
                         departments={props.departments}
-                        subjects={props.subjects}
+                        uploadedSchedules={props.uploadedSchedules}
+                        studentInfo={{
+                            dept_id: facultyData.dept_id,
+                            semester: '', // Faculty sees all sem for their dept
+                            division: ''
+                        }}
                     />
                 } />
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />
@@ -220,15 +226,18 @@ const AppRoutes: React.FC<AppRoutesProps> = (props) => {
                         attendance={props.attendance}
                         timetable={props.timetable}
                         announcements={props.announcements}
+                        uploadedSchedules={props.uploadedSchedules}
                     />
                 } />
                 <Route path="/schedule" element={
                     <ScheduleGrid
-                        title={`${studentData.semester?.toUpperCase()} Academic Schedule`}
-                        schedule={props.timetable}
-                        isHoliday={(day) => day === 7}
                         departments={props.departments}
-                        subjects={props.subjects}
+                        uploadedSchedules={props.uploadedSchedules}
+                        studentInfo={{
+                            dept_id: studentData.dept_id,
+                            semester: studentData.semester || 'sem1',
+                            division: studentData.division || 'A'
+                        }}
                     />
                 } />
                 <Route path="*" element={<Navigate to="/" replace />} />

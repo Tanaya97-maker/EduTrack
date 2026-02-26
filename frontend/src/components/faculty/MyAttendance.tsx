@@ -7,8 +7,8 @@ interface Props {
     faculty: Faculty;
     attendance: any[];
     leaves: any[];
-    onCheckIn: () => void;
-    onCheckOut: () => void;
+    onCheckIn: (time: string) => Promise<void>;
+    onCheckOut: (time: string) => Promise<void>;
     onApplyLeave: (reason: string) => void;
 }
 
@@ -40,14 +40,14 @@ const MyAttendance: React.FC<Props> = ({
         return `${year}-${month}-${day}`;
     };
 
-    // Helper to extract HH:mm:ss from a time string or Date object
-    const formatLocalTime = (time: string | Date | null, includeSeconds = true) => {
+    // Helper to extract HH:mm from a time string or Date object
+    const formatLocalTime = (time: string | Date | null, includeSeconds = false) => {
         if (!time) return '--:--';
         if (typeof time === 'string') {
             // Handle ISO string or HH:mm:ss format
             const match = time.match(/(\d{2}:\d{2}:\d{2})/) || time.match(/(\d{2}:\d{2})/);
             if (match) {
-                return includeSeconds ? match[0] : match[0].substring(0, 5);
+                return includeSeconds ? match[0] : (match[0].length > 5 ? match[0].substring(0, 5) : match[0]);
             }
             return '--:--';
         }
@@ -92,7 +92,8 @@ const MyAttendance: React.FC<Props> = ({
         if (isCheckingIn) return;
         setIsCheckingIn(true);
         try {
-            await onCheckIn();
+            const time = currentTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            await onCheckIn(time);
         } finally {
             setIsCheckingIn(false);
         }
@@ -102,7 +103,8 @@ const MyAttendance: React.FC<Props> = ({
         if (isCheckingOut) return;
         setIsCheckingOut(true);
         try {
-            await onCheckOut();
+            const time = currentTime.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            await onCheckOut(time);
         } finally {
             setIsCheckingOut(false);
         }
@@ -140,7 +142,7 @@ const MyAttendance: React.FC<Props> = ({
                         <div className="bg-slate-50 rounded-3xl p-6 text-center space-y-4">
                             <div className="space-y-1">
                                 <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{currentTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                                <p className="text-4xl font-black tabular-nums text-slate-900">{currentTime.toLocaleTimeString()}</p>
+                                <p className="text-4xl font-black tabular-nums text-slate-900">{currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-200/50">

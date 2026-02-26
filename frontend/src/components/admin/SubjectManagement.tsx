@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Subject, Faculty, Student, Department } from '../../types';
+import { Subject, Faculty, Student, Department, FacultySubject } from '../../types';
 import { Download, Upload, Plus, Edit2, Trash2, X } from 'lucide-react';
 import DataTable from '../common/DataTable';
 import { exportToExcel, importFromExcel } from '../../utils/excelUtils';
@@ -13,9 +13,10 @@ interface Props {
   onDeleteSubject: (id: number) => void;
   onAssignFaculty: (subId: number, facId: number) => void;
   departments: Department[];
+  facultySubjects: FacultySubject[];
 }
 
-const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, departments, onAddSubject, onEditSubject, onDeleteSubject, onAssignFaculty }) => {
+const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, departments, facultySubjects, onAddSubject, onEditSubject, onDeleteSubject, onAssignFaculty }) => {
   const [showForm, setShowForm] = useState(false);
   const [editId, setEditId] = useState<number | null>(null);
   const [formData, setFormData] = useState({
@@ -26,6 +27,8 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, depar
     faculty_id: '',
     dept_id: 1
   });
+
+  const compDeptId = departments.find(d => d.dept_name.toLowerCase() === 'comp')?.dept_id || 1;
 
   const semesters = ['sem1', 'sem2', 'sem3', 'sem4', 'sem5', 'sem6', 'sem7', 'sem8'];
 
@@ -103,7 +106,16 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, depar
       header: 'Faculty Incharge',
       key: 'faculty_id',
       sortable: true,
-      render: (sub: Subject) => faculty.find(f => f.faculty_id === sub.faculty_id)?.faculty_name || 'Unassigned'
+      render: (sub: Subject) => {
+        const assignedFacIds = facultySubjects
+          .filter(fs => fs.subject_id === sub.subject_id)
+          .map(fs => fs.faculty_id);
+
+        const assignedFaculty = faculty.filter(f => assignedFacIds.includes(f.faculty_id));
+
+        if (assignedFaculty.length === 0) return 'Unassigned';
+        return assignedFaculty.map(f => f.faculty_name).join(', ');
+      }
     },
     {
       header: 'Dept',
@@ -238,6 +250,8 @@ const SubjectManagement: React.FC<Props> = ({ subjects, faculty, students, depar
               onImport={handleImport}
               onExport={() => handleExport(semSubjects)}
               searchPlaceholder={`Search within ${sem.replace('sem', 'Semester ')}...`}
+              departments={departments}
+              initialDeptId={compDeptId}
             />
           );
         })}

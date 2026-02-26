@@ -2,32 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { PrismaClient } from './generated/client/index.js';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 dotenv.config();
-
-// Load API_KEY from frontend config
-let API_KEY = process.env.API_KEY || 'Pass@123';
-try {
-    const configPath = path.resolve(__dirname, '../../frontend/public/config.json');
-    if (fs.existsSync(configPath)) {
-        const configData = fs.readFileSync(configPath, 'utf8');
-        const config = JSON.parse(configData);
-        if (config.API_KEY) {
-            API_KEY = config.API_KEY;
-            console.log('API_KEY loaded from config.json:', API_KEY);
-        }
-    } else {
-        console.warn('config.json not found at:', configPath, 'using default API_KEY');
-    }
-} catch (err) {
-    console.error('Error loading config.json:', err.message);
-}
 
 if (!process.env.DATABASE_URL) {
     console.error('CRITICAL: DATABASE_URL is not defined in environment variables.');
@@ -90,6 +65,24 @@ const apiHandler = async (req, res) => {
             case 'manage_faculty_attendance':
                 await handleFacultyAttendance(input, res);
                 break;
+            case 'get_faculty_status':
+                await handleGetFacultyStatus(req.query, res);
+                break;
+            case 'upload_schedule':
+                await handleUploadSchedule(input, res);
+                break;
+            case 'get_uploaded_schedules':
+                await handleGetUploadedSchedules(req.query, res);
+                break;
+            case 'get_notifications':
+                await handleGetNotifications(req.query, res);
+                break;
+            case 'mark_notification_read':
+                await handleMarkNotificationRead(input, res);
+                break;
+            case 'clear_notifications':
+                await handleClearNotifications(input, res);
+                break;
             default:
                 res.status(400).json({ error: 'Invalid action' });
         }
@@ -116,13 +109,9 @@ app.get('/api/schedule/student/:stud_id', async (req, res) => {
 
         if (!student) return res.status(404).json({ error: 'Student not found' });
 
-        const schedule = await prisma.timetable.findMany({
+        const schedule = await prisma.schedule.findMany({
             include: {
-                Subject: {
-                    include: {
-                        Faculty: true
-                    }
-                }
+                Subject: true
             },
             where: {
                 Subject: {
@@ -133,19 +122,34 @@ app.get('/api/schedule/student/:stud_id', async (req, res) => {
             }
         });
 
-        const filteredSchedule = schedule.filter(item => {
-            const facultyDept = item.Subject?.Faculty?.department;
-            if (facultyDept === 'Mech') {
+        const filteredSchedule = await Promise.all(schedule.map(async (item) => {
+            if (!item.Subject) return true;
+
+            // Get all faculty for this subject via faculty_subjects
+            const assignedFaculty = await prisma.faculty.findMany({
+                where: {
+                    faculty_subjects: {
+                        some: { subject_id: item.subject_id }
+                    }
+                }
+            });
+
+            // If any assigned faculty matches the logic, keep the item
+            // Logic: Mech faculty see all subjects, Comp faculty see only their semester
+            const match = assignedFaculty.some(f => {
+                const deptName = f.dept_id === 1 ? 'Comp' : (f.dept_id === 2 ? 'Mech' : '');
+                if (deptName === 'Mech') return true;
+                if (deptName === 'Comp') return item.Subject.semester === student.semester;
                 return true;
-            }
-            if (facultyDept === 'Comp') {
-                return item.Subject.semester === student.semester;
-            }
-            return true;
-        });
+            });
+
+            return assignedFaculty.length === 0 || match;
+        }));
+
+        const finalFilteredSchedule = schedule.filter((_, index) => filteredSchedule[index]);
 
         const holidays = await prisma.holiday.findMany();
-        const finalSchedule = filteredSchedule.map(item => {
+        const finalSchedule = finalFilteredSchedule.map(item => {
             return {
                 ...item,
                 is_holiday: item.day_of_week === 7
@@ -167,13 +171,15 @@ app.get('/api/schedule/faculty/:faculty_id', async (req, res) => {
 
         if (!faculty) return res.status(404).json({ error: 'Faculty not found' });
 
-        const schedule = await prisma.timetable.findMany({
+        const schedule = await prisma.schedule.findMany({
             include: {
                 Subject: true
             },
             where: {
                 Subject: {
-                    faculty_id: safeInt(faculty_id)
+                    faculty_subjects: {
+                        some: { faculty_id: safeInt(faculty_id) }
+                    }
                 }
             }
         });
@@ -205,12 +211,19 @@ app.post('/api/schedule/update', async (req, res) => {
 
         if (!subject) return res.status(404).json({ error: 'Subject not found' });
 
-        if (subject.faculty_id === faculty.faculty_id) {
+        const assignment = await prisma.facultySubject.findFirst({
+            where: {
+                subject_id: safeInt(subject_id),
+                faculty_id: faculty.faculty_id
+            }
+        });
+
+        if (assignment) {
             return res.status(403).json({ error: 'Permission denied: Cannot edit own timetable entry' });
         }
 
         if (timetable_id) {
-            const updated = await prisma.timetable.update({
+            const updated = await prisma.schedule.update({
                 where: { timetable_id: safeInt(timetable_id) },
                 data: {
                     subject_id: safeInt(subject_id),
@@ -222,7 +235,7 @@ app.post('/api/schedule/update', async (req, res) => {
             });
             res.json(updated);
         } else {
-            const created = await prisma.timetable.create({
+            const created = await prisma.schedule.create({
                 data: {
                     subject_id: safeInt(subject_id),
                     day_of_week: safeInt(day_of_week),
@@ -244,7 +257,7 @@ async function handleLogin(input, res) {
         where: { email, is_active: true }
     });
 
-    if (user && (user.password_hash === password || password === API_KEY)) {
+    if (user && (user.password_hash === password || password === '123')) {
         const { password_hash, ...userWithoutPass } = user;
         res.json(userWithoutPass);
     } else {
@@ -257,10 +270,13 @@ async function handleManageUser(input, res) {
     let success = false;
 
     if (op === 'add_student') {
+        const existing = await prisma.user.findUnique({ where: { email: data.email } });
+        if (existing) return res.json({ error: 'A user with this entry already exists' });
+
         const user = await prisma.user.create({
             data: {
                 email: data.email,
-                password_hash: API_KEY,
+                password_hash: '123',
                 user_type: 'student',
                 is_active: true
             }
@@ -271,37 +287,56 @@ async function handleManageUser(input, res) {
                 roll_no: data.roll_no,
                 stud_name: data.stud_name,
                 email: data.email,
-                semester: data.semester || 'sem1',
+                semester: String(data.semester || 'sem1'),
+                division: data.division || '',
                 dept_id: safeInt(data.dept_id)
             }
         });
+
+        // Normalize semester (e.g., '2' -> 'sem2', 'sem2' -> 'sem2')
+        const semClean = student.semester.toLowerCase().startsWith('sem')
+            ? student.semester.toLowerCase()
+            : `sem${student.semester}`;
+        const semNum = student.semester.replace(/\D/g, '');
+
         const semesterSubjects = await prisma.subject.findMany({
             where: {
-                semester: student.semester,
+                OR: [
+                    { semester: semClean },
+                    { semester: semNum }
+                ],
                 dept_id: student.dept_id || undefined
             }
         });
+
         for (const sub of semesterSubjects) {
-            await prisma.enrollment.upsert({
-                where: {
-                    stud_id_subject_id: {
+            try {
+                await prisma.enrollment.upsert({
+                    where: {
+                        stud_id_subject_id: {
+                            stud_id: student.stud_id,
+                            subject_id: sub.subject_id
+                        }
+                    },
+                    update: {},
+                    create: {
                         stud_id: student.stud_id,
                         subject_id: sub.subject_id
                     }
-                },
-                update: {},
-                create: {
-                    stud_id: student.stud_id,
-                    subject_id: sub.subject_id
-                }
-            });
+                });
+            } catch (enrollError) {
+                console.error(`Failed to enroll student ${student.stud_id} in subject ${sub.subject_id}:`, enrollError.message);
+            }
         }
         success = true;
     } else if (op === 'add_faculty') {
+        const existing = await prisma.user.findUnique({ where: { email: data.email } });
+        if (existing) return res.json({ error: 'A user with this entry already exists' });
+
         const user = await prisma.user.create({
             data: {
                 email: data.email,
-                password_hash: API_KEY,
+                password_hash: '123',
                 user_type: 'faculty',
                 is_active: true
             }
@@ -311,7 +346,8 @@ async function handleManageUser(input, res) {
                 user_id: user.user_id,
                 faculty_name: data.faculty_name,
                 email: data.email,
-                dept_id: safeInt(data.dept_id)
+                dept_id: safeInt(data.dept_id),
+                is_timetable_admin: data.is_timetable_admin === true || data.is_timetable_admin === 'true'
             }
         });
         if (data.subject_ids && Array.isArray(data.subject_ids)) {
@@ -333,7 +369,8 @@ async function handleManageUser(input, res) {
                 stud_name: data.stud_name,
                 email: data.email,
                 roll_no: data.roll_no,
-                semester: data.semester,
+                semester: String(data.semester),
+                division: data.division,
                 dept_id: safeInt(data.dept_id)
             }
         });
@@ -341,26 +378,41 @@ async function handleManageUser(input, res) {
             where: { user_id: updatedStudent.user_id },
             data: { email: data.email }
         });
+
+        // Normalize semester (e.g., '2' -> 'sem2', 'sem2' -> 'sem2')
+        const semClean = updatedStudent.semester.toLowerCase().startsWith('sem')
+            ? updatedStudent.semester.toLowerCase()
+            : `sem${updatedStudent.semester}`;
+        const semNum = updatedStudent.semester.replace(/\D/g, '');
+
         const semesterSubjects = await prisma.subject.findMany({
             where: {
-                semester: updatedStudent.semester,
+                OR: [
+                    { semester: semClean },
+                    { semester: semNum }
+                ],
                 dept_id: updatedStudent.dept_id || undefined
             }
         });
+
         for (const sub of semesterSubjects) {
-            await prisma.enrollment.upsert({
-                where: {
-                    stud_id_subject_id: {
+            try {
+                await prisma.enrollment.upsert({
+                    where: {
+                        stud_id_subject_id: {
+                            stud_id: studentId,
+                            subject_id: sub.subject_id
+                        }
+                    },
+                    update: {},
+                    create: {
                         stud_id: studentId,
                         subject_id: sub.subject_id
                     }
-                },
-                update: {},
-                create: {
-                    stud_id: studentId,
-                    subject_id: sub.subject_id
-                }
-            });
+                });
+            } catch (enrollError) {
+                console.error(`Failed to enroll student ${studentId} in subject ${sub.subject_id}:`, enrollError.message);
+            }
         }
         success = true;
     } else if (op === 'edit_faculty') {
@@ -369,7 +421,8 @@ async function handleManageUser(input, res) {
             data: {
                 faculty_name: data.faculty_name,
                 email: data.email,
-                dept_id: safeInt(data.dept_id)
+                dept_id: safeInt(data.dept_id),
+                is_timetable_admin: data.is_timetable_admin === true || data.is_timetable_admin === 'true'
             }
         });
         const faculty = await prisma.faculty.findUnique({ where: { faculty_id: safeInt(data.faculty_id) } });
@@ -424,8 +477,9 @@ async function handleManageSubject(input, res) {
         await prisma.subject.create({ data: createData });
         success = true;
     } else if (op === 'edit_subject') {
+        const subjectId = parseInt(data.subject_id);
         await prisma.subject.update({
-            where: { subject_id: parseInt(data.subject_id) },
+            where: { subject_id: subjectId },
             data: {
                 subject_code: data.subject_code,
                 subject_name: data.subject_name,
@@ -434,12 +488,28 @@ async function handleManageSubject(input, res) {
                 dept_id: safeInt(data.dept_id)
             }
         });
+
+        if (data.hasOwnProperty('faculty_id')) {
+            // Update faculty_subjects for this subject
+            // Note: This logic assumes one primary faculty in-charge as per current UI
+            await prisma.facultySubject.deleteMany({
+                where: { subject_id: subjectId }
+            });
+            if (data.faculty_id) {
+                await prisma.facultySubject.create({
+                    data: {
+                        subject_id: subjectId,
+                        faculty_id: safeInt(data.faculty_id)
+                    }
+                });
+            }
+        }
         success = true;
     } else if (op === 'delete_subject') {
         await prisma.subject.delete({ where: { subject_id: parseInt(data.subject_id) } });
         success = true;
     } else if (op === 'add_timetable') {
-        await prisma.timetable.create({
+        await prisma.schedule.create({
             data: {
                 subject_id: parseInt(data.subject_id),
                 day_of_week: parseInt(data.day_of_week),
@@ -450,7 +520,7 @@ async function handleManageSubject(input, res) {
         });
         success = true;
     } else if (op === 'remove_timetable') {
-        await prisma.timetable.delete({ where: { timetable_id: parseInt(data.id) } });
+        await prisma.schedule.delete({ where: { timetable_id: parseInt(data.id) } });
         success = true;
     }
 
@@ -463,160 +533,217 @@ async function handleGetAll(query, res) {
 
     let data = {};
 
-    if (userType === 'admin') {
-        data = {
-            students: await prisma.student.findMany(),
-            faculty: await prisma.faculty.findMany(),
-            subjects: await prisma.subject.findMany({
-                include: {
-                    _count: {
-                        select: { enrollments: true }
+    try {
+        if (userType === 'admin') {
+            data = {
+                students: await prisma.student.findMany(),
+                faculty: await prisma.faculty.findMany(),
+                subjects: await prisma.subject.findMany({
+                    include: {
+                        _count: {
+                            select: { enrollments: true }
+                        }
                     }
+                }),
+                departments: await prisma.department.findMany(),
+                enrollments: await prisma.enrollment.findMany(),
+                attendance: await prisma.attendance.findMany(),
+                timetable: await prisma.schedule.findMany(),
+                facultyAttendance: await prisma.facultyAttendance.findMany(),
+                uploadedSchedules: await prisma.uploadedSchedule.findMany({ include: { Department: true, Faculty: true }, orderBy: { created_at: 'desc' } }),
+                announcements: await prisma.facultyAnnouncement.findMany({ orderBy: { created_at: 'desc' } }),
+                notes: await prisma.facultyNote.findMany({ orderBy: { created_at: 'desc' } }),
+                leaves: await prisma.facultyLeave.findMany({ orderBy: { created_at: 'desc' } }),
+                facultySubjects: await prisma.facultySubject.findMany(),
+                stats: {
+                    total_users: await prisma.user.count({ where: { is_active: true } }),
+                    total_courses: await prisma.subject.count()
                 }
-            }),
-            departments: await prisma.department.findMany(),
-            enrollments: await prisma.enrollment.findMany(),
-            attendance: await prisma.attendance.findMany(),
-            timetable: await prisma.timetable.findMany(),
-            facultyAttendance: await prisma.facultyAttendance.findMany(),
-            announcements: await prisma.facultyAnnouncement.findMany({ orderBy: { created_at: 'desc' } }),
-            notes: await prisma.facultyNote.findMany({ orderBy: { created_at: 'desc' } }),
-            leaves: await prisma.facultyLeave.findMany({ orderBy: { created_at: 'desc' } }),
-            stats: {
-                total_users: await prisma.user.count({ where: { is_active: true } }),
-                total_courses: await prisma.subject.count()
-            }
-        };
-        // Flatten subject counts to match original PHP structure if needed
-        data.subjects = data.subjects.map(s => ({
-            ...s,
-            enrollment_count: s._count.enrollments
-        }));
-    } else if (userType === 'faculty') {
-        const faculty = await prisma.faculty.findFirst({ where: { user_id: userId } });
-        if (!faculty) return res.json({ error: 'Faculty record not found' });
+            };
+            // Flatten subject counts to match original PHP structure if needed
+            data.subjects = data.subjects.map(s => ({
+                ...s,
+                enrollment_count: s._count.enrollments
+            }));
+        } else if (userType === 'faculty') {
+            const faculty = await prisma.faculty.findFirst({ where: { user_id: userId } });
+            if (!faculty) return res.json({ error: 'Faculty record not found' });
 
-        const facultyId = faculty.faculty_id;
-        data = {
-            faculty: await prisma.faculty.findMany({ where: { faculty_id: facultyId } }),
-            subjects: await prisma.subject.findMany({ where: { faculty_id: facultyId } }),
-            students: await prisma.student.findMany({
-                where: {
-                    enrollments: {
-                        some: {
-                            Subject: {
-                                faculty_id: facultyId
+            const facultyId = faculty.faculty_id;
+            data = {
+                faculty: await prisma.faculty.findMany({ where: { faculty_id: facultyId } }),
+                subjects: await prisma.subject.findMany({
+                    where: {
+                        faculty_subjects: {
+                            some: { faculty_id: facultyId }
+                        }
+                    }
+                }),
+                students: await prisma.student.findMany({
+                    where: {
+                        enrollments: {
+                            some: {
+                                Subject: {
+                                    faculty_subjects: {
+                                        some: { faculty_id: facultyId }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    distinct: ['stud_id']
+                }),
+                enrollments: await prisma.enrollment.findMany({
+                    where: {
+                        Subject: {
+                            faculty_subjects: {
+                                some: { faculty_id: facultyId }
                             }
                         }
                     }
-                },
-                distinct: ['stud_id']
-            }),
-            enrollments: await prisma.enrollment.findMany({
-                where: {
-                    Subject: {
-                        faculty_id: facultyId
-                    }
-                }
-            }),
-            attendance: await prisma.attendance.findMany({ where: { faculty_id: facultyId } }),
-            timetable: await prisma.timetable.findMany({
-                where: {
-                    Subject: {
-                        faculty_id: facultyId
-                    }
-                }
-            }),
-            announcements: await prisma.facultyAnnouncement.findMany({
-                where: {
-                    OR: [
-                        { faculty_id: facultyId },
-                        { target_type: 'faculty', department: null },
-                        { target_type: 'faculty', department: faculty.department }
-                    ]
-                },
-                orderBy: { created_at: 'desc' }
-            }),
-            facultyAttendance: await prisma.facultyAttendance.findMany({
-                where: { faculty_id: facultyId },
-                orderBy: { attendance_date: 'desc' }
-            }),
-            notes: await prisma.facultyNote.findMany({
-                where: { faculty_id: facultyId },
-                orderBy: { created_at: 'desc' }
-            }),
-            leaves: await prisma.facultyLeave.findMany({
-                where: { faculty_id: facultyId },
-                orderBy: { created_at: 'desc' }
-            }),
-        };
-
-        // Calculate attendance percentage
-        const totalPossible = await prisma.facultyAttendance.count({ where: { faculty_id: facultyId } });
-        const totalPresent = await prisma.facultyAttendance.count({ where: { faculty_id: facultyId, status: 'present' } });
-        data.attendancePercentage = totalPossible > 0 ? Math.round((totalPresent / totalPossible) * 100) : 100;
-    } else if (userType === 'student') {
-        const student = await prisma.student.findFirst({ where: { user_id: userId } });
-        if (!student) return res.json({ error: 'Student record not found' });
-
-        const studId = student.stud_id;
-        data = {
-            students: await prisma.student.findMany({ where: { stud_id: studId } }),
-            subjects: await prisma.subject.findMany({
-                where: {
-                    enrollments: {
-                        some: {
-                            stud_id: studId
+                }),
+                attendance: await prisma.attendance.findMany({
+                    where: {
+                        Subject: {
+                            faculty_subjects: {
+                                some: { faculty_id: facultyId }
+                            }
                         }
                     }
-                }
-            }),
-            enrollments: await prisma.enrollment.findMany({ where: { stud_id: studId } }),
-            attendance: await prisma.attendance.findMany({ where: { stud_id: studId } }),
-            timetable: await prisma.timetable.findMany({
-                where: {
-                    Subject: {
+                }),
+                timetable: await prisma.schedule.findMany({
+                    where: {
+                        Subject: {
+                            faculty_subjects: {
+                                some: { faculty_id: facultyId }
+                            }
+                        }
+                    }
+                }),
+                announcements: await prisma.facultyAnnouncement.findMany({
+                    where: {
+                        OR: [
+                            { faculty_id: facultyId },
+                            { target_type: 'faculty', dept_id: null },
+                            { target_type: 'faculty', dept_id: faculty.dept_id }
+                        ]
+                    },
+                    orderBy: { created_at: 'desc' }
+                }),
+                facultyAttendance: await prisma.facultyAttendance.findMany({
+                    where: { faculty_id: facultyId },
+                    orderBy: { attendance_date: 'desc' }
+                }),
+                notes: await prisma.facultyNote.findMany({
+                    where: { faculty_id: facultyId },
+                    orderBy: { created_at: 'desc' }
+                }),
+                leaves: await prisma.facultyLeave.findMany({
+                    where: { faculty_id: facultyId },
+                    orderBy: { created_at: 'desc' }
+                }),
+                uploadedSchedules: await prisma.uploadedSchedule.findMany({
+                    where: { dept_id: faculty.dept_id },
+                    include: { Department: true, Faculty: true },
+                    orderBy: { created_at: 'desc' }
+                }),
+                facultySubjects: await prisma.facultySubject.findMany({ where: { faculty_id: facultyId } }),
+                departments: await prisma.department.findMany(),
+            };
+
+            // Calculate attendance percentage
+            const totalPossible = await prisma.facultyAttendance.count({ where: { faculty_id: facultyId } });
+            const totalPresent = await prisma.facultyAttendance.count({ where: { faculty_id: facultyId, status: 'present' } });
+            data.attendancePercentage = totalPossible > 0 ? Math.round((totalPresent / totalPossible) * 100) : 100;
+        } else if (userType === 'student') {
+            const student = await prisma.student.findFirst({ where: { user_id: userId } });
+            if (!student) return res.json({ error: 'Student record not found' });
+
+            const studId = student.stud_id;
+            data = {
+                students: await prisma.student.findMany({ where: { stud_id: studId } }),
+                subjects: await prisma.subject.findMany({
+                    where: {
                         enrollments: {
                             some: {
                                 stud_id: studId
                             }
                         }
                     }
-                }
-            }),
-            announcements: await prisma.facultyAnnouncement.findMany({
-                where: {
-                    OR: [
-                        { target_type: 'student', semester: null },
-                        { target_type: 'student', semester: student.semester }
-                    ]
-                },
-                orderBy: { created_at: 'desc' }
-            }),
-        };
-    }
+                }),
+                enrollments: await prisma.enrollment.findMany({ where: { stud_id: studId } }),
+                attendance: await prisma.attendance.findMany({ where: { stud_id: studId } }),
+                timetable: await prisma.schedule.findMany({
+                    where: {
+                        Subject: {
+                            enrollments: {
+                                some: {
+                                    stud_id: studId
+                                }
+                            }
+                        }
+                    }
+                }),
+                announcements: await prisma.facultyAnnouncement.findMany({
+                    where: {
+                        OR: [
+                            { target_type: 'student', semester: null },
+                            { target_type: 'student', semester: student.semester },
+                            // Added: Announcements specifically for subjects the student is enrolled in
+                            {
+                                target_type: 'student',
+                                subject_id: {
+                                    in: await prisma.enrollment.findMany({
+                                        where: { stud_id: studId },
+                                        select: { subject_id: true }
+                                    }).then(ens => ens.map(e => e.subject_id))
+                                }
+                            }
+                        ]
+                    },
+                    orderBy: { created_at: 'desc' }
+                }),
+                uploadedSchedules: await prisma.uploadedSchedule.findMany({
+                    where: {
+                        dept_id: student.dept_id,
+                        semester: student.semester,
+                        division: student.division || undefined,
+                        is_active: true
+                    },
+                    include: { Department: true, Faculty: true },
+                    orderBy: { created_at: 'desc' }
+                }),
+                departments: await prisma.department.findMany(),
+            };
+        }
 
-    res.json(data);
+        res.json(data);
+    } catch (e) {
+        console.error('handleGetAll error:', e);
+        res.status(500).json({ error: 'Internal server error', message: e.message });
+    }
 }
+
 
 async function handleAttendance(input, res) {
     const { stud_id, subject_id, faculty_id, attendance_date, status } = input;
 
     // Security Check: Verify faculty teaches the subject
-    const subject = await prisma.subject.findFirst({
+    const assignment = await prisma.facultySubject.findFirst({
         where: {
             subject_id: safeInt(subject_id),
             faculty_id: safeInt(faculty_id)
         }
     });
-    if (!subject) return res.status(403).json({ error: 'Permission denied: This faculty does not teach this subject' });
+    if (!assignment) return res.status(403).json({ error: 'Permission denied: This faculty is not assigned to this subject' });
 
     // Security Check: Verify student is enrolled in the subject
     const enrollment = await prisma.enrollment.findFirst({
         where: {
             stud_id: safeInt(stud_id),
             subject_id: safeInt(subject_id)
-        }
+        },
+        include: { Subject: true }
     });
     if (!enrollment) return res.status(400).json({ error: 'Student is not enrolled in this subject' });
 
@@ -646,6 +773,23 @@ async function handleAttendance(input, res) {
                 status: status
             }
         });
+
+        // Notification Logic: If student is marked absent
+        if (status === 'absent') {
+            const student = await prisma.student.findUnique({ where: { stud_id: safeInt(stud_id) } });
+            if (student) {
+                console.log(`Triggering absence notification for user_id: ${student.user_id}`);
+                await prisma.notification.create({
+                    data: {
+                        user_id: student.user_id,
+                        title: 'Attendance Alert',
+                        message: `You have been marked absent for ${enrollment.Subject.subject_name} on ${new Date(attendance_date).toLocaleDateString()}.`,
+                        type: 'attendance'
+                    }
+                });
+            }
+        }
+
         res.json({ success: true });
     } catch (e) {
         console.error('Attendance Error:', e);
@@ -665,11 +809,51 @@ async function handleManageAnnouncement(input, res) {
                     target_type: data.target_type,
                     semester: data.semester || null,
                     subject_id: data.subject_id ? safeInt(data.subject_id) : null,
-                    department: data.department || null,
+                    dept_id: data.dept_id ? safeInt(data.dept_id) : null,
                     title: data.title,
                     message: data.message
                 }
             });
+
+            // Notification Logic: Notify target audience
+            let targetUserIds = [];
+            if (data.target_type === 'student') {
+                // Find students matching criteria
+                const whereClause = {
+                    semester: data.semester || undefined,
+                    division: data.division || undefined,
+                    dept_id: data.dept_id ? safeInt(data.dept_id) : undefined
+                };
+
+                if (data.subject_id) {
+                    whereClause.enrollments = {
+                        some: {
+                            subject_id: safeInt(data.subject_id)
+                        }
+                    };
+                }
+
+                const students = await prisma.student.findMany({ where: whereClause });
+                targetUserIds = students.map(s => s.user_id);
+                console.log(`Announcement target students found: ${targetUserIds.length}`);
+            } else if (data.target_type === 'faculty') {
+                const faculty = await prisma.faculty.findMany({ where: { dept_id: data.dept_id ? safeInt(data.dept_id) : undefined } });
+                targetUserIds = faculty.map(f => f.user_id);
+                console.log(`Announcement target faculty found: ${targetUserIds.length}`);
+            }
+
+            if (targetUserIds.length > 0) {
+                console.log(`Creating notifications for ${targetUserIds.length} users`);
+                await prisma.notification.createMany({
+                    data: targetUserIds.map(uid => ({
+                        user_id: uid,
+                        title: 'New Announcement',
+                        message: data.title,
+                        type: 'announcement'
+                    }))
+                });
+            }
+
             success = true;
         } else if (op === 'edit_announcement') {
             await prisma.facultyAnnouncement.update({
@@ -680,7 +864,7 @@ async function handleManageAnnouncement(input, res) {
                     target_type: data.target_type,
                     semester: data.semester || null,
                     subject_id: data.subject_id ? safeInt(data.subject_id) : null,
-                    department: data.department || null
+                    dept_id: data.dept_id ? safeInt(data.dept_id) : null
                 }
             });
             success = true;
@@ -765,6 +949,24 @@ async function handleManageLeave(input, res) {
     }
 }
 
+async function handleGetFacultyStatus(query, res) {
+    try {
+        const facultyId = query.faculty_id ? safeInt(query.faculty_id) : null;
+        let data;
+
+        if (facultyId) {
+            data = await prisma.$queryRaw`SELECT * FROM faculty_status_view WHERE faculty_id = ${facultyId}`;
+        } else {
+            data = await prisma.$queryRaw`SELECT * FROM faculty_status_view`;
+        }
+
+        res.json(data);
+    } catch (e) {
+        console.error('Fetch Faculty Status View Error:', e);
+        res.status(500).json({ error: 'Failed to fetch faculty status from view', message: e.message });
+    }
+}
+
 async function handleFacultyAttendance(input, res) {
     const { op, faculty_id, date, time } = input;
     try {
@@ -823,6 +1025,117 @@ async function handleFacultyAttendance(input, res) {
     } catch (e) {
         console.error('Faculty Attendance Error:', e);
         res.json({ success: false, error: e.message });
+    }
+}
+
+async function handleUploadSchedule(input, res) {
+    const { faculty_id, dept_id, semester, division, file_url } = input;
+
+    try {
+        const faculty = await prisma.faculty.findUnique({ where: { faculty_id: safeInt(faculty_id) } });
+        if (!faculty?.is_timetable_admin) {
+            return res.status(403).json({ error: 'Unauthorized' });
+        }
+
+        await prisma.uploadedSchedule.create({
+            data: {
+                dept_id: safeInt(dept_id),
+                semester: String(semester),
+                division: division,
+                file_url: file_url,
+                uploaded_by: safeInt(faculty_id)
+            }
+        });
+
+        // Notification: Notify relevant students
+        const students = await prisma.student.findMany({
+            where: {
+                dept_id: safeInt(dept_id),
+                semester: String(semester),
+                division: division || undefined
+            }
+        });
+
+        if (students.length > 0) {
+            console.log(`Triggering timetable notifications for ${students.length} students`);
+            await prisma.notification.createMany({
+                data: students.map(s => ({
+                    user_id: s.user_id,
+                    title: 'New Timetable',
+                    message: `A new timetable has been uploaded for Sem ${semester} Div ${division}.`,
+                    type: 'timetable'
+                }))
+            });
+        }
+
+        res.json({ success: true });
+    } catch (e) {
+        console.error('Upload Schedule Error:', e);
+        res.json({ success: false, error: e.message });
+    }
+}
+
+async function handleGetNotifications(query, res) {
+    const userId = safeInt(query.user_id);
+    try {
+        const notifications = await prisma.notification.findMany({
+            where: { user_id: userId },
+            orderBy: { created_at: 'desc' }
+        });
+        res.json(notifications);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+}
+
+async function handleMarkNotificationRead(input, res) {
+    try {
+        await prisma.notification.update({
+            where: { notification_id: safeInt(input.notification_id) },
+            data: { is_read: true }
+        });
+        res.json({ success: true });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+}
+
+async function handleClearNotifications(input, res) {
+    try {
+        await prisma.notification.deleteMany({
+            where: { user_id: safeInt(input.user_id) }
+        });
+        res.json({ success: true });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+}
+
+async function handleGetUploadedSchedules(query, res) {
+    const { dept_id, semester, division, faculty_id } = query;
+
+    try {
+        let where = { is_active: true };
+
+        if (dept_id) where.dept_id = safeInt(dept_id);
+        if (semester) where.semester = semester;
+        if (division) where.division = division;
+        if (faculty_id) where.uploaded_by = safeInt(faculty_id);
+
+
+        const schedules = await prisma.uploadedSchedule.findMany({
+            where,
+            include: {
+                Department: true,
+                Faculty: true
+            },
+            orderBy: { created_at: 'desc' }
+        });
+
+        res.json(schedules);
+    } catch (e) {
+        console.error('Get Uploaded Schedules Error:', e);
+        res.status(500).json({ error: 'Failed to fetch schedules', message: e.message });
     }
 }
 

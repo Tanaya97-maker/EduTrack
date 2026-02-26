@@ -6,6 +6,7 @@ import AttendanceSummary from './AttendanceSummary';
 import AnnouncementSection from './AnnouncementSection';
 import FacultyNotes from './FacultyNotes';
 import DataTable from '../common/DataTable';
+import TimetableUpload from './TimetableUpload';
 
 interface Props {
   faculty: Faculty;
@@ -25,11 +26,12 @@ interface Props {
   onDeleteNote?: (id: number) => Promise<void>;
   onAddAnnouncement?: (a: any) => Promise<void>;
   onDeleteAnnouncement?: (id: number) => Promise<void>;
-  onCheckIn?: () => void;
-  onCheckOut?: () => void;
+  onCheckIn?: (time: string) => Promise<void>;
+  onCheckOut?: (time: string) => Promise<void>;
   onApplyLeave?: (reason: string) => void;
   departments: Department[];
   facultySubjects: FacultySubject[];
+  uploadedSchedules?: any[];
 }
 
 const FacultyDashboard: React.FC<Props> = ({
@@ -186,6 +188,14 @@ const FacultyDashboard: React.FC<Props> = ({
         onExport={() => { }}
         searchPlaceholder="Filter dates..."
       />
+
+      {faculty.is_timetable_admin && (
+        <TimetableUpload
+          faculty={faculty}
+          departments={departments}
+          onUploadSuccess={onAttendanceUpdate}
+        />
+      )}
 
       <AnnouncementSection
         faculty={faculty}

@@ -141,7 +141,8 @@ exports.Prisma.FacultyScalarFieldEnum = {
   user_id: 'user_id',
   faculty_name: 'faculty_name',
   email: 'email',
-  dept_id: 'dept_id'
+  dept_id: 'dept_id',
+  is_timetable_admin: 'is_timetable_admin'
 };
 
 exports.Prisma.StudentScalarFieldEnum = {
@@ -151,6 +152,7 @@ exports.Prisma.StudentScalarFieldEnum = {
   stud_name: 'stud_name',
   email: 'email',
   semester: 'semester',
+  division: 'division',
   dept_id: 'dept_id'
 };
 
@@ -173,13 +175,24 @@ exports.Prisma.EnrollmentScalarFieldEnum = {
   subject_id: 'subject_id'
 };
 
-exports.Prisma.TimetableScalarFieldEnum = {
+exports.Prisma.ScheduleScalarFieldEnum = {
   timetable_id: 'timetable_id',
   subject_id: 'subject_id',
   day_of_week: 'day_of_week',
   start_time: 'start_time',
   end_time: 'end_time',
   room_no: 'room_no'
+};
+
+exports.Prisma.UploadedScheduleScalarFieldEnum = {
+  schedule_id: 'schedule_id',
+  dept_id: 'dept_id',
+  semester: 'semester',
+  division: 'division',
+  file_url: 'file_url',
+  uploaded_by: 'uploaded_by',
+  created_at: 'created_at',
+  is_active: 'is_active'
 };
 
 exports.Prisma.HolidayScalarFieldEnum = {
@@ -204,7 +217,6 @@ exports.Prisma.FacultyAttendanceScalarFieldEnum = {
   attendance_date: 'attendance_date',
   check_in_time: 'check_in_time',
   check_out_time: 'check_out_time',
-  leave_date: 'leave_date',
   status: 'status',
   created_at: 'created_at'
 };
@@ -239,6 +251,16 @@ exports.Prisma.FacultyAnnouncementScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.NotificationScalarFieldEnum = {
+  notification_id: 'notification_id',
+  user_id: 'user_id',
+  title: 'title',
+  message: 'message',
+  type: 'type',
+  is_read: 'is_read',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -263,13 +285,15 @@ exports.Prisma.ModelName = {
   Subject: 'Subject',
   FacultySubject: 'FacultySubject',
   Enrollment: 'Enrollment',
-  Timetable: 'Timetable',
+  Schedule: 'Schedule',
+  UploadedSchedule: 'UploadedSchedule',
   Holiday: 'Holiday',
   Attendance: 'Attendance',
   FacultyAttendance: 'FacultyAttendance',
   FacultyLeave: 'FacultyLeave',
   FacultyNote: 'FacultyNote',
-  FacultyAnnouncement: 'FacultyAnnouncement'
+  FacultyAnnouncement: 'FacultyAnnouncement',
+  Notification: 'Notification'
 };
 
 /**

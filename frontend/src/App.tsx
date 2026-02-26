@@ -16,6 +16,8 @@ import { ICONS } from './constants';
 import { apiService } from './services/apiService';
 import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './routes';
+import { supabase } from './supabaseClient';
+import NotificationsDrawer from './components/common/NotificationsDrawer';
 
 const App: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
@@ -39,6 +41,9 @@ const App: React.FC = () => {
     const [facultyStats, setFacultyStats] = useState<any>({});
     const [departments, setDepartments] = useState<Department[]>([]);
     const [facultySubjects, setFacultySubjects] = useState<FacultySubject[]>([]);
+    const [uploadedSchedules, setUploadedSchedules] = useState<any[]>([]);
+    const [notifications, setNotifications] = useState<any[]>([]);
+    const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
     // Fetch data on mount or user login
     const fetchData = async () => {
@@ -68,6 +73,7 @@ const App: React.FC = () => {
                 setFacultyAttendance(data.facultyAttendance || []);
                 setDepartments(data.departments || []);
                 setFacultySubjects(data.facultySubjects || []);
+                setUploadedSchedules(data.uploadedSchedules || []);
                 if (user?.user_type === 'faculty') {
                     setFacultyStats({ attendancePercentage: data.attendancePercentage });
                 }
@@ -88,11 +94,67 @@ const App: React.FC = () => {
     };
 
 
+    const fetchNotifications = async () => {
+        if (!user?.user_id) return;
+        try {
+            const data = await apiService.getNotifications(user.user_id);
+            if (Array.isArray(data)) {
+                setNotifications(data);
+            }
+        } catch (error) {
+            console.error("Failed to fetch notifications", error);
+        }
+    };
+
     useEffect(() => {
         if (user) {
             fetchData();
+            fetchNotifications();
+
+            // Setup real-time notifications
+            const channel = supabase
+                .channel(`notifications-${user.user_id}`)
+                .on(
+                    'postgres_changes',
+                    {
+                        event: 'INSERT',
+                        schema: 'public',
+                        table: 'notifications',
+                        filter: `user_id=eq.${user.user_id}`
+                    },
+                    (payload) => {
+                        console.log('Real-time notification received:', payload);
+                        setNotifications(prev => [payload.new as any, ...prev]);
+                    }
+                )
+                .subscribe();
+
+            return () => {
+                supabase.removeChannel(channel);
+            };
         }
     }, [user]);
+
+    const handleMarkNotificationRead = async (id: number) => {
+        try {
+            await apiService.markNotificationRead(id);
+            setNotifications(prev => prev.map(n => n.notification_id === id ? { ...n, is_read: true } : n));
+        } catch (error) {
+            console.error("Failed to mark as read", error);
+        }
+    };
+
+    const handleClearAllNotifications = async () => {
+        if (!user) return;
+        if (window.confirm('Delete all notifications?')) {
+            try {
+                await apiService.clearNotifications(user.user_id);
+                setNotifications([]);
+            } catch (error) {
+                console.error("Failed to clear notifications", error);
+            }
+        }
+    };
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -174,25 +236,25 @@ const App: React.FC = () => {
         fetchData();
     };
 
-    const handleCheckIn = async (facultyId: number) => {
+    const handleCheckIn = async (facultyId: number, providedTime?: string) => {
         const now = new Date();
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
         const day = String(now.getDate()).padStart(2, '0');
         const today = `${year}-${month}-${day}`;
-        const time = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const time = providedTime || now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
         await apiService.manageFacultyAttendance('check_in', { faculty_id: facultyId, date: today, time });
         fetchData();
     };
 
-    const handleCheckOut = async (facultyId: number) => {
+    const handleCheckOut = async (facultyId: number, providedTime?: string) => {
         const now = new Date();
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
         const day = String(now.getDate()).padStart(2, '0');
         const today = `${year}-${month}-${day}`;
-        const time = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const time = providedTime || now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
         await apiService.manageFacultyAttendance('check_out', { faculty_id: facultyId, date: today, time });
         fetchData();
@@ -289,6 +351,16 @@ const App: React.FC = () => {
                         user={user}
                         pageTitle={""}
                         onLogout={() => setUser(null)}
+                        unreadNotifications={notifications.filter(n => !n.is_read).length}
+                        onOpenNotifications={() => setIsNotificationsOpen(true)}
+                    />
+
+                    <NotificationsDrawer
+                        isOpen={isNotificationsOpen}
+                        onClose={() => setIsNotificationsOpen(false)}
+                        notifications={notifications}
+                        onMarkRead={handleMarkNotificationRead}
+                        onClearAll={handleClearAllNotifications}
                     />
 
                     <main className="flex-1 p-8 lg:p-12 max-w-7xl mx-auto w-full">
@@ -309,6 +381,7 @@ const App: React.FC = () => {
                             notes={notes}
                             leaves={leaves}
                             stats={stats}
+                            uploadedSchedules={uploadedSchedules}
                             onAttendanceUpdate={fetchData}
                             handleCheckIn={handleCheckIn}
                             handleCheckOut={handleCheckOut}

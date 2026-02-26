@@ -1,15 +1,17 @@
-
 import React, { useState } from 'react';
-import { User, UserType } from '../types';
+import { User } from '../types';
 import { ICONS } from '../constants';
+import { Bell } from 'lucide-react';
 
 interface HeaderProps {
   user: User;
   pageTitle: string;
   onLogout: () => void;
+  unreadNotifications: number;
+  onOpenNotifications: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ user, pageTitle, onLogout }) => {
+const Header: React.FC<HeaderProps> = ({ user, pageTitle, onLogout, unreadNotifications, onOpenNotifications }) => {
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
 
   return (
@@ -19,10 +21,19 @@ const Header: React.FC<HeaderProps> = ({ user, pageTitle, onLogout }) => {
       </div>
 
       <div className="flex items-center gap-4">
-        <button className="p-2 text-slate-400 hover:bg-slate-50 rounded-lg relative transition-colors">
-          {ICONS.Bell}
-          <span className="absolute top-2 right-2 w-2 h-2 bg-rose-500 border-2 border-white rounded-full"></span>
-        </button>
+        <div className="relative">
+          <button
+            onClick={onOpenNotifications}
+            className="p-2 text-slate-400 hover:bg-slate-50 rounded-lg relative transition-colors"
+          >
+            <Bell className="w-6 h-6" />
+            {unreadNotifications > 0 && (
+              <span className="absolute top-1 right-1 w-5 h-5 bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full border-2 border-white">
+                {unreadNotifications > 99 ? '99+' : unreadNotifications}
+              </span>
+            )}
+          </button>
+        </div>
 
         <div className="h-8 w-[1px] bg-slate-200 mx-2"></div>
 
@@ -41,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({ user, pageTitle, onLogout }) => {
           </button>
 
           {showProfileDropdown && (
-            <div className="absolute right-0 mt-3 w-64 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in duration-150">
+            <div className="absolute right-0 mt-3 w-64 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in duration-150 z-50">
               <div className="p-6 text-center border-b border-slate-50">
                 <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl font-black">
                   {user.email.charAt(0).toUpperCase()}

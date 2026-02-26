@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Faculty, Subject, Department, FacultySubject } from '../../types';
+import { Faculty, Subject, FacultySubject, Department } from '../../types';
 import { Bell, Plus, Send, Trash2, X } from 'lucide-react';
 
 interface Props {
@@ -25,10 +24,17 @@ const AnnouncementSection: React.FC<Props> = ({
     const [showAnnounceModal, setShowAnnounceModal] = useState(false);
     const [targetType, setTargetType] = useState<'student' | 'faculty'>('student');
     const [selectedSemester, setSelectedSemester] = useState<string>('');
+    const [selectedDivision, setSelectedDivision] = useState<string>('');
 
     const facultySubjectsAssigned = subjects.filter(s =>
         facultySubjects.some(fs => fs.faculty_id === faculty.faculty_id && fs.subject_id === s.subject_id)
     );
+
+    // Filter subjects based on selected semester
+    const filteredSubjects = facultySubjectsAssigned.filter(sub => {
+        const semMatch = !selectedSemester || sub.semester === `sem${selectedSemester}`;
+        return semMatch;
+    });
 
     const handlePostAnnouncementInternal = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -41,7 +47,8 @@ const AnnouncementSection: React.FC<Props> = ({
             target_type: targetType,
             semester: targetType === 'student' ? formData.get('semester') : null,
             subject_id: targetType === 'student' ? formData.get('subject_id') : null,
-            dept_id: targetType === 'faculty' ? (formData.get('dept_id') ? parseInt(formData.get('dept_id') as string) : null) : null,
+            dept_id: formData.get('dept_id') ? parseInt(formData.get('dept_id') as string) : null,
+            division: targetType === 'student' ? formData.get('division') : null,
         };
 
         if (onPostAnnouncement) {
@@ -83,11 +90,6 @@ const AnnouncementSection: React.FC<Props> = ({
                                     <td className="px-8 py-6">
                                         <p className="text-base font-bold text-slate-800 mb-1">{ann.title}</p>
                                         <p className="text-xs text-slate-400 line-clamp-2 max-w-md leading-relaxed">{ann.message}</p>
-                                    </td>
-                                    <td className="px-8 py-6 text-xs font-bold text-slate-500 whitespace-nowrap">
-                                        {ann.target_type === 'student'
-                                            ? `${ann.semester || 'All Semesters'} • ${subjects.find(s => s.subject_id === ann.subject_id)?.subject_name || 'All Subjects'}`
-                                            : `Faculty • ${departments.find(d => d.dept_id === ann.dept_id)?.dept_name || 'All Departments'}`}
                                     </td>
                                     <td className="px-8 py-6 text-xs font-bold text-slate-500 whitespace-nowrap">
                                         {new Date(ann.created_at).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
@@ -152,57 +154,61 @@ const AnnouncementSection: React.FC<Props> = ({
                                     </button>
                                 </div>
                             </div>
-
-                            {targetType === 'student' && (
-                                <>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Semester</label>
-                                        <select
-                                            name="semester"
-                                            value={selectedSemester}
-                                            onChange={(e) => setSelectedSemester(e.target.value)}
-                                            className="w-full px-4 py-3 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold text-sm"
-                                        >
-                                            <option value="">All Semesters</option>
-                                            <option value="1">Semester 1</option>
-                                            <option value="2">Semester 2</option>
-                                            <option value="3">Semester 3</option>
-                                            <option value="4">Semester 4</option>
-                                            <option value="5">Semester 5</option>
-                                            <option value="6">Semester 6</option>
-                                            <option value="7">Semester 7</option>
-                                            <option value="8">Semester 8</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Subject</label>
-                                        <select
-                                            name="subject_id"
-                                            className="w-full px-4 py-3 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold text-sm"
-                                        >
-                                            <option value="">All Subjects</option>
-                                            {facultySubjectsAssigned.map(sub => (
-                                                <option key={sub.subject_id} value={sub.subject_id}>
-                                                    {sub.subject_name} ({sub.subject_code})
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </>
-                            )}
-
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Department</label>
-                                <select
-                                    name="dept_id"
-                                    className="w-full px-4 py-3 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold text-sm"
-                                >
-                                    <option value="">All Departments</option>
-                                    {departments.map(dept => (
-                                        <option key={dept.dept_id} value={dept.dept_id}>{dept.dept_name.toUpperCase()}</option>
-                                    ))}
-                                </select>
+                            <div className="space-y-4">
+                                <div className="grid grid-cols-3 gap-3">
+                                    {targetType === 'student' && (
+                                        <>
+                                            <div className="space-y-2">
+                                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Semester</label>
+                                                <select
+                                                    name="semester"
+                                                    value={selectedSemester}
+                                                    onChange={(e) => setSelectedSemester(e.target.value)}
+                                                    className="w-full px-4 py-3 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold text-sm"
+                                                >
+                                                    <option value="">All Semesters</option>
+                                                    <option value="1">Semester 1</option>
+                                                    <option value="2">Semester 2</option>
+                                                    <option value="3">Semester 3</option>
+                                                    <option value="4">Semester 4</option>
+                                                    <option value="5">Semester 5</option>
+                                                    <option value="6">Semester 6</option>
+                                                    <option value="7">Semester 7</option>
+                                                    <option value="8">Semester 8</option>
+                                                </select>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Division</label>
+                                                <select
+                                                    name="division"
+                                                    value={selectedDivision}
+                                                    onChange={(e) => setSelectedDivision(e.target.value)}
+                                                    className="w-full px-4 py-3 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold text-sm"
+                                                >
+                                                    <option value="">All Divisions</option>
+                                                    <option value="A">Division A</option>
+                                                    <option value="B">Division B</option>
+                                                    <option value="C">Division C</option>
+                                                    <option value="D">Division D</option>
+                                                </select>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Subject</label>
+                                                <select
+                                                    name="subject_id"
+                                                    className="w-full px-4 py-3 rounded-2xl border border-slate-100 bg-slate-50 focus:bg-white focus:ring-4 focus:ring-indigo-50 outline-none transition-all font-bold text-sm"
+                                                >
+                                                    <option value="">All Subjects</option>
+                                                    {filteredSubjects.map(sub => (
+                                                        <option key={sub.subject_id} value={sub.subject_id}>
+                                                            {sub.subject_name} ({sub.subject_code})
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
                             </div>
 
                             <div className="space-y-2">

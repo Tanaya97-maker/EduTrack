@@ -1,0 +1,30 @@
+﻿node : C:\Users\tanaya
+\Desktop\Tanaya\EduTra
+ck\backend\src\index.j
+s:971
+At line:1 char:1
++ node -c 
+src/index.js > 
+error.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (C:\Users\t   
+ anaya...rc\index.    
+js:971:String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+            }
+            ^
+
+SyntaxError: missing 
+) after argument list
+    at checkSyntax (no
+de:internal/main/check
+_syntax:72:5)
+
+Node.js v24.12.0

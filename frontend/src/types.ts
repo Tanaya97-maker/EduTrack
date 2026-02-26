@@ -31,6 +31,7 @@ export interface Student {
   stud_name: string;
   email: string;
   semester: string; // sem1 to sem8
+  division?: string;
   dept_id?: number;
 }
 
@@ -40,6 +41,7 @@ export interface Faculty {
   faculty_name: string;
   email: string;
   dept_id?: number;
+  is_timetable_admin?: boolean;
 }
 
 export interface FacultyAttendance {
@@ -48,7 +50,6 @@ export interface FacultyAttendance {
   attendance_date: string;
   check_in_time?: string;
   check_out_time?: string;
-  leave_date?: string;
   status: 'present' | 'absent' | 'leave';
 }
 
@@ -129,6 +130,19 @@ export interface Holiday {
   holiday_name: string;
   holiday_date: string;
   year: number;
+}
+
+export interface UploadedSchedule {
+  schedule_id: number;
+  dept_id: number;
+  semester: number;
+  division: string;
+  file_url: string;
+  uploaded_by?: number;
+  created_at?: string;
+  is_active?: boolean;
+  Department?: Department;
+  Faculty?: Faculty;
 }
 
 export type AdminTab = 'dashboard' | 'schedule' | 'user-management' | 'subject-management' | 'reports';

@@ -30,6 +30,8 @@ const AdminDashboard: React.FC<Props> = ({
   const [editItem, setEditItem] = useState<{ type: 'course' | 'faculty' | 'student'; data: any } | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<{ type: string; id: number; name: string } | null>(null);
 
+  const compDeptId = departments.find(d => d.dept_name.toLowerCase() === 'comp')?.dept_id || 1;
+
   const renderProgressCircle = (percent: number, size = 32) => {
     const stroke = 2.5;
     const radius = (size - stroke * 2) / 2;
@@ -59,7 +61,7 @@ const AdminDashboard: React.FC<Props> = ({
       sortable: true,
       render: (s: Subject) => (
         <span className="text-[10px] font-black text-rose-500 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100/50">
-          {departments.find(d => d.dept_id === s.dept_id)?.dept_name || 'COMP'}
+          {departments.find(d => d.dept_id === s.dept_id)?.dept_name}
         </span>
       )
     },
@@ -99,7 +101,7 @@ const AdminDashboard: React.FC<Props> = ({
       sortable: true,
       render: (f: Faculty) => (
         <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100/50">
-          {departments.find(d => d.dept_id === f.dept_id)?.dept_name || 'COMP'}
+          {departments.find(d => d.dept_id === f.dept_id)?.dept_name}
         </span>
       )
     },
@@ -138,7 +140,7 @@ const AdminDashboard: React.FC<Props> = ({
       sortable: true,
       render: (s: Student) => (
         <span className="text-[10px] font-black text-rose-600 uppercase tracking-widest bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100/50">
-          {departments.find(d => d.dept_id === s.dept_id)?.dept_name || 'COMP'}
+          {departments.find(d => d.dept_id === s.dept_id)?.dept_name}
         </span>
       )
     },
@@ -202,6 +204,15 @@ const AdminDashboard: React.FC<Props> = ({
       )
     }
   ];
+
+  const leavesWithDept = leaves.map(leave => {
+    const facultyMember = faculty.find(f => f.faculty_id === leave.faculty_id);
+    return {
+      ...leave,
+      faculty_name: facultyMember?.faculty_name || 'Unknown',
+      dept_id: facultyMember?.dept_id
+    };
+  });
 
   return (
     <div className="space-y-8 pb-12">
@@ -336,6 +347,8 @@ const AdminDashboard: React.FC<Props> = ({
         onImport={() => { }}
         onExport={() => { }}
         searchPlaceholder="Search courses..."
+        departments={departments}
+        initialDeptId={compDeptId}
       />
 
       <DataTable
@@ -345,6 +358,8 @@ const AdminDashboard: React.FC<Props> = ({
         onImport={() => { }}
         onExport={() => { }}
         searchPlaceholder="Search faculty..."
+        departments={departments}
+        initialDeptId={compDeptId}
       />
 
       <DataTable
@@ -354,6 +369,8 @@ const AdminDashboard: React.FC<Props> = ({
         onImport={() => { }}
         onExport={() => { }}
         searchPlaceholder="Search students..."
+        departments={departments}
+        initialDeptId={compDeptId}
       />
 
       <section className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
@@ -371,9 +388,11 @@ const AdminDashboard: React.FC<Props> = ({
 
         <DataTable
           title=""
-          data={leaves.filter(l => l.status === 'pending')}
+          data={leavesWithDept.filter(l => l.status === 'pending')}
           columns={leaveColumns as any}
           searchPlaceholder="Search leave requests..."
+          departments={departments}
+          initialDeptId={compDeptId}
         />
       </section>
     </div>

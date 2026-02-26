@@ -165,16 +165,14 @@ const AttendanceSummary: React.FC<Props> = ({ faculty, attendance, leaves = [] }
                                     {currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
                                 </p>
                             </div>
-                            <div className="flex items-center gap-2 md:gap-4">
-                                <div className="flex bg-white/10 rounded-xl md:rounded-2xl p-0.5 md:p-1">
-                                    <button onClick={handlePrevMonth} className="p-1.5 md:p-2 hover:bg-white/10 rounded-lg md:rounded-xl transition-colors">
-                                        <ChevronLeft className="w-4 h-4 md:w-6 md:h-6" />
-                                    </button>
-                                    <button onClick={handleNextMonth} className="p-1.5 md:p-2 hover:bg-white/10 rounded-lg md:rounded-xl transition-colors">
-                                        <ChevronRight className="w-4 h-4 md:w-6 md:h-6" />
-                                    </button>
-                                </div>
-                                <button onClick={() => setShowCalendar(false)} className="p-1.5 md:p-2 hover:bg-white/10 rounded-lg md:rounded-xl transition-colors">
+                            <div className="flex items-center gap-1 md:gap-2">
+                                <button onClick={handlePrevMonth} className="p-1.5 md:p-2 text-slate-700 bg-white rounded-xl">
+                                    <ChevronLeft className="w-4 h-4 md:w-6 md:h-6" />
+                                </button>
+                                <button onClick={handleNextMonth} className="p-1.5 md:p-2 text-slate-700 bg-white rounded-xl">
+                                    <ChevronRight className="w-4 h-4 md:w-6 md:h-6" />
+                                </button>
+                                <button onClick={() => setShowCalendar(false)} className="p-1.5 md:p-2 text-red-700 bg-white rounded-xl">
                                     <X className="w-4 h-4 md:w-6 md:h-6" />
                                 </button>
                             </div>
