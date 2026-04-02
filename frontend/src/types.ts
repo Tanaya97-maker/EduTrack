@@ -132,6 +132,17 @@ export interface Holiday {
   year: number;
 }
 
+export interface UploadedSyllabus {
+  package_id: number;
+  dept_id: number;
+  semester: string;
+  file_url: string;
+  status: 'processing' | 'completed' | 'failed';
+  error_msg?: string;
+  uploaded_at?: string;
+  departments?: Department;
+}
+
 export interface UploadedSchedule {
   schedule_id: number;
   dept_id: number;

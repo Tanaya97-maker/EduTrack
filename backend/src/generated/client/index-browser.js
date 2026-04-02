@@ -261,9 +261,54 @@ exports.Prisma.NotificationScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.Syllabus_completionsScalarFieldEnum = {
+  completion_id: 'completion_id',
+  subtopic_id: 'subtopic_id',
+  faculty_id: 'faculty_id',
+  completed_at: 'completed_at'
+};
+
+exports.Prisma.Syllabus_packagesScalarFieldEnum = {
+  package_id: 'package_id',
+  dept_id: 'dept_id',
+  semester: 'semester',
+  uploaded_by: 'uploaded_by',
+  uploaded_at: 'uploaded_at',
+  file_url: 'file_url',
+  version: 'version',
+  is_active: 'is_active',
+  notes: 'notes',
+  status: 'status',
+  error_msg: 'error_msg'
+};
+
+exports.Prisma.Syllabus_subtopicsScalarFieldEnum = {
+  subtopic_id: 'subtopic_id',
+  unit_id: 'unit_id',
+  subject_id: 'subject_id',
+  subtopic_index: 'subtopic_index',
+  title: 'title',
+  details: 'details',
+  extra: 'extra'
+};
+
+exports.Prisma.Syllabus_unitsScalarFieldEnum = {
+  unit_id: 'unit_id',
+  package_id: 'package_id',
+  subject_id: 'subject_id',
+  unit_index: 'unit_index',
+  title: 'title',
+  description: 'description'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -274,6 +319,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 
 
@@ -293,7 +344,11 @@ exports.Prisma.ModelName = {
   FacultyLeave: 'FacultyLeave',
   FacultyNote: 'FacultyNote',
   FacultyAnnouncement: 'FacultyAnnouncement',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  syllabus_completions: 'syllabus_completions',
+  syllabus_packages: 'syllabus_packages',
+  syllabus_subtopics: 'syllabus_subtopics',
+  syllabus_units: 'syllabus_units'
 };
 
 /**

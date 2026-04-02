@@ -213,5 +213,41 @@ export const apiService = {
         } catch (e) {
             return { success: false };
         }
+    },
+
+    async uploadSyllabus(data: any) {
+        try {
+            const res = await fetch(`${API_BASE}?action=upload_syllabus`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            return await res.json();
+        } catch (e) {
+            return { error: "Upload failed" };
+        }
+    },
+
+    async getSyllabusUploads() {
+        try {
+            const res = await fetch(`${API_BASE}?action=get_syllabus_uploads`);
+            if (!res.ok) throw new Error("Fetch failed");
+            return await res.json();
+        } catch (e) {
+            return [];
+        }
+    },
+
+    async retrySyllabusUpload(packageId: number) {
+        try {
+            const res = await fetch(`${API_BASE}?action=retry_syllabus_upload`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ package_id: packageId }),
+            });
+            return await res.json();
+        } catch (e) {
+            return { error: "Retry failed" };
+        }
     }
 };

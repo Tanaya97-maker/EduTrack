@@ -5,6 +5,7 @@ import { ICONS } from '../../constants.tsx';
 import { calculatePercentage } from '../../services/attendanceService';
 import { Download, Upload, AlertCircle, Edit2, Trash2 } from 'lucide-react';
 import DataTable from '../common/DataTable';
+import SyllabusUpload from './SyllabusUpload';
 
 interface Props {
   students: Student[];
@@ -339,6 +340,8 @@ const AdminDashboard: React.FC<Props> = ({
           </div>
         </div>
       )}
+
+      <SyllabusUpload departments={departments} />
 
       <DataTable
         title="Course Catalog"

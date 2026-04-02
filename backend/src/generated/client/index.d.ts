@@ -93,6 +93,26 @@ export type FacultyAnnouncement = $Result.DefaultSelection<Prisma.$FacultyAnnoun
  * 
  */
 export type Notification = $Result.DefaultSelection<Prisma.$NotificationPayload>
+/**
+ * Model syllabus_completions
+ * 
+ */
+export type syllabus_completions = $Result.DefaultSelection<Prisma.$syllabus_completionsPayload>
+/**
+ * Model syllabus_packages
+ * 
+ */
+export type syllabus_packages = $Result.DefaultSelection<Prisma.$syllabus_packagesPayload>
+/**
+ * Model syllabus_subtopics
+ * 
+ */
+export type syllabus_subtopics = $Result.DefaultSelection<Prisma.$syllabus_subtopicsPayload>
+/**
+ * Model syllabus_units
+ * 
+ */
+export type syllabus_units = $Result.DefaultSelection<Prisma.$syllabus_unitsPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -376,6 +396,46 @@ export class PrismaClient<
     * ```
     */
   get notification(): Prisma.NotificationDelegate<ExtArgs>;
+
+  /**
+   * `prisma.syllabus_completions`: Exposes CRUD operations for the **syllabus_completions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Syllabus_completions
+    * const syllabus_completions = await prisma.syllabus_completions.findMany()
+    * ```
+    */
+  get syllabus_completions(): Prisma.syllabus_completionsDelegate<ExtArgs>;
+
+  /**
+   * `prisma.syllabus_packages`: Exposes CRUD operations for the **syllabus_packages** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Syllabus_packages
+    * const syllabus_packages = await prisma.syllabus_packages.findMany()
+    * ```
+    */
+  get syllabus_packages(): Prisma.syllabus_packagesDelegate<ExtArgs>;
+
+  /**
+   * `prisma.syllabus_subtopics`: Exposes CRUD operations for the **syllabus_subtopics** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Syllabus_subtopics
+    * const syllabus_subtopics = await prisma.syllabus_subtopics.findMany()
+    * ```
+    */
+  get syllabus_subtopics(): Prisma.syllabus_subtopicsDelegate<ExtArgs>;
+
+  /**
+   * `prisma.syllabus_units`: Exposes CRUD operations for the **syllabus_units** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Syllabus_units
+    * const syllabus_units = await prisma.syllabus_units.findMany()
+    * ```
+    */
+  get syllabus_units(): Prisma.syllabus_unitsDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -832,7 +892,11 @@ export namespace Prisma {
     FacultyLeave: 'FacultyLeave',
     FacultyNote: 'FacultyNote',
     FacultyAnnouncement: 'FacultyAnnouncement',
-    Notification: 'Notification'
+    Notification: 'Notification',
+    syllabus_completions: 'syllabus_completions',
+    syllabus_packages: 'syllabus_packages',
+    syllabus_subtopics: 'syllabus_subtopics',
+    syllabus_units: 'syllabus_units'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -848,7 +912,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "department" | "faculty" | "student" | "subject" | "facultySubject" | "enrollment" | "schedule" | "uploadedSchedule" | "holiday" | "attendance" | "facultyAttendance" | "facultyLeave" | "facultyNote" | "facultyAnnouncement" | "notification"
+      modelProps: "user" | "department" | "faculty" | "student" | "subject" | "facultySubject" | "enrollment" | "schedule" | "uploadedSchedule" | "holiday" | "attendance" | "facultyAttendance" | "facultyLeave" | "facultyNote" | "facultyAnnouncement" | "notification" | "syllabus_completions" | "syllabus_packages" | "syllabus_subtopics" | "syllabus_units"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1972,6 +2036,286 @@ export namespace Prisma {
           }
         }
       }
+      syllabus_completions: {
+        payload: Prisma.$syllabus_completionsPayload<ExtArgs>
+        fields: Prisma.syllabus_completionsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.syllabus_completionsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_completionsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.syllabus_completionsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_completionsPayload>
+          }
+          findFirst: {
+            args: Prisma.syllabus_completionsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_completionsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.syllabus_completionsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_completionsPayload>
+          }
+          findMany: {
+            args: Prisma.syllabus_completionsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_completionsPayload>[]
+          }
+          create: {
+            args: Prisma.syllabus_completionsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_completionsPayload>
+          }
+          createMany: {
+            args: Prisma.syllabus_completionsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.syllabus_completionsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_completionsPayload>[]
+          }
+          delete: {
+            args: Prisma.syllabus_completionsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_completionsPayload>
+          }
+          update: {
+            args: Prisma.syllabus_completionsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_completionsPayload>
+          }
+          deleteMany: {
+            args: Prisma.syllabus_completionsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.syllabus_completionsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.syllabus_completionsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_completionsPayload>
+          }
+          aggregate: {
+            args: Prisma.Syllabus_completionsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSyllabus_completions>
+          }
+          groupBy: {
+            args: Prisma.syllabus_completionsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Syllabus_completionsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.syllabus_completionsCountArgs<ExtArgs>
+            result: $Utils.Optional<Syllabus_completionsCountAggregateOutputType> | number
+          }
+        }
+      }
+      syllabus_packages: {
+        payload: Prisma.$syllabus_packagesPayload<ExtArgs>
+        fields: Prisma.syllabus_packagesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.syllabus_packagesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_packagesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.syllabus_packagesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_packagesPayload>
+          }
+          findFirst: {
+            args: Prisma.syllabus_packagesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_packagesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.syllabus_packagesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_packagesPayload>
+          }
+          findMany: {
+            args: Prisma.syllabus_packagesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_packagesPayload>[]
+          }
+          create: {
+            args: Prisma.syllabus_packagesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_packagesPayload>
+          }
+          createMany: {
+            args: Prisma.syllabus_packagesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.syllabus_packagesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_packagesPayload>[]
+          }
+          delete: {
+            args: Prisma.syllabus_packagesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_packagesPayload>
+          }
+          update: {
+            args: Prisma.syllabus_packagesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_packagesPayload>
+          }
+          deleteMany: {
+            args: Prisma.syllabus_packagesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.syllabus_packagesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.syllabus_packagesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_packagesPayload>
+          }
+          aggregate: {
+            args: Prisma.Syllabus_packagesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSyllabus_packages>
+          }
+          groupBy: {
+            args: Prisma.syllabus_packagesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Syllabus_packagesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.syllabus_packagesCountArgs<ExtArgs>
+            result: $Utils.Optional<Syllabus_packagesCountAggregateOutputType> | number
+          }
+        }
+      }
+      syllabus_subtopics: {
+        payload: Prisma.$syllabus_subtopicsPayload<ExtArgs>
+        fields: Prisma.syllabus_subtopicsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.syllabus_subtopicsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_subtopicsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.syllabus_subtopicsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_subtopicsPayload>
+          }
+          findFirst: {
+            args: Prisma.syllabus_subtopicsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_subtopicsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.syllabus_subtopicsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_subtopicsPayload>
+          }
+          findMany: {
+            args: Prisma.syllabus_subtopicsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_subtopicsPayload>[]
+          }
+          create: {
+            args: Prisma.syllabus_subtopicsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_subtopicsPayload>
+          }
+          createMany: {
+            args: Prisma.syllabus_subtopicsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.syllabus_subtopicsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_subtopicsPayload>[]
+          }
+          delete: {
+            args: Prisma.syllabus_subtopicsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_subtopicsPayload>
+          }
+          update: {
+            args: Prisma.syllabus_subtopicsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_subtopicsPayload>
+          }
+          deleteMany: {
+            args: Prisma.syllabus_subtopicsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.syllabus_subtopicsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.syllabus_subtopicsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_subtopicsPayload>
+          }
+          aggregate: {
+            args: Prisma.Syllabus_subtopicsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSyllabus_subtopics>
+          }
+          groupBy: {
+            args: Prisma.syllabus_subtopicsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Syllabus_subtopicsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.syllabus_subtopicsCountArgs<ExtArgs>
+            result: $Utils.Optional<Syllabus_subtopicsCountAggregateOutputType> | number
+          }
+        }
+      }
+      syllabus_units: {
+        payload: Prisma.$syllabus_unitsPayload<ExtArgs>
+        fields: Prisma.syllabus_unitsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.syllabus_unitsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_unitsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.syllabus_unitsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_unitsPayload>
+          }
+          findFirst: {
+            args: Prisma.syllabus_unitsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_unitsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.syllabus_unitsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_unitsPayload>
+          }
+          findMany: {
+            args: Prisma.syllabus_unitsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_unitsPayload>[]
+          }
+          create: {
+            args: Prisma.syllabus_unitsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_unitsPayload>
+          }
+          createMany: {
+            args: Prisma.syllabus_unitsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.syllabus_unitsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_unitsPayload>[]
+          }
+          delete: {
+            args: Prisma.syllabus_unitsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_unitsPayload>
+          }
+          update: {
+            args: Prisma.syllabus_unitsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_unitsPayload>
+          }
+          deleteMany: {
+            args: Prisma.syllabus_unitsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.syllabus_unitsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.syllabus_unitsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$syllabus_unitsPayload>
+          }
+          aggregate: {
+            args: Prisma.Syllabus_unitsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSyllabus_units>
+          }
+          groupBy: {
+            args: Prisma.syllabus_unitsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Syllabus_unitsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.syllabus_unitsCountArgs<ExtArgs>
+            result: $Utils.Optional<Syllabus_unitsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2134,14 +2478,14 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     faculty: number
-    students: number
     notifications: number
+    students: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     faculty?: boolean | UserCountOutputTypeCountFacultyArgs
-    students?: boolean | UserCountOutputTypeCountStudentsArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+    students?: boolean | UserCountOutputTypeCountStudentsArgs
   }
 
   // Custom InputTypes
@@ -2165,15 +2509,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountStudentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StudentWhereInput
+  export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: NotificationWhereInput
+  export type UserCountOutputTypeCountStudentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StudentWhereInput
   }
 
 
@@ -2183,18 +2527,20 @@ export namespace Prisma {
 
   export type DepartmentCountOutputType = {
     faculty: number
-    students: number
-    subjects: number
     announcements: number
     uploaded_schedules: number
+    students: number
+    subjects: number
+    syllabus_packages: number
   }
 
   export type DepartmentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     faculty?: boolean | DepartmentCountOutputTypeCountFacultyArgs
-    students?: boolean | DepartmentCountOutputTypeCountStudentsArgs
-    subjects?: boolean | DepartmentCountOutputTypeCountSubjectsArgs
     announcements?: boolean | DepartmentCountOutputTypeCountAnnouncementsArgs
     uploaded_schedules?: boolean | DepartmentCountOutputTypeCountUploaded_schedulesArgs
+    students?: boolean | DepartmentCountOutputTypeCountStudentsArgs
+    subjects?: boolean | DepartmentCountOutputTypeCountSubjectsArgs
+    syllabus_packages?: boolean | DepartmentCountOutputTypeCountSyllabus_packagesArgs
   }
 
   // Custom InputTypes
@@ -2218,6 +2564,20 @@ export namespace Prisma {
   /**
    * DepartmentCountOutputType without action
    */
+  export type DepartmentCountOutputTypeCountAnnouncementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FacultyAnnouncementWhereInput
+  }
+
+  /**
+   * DepartmentCountOutputType without action
+   */
+  export type DepartmentCountOutputTypeCountUploaded_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UploadedScheduleWhereInput
+  }
+
+  /**
+   * DepartmentCountOutputType without action
+   */
   export type DepartmentCountOutputTypeCountStudentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: StudentWhereInput
   }
@@ -2232,15 +2592,8 @@ export namespace Prisma {
   /**
    * DepartmentCountOutputType without action
    */
-  export type DepartmentCountOutputTypeCountAnnouncementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FacultyAnnouncementWhereInput
-  }
-
-  /**
-   * DepartmentCountOutputType without action
-   */
-  export type DepartmentCountOutputTypeCountUploaded_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UploadedScheduleWhereInput
+  export type DepartmentCountOutputTypeCountSyllabus_packagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: syllabus_packagesWhereInput
   }
 
 
@@ -2256,6 +2609,8 @@ export namespace Prisma {
     notes: number
     faculty_subjects: number
     uploaded_schedules: number
+    syllabus_completions: number
+    syllabus_packages: number
   }
 
   export type FacultyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2266,6 +2621,8 @@ export namespace Prisma {
     notes?: boolean | FacultyCountOutputTypeCountNotesArgs
     faculty_subjects?: boolean | FacultyCountOutputTypeCountFaculty_subjectsArgs
     uploaded_schedules?: boolean | FacultyCountOutputTypeCountUploaded_schedulesArgs
+    syllabus_completions?: boolean | FacultyCountOutputTypeCountSyllabus_completionsArgs
+    syllabus_packages?: boolean | FacultyCountOutputTypeCountSyllabus_packagesArgs
   }
 
   // Custom InputTypes
@@ -2328,6 +2685,20 @@ export namespace Prisma {
     where?: UploadedScheduleWhereInput
   }
 
+  /**
+   * FacultyCountOutputType without action
+   */
+  export type FacultyCountOutputTypeCountSyllabus_completionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: syllabus_completionsWhereInput
+  }
+
+  /**
+   * FacultyCountOutputType without action
+   */
+  export type FacultyCountOutputTypeCountSyllabus_packagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: syllabus_packagesWhereInput
+  }
+
 
   /**
    * Count Type StudentCountOutputType
@@ -2377,16 +2748,20 @@ export namespace Prisma {
     attendance: number
     enrollments: number
     announcements: number
-    timetable: number
     faculty_subjects: number
+    syllabus_subtopics: number
+    syllabus_units: number
+    timetable: number
   }
 
   export type SubjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     attendance?: boolean | SubjectCountOutputTypeCountAttendanceArgs
     enrollments?: boolean | SubjectCountOutputTypeCountEnrollmentsArgs
     announcements?: boolean | SubjectCountOutputTypeCountAnnouncementsArgs
-    timetable?: boolean | SubjectCountOutputTypeCountTimetableArgs
     faculty_subjects?: boolean | SubjectCountOutputTypeCountFaculty_subjectsArgs
+    syllabus_subtopics?: boolean | SubjectCountOutputTypeCountSyllabus_subtopicsArgs
+    syllabus_units?: boolean | SubjectCountOutputTypeCountSyllabus_unitsArgs
+    timetable?: boolean | SubjectCountOutputTypeCountTimetableArgs
   }
 
   // Custom InputTypes
@@ -2424,15 +2799,122 @@ export namespace Prisma {
   /**
    * SubjectCountOutputType without action
    */
-  export type SubjectCountOutputTypeCountTimetableArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ScheduleWhereInput
+  export type SubjectCountOutputTypeCountFaculty_subjectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FacultySubjectWhereInput
   }
 
   /**
    * SubjectCountOutputType without action
    */
-  export type SubjectCountOutputTypeCountFaculty_subjectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FacultySubjectWhereInput
+  export type SubjectCountOutputTypeCountSyllabus_subtopicsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: syllabus_subtopicsWhereInput
+  }
+
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeCountSyllabus_unitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: syllabus_unitsWhereInput
+  }
+
+  /**
+   * SubjectCountOutputType without action
+   */
+  export type SubjectCountOutputTypeCountTimetableArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ScheduleWhereInput
+  }
+
+
+  /**
+   * Count Type Syllabus_packagesCountOutputType
+   */
+
+  export type Syllabus_packagesCountOutputType = {
+    syllabus_units: number
+  }
+
+  export type Syllabus_packagesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    syllabus_units?: boolean | Syllabus_packagesCountOutputTypeCountSyllabus_unitsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Syllabus_packagesCountOutputType without action
+   */
+  export type Syllabus_packagesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Syllabus_packagesCountOutputType
+     */
+    select?: Syllabus_packagesCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Syllabus_packagesCountOutputType without action
+   */
+  export type Syllabus_packagesCountOutputTypeCountSyllabus_unitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: syllabus_unitsWhereInput
+  }
+
+
+  /**
+   * Count Type Syllabus_subtopicsCountOutputType
+   */
+
+  export type Syllabus_subtopicsCountOutputType = {
+    syllabus_completions: number
+  }
+
+  export type Syllabus_subtopicsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    syllabus_completions?: boolean | Syllabus_subtopicsCountOutputTypeCountSyllabus_completionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Syllabus_subtopicsCountOutputType without action
+   */
+  export type Syllabus_subtopicsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Syllabus_subtopicsCountOutputType
+     */
+    select?: Syllabus_subtopicsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Syllabus_subtopicsCountOutputType without action
+   */
+  export type Syllabus_subtopicsCountOutputTypeCountSyllabus_completionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: syllabus_completionsWhereInput
+  }
+
+
+  /**
+   * Count Type Syllabus_unitsCountOutputType
+   */
+
+  export type Syllabus_unitsCountOutputType = {
+    syllabus_subtopics: number
+  }
+
+  export type Syllabus_unitsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    syllabus_subtopics?: boolean | Syllabus_unitsCountOutputTypeCountSyllabus_subtopicsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * Syllabus_unitsCountOutputType without action
+   */
+  export type Syllabus_unitsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Syllabus_unitsCountOutputType
+     */
+    select?: Syllabus_unitsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * Syllabus_unitsCountOutputType without action
+   */
+  export type Syllabus_unitsCountOutputTypeCountSyllabus_subtopicsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: syllabus_subtopicsWhereInput
   }
 
 
@@ -2647,8 +3129,8 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     faculty?: boolean | User$facultyArgs<ExtArgs>
-    students?: boolean | User$studentsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
+    students?: boolean | User$studentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2672,8 +3154,8 @@ export namespace Prisma {
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     faculty?: boolean | User$facultyArgs<ExtArgs>
-    students?: boolean | User$studentsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
+    students?: boolean | User$studentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2682,8 +3164,8 @@ export namespace Prisma {
     name: "User"
     objects: {
       faculty: Prisma.$FacultyPayload<ExtArgs>[]
-      students: Prisma.$StudentPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
+      students: Prisma.$StudentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       user_id: number
@@ -3057,8 +3539,8 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     faculty<T extends User$facultyArgs<ExtArgs> = {}>(args?: Subset<T, User$facultyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacultyPayload<ExtArgs>, T, "findMany"> | Null>
-    students<T extends User$studentsArgs<ExtArgs> = {}>(args?: Subset<T, User$studentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findMany"> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany"> | Null>
+    students<T extends User$studentsArgs<ExtArgs> = {}>(args?: Subset<T, User$studentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3428,26 +3910,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.students
-   */
-  export type User$studentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Student
-     */
-    select?: StudentSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StudentInclude<ExtArgs> | null
-    where?: StudentWhereInput
-    orderBy?: StudentOrderByWithRelationInput | StudentOrderByWithRelationInput[]
-    cursor?: StudentWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: StudentScalarFieldEnum | StudentScalarFieldEnum[]
-  }
-
-  /**
    * User.notifications
    */
   export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3465,6 +3927,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * User.students
+   */
+  export type User$studentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Student
+     */
+    select?: StudentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StudentInclude<ExtArgs> | null
+    where?: StudentWhereInput
+    orderBy?: StudentOrderByWithRelationInput | StudentOrderByWithRelationInput[]
+    cursor?: StudentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StudentScalarFieldEnum | StudentScalarFieldEnum[]
   }
 
   /**
@@ -3657,10 +4139,11 @@ export namespace Prisma {
     dept_id?: boolean
     dept_name?: boolean
     faculty?: boolean | Department$facultyArgs<ExtArgs>
-    students?: boolean | Department$studentsArgs<ExtArgs>
-    subjects?: boolean | Department$subjectsArgs<ExtArgs>
     announcements?: boolean | Department$announcementsArgs<ExtArgs>
     uploaded_schedules?: boolean | Department$uploaded_schedulesArgs<ExtArgs>
+    students?: boolean | Department$studentsArgs<ExtArgs>
+    subjects?: boolean | Department$subjectsArgs<ExtArgs>
+    syllabus_packages?: boolean | Department$syllabus_packagesArgs<ExtArgs>
     _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["department"]>
 
@@ -3676,10 +4159,11 @@ export namespace Prisma {
 
   export type DepartmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     faculty?: boolean | Department$facultyArgs<ExtArgs>
-    students?: boolean | Department$studentsArgs<ExtArgs>
-    subjects?: boolean | Department$subjectsArgs<ExtArgs>
     announcements?: boolean | Department$announcementsArgs<ExtArgs>
     uploaded_schedules?: boolean | Department$uploaded_schedulesArgs<ExtArgs>
+    students?: boolean | Department$studentsArgs<ExtArgs>
+    subjects?: boolean | Department$subjectsArgs<ExtArgs>
+    syllabus_packages?: boolean | Department$syllabus_packagesArgs<ExtArgs>
     _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DepartmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3688,10 +4172,11 @@ export namespace Prisma {
     name: "Department"
     objects: {
       faculty: Prisma.$FacultyPayload<ExtArgs>[]
-      students: Prisma.$StudentPayload<ExtArgs>[]
-      subjects: Prisma.$SubjectPayload<ExtArgs>[]
       announcements: Prisma.$FacultyAnnouncementPayload<ExtArgs>[]
       uploaded_schedules: Prisma.$UploadedSchedulePayload<ExtArgs>[]
+      students: Prisma.$StudentPayload<ExtArgs>[]
+      subjects: Prisma.$SubjectPayload<ExtArgs>[]
+      syllabus_packages: Prisma.$syllabus_packagesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       dept_id: number
@@ -4061,10 +4546,11 @@ export namespace Prisma {
   export interface Prisma__DepartmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     faculty<T extends Department$facultyArgs<ExtArgs> = {}>(args?: Subset<T, Department$facultyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacultyPayload<ExtArgs>, T, "findMany"> | Null>
-    students<T extends Department$studentsArgs<ExtArgs> = {}>(args?: Subset<T, Department$studentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findMany"> | Null>
-    subjects<T extends Department$subjectsArgs<ExtArgs> = {}>(args?: Subset<T, Department$subjectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findMany"> | Null>
     announcements<T extends Department$announcementsArgs<ExtArgs> = {}>(args?: Subset<T, Department$announcementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacultyAnnouncementPayload<ExtArgs>, T, "findMany"> | Null>
     uploaded_schedules<T extends Department$uploaded_schedulesArgs<ExtArgs> = {}>(args?: Subset<T, Department$uploaded_schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UploadedSchedulePayload<ExtArgs>, T, "findMany"> | Null>
+    students<T extends Department$studentsArgs<ExtArgs> = {}>(args?: Subset<T, Department$studentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentPayload<ExtArgs>, T, "findMany"> | Null>
+    subjects<T extends Department$subjectsArgs<ExtArgs> = {}>(args?: Subset<T, Department$subjectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findMany"> | Null>
+    syllabus_packages<T extends Department$syllabus_packagesArgs<ExtArgs> = {}>(args?: Subset<T, Department$syllabus_packagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_packagesPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4430,6 +4916,46 @@ export namespace Prisma {
   }
 
   /**
+   * Department.announcements
+   */
+  export type Department$announcementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FacultyAnnouncement
+     */
+    select?: FacultyAnnouncementSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FacultyAnnouncementInclude<ExtArgs> | null
+    where?: FacultyAnnouncementWhereInput
+    orderBy?: FacultyAnnouncementOrderByWithRelationInput | FacultyAnnouncementOrderByWithRelationInput[]
+    cursor?: FacultyAnnouncementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FacultyAnnouncementScalarFieldEnum | FacultyAnnouncementScalarFieldEnum[]
+  }
+
+  /**
+   * Department.uploaded_schedules
+   */
+  export type Department$uploaded_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UploadedSchedule
+     */
+    select?: UploadedScheduleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UploadedScheduleInclude<ExtArgs> | null
+    where?: UploadedScheduleWhereInput
+    orderBy?: UploadedScheduleOrderByWithRelationInput | UploadedScheduleOrderByWithRelationInput[]
+    cursor?: UploadedScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UploadedScheduleScalarFieldEnum | UploadedScheduleScalarFieldEnum[]
+  }
+
+  /**
    * Department.students
    */
   export type Department$studentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4470,43 +4996,23 @@ export namespace Prisma {
   }
 
   /**
-   * Department.announcements
+   * Department.syllabus_packages
    */
-  export type Department$announcementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Department$syllabus_packagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FacultyAnnouncement
+     * Select specific fields to fetch from the syllabus_packages
      */
-    select?: FacultyAnnouncementSelect<ExtArgs> | null
+    select?: syllabus_packagesSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FacultyAnnouncementInclude<ExtArgs> | null
-    where?: FacultyAnnouncementWhereInput
-    orderBy?: FacultyAnnouncementOrderByWithRelationInput | FacultyAnnouncementOrderByWithRelationInput[]
-    cursor?: FacultyAnnouncementWhereUniqueInput
+    include?: syllabus_packagesInclude<ExtArgs> | null
+    where?: syllabus_packagesWhereInput
+    orderBy?: syllabus_packagesOrderByWithRelationInput | syllabus_packagesOrderByWithRelationInput[]
+    cursor?: syllabus_packagesWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: FacultyAnnouncementScalarFieldEnum | FacultyAnnouncementScalarFieldEnum[]
-  }
-
-  /**
-   * Department.uploaded_schedules
-   */
-  export type Department$uploaded_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UploadedSchedule
-     */
-    select?: UploadedScheduleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UploadedScheduleInclude<ExtArgs> | null
-    where?: UploadedScheduleWhereInput
-    orderBy?: UploadedScheduleOrderByWithRelationInput | UploadedScheduleOrderByWithRelationInput[]
-    cursor?: UploadedScheduleWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UploadedScheduleScalarFieldEnum | UploadedScheduleScalarFieldEnum[]
+    distinct?: Syllabus_packagesScalarFieldEnum | Syllabus_packagesScalarFieldEnum[]
   }
 
   /**
@@ -4738,8 +5244,8 @@ export namespace Prisma {
     email?: boolean
     dept_id?: boolean
     is_timetable_admin?: boolean
-    Department?: boolean | Faculty$DepartmentArgs<ExtArgs>
     attendance?: boolean | Faculty$attendanceArgs<ExtArgs>
+    Department?: boolean | Faculty$DepartmentArgs<ExtArgs>
     User?: boolean | Faculty$UserArgs<ExtArgs>
     announcements?: boolean | Faculty$announcementsArgs<ExtArgs>
     facultyAttendance?: boolean | Faculty$facultyAttendanceArgs<ExtArgs>
@@ -4747,6 +5253,8 @@ export namespace Prisma {
     notes?: boolean | Faculty$notesArgs<ExtArgs>
     faculty_subjects?: boolean | Faculty$faculty_subjectsArgs<ExtArgs>
     uploaded_schedules?: boolean | Faculty$uploaded_schedulesArgs<ExtArgs>
+    syllabus_completions?: boolean | Faculty$syllabus_completionsArgs<ExtArgs>
+    syllabus_packages?: boolean | Faculty$syllabus_packagesArgs<ExtArgs>
     _count?: boolean | FacultyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["faculty"]>
 
@@ -4771,8 +5279,8 @@ export namespace Prisma {
   }
 
   export type FacultyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Department?: boolean | Faculty$DepartmentArgs<ExtArgs>
     attendance?: boolean | Faculty$attendanceArgs<ExtArgs>
+    Department?: boolean | Faculty$DepartmentArgs<ExtArgs>
     User?: boolean | Faculty$UserArgs<ExtArgs>
     announcements?: boolean | Faculty$announcementsArgs<ExtArgs>
     facultyAttendance?: boolean | Faculty$facultyAttendanceArgs<ExtArgs>
@@ -4780,6 +5288,8 @@ export namespace Prisma {
     notes?: boolean | Faculty$notesArgs<ExtArgs>
     faculty_subjects?: boolean | Faculty$faculty_subjectsArgs<ExtArgs>
     uploaded_schedules?: boolean | Faculty$uploaded_schedulesArgs<ExtArgs>
+    syllabus_completions?: boolean | Faculty$syllabus_completionsArgs<ExtArgs>
+    syllabus_packages?: boolean | Faculty$syllabus_packagesArgs<ExtArgs>
     _count?: boolean | FacultyCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FacultyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4790,8 +5300,8 @@ export namespace Prisma {
   export type $FacultyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Faculty"
     objects: {
-      Department: Prisma.$DepartmentPayload<ExtArgs> | null
       attendance: Prisma.$AttendancePayload<ExtArgs>[]
+      Department: Prisma.$DepartmentPayload<ExtArgs> | null
       User: Prisma.$UserPayload<ExtArgs> | null
       announcements: Prisma.$FacultyAnnouncementPayload<ExtArgs>[]
       facultyAttendance: Prisma.$FacultyAttendancePayload<ExtArgs>[]
@@ -4799,6 +5309,8 @@ export namespace Prisma {
       notes: Prisma.$FacultyNotePayload<ExtArgs>[]
       faculty_subjects: Prisma.$FacultySubjectPayload<ExtArgs>[]
       uploaded_schedules: Prisma.$UploadedSchedulePayload<ExtArgs>[]
+      syllabus_completions: Prisma.$syllabus_completionsPayload<ExtArgs>[]
+      syllabus_packages: Prisma.$syllabus_packagesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       faculty_id: number
@@ -5171,8 +5683,8 @@ export namespace Prisma {
    */
   export interface Prisma__FacultyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Department<T extends Faculty$DepartmentArgs<ExtArgs> = {}>(args?: Subset<T, Faculty$DepartmentArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     attendance<T extends Faculty$attendanceArgs<ExtArgs> = {}>(args?: Subset<T, Faculty$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany"> | Null>
+    Department<T extends Faculty$DepartmentArgs<ExtArgs> = {}>(args?: Subset<T, Faculty$DepartmentArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     User<T extends Faculty$UserArgs<ExtArgs> = {}>(args?: Subset<T, Faculty$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     announcements<T extends Faculty$announcementsArgs<ExtArgs> = {}>(args?: Subset<T, Faculty$announcementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacultyAnnouncementPayload<ExtArgs>, T, "findMany"> | Null>
     facultyAttendance<T extends Faculty$facultyAttendanceArgs<ExtArgs> = {}>(args?: Subset<T, Faculty$facultyAttendanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacultyAttendancePayload<ExtArgs>, T, "findMany"> | Null>
@@ -5180,6 +5692,8 @@ export namespace Prisma {
     notes<T extends Faculty$notesArgs<ExtArgs> = {}>(args?: Subset<T, Faculty$notesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacultyNotePayload<ExtArgs>, T, "findMany"> | Null>
     faculty_subjects<T extends Faculty$faculty_subjectsArgs<ExtArgs> = {}>(args?: Subset<T, Faculty$faculty_subjectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacultySubjectPayload<ExtArgs>, T, "findMany"> | Null>
     uploaded_schedules<T extends Faculty$uploaded_schedulesArgs<ExtArgs> = {}>(args?: Subset<T, Faculty$uploaded_schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UploadedSchedulePayload<ExtArgs>, T, "findMany"> | Null>
+    syllabus_completions<T extends Faculty$syllabus_completionsArgs<ExtArgs> = {}>(args?: Subset<T, Faculty$syllabus_completionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_completionsPayload<ExtArgs>, T, "findMany"> | Null>
+    syllabus_packages<T extends Faculty$syllabus_packagesArgs<ExtArgs> = {}>(args?: Subset<T, Faculty$syllabus_packagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_packagesPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5533,21 +6047,6 @@ export namespace Prisma {
   }
 
   /**
-   * Faculty.Department
-   */
-  export type Faculty$DepartmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Department
-     */
-    select?: DepartmentSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DepartmentInclude<ExtArgs> | null
-    where?: DepartmentWhereInput
-  }
-
-  /**
    * Faculty.attendance
    */
   export type Faculty$attendanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5565,6 +6064,21 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AttendanceScalarFieldEnum | AttendanceScalarFieldEnum[]
+  }
+
+  /**
+   * Faculty.Department
+   */
+  export type Faculty$DepartmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    where?: DepartmentWhereInput
   }
 
   /**
@@ -5700,6 +6214,46 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UploadedScheduleScalarFieldEnum | UploadedScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Faculty.syllabus_completions
+   */
+  export type Faculty$syllabus_completionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_completions
+     */
+    select?: syllabus_completionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_completionsInclude<ExtArgs> | null
+    where?: syllabus_completionsWhereInput
+    orderBy?: syllabus_completionsOrderByWithRelationInput | syllabus_completionsOrderByWithRelationInput[]
+    cursor?: syllabus_completionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Syllabus_completionsScalarFieldEnum | Syllabus_completionsScalarFieldEnum[]
+  }
+
+  /**
+   * Faculty.syllabus_packages
+   */
+  export type Faculty$syllabus_packagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_packages
+     */
+    select?: syllabus_packagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_packagesInclude<ExtArgs> | null
+    where?: syllabus_packagesWhereInput
+    orderBy?: syllabus_packagesOrderByWithRelationInput | syllabus_packagesOrderByWithRelationInput[]
+    cursor?: syllabus_packagesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Syllabus_packagesScalarFieldEnum | Syllabus_packagesScalarFieldEnum[]
   }
 
   /**
@@ -5947,9 +6501,9 @@ export namespace Prisma {
     semester?: boolean
     division?: boolean
     dept_id?: boolean
-    Department?: boolean | Student$DepartmentArgs<ExtArgs>
     attendance?: boolean | Student$attendanceArgs<ExtArgs>
     enrollments?: boolean | Student$enrollmentsArgs<ExtArgs>
+    Department?: boolean | Student$DepartmentArgs<ExtArgs>
     User?: boolean | Student$UserArgs<ExtArgs>
     _count?: boolean | StudentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["student"]>
@@ -5979,9 +6533,9 @@ export namespace Prisma {
   }
 
   export type StudentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Department?: boolean | Student$DepartmentArgs<ExtArgs>
     attendance?: boolean | Student$attendanceArgs<ExtArgs>
     enrollments?: boolean | Student$enrollmentsArgs<ExtArgs>
+    Department?: boolean | Student$DepartmentArgs<ExtArgs>
     User?: boolean | Student$UserArgs<ExtArgs>
     _count?: boolean | StudentCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -5993,9 +6547,9 @@ export namespace Prisma {
   export type $StudentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Student"
     objects: {
-      Department: Prisma.$DepartmentPayload<ExtArgs> | null
       attendance: Prisma.$AttendancePayload<ExtArgs>[]
       enrollments: Prisma.$EnrollmentPayload<ExtArgs>[]
+      Department: Prisma.$DepartmentPayload<ExtArgs> | null
       User: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -6371,9 +6925,9 @@ export namespace Prisma {
    */
   export interface Prisma__StudentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Department<T extends Student$DepartmentArgs<ExtArgs> = {}>(args?: Subset<T, Student$DepartmentArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     attendance<T extends Student$attendanceArgs<ExtArgs> = {}>(args?: Subset<T, Student$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany"> | Null>
     enrollments<T extends Student$enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, Student$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnrollmentPayload<ExtArgs>, T, "findMany"> | Null>
+    Department<T extends Student$DepartmentArgs<ExtArgs> = {}>(args?: Subset<T, Student$DepartmentArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     User<T extends Student$UserArgs<ExtArgs> = {}>(args?: Subset<T, Student$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -6730,21 +7284,6 @@ export namespace Prisma {
   }
 
   /**
-   * Student.Department
-   */
-  export type Student$DepartmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Department
-     */
-    select?: DepartmentSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DepartmentInclude<ExtArgs> | null
-    where?: DepartmentWhereInput
-  }
-
-  /**
    * Student.attendance
    */
   export type Student$attendanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6782,6 +7321,21 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: EnrollmentScalarFieldEnum | EnrollmentScalarFieldEnum[]
+  }
+
+  /**
+   * Student.Department
+   */
+  export type Student$DepartmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    where?: DepartmentWhereInput
   }
 
   /**
@@ -7028,12 +7582,14 @@ export namespace Prisma {
     semester?: boolean
     dept_id?: boolean
     credits?: boolean
-    Department?: boolean | Subject$DepartmentArgs<ExtArgs>
     attendance?: boolean | Subject$attendanceArgs<ExtArgs>
     enrollments?: boolean | Subject$enrollmentsArgs<ExtArgs>
     announcements?: boolean | Subject$announcementsArgs<ExtArgs>
-    timetable?: boolean | Subject$timetableArgs<ExtArgs>
     faculty_subjects?: boolean | Subject$faculty_subjectsArgs<ExtArgs>
+    Department?: boolean | Subject$DepartmentArgs<ExtArgs>
+    syllabus_subtopics?: boolean | Subject$syllabus_subtopicsArgs<ExtArgs>
+    syllabus_units?: boolean | Subject$syllabus_unitsArgs<ExtArgs>
+    timetable?: boolean | Subject$timetableArgs<ExtArgs>
     _count?: boolean | SubjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subject"]>
 
@@ -7057,12 +7613,14 @@ export namespace Prisma {
   }
 
   export type SubjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Department?: boolean | Subject$DepartmentArgs<ExtArgs>
     attendance?: boolean | Subject$attendanceArgs<ExtArgs>
     enrollments?: boolean | Subject$enrollmentsArgs<ExtArgs>
     announcements?: boolean | Subject$announcementsArgs<ExtArgs>
-    timetable?: boolean | Subject$timetableArgs<ExtArgs>
     faculty_subjects?: boolean | Subject$faculty_subjectsArgs<ExtArgs>
+    Department?: boolean | Subject$DepartmentArgs<ExtArgs>
+    syllabus_subtopics?: boolean | Subject$syllabus_subtopicsArgs<ExtArgs>
+    syllabus_units?: boolean | Subject$syllabus_unitsArgs<ExtArgs>
+    timetable?: boolean | Subject$timetableArgs<ExtArgs>
     _count?: boolean | SubjectCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SubjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7072,12 +7630,14 @@ export namespace Prisma {
   export type $SubjectPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Subject"
     objects: {
-      Department: Prisma.$DepartmentPayload<ExtArgs> | null
       attendance: Prisma.$AttendancePayload<ExtArgs>[]
       enrollments: Prisma.$EnrollmentPayload<ExtArgs>[]
       announcements: Prisma.$FacultyAnnouncementPayload<ExtArgs>[]
-      timetable: Prisma.$SchedulePayload<ExtArgs>[]
       faculty_subjects: Prisma.$FacultySubjectPayload<ExtArgs>[]
+      Department: Prisma.$DepartmentPayload<ExtArgs> | null
+      syllabus_subtopics: Prisma.$syllabus_subtopicsPayload<ExtArgs>[]
+      syllabus_units: Prisma.$syllabus_unitsPayload<ExtArgs>[]
+      timetable: Prisma.$SchedulePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       subject_id: number
@@ -7450,12 +8010,14 @@ export namespace Prisma {
    */
   export interface Prisma__SubjectClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Department<T extends Subject$DepartmentArgs<ExtArgs> = {}>(args?: Subset<T, Subject$DepartmentArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     attendance<T extends Subject$attendanceArgs<ExtArgs> = {}>(args?: Subset<T, Subject$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany"> | Null>
     enrollments<T extends Subject$enrollmentsArgs<ExtArgs> = {}>(args?: Subset<T, Subject$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EnrollmentPayload<ExtArgs>, T, "findMany"> | Null>
     announcements<T extends Subject$announcementsArgs<ExtArgs> = {}>(args?: Subset<T, Subject$announcementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacultyAnnouncementPayload<ExtArgs>, T, "findMany"> | Null>
-    timetable<T extends Subject$timetableArgs<ExtArgs> = {}>(args?: Subset<T, Subject$timetableArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "findMany"> | Null>
     faculty_subjects<T extends Subject$faculty_subjectsArgs<ExtArgs> = {}>(args?: Subset<T, Subject$faculty_subjectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacultySubjectPayload<ExtArgs>, T, "findMany"> | Null>
+    Department<T extends Subject$DepartmentArgs<ExtArgs> = {}>(args?: Subset<T, Subject$DepartmentArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    syllabus_subtopics<T extends Subject$syllabus_subtopicsArgs<ExtArgs> = {}>(args?: Subset<T, Subject$syllabus_subtopicsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_subtopicsPayload<ExtArgs>, T, "findMany"> | Null>
+    syllabus_units<T extends Subject$syllabus_unitsArgs<ExtArgs> = {}>(args?: Subset<T, Subject$syllabus_unitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_unitsPayload<ExtArgs>, T, "findMany"> | Null>
+    timetable<T extends Subject$timetableArgs<ExtArgs> = {}>(args?: Subset<T, Subject$timetableArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7809,21 +8371,6 @@ export namespace Prisma {
   }
 
   /**
-   * Subject.Department
-   */
-  export type Subject$DepartmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Department
-     */
-    select?: DepartmentSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DepartmentInclude<ExtArgs> | null
-    where?: DepartmentWhereInput
-  }
-
-  /**
    * Subject.attendance
    */
   export type Subject$attendanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7884,26 +8431,6 @@ export namespace Prisma {
   }
 
   /**
-   * Subject.timetable
-   */
-  export type Subject$timetableArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Schedule
-     */
-    select?: ScheduleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ScheduleInclude<ExtArgs> | null
-    where?: ScheduleWhereInput
-    orderBy?: ScheduleOrderByWithRelationInput | ScheduleOrderByWithRelationInput[]
-    cursor?: ScheduleWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ScheduleScalarFieldEnum | ScheduleScalarFieldEnum[]
-  }
-
-  /**
    * Subject.faculty_subjects
    */
   export type Subject$faculty_subjectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7921,6 +8448,81 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FacultySubjectScalarFieldEnum | FacultySubjectScalarFieldEnum[]
+  }
+
+  /**
+   * Subject.Department
+   */
+  export type Subject$DepartmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    where?: DepartmentWhereInput
+  }
+
+  /**
+   * Subject.syllabus_subtopics
+   */
+  export type Subject$syllabus_subtopicsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_subtopics
+     */
+    select?: syllabus_subtopicsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_subtopicsInclude<ExtArgs> | null
+    where?: syllabus_subtopicsWhereInput
+    orderBy?: syllabus_subtopicsOrderByWithRelationInput | syllabus_subtopicsOrderByWithRelationInput[]
+    cursor?: syllabus_subtopicsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Syllabus_subtopicsScalarFieldEnum | Syllabus_subtopicsScalarFieldEnum[]
+  }
+
+  /**
+   * Subject.syllabus_units
+   */
+  export type Subject$syllabus_unitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_units
+     */
+    select?: syllabus_unitsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_unitsInclude<ExtArgs> | null
+    where?: syllabus_unitsWhereInput
+    orderBy?: syllabus_unitsOrderByWithRelationInput | syllabus_unitsOrderByWithRelationInput[]
+    cursor?: syllabus_unitsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Syllabus_unitsScalarFieldEnum | Syllabus_unitsScalarFieldEnum[]
+  }
+
+  /**
+   * Subject.timetable
+   */
+  export type Subject$timetableArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Schedule
+     */
+    select?: ScheduleSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ScheduleInclude<ExtArgs> | null
+    where?: ScheduleWhereInput
+    orderBy?: ScheduleOrderByWithRelationInput | ScheduleOrderByWithRelationInput[]
+    cursor?: ScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ScheduleScalarFieldEnum | ScheduleScalarFieldEnum[]
   }
 
   /**
@@ -18832,6 +19434,4123 @@ export namespace Prisma {
 
 
   /**
+   * Model syllabus_completions
+   */
+
+  export type AggregateSyllabus_completions = {
+    _count: Syllabus_completionsCountAggregateOutputType | null
+    _avg: Syllabus_completionsAvgAggregateOutputType | null
+    _sum: Syllabus_completionsSumAggregateOutputType | null
+    _min: Syllabus_completionsMinAggregateOutputType | null
+    _max: Syllabus_completionsMaxAggregateOutputType | null
+  }
+
+  export type Syllabus_completionsAvgAggregateOutputType = {
+    completion_id: number | null
+    subtopic_id: number | null
+    faculty_id: number | null
+  }
+
+  export type Syllabus_completionsSumAggregateOutputType = {
+    completion_id: number | null
+    subtopic_id: number | null
+    faculty_id: number | null
+  }
+
+  export type Syllabus_completionsMinAggregateOutputType = {
+    completion_id: number | null
+    subtopic_id: number | null
+    faculty_id: number | null
+    completed_at: Date | null
+  }
+
+  export type Syllabus_completionsMaxAggregateOutputType = {
+    completion_id: number | null
+    subtopic_id: number | null
+    faculty_id: number | null
+    completed_at: Date | null
+  }
+
+  export type Syllabus_completionsCountAggregateOutputType = {
+    completion_id: number
+    subtopic_id: number
+    faculty_id: number
+    completed_at: number
+    _all: number
+  }
+
+
+  export type Syllabus_completionsAvgAggregateInputType = {
+    completion_id?: true
+    subtopic_id?: true
+    faculty_id?: true
+  }
+
+  export type Syllabus_completionsSumAggregateInputType = {
+    completion_id?: true
+    subtopic_id?: true
+    faculty_id?: true
+  }
+
+  export type Syllabus_completionsMinAggregateInputType = {
+    completion_id?: true
+    subtopic_id?: true
+    faculty_id?: true
+    completed_at?: true
+  }
+
+  export type Syllabus_completionsMaxAggregateInputType = {
+    completion_id?: true
+    subtopic_id?: true
+    faculty_id?: true
+    completed_at?: true
+  }
+
+  export type Syllabus_completionsCountAggregateInputType = {
+    completion_id?: true
+    subtopic_id?: true
+    faculty_id?: true
+    completed_at?: true
+    _all?: true
+  }
+
+  export type Syllabus_completionsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which syllabus_completions to aggregate.
+     */
+    where?: syllabus_completionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_completions to fetch.
+     */
+    orderBy?: syllabus_completionsOrderByWithRelationInput | syllabus_completionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: syllabus_completionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_completions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_completions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned syllabus_completions
+    **/
+    _count?: true | Syllabus_completionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Syllabus_completionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Syllabus_completionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Syllabus_completionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Syllabus_completionsMaxAggregateInputType
+  }
+
+  export type GetSyllabus_completionsAggregateType<T extends Syllabus_completionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSyllabus_completions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSyllabus_completions[P]>
+      : GetScalarType<T[P], AggregateSyllabus_completions[P]>
+  }
+
+
+
+
+  export type syllabus_completionsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: syllabus_completionsWhereInput
+    orderBy?: syllabus_completionsOrderByWithAggregationInput | syllabus_completionsOrderByWithAggregationInput[]
+    by: Syllabus_completionsScalarFieldEnum[] | Syllabus_completionsScalarFieldEnum
+    having?: syllabus_completionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Syllabus_completionsCountAggregateInputType | true
+    _avg?: Syllabus_completionsAvgAggregateInputType
+    _sum?: Syllabus_completionsSumAggregateInputType
+    _min?: Syllabus_completionsMinAggregateInputType
+    _max?: Syllabus_completionsMaxAggregateInputType
+  }
+
+  export type Syllabus_completionsGroupByOutputType = {
+    completion_id: number
+    subtopic_id: number
+    faculty_id: number
+    completed_at: Date | null
+    _count: Syllabus_completionsCountAggregateOutputType | null
+    _avg: Syllabus_completionsAvgAggregateOutputType | null
+    _sum: Syllabus_completionsSumAggregateOutputType | null
+    _min: Syllabus_completionsMinAggregateOutputType | null
+    _max: Syllabus_completionsMaxAggregateOutputType | null
+  }
+
+  type GetSyllabus_completionsGroupByPayload<T extends syllabus_completionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Syllabus_completionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Syllabus_completionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Syllabus_completionsGroupByOutputType[P]>
+            : GetScalarType<T[P], Syllabus_completionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type syllabus_completionsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    completion_id?: boolean
+    subtopic_id?: boolean
+    faculty_id?: boolean
+    completed_at?: boolean
+    faculty?: boolean | FacultyDefaultArgs<ExtArgs>
+    syllabus_subtopics?: boolean | syllabus_subtopicsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["syllabus_completions"]>
+
+  export type syllabus_completionsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    completion_id?: boolean
+    subtopic_id?: boolean
+    faculty_id?: boolean
+    completed_at?: boolean
+    faculty?: boolean | FacultyDefaultArgs<ExtArgs>
+    syllabus_subtopics?: boolean | syllabus_subtopicsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["syllabus_completions"]>
+
+  export type syllabus_completionsSelectScalar = {
+    completion_id?: boolean
+    subtopic_id?: boolean
+    faculty_id?: boolean
+    completed_at?: boolean
+  }
+
+  export type syllabus_completionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    faculty?: boolean | FacultyDefaultArgs<ExtArgs>
+    syllabus_subtopics?: boolean | syllabus_subtopicsDefaultArgs<ExtArgs>
+  }
+  export type syllabus_completionsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    faculty?: boolean | FacultyDefaultArgs<ExtArgs>
+    syllabus_subtopics?: boolean | syllabus_subtopicsDefaultArgs<ExtArgs>
+  }
+
+  export type $syllabus_completionsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "syllabus_completions"
+    objects: {
+      faculty: Prisma.$FacultyPayload<ExtArgs>
+      syllabus_subtopics: Prisma.$syllabus_subtopicsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      completion_id: number
+      subtopic_id: number
+      faculty_id: number
+      completed_at: Date | null
+    }, ExtArgs["result"]["syllabus_completions"]>
+    composites: {}
+  }
+
+  type syllabus_completionsGetPayload<S extends boolean | null | undefined | syllabus_completionsDefaultArgs> = $Result.GetResult<Prisma.$syllabus_completionsPayload, S>
+
+  type syllabus_completionsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<syllabus_completionsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: Syllabus_completionsCountAggregateInputType | true
+    }
+
+  export interface syllabus_completionsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['syllabus_completions'], meta: { name: 'syllabus_completions' } }
+    /**
+     * Find zero or one Syllabus_completions that matches the filter.
+     * @param {syllabus_completionsFindUniqueArgs} args - Arguments to find a Syllabus_completions
+     * @example
+     * // Get one Syllabus_completions
+     * const syllabus_completions = await prisma.syllabus_completions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends syllabus_completionsFindUniqueArgs>(args: SelectSubset<T, syllabus_completionsFindUniqueArgs<ExtArgs>>): Prisma__syllabus_completionsClient<$Result.GetResult<Prisma.$syllabus_completionsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Syllabus_completions that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {syllabus_completionsFindUniqueOrThrowArgs} args - Arguments to find a Syllabus_completions
+     * @example
+     * // Get one Syllabus_completions
+     * const syllabus_completions = await prisma.syllabus_completions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends syllabus_completionsFindUniqueOrThrowArgs>(args: SelectSubset<T, syllabus_completionsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__syllabus_completionsClient<$Result.GetResult<Prisma.$syllabus_completionsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Syllabus_completions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_completionsFindFirstArgs} args - Arguments to find a Syllabus_completions
+     * @example
+     * // Get one Syllabus_completions
+     * const syllabus_completions = await prisma.syllabus_completions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends syllabus_completionsFindFirstArgs>(args?: SelectSubset<T, syllabus_completionsFindFirstArgs<ExtArgs>>): Prisma__syllabus_completionsClient<$Result.GetResult<Prisma.$syllabus_completionsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Syllabus_completions that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_completionsFindFirstOrThrowArgs} args - Arguments to find a Syllabus_completions
+     * @example
+     * // Get one Syllabus_completions
+     * const syllabus_completions = await prisma.syllabus_completions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends syllabus_completionsFindFirstOrThrowArgs>(args?: SelectSubset<T, syllabus_completionsFindFirstOrThrowArgs<ExtArgs>>): Prisma__syllabus_completionsClient<$Result.GetResult<Prisma.$syllabus_completionsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Syllabus_completions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_completionsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Syllabus_completions
+     * const syllabus_completions = await prisma.syllabus_completions.findMany()
+     * 
+     * // Get first 10 Syllabus_completions
+     * const syllabus_completions = await prisma.syllabus_completions.findMany({ take: 10 })
+     * 
+     * // Only select the `completion_id`
+     * const syllabus_completionsWithCompletion_idOnly = await prisma.syllabus_completions.findMany({ select: { completion_id: true } })
+     * 
+     */
+    findMany<T extends syllabus_completionsFindManyArgs>(args?: SelectSubset<T, syllabus_completionsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_completionsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Syllabus_completions.
+     * @param {syllabus_completionsCreateArgs} args - Arguments to create a Syllabus_completions.
+     * @example
+     * // Create one Syllabus_completions
+     * const Syllabus_completions = await prisma.syllabus_completions.create({
+     *   data: {
+     *     // ... data to create a Syllabus_completions
+     *   }
+     * })
+     * 
+     */
+    create<T extends syllabus_completionsCreateArgs>(args: SelectSubset<T, syllabus_completionsCreateArgs<ExtArgs>>): Prisma__syllabus_completionsClient<$Result.GetResult<Prisma.$syllabus_completionsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Syllabus_completions.
+     * @param {syllabus_completionsCreateManyArgs} args - Arguments to create many Syllabus_completions.
+     * @example
+     * // Create many Syllabus_completions
+     * const syllabus_completions = await prisma.syllabus_completions.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends syllabus_completionsCreateManyArgs>(args?: SelectSubset<T, syllabus_completionsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Syllabus_completions and returns the data saved in the database.
+     * @param {syllabus_completionsCreateManyAndReturnArgs} args - Arguments to create many Syllabus_completions.
+     * @example
+     * // Create many Syllabus_completions
+     * const syllabus_completions = await prisma.syllabus_completions.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Syllabus_completions and only return the `completion_id`
+     * const syllabus_completionsWithCompletion_idOnly = await prisma.syllabus_completions.createManyAndReturn({ 
+     *   select: { completion_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends syllabus_completionsCreateManyAndReturnArgs>(args?: SelectSubset<T, syllabus_completionsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_completionsPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Syllabus_completions.
+     * @param {syllabus_completionsDeleteArgs} args - Arguments to delete one Syllabus_completions.
+     * @example
+     * // Delete one Syllabus_completions
+     * const Syllabus_completions = await prisma.syllabus_completions.delete({
+     *   where: {
+     *     // ... filter to delete one Syllabus_completions
+     *   }
+     * })
+     * 
+     */
+    delete<T extends syllabus_completionsDeleteArgs>(args: SelectSubset<T, syllabus_completionsDeleteArgs<ExtArgs>>): Prisma__syllabus_completionsClient<$Result.GetResult<Prisma.$syllabus_completionsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Syllabus_completions.
+     * @param {syllabus_completionsUpdateArgs} args - Arguments to update one Syllabus_completions.
+     * @example
+     * // Update one Syllabus_completions
+     * const syllabus_completions = await prisma.syllabus_completions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends syllabus_completionsUpdateArgs>(args: SelectSubset<T, syllabus_completionsUpdateArgs<ExtArgs>>): Prisma__syllabus_completionsClient<$Result.GetResult<Prisma.$syllabus_completionsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Syllabus_completions.
+     * @param {syllabus_completionsDeleteManyArgs} args - Arguments to filter Syllabus_completions to delete.
+     * @example
+     * // Delete a few Syllabus_completions
+     * const { count } = await prisma.syllabus_completions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends syllabus_completionsDeleteManyArgs>(args?: SelectSubset<T, syllabus_completionsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Syllabus_completions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_completionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Syllabus_completions
+     * const syllabus_completions = await prisma.syllabus_completions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends syllabus_completionsUpdateManyArgs>(args: SelectSubset<T, syllabus_completionsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Syllabus_completions.
+     * @param {syllabus_completionsUpsertArgs} args - Arguments to update or create a Syllabus_completions.
+     * @example
+     * // Update or create a Syllabus_completions
+     * const syllabus_completions = await prisma.syllabus_completions.upsert({
+     *   create: {
+     *     // ... data to create a Syllabus_completions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Syllabus_completions we want to update
+     *   }
+     * })
+     */
+    upsert<T extends syllabus_completionsUpsertArgs>(args: SelectSubset<T, syllabus_completionsUpsertArgs<ExtArgs>>): Prisma__syllabus_completionsClient<$Result.GetResult<Prisma.$syllabus_completionsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Syllabus_completions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_completionsCountArgs} args - Arguments to filter Syllabus_completions to count.
+     * @example
+     * // Count the number of Syllabus_completions
+     * const count = await prisma.syllabus_completions.count({
+     *   where: {
+     *     // ... the filter for the Syllabus_completions we want to count
+     *   }
+     * })
+    **/
+    count<T extends syllabus_completionsCountArgs>(
+      args?: Subset<T, syllabus_completionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Syllabus_completionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Syllabus_completions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Syllabus_completionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Syllabus_completionsAggregateArgs>(args: Subset<T, Syllabus_completionsAggregateArgs>): Prisma.PrismaPromise<GetSyllabus_completionsAggregateType<T>>
+
+    /**
+     * Group by Syllabus_completions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_completionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends syllabus_completionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: syllabus_completionsGroupByArgs['orderBy'] }
+        : { orderBy?: syllabus_completionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, syllabus_completionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSyllabus_completionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the syllabus_completions model
+   */
+  readonly fields: syllabus_completionsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for syllabus_completions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__syllabus_completionsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    faculty<T extends FacultyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FacultyDefaultArgs<ExtArgs>>): Prisma__FacultyClient<$Result.GetResult<Prisma.$FacultyPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    syllabus_subtopics<T extends syllabus_subtopicsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, syllabus_subtopicsDefaultArgs<ExtArgs>>): Prisma__syllabus_subtopicsClient<$Result.GetResult<Prisma.$syllabus_subtopicsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the syllabus_completions model
+   */ 
+  interface syllabus_completionsFieldRefs {
+    readonly completion_id: FieldRef<"syllabus_completions", 'Int'>
+    readonly subtopic_id: FieldRef<"syllabus_completions", 'Int'>
+    readonly faculty_id: FieldRef<"syllabus_completions", 'Int'>
+    readonly completed_at: FieldRef<"syllabus_completions", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * syllabus_completions findUnique
+   */
+  export type syllabus_completionsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_completions
+     */
+    select?: syllabus_completionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_completionsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_completions to fetch.
+     */
+    where: syllabus_completionsWhereUniqueInput
+  }
+
+  /**
+   * syllabus_completions findUniqueOrThrow
+   */
+  export type syllabus_completionsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_completions
+     */
+    select?: syllabus_completionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_completionsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_completions to fetch.
+     */
+    where: syllabus_completionsWhereUniqueInput
+  }
+
+  /**
+   * syllabus_completions findFirst
+   */
+  export type syllabus_completionsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_completions
+     */
+    select?: syllabus_completionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_completionsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_completions to fetch.
+     */
+    where?: syllabus_completionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_completions to fetch.
+     */
+    orderBy?: syllabus_completionsOrderByWithRelationInput | syllabus_completionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for syllabus_completions.
+     */
+    cursor?: syllabus_completionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_completions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_completions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of syllabus_completions.
+     */
+    distinct?: Syllabus_completionsScalarFieldEnum | Syllabus_completionsScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_completions findFirstOrThrow
+   */
+  export type syllabus_completionsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_completions
+     */
+    select?: syllabus_completionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_completionsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_completions to fetch.
+     */
+    where?: syllabus_completionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_completions to fetch.
+     */
+    orderBy?: syllabus_completionsOrderByWithRelationInput | syllabus_completionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for syllabus_completions.
+     */
+    cursor?: syllabus_completionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_completions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_completions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of syllabus_completions.
+     */
+    distinct?: Syllabus_completionsScalarFieldEnum | Syllabus_completionsScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_completions findMany
+   */
+  export type syllabus_completionsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_completions
+     */
+    select?: syllabus_completionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_completionsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_completions to fetch.
+     */
+    where?: syllabus_completionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_completions to fetch.
+     */
+    orderBy?: syllabus_completionsOrderByWithRelationInput | syllabus_completionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing syllabus_completions.
+     */
+    cursor?: syllabus_completionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_completions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_completions.
+     */
+    skip?: number
+    distinct?: Syllabus_completionsScalarFieldEnum | Syllabus_completionsScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_completions create
+   */
+  export type syllabus_completionsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_completions
+     */
+    select?: syllabus_completionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_completionsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a syllabus_completions.
+     */
+    data: XOR<syllabus_completionsCreateInput, syllabus_completionsUncheckedCreateInput>
+  }
+
+  /**
+   * syllabus_completions createMany
+   */
+  export type syllabus_completionsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many syllabus_completions.
+     */
+    data: syllabus_completionsCreateManyInput | syllabus_completionsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * syllabus_completions createManyAndReturn
+   */
+  export type syllabus_completionsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_completions
+     */
+    select?: syllabus_completionsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many syllabus_completions.
+     */
+    data: syllabus_completionsCreateManyInput | syllabus_completionsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_completionsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * syllabus_completions update
+   */
+  export type syllabus_completionsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_completions
+     */
+    select?: syllabus_completionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_completionsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a syllabus_completions.
+     */
+    data: XOR<syllabus_completionsUpdateInput, syllabus_completionsUncheckedUpdateInput>
+    /**
+     * Choose, which syllabus_completions to update.
+     */
+    where: syllabus_completionsWhereUniqueInput
+  }
+
+  /**
+   * syllabus_completions updateMany
+   */
+  export type syllabus_completionsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update syllabus_completions.
+     */
+    data: XOR<syllabus_completionsUpdateManyMutationInput, syllabus_completionsUncheckedUpdateManyInput>
+    /**
+     * Filter which syllabus_completions to update
+     */
+    where?: syllabus_completionsWhereInput
+  }
+
+  /**
+   * syllabus_completions upsert
+   */
+  export type syllabus_completionsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_completions
+     */
+    select?: syllabus_completionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_completionsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the syllabus_completions to update in case it exists.
+     */
+    where: syllabus_completionsWhereUniqueInput
+    /**
+     * In case the syllabus_completions found by the `where` argument doesn't exist, create a new syllabus_completions with this data.
+     */
+    create: XOR<syllabus_completionsCreateInput, syllabus_completionsUncheckedCreateInput>
+    /**
+     * In case the syllabus_completions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<syllabus_completionsUpdateInput, syllabus_completionsUncheckedUpdateInput>
+  }
+
+  /**
+   * syllabus_completions delete
+   */
+  export type syllabus_completionsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_completions
+     */
+    select?: syllabus_completionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_completionsInclude<ExtArgs> | null
+    /**
+     * Filter which syllabus_completions to delete.
+     */
+    where: syllabus_completionsWhereUniqueInput
+  }
+
+  /**
+   * syllabus_completions deleteMany
+   */
+  export type syllabus_completionsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which syllabus_completions to delete
+     */
+    where?: syllabus_completionsWhereInput
+  }
+
+  /**
+   * syllabus_completions without action
+   */
+  export type syllabus_completionsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_completions
+     */
+    select?: syllabus_completionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_completionsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model syllabus_packages
+   */
+
+  export type AggregateSyllabus_packages = {
+    _count: Syllabus_packagesCountAggregateOutputType | null
+    _avg: Syllabus_packagesAvgAggregateOutputType | null
+    _sum: Syllabus_packagesSumAggregateOutputType | null
+    _min: Syllabus_packagesMinAggregateOutputType | null
+    _max: Syllabus_packagesMaxAggregateOutputType | null
+  }
+
+  export type Syllabus_packagesAvgAggregateOutputType = {
+    package_id: number | null
+    dept_id: number | null
+    uploaded_by: number | null
+  }
+
+  export type Syllabus_packagesSumAggregateOutputType = {
+    package_id: number | null
+    dept_id: number | null
+    uploaded_by: number | null
+  }
+
+  export type Syllabus_packagesMinAggregateOutputType = {
+    package_id: number | null
+    dept_id: number | null
+    semester: string | null
+    uploaded_by: number | null
+    uploaded_at: Date | null
+    file_url: string | null
+    version: string | null
+    is_active: boolean | null
+    notes: string | null
+    status: string | null
+    error_msg: string | null
+  }
+
+  export type Syllabus_packagesMaxAggregateOutputType = {
+    package_id: number | null
+    dept_id: number | null
+    semester: string | null
+    uploaded_by: number | null
+    uploaded_at: Date | null
+    file_url: string | null
+    version: string | null
+    is_active: boolean | null
+    notes: string | null
+    status: string | null
+    error_msg: string | null
+  }
+
+  export type Syllabus_packagesCountAggregateOutputType = {
+    package_id: number
+    dept_id: number
+    semester: number
+    uploaded_by: number
+    uploaded_at: number
+    file_url: number
+    version: number
+    is_active: number
+    notes: number
+    status: number
+    error_msg: number
+    _all: number
+  }
+
+
+  export type Syllabus_packagesAvgAggregateInputType = {
+    package_id?: true
+    dept_id?: true
+    uploaded_by?: true
+  }
+
+  export type Syllabus_packagesSumAggregateInputType = {
+    package_id?: true
+    dept_id?: true
+    uploaded_by?: true
+  }
+
+  export type Syllabus_packagesMinAggregateInputType = {
+    package_id?: true
+    dept_id?: true
+    semester?: true
+    uploaded_by?: true
+    uploaded_at?: true
+    file_url?: true
+    version?: true
+    is_active?: true
+    notes?: true
+    status?: true
+    error_msg?: true
+  }
+
+  export type Syllabus_packagesMaxAggregateInputType = {
+    package_id?: true
+    dept_id?: true
+    semester?: true
+    uploaded_by?: true
+    uploaded_at?: true
+    file_url?: true
+    version?: true
+    is_active?: true
+    notes?: true
+    status?: true
+    error_msg?: true
+  }
+
+  export type Syllabus_packagesCountAggregateInputType = {
+    package_id?: true
+    dept_id?: true
+    semester?: true
+    uploaded_by?: true
+    uploaded_at?: true
+    file_url?: true
+    version?: true
+    is_active?: true
+    notes?: true
+    status?: true
+    error_msg?: true
+    _all?: true
+  }
+
+  export type Syllabus_packagesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which syllabus_packages to aggregate.
+     */
+    where?: syllabus_packagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_packages to fetch.
+     */
+    orderBy?: syllabus_packagesOrderByWithRelationInput | syllabus_packagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: syllabus_packagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_packages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_packages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned syllabus_packages
+    **/
+    _count?: true | Syllabus_packagesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Syllabus_packagesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Syllabus_packagesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Syllabus_packagesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Syllabus_packagesMaxAggregateInputType
+  }
+
+  export type GetSyllabus_packagesAggregateType<T extends Syllabus_packagesAggregateArgs> = {
+        [P in keyof T & keyof AggregateSyllabus_packages]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSyllabus_packages[P]>
+      : GetScalarType<T[P], AggregateSyllabus_packages[P]>
+  }
+
+
+
+
+  export type syllabus_packagesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: syllabus_packagesWhereInput
+    orderBy?: syllabus_packagesOrderByWithAggregationInput | syllabus_packagesOrderByWithAggregationInput[]
+    by: Syllabus_packagesScalarFieldEnum[] | Syllabus_packagesScalarFieldEnum
+    having?: syllabus_packagesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Syllabus_packagesCountAggregateInputType | true
+    _avg?: Syllabus_packagesAvgAggregateInputType
+    _sum?: Syllabus_packagesSumAggregateInputType
+    _min?: Syllabus_packagesMinAggregateInputType
+    _max?: Syllabus_packagesMaxAggregateInputType
+  }
+
+  export type Syllabus_packagesGroupByOutputType = {
+    package_id: number
+    dept_id: number
+    semester: string
+    uploaded_by: number | null
+    uploaded_at: Date | null
+    file_url: string
+    version: string | null
+    is_active: boolean | null
+    notes: string | null
+    status: string | null
+    error_msg: string | null
+    _count: Syllabus_packagesCountAggregateOutputType | null
+    _avg: Syllabus_packagesAvgAggregateOutputType | null
+    _sum: Syllabus_packagesSumAggregateOutputType | null
+    _min: Syllabus_packagesMinAggregateOutputType | null
+    _max: Syllabus_packagesMaxAggregateOutputType | null
+  }
+
+  type GetSyllabus_packagesGroupByPayload<T extends syllabus_packagesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Syllabus_packagesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Syllabus_packagesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Syllabus_packagesGroupByOutputType[P]>
+            : GetScalarType<T[P], Syllabus_packagesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type syllabus_packagesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    package_id?: boolean
+    dept_id?: boolean
+    semester?: boolean
+    uploaded_by?: boolean
+    uploaded_at?: boolean
+    file_url?: boolean
+    version?: boolean
+    is_active?: boolean
+    notes?: boolean
+    status?: boolean
+    error_msg?: boolean
+    departments?: boolean | DepartmentDefaultArgs<ExtArgs>
+    faculty?: boolean | syllabus_packages$facultyArgs<ExtArgs>
+    syllabus_units?: boolean | syllabus_packages$syllabus_unitsArgs<ExtArgs>
+    _count?: boolean | Syllabus_packagesCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["syllabus_packages"]>
+
+  export type syllabus_packagesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    package_id?: boolean
+    dept_id?: boolean
+    semester?: boolean
+    uploaded_by?: boolean
+    uploaded_at?: boolean
+    file_url?: boolean
+    version?: boolean
+    is_active?: boolean
+    notes?: boolean
+    status?: boolean
+    error_msg?: boolean
+    departments?: boolean | DepartmentDefaultArgs<ExtArgs>
+    faculty?: boolean | syllabus_packages$facultyArgs<ExtArgs>
+  }, ExtArgs["result"]["syllabus_packages"]>
+
+  export type syllabus_packagesSelectScalar = {
+    package_id?: boolean
+    dept_id?: boolean
+    semester?: boolean
+    uploaded_by?: boolean
+    uploaded_at?: boolean
+    file_url?: boolean
+    version?: boolean
+    is_active?: boolean
+    notes?: boolean
+    status?: boolean
+    error_msg?: boolean
+  }
+
+  export type syllabus_packagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    departments?: boolean | DepartmentDefaultArgs<ExtArgs>
+    faculty?: boolean | syllabus_packages$facultyArgs<ExtArgs>
+    syllabus_units?: boolean | syllabus_packages$syllabus_unitsArgs<ExtArgs>
+    _count?: boolean | Syllabus_packagesCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type syllabus_packagesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    departments?: boolean | DepartmentDefaultArgs<ExtArgs>
+    faculty?: boolean | syllabus_packages$facultyArgs<ExtArgs>
+  }
+
+  export type $syllabus_packagesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "syllabus_packages"
+    objects: {
+      departments: Prisma.$DepartmentPayload<ExtArgs>
+      faculty: Prisma.$FacultyPayload<ExtArgs> | null
+      syllabus_units: Prisma.$syllabus_unitsPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      package_id: number
+      dept_id: number
+      semester: string
+      uploaded_by: number | null
+      uploaded_at: Date | null
+      file_url: string
+      version: string | null
+      is_active: boolean | null
+      notes: string | null
+      status: string | null
+      error_msg: string | null
+    }, ExtArgs["result"]["syllabus_packages"]>
+    composites: {}
+  }
+
+  type syllabus_packagesGetPayload<S extends boolean | null | undefined | syllabus_packagesDefaultArgs> = $Result.GetResult<Prisma.$syllabus_packagesPayload, S>
+
+  type syllabus_packagesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<syllabus_packagesFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: Syllabus_packagesCountAggregateInputType | true
+    }
+
+  export interface syllabus_packagesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['syllabus_packages'], meta: { name: 'syllabus_packages' } }
+    /**
+     * Find zero or one Syllabus_packages that matches the filter.
+     * @param {syllabus_packagesFindUniqueArgs} args - Arguments to find a Syllabus_packages
+     * @example
+     * // Get one Syllabus_packages
+     * const syllabus_packages = await prisma.syllabus_packages.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends syllabus_packagesFindUniqueArgs>(args: SelectSubset<T, syllabus_packagesFindUniqueArgs<ExtArgs>>): Prisma__syllabus_packagesClient<$Result.GetResult<Prisma.$syllabus_packagesPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Syllabus_packages that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {syllabus_packagesFindUniqueOrThrowArgs} args - Arguments to find a Syllabus_packages
+     * @example
+     * // Get one Syllabus_packages
+     * const syllabus_packages = await prisma.syllabus_packages.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends syllabus_packagesFindUniqueOrThrowArgs>(args: SelectSubset<T, syllabus_packagesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__syllabus_packagesClient<$Result.GetResult<Prisma.$syllabus_packagesPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Syllabus_packages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_packagesFindFirstArgs} args - Arguments to find a Syllabus_packages
+     * @example
+     * // Get one Syllabus_packages
+     * const syllabus_packages = await prisma.syllabus_packages.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends syllabus_packagesFindFirstArgs>(args?: SelectSubset<T, syllabus_packagesFindFirstArgs<ExtArgs>>): Prisma__syllabus_packagesClient<$Result.GetResult<Prisma.$syllabus_packagesPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Syllabus_packages that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_packagesFindFirstOrThrowArgs} args - Arguments to find a Syllabus_packages
+     * @example
+     * // Get one Syllabus_packages
+     * const syllabus_packages = await prisma.syllabus_packages.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends syllabus_packagesFindFirstOrThrowArgs>(args?: SelectSubset<T, syllabus_packagesFindFirstOrThrowArgs<ExtArgs>>): Prisma__syllabus_packagesClient<$Result.GetResult<Prisma.$syllabus_packagesPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Syllabus_packages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_packagesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Syllabus_packages
+     * const syllabus_packages = await prisma.syllabus_packages.findMany()
+     * 
+     * // Get first 10 Syllabus_packages
+     * const syllabus_packages = await prisma.syllabus_packages.findMany({ take: 10 })
+     * 
+     * // Only select the `package_id`
+     * const syllabus_packagesWithPackage_idOnly = await prisma.syllabus_packages.findMany({ select: { package_id: true } })
+     * 
+     */
+    findMany<T extends syllabus_packagesFindManyArgs>(args?: SelectSubset<T, syllabus_packagesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_packagesPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Syllabus_packages.
+     * @param {syllabus_packagesCreateArgs} args - Arguments to create a Syllabus_packages.
+     * @example
+     * // Create one Syllabus_packages
+     * const Syllabus_packages = await prisma.syllabus_packages.create({
+     *   data: {
+     *     // ... data to create a Syllabus_packages
+     *   }
+     * })
+     * 
+     */
+    create<T extends syllabus_packagesCreateArgs>(args: SelectSubset<T, syllabus_packagesCreateArgs<ExtArgs>>): Prisma__syllabus_packagesClient<$Result.GetResult<Prisma.$syllabus_packagesPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Syllabus_packages.
+     * @param {syllabus_packagesCreateManyArgs} args - Arguments to create many Syllabus_packages.
+     * @example
+     * // Create many Syllabus_packages
+     * const syllabus_packages = await prisma.syllabus_packages.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends syllabus_packagesCreateManyArgs>(args?: SelectSubset<T, syllabus_packagesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Syllabus_packages and returns the data saved in the database.
+     * @param {syllabus_packagesCreateManyAndReturnArgs} args - Arguments to create many Syllabus_packages.
+     * @example
+     * // Create many Syllabus_packages
+     * const syllabus_packages = await prisma.syllabus_packages.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Syllabus_packages and only return the `package_id`
+     * const syllabus_packagesWithPackage_idOnly = await prisma.syllabus_packages.createManyAndReturn({ 
+     *   select: { package_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends syllabus_packagesCreateManyAndReturnArgs>(args?: SelectSubset<T, syllabus_packagesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_packagesPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Syllabus_packages.
+     * @param {syllabus_packagesDeleteArgs} args - Arguments to delete one Syllabus_packages.
+     * @example
+     * // Delete one Syllabus_packages
+     * const Syllabus_packages = await prisma.syllabus_packages.delete({
+     *   where: {
+     *     // ... filter to delete one Syllabus_packages
+     *   }
+     * })
+     * 
+     */
+    delete<T extends syllabus_packagesDeleteArgs>(args: SelectSubset<T, syllabus_packagesDeleteArgs<ExtArgs>>): Prisma__syllabus_packagesClient<$Result.GetResult<Prisma.$syllabus_packagesPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Syllabus_packages.
+     * @param {syllabus_packagesUpdateArgs} args - Arguments to update one Syllabus_packages.
+     * @example
+     * // Update one Syllabus_packages
+     * const syllabus_packages = await prisma.syllabus_packages.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends syllabus_packagesUpdateArgs>(args: SelectSubset<T, syllabus_packagesUpdateArgs<ExtArgs>>): Prisma__syllabus_packagesClient<$Result.GetResult<Prisma.$syllabus_packagesPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Syllabus_packages.
+     * @param {syllabus_packagesDeleteManyArgs} args - Arguments to filter Syllabus_packages to delete.
+     * @example
+     * // Delete a few Syllabus_packages
+     * const { count } = await prisma.syllabus_packages.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends syllabus_packagesDeleteManyArgs>(args?: SelectSubset<T, syllabus_packagesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Syllabus_packages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_packagesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Syllabus_packages
+     * const syllabus_packages = await prisma.syllabus_packages.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends syllabus_packagesUpdateManyArgs>(args: SelectSubset<T, syllabus_packagesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Syllabus_packages.
+     * @param {syllabus_packagesUpsertArgs} args - Arguments to update or create a Syllabus_packages.
+     * @example
+     * // Update or create a Syllabus_packages
+     * const syllabus_packages = await prisma.syllabus_packages.upsert({
+     *   create: {
+     *     // ... data to create a Syllabus_packages
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Syllabus_packages we want to update
+     *   }
+     * })
+     */
+    upsert<T extends syllabus_packagesUpsertArgs>(args: SelectSubset<T, syllabus_packagesUpsertArgs<ExtArgs>>): Prisma__syllabus_packagesClient<$Result.GetResult<Prisma.$syllabus_packagesPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Syllabus_packages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_packagesCountArgs} args - Arguments to filter Syllabus_packages to count.
+     * @example
+     * // Count the number of Syllabus_packages
+     * const count = await prisma.syllabus_packages.count({
+     *   where: {
+     *     // ... the filter for the Syllabus_packages we want to count
+     *   }
+     * })
+    **/
+    count<T extends syllabus_packagesCountArgs>(
+      args?: Subset<T, syllabus_packagesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Syllabus_packagesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Syllabus_packages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Syllabus_packagesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Syllabus_packagesAggregateArgs>(args: Subset<T, Syllabus_packagesAggregateArgs>): Prisma.PrismaPromise<GetSyllabus_packagesAggregateType<T>>
+
+    /**
+     * Group by Syllabus_packages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_packagesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends syllabus_packagesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: syllabus_packagesGroupByArgs['orderBy'] }
+        : { orderBy?: syllabus_packagesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, syllabus_packagesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSyllabus_packagesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the syllabus_packages model
+   */
+  readonly fields: syllabus_packagesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for syllabus_packages.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__syllabus_packagesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    departments<T extends DepartmentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartmentDefaultArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    faculty<T extends syllabus_packages$facultyArgs<ExtArgs> = {}>(args?: Subset<T, syllabus_packages$facultyArgs<ExtArgs>>): Prisma__FacultyClient<$Result.GetResult<Prisma.$FacultyPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    syllabus_units<T extends syllabus_packages$syllabus_unitsArgs<ExtArgs> = {}>(args?: Subset<T, syllabus_packages$syllabus_unitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_unitsPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the syllabus_packages model
+   */ 
+  interface syllabus_packagesFieldRefs {
+    readonly package_id: FieldRef<"syllabus_packages", 'Int'>
+    readonly dept_id: FieldRef<"syllabus_packages", 'Int'>
+    readonly semester: FieldRef<"syllabus_packages", 'String'>
+    readonly uploaded_by: FieldRef<"syllabus_packages", 'Int'>
+    readonly uploaded_at: FieldRef<"syllabus_packages", 'DateTime'>
+    readonly file_url: FieldRef<"syllabus_packages", 'String'>
+    readonly version: FieldRef<"syllabus_packages", 'String'>
+    readonly is_active: FieldRef<"syllabus_packages", 'Boolean'>
+    readonly notes: FieldRef<"syllabus_packages", 'String'>
+    readonly status: FieldRef<"syllabus_packages", 'String'>
+    readonly error_msg: FieldRef<"syllabus_packages", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * syllabus_packages findUnique
+   */
+  export type syllabus_packagesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_packages
+     */
+    select?: syllabus_packagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_packagesInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_packages to fetch.
+     */
+    where: syllabus_packagesWhereUniqueInput
+  }
+
+  /**
+   * syllabus_packages findUniqueOrThrow
+   */
+  export type syllabus_packagesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_packages
+     */
+    select?: syllabus_packagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_packagesInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_packages to fetch.
+     */
+    where: syllabus_packagesWhereUniqueInput
+  }
+
+  /**
+   * syllabus_packages findFirst
+   */
+  export type syllabus_packagesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_packages
+     */
+    select?: syllabus_packagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_packagesInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_packages to fetch.
+     */
+    where?: syllabus_packagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_packages to fetch.
+     */
+    orderBy?: syllabus_packagesOrderByWithRelationInput | syllabus_packagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for syllabus_packages.
+     */
+    cursor?: syllabus_packagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_packages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_packages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of syllabus_packages.
+     */
+    distinct?: Syllabus_packagesScalarFieldEnum | Syllabus_packagesScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_packages findFirstOrThrow
+   */
+  export type syllabus_packagesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_packages
+     */
+    select?: syllabus_packagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_packagesInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_packages to fetch.
+     */
+    where?: syllabus_packagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_packages to fetch.
+     */
+    orderBy?: syllabus_packagesOrderByWithRelationInput | syllabus_packagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for syllabus_packages.
+     */
+    cursor?: syllabus_packagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_packages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_packages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of syllabus_packages.
+     */
+    distinct?: Syllabus_packagesScalarFieldEnum | Syllabus_packagesScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_packages findMany
+   */
+  export type syllabus_packagesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_packages
+     */
+    select?: syllabus_packagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_packagesInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_packages to fetch.
+     */
+    where?: syllabus_packagesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_packages to fetch.
+     */
+    orderBy?: syllabus_packagesOrderByWithRelationInput | syllabus_packagesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing syllabus_packages.
+     */
+    cursor?: syllabus_packagesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_packages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_packages.
+     */
+    skip?: number
+    distinct?: Syllabus_packagesScalarFieldEnum | Syllabus_packagesScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_packages create
+   */
+  export type syllabus_packagesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_packages
+     */
+    select?: syllabus_packagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_packagesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a syllabus_packages.
+     */
+    data: XOR<syllabus_packagesCreateInput, syllabus_packagesUncheckedCreateInput>
+  }
+
+  /**
+   * syllabus_packages createMany
+   */
+  export type syllabus_packagesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many syllabus_packages.
+     */
+    data: syllabus_packagesCreateManyInput | syllabus_packagesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * syllabus_packages createManyAndReturn
+   */
+  export type syllabus_packagesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_packages
+     */
+    select?: syllabus_packagesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many syllabus_packages.
+     */
+    data: syllabus_packagesCreateManyInput | syllabus_packagesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_packagesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * syllabus_packages update
+   */
+  export type syllabus_packagesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_packages
+     */
+    select?: syllabus_packagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_packagesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a syllabus_packages.
+     */
+    data: XOR<syllabus_packagesUpdateInput, syllabus_packagesUncheckedUpdateInput>
+    /**
+     * Choose, which syllabus_packages to update.
+     */
+    where: syllabus_packagesWhereUniqueInput
+  }
+
+  /**
+   * syllabus_packages updateMany
+   */
+  export type syllabus_packagesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update syllabus_packages.
+     */
+    data: XOR<syllabus_packagesUpdateManyMutationInput, syllabus_packagesUncheckedUpdateManyInput>
+    /**
+     * Filter which syllabus_packages to update
+     */
+    where?: syllabus_packagesWhereInput
+  }
+
+  /**
+   * syllabus_packages upsert
+   */
+  export type syllabus_packagesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_packages
+     */
+    select?: syllabus_packagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_packagesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the syllabus_packages to update in case it exists.
+     */
+    where: syllabus_packagesWhereUniqueInput
+    /**
+     * In case the syllabus_packages found by the `where` argument doesn't exist, create a new syllabus_packages with this data.
+     */
+    create: XOR<syllabus_packagesCreateInput, syllabus_packagesUncheckedCreateInput>
+    /**
+     * In case the syllabus_packages was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<syllabus_packagesUpdateInput, syllabus_packagesUncheckedUpdateInput>
+  }
+
+  /**
+   * syllabus_packages delete
+   */
+  export type syllabus_packagesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_packages
+     */
+    select?: syllabus_packagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_packagesInclude<ExtArgs> | null
+    /**
+     * Filter which syllabus_packages to delete.
+     */
+    where: syllabus_packagesWhereUniqueInput
+  }
+
+  /**
+   * syllabus_packages deleteMany
+   */
+  export type syllabus_packagesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which syllabus_packages to delete
+     */
+    where?: syllabus_packagesWhereInput
+  }
+
+  /**
+   * syllabus_packages.faculty
+   */
+  export type syllabus_packages$facultyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Faculty
+     */
+    select?: FacultySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FacultyInclude<ExtArgs> | null
+    where?: FacultyWhereInput
+  }
+
+  /**
+   * syllabus_packages.syllabus_units
+   */
+  export type syllabus_packages$syllabus_unitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_units
+     */
+    select?: syllabus_unitsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_unitsInclude<ExtArgs> | null
+    where?: syllabus_unitsWhereInput
+    orderBy?: syllabus_unitsOrderByWithRelationInput | syllabus_unitsOrderByWithRelationInput[]
+    cursor?: syllabus_unitsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Syllabus_unitsScalarFieldEnum | Syllabus_unitsScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_packages without action
+   */
+  export type syllabus_packagesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_packages
+     */
+    select?: syllabus_packagesSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_packagesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model syllabus_subtopics
+   */
+
+  export type AggregateSyllabus_subtopics = {
+    _count: Syllabus_subtopicsCountAggregateOutputType | null
+    _avg: Syllabus_subtopicsAvgAggregateOutputType | null
+    _sum: Syllabus_subtopicsSumAggregateOutputType | null
+    _min: Syllabus_subtopicsMinAggregateOutputType | null
+    _max: Syllabus_subtopicsMaxAggregateOutputType | null
+  }
+
+  export type Syllabus_subtopicsAvgAggregateOutputType = {
+    subtopic_id: number | null
+    unit_id: number | null
+    subject_id: number | null
+    subtopic_index: number | null
+  }
+
+  export type Syllabus_subtopicsSumAggregateOutputType = {
+    subtopic_id: number | null
+    unit_id: number | null
+    subject_id: number | null
+    subtopic_index: number | null
+  }
+
+  export type Syllabus_subtopicsMinAggregateOutputType = {
+    subtopic_id: number | null
+    unit_id: number | null
+    subject_id: number | null
+    subtopic_index: number | null
+    title: string | null
+    details: string | null
+  }
+
+  export type Syllabus_subtopicsMaxAggregateOutputType = {
+    subtopic_id: number | null
+    unit_id: number | null
+    subject_id: number | null
+    subtopic_index: number | null
+    title: string | null
+    details: string | null
+  }
+
+  export type Syllabus_subtopicsCountAggregateOutputType = {
+    subtopic_id: number
+    unit_id: number
+    subject_id: number
+    subtopic_index: number
+    title: number
+    details: number
+    extra: number
+    _all: number
+  }
+
+
+  export type Syllabus_subtopicsAvgAggregateInputType = {
+    subtopic_id?: true
+    unit_id?: true
+    subject_id?: true
+    subtopic_index?: true
+  }
+
+  export type Syllabus_subtopicsSumAggregateInputType = {
+    subtopic_id?: true
+    unit_id?: true
+    subject_id?: true
+    subtopic_index?: true
+  }
+
+  export type Syllabus_subtopicsMinAggregateInputType = {
+    subtopic_id?: true
+    unit_id?: true
+    subject_id?: true
+    subtopic_index?: true
+    title?: true
+    details?: true
+  }
+
+  export type Syllabus_subtopicsMaxAggregateInputType = {
+    subtopic_id?: true
+    unit_id?: true
+    subject_id?: true
+    subtopic_index?: true
+    title?: true
+    details?: true
+  }
+
+  export type Syllabus_subtopicsCountAggregateInputType = {
+    subtopic_id?: true
+    unit_id?: true
+    subject_id?: true
+    subtopic_index?: true
+    title?: true
+    details?: true
+    extra?: true
+    _all?: true
+  }
+
+  export type Syllabus_subtopicsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which syllabus_subtopics to aggregate.
+     */
+    where?: syllabus_subtopicsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_subtopics to fetch.
+     */
+    orderBy?: syllabus_subtopicsOrderByWithRelationInput | syllabus_subtopicsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: syllabus_subtopicsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_subtopics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_subtopics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned syllabus_subtopics
+    **/
+    _count?: true | Syllabus_subtopicsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Syllabus_subtopicsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Syllabus_subtopicsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Syllabus_subtopicsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Syllabus_subtopicsMaxAggregateInputType
+  }
+
+  export type GetSyllabus_subtopicsAggregateType<T extends Syllabus_subtopicsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSyllabus_subtopics]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSyllabus_subtopics[P]>
+      : GetScalarType<T[P], AggregateSyllabus_subtopics[P]>
+  }
+
+
+
+
+  export type syllabus_subtopicsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: syllabus_subtopicsWhereInput
+    orderBy?: syllabus_subtopicsOrderByWithAggregationInput | syllabus_subtopicsOrderByWithAggregationInput[]
+    by: Syllabus_subtopicsScalarFieldEnum[] | Syllabus_subtopicsScalarFieldEnum
+    having?: syllabus_subtopicsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Syllabus_subtopicsCountAggregateInputType | true
+    _avg?: Syllabus_subtopicsAvgAggregateInputType
+    _sum?: Syllabus_subtopicsSumAggregateInputType
+    _min?: Syllabus_subtopicsMinAggregateInputType
+    _max?: Syllabus_subtopicsMaxAggregateInputType
+  }
+
+  export type Syllabus_subtopicsGroupByOutputType = {
+    subtopic_id: number
+    unit_id: number
+    subject_id: number
+    subtopic_index: number
+    title: string
+    details: string | null
+    extra: JsonValue | null
+    _count: Syllabus_subtopicsCountAggregateOutputType | null
+    _avg: Syllabus_subtopicsAvgAggregateOutputType | null
+    _sum: Syllabus_subtopicsSumAggregateOutputType | null
+    _min: Syllabus_subtopicsMinAggregateOutputType | null
+    _max: Syllabus_subtopicsMaxAggregateOutputType | null
+  }
+
+  type GetSyllabus_subtopicsGroupByPayload<T extends syllabus_subtopicsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Syllabus_subtopicsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Syllabus_subtopicsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Syllabus_subtopicsGroupByOutputType[P]>
+            : GetScalarType<T[P], Syllabus_subtopicsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type syllabus_subtopicsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    subtopic_id?: boolean
+    unit_id?: boolean
+    subject_id?: boolean
+    subtopic_index?: boolean
+    title?: boolean
+    details?: boolean
+    extra?: boolean
+    syllabus_completions?: boolean | syllabus_subtopics$syllabus_completionsArgs<ExtArgs>
+    subjects?: boolean | SubjectDefaultArgs<ExtArgs>
+    syllabus_units?: boolean | syllabus_unitsDefaultArgs<ExtArgs>
+    _count?: boolean | Syllabus_subtopicsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["syllabus_subtopics"]>
+
+  export type syllabus_subtopicsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    subtopic_id?: boolean
+    unit_id?: boolean
+    subject_id?: boolean
+    subtopic_index?: boolean
+    title?: boolean
+    details?: boolean
+    extra?: boolean
+    subjects?: boolean | SubjectDefaultArgs<ExtArgs>
+    syllabus_units?: boolean | syllabus_unitsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["syllabus_subtopics"]>
+
+  export type syllabus_subtopicsSelectScalar = {
+    subtopic_id?: boolean
+    unit_id?: boolean
+    subject_id?: boolean
+    subtopic_index?: boolean
+    title?: boolean
+    details?: boolean
+    extra?: boolean
+  }
+
+  export type syllabus_subtopicsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    syllabus_completions?: boolean | syllabus_subtopics$syllabus_completionsArgs<ExtArgs>
+    subjects?: boolean | SubjectDefaultArgs<ExtArgs>
+    syllabus_units?: boolean | syllabus_unitsDefaultArgs<ExtArgs>
+    _count?: boolean | Syllabus_subtopicsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type syllabus_subtopicsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subjects?: boolean | SubjectDefaultArgs<ExtArgs>
+    syllabus_units?: boolean | syllabus_unitsDefaultArgs<ExtArgs>
+  }
+
+  export type $syllabus_subtopicsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "syllabus_subtopics"
+    objects: {
+      syllabus_completions: Prisma.$syllabus_completionsPayload<ExtArgs>[]
+      subjects: Prisma.$SubjectPayload<ExtArgs>
+      syllabus_units: Prisma.$syllabus_unitsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      subtopic_id: number
+      unit_id: number
+      subject_id: number
+      subtopic_index: number
+      title: string
+      details: string | null
+      extra: Prisma.JsonValue | null
+    }, ExtArgs["result"]["syllabus_subtopics"]>
+    composites: {}
+  }
+
+  type syllabus_subtopicsGetPayload<S extends boolean | null | undefined | syllabus_subtopicsDefaultArgs> = $Result.GetResult<Prisma.$syllabus_subtopicsPayload, S>
+
+  type syllabus_subtopicsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<syllabus_subtopicsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: Syllabus_subtopicsCountAggregateInputType | true
+    }
+
+  export interface syllabus_subtopicsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['syllabus_subtopics'], meta: { name: 'syllabus_subtopics' } }
+    /**
+     * Find zero or one Syllabus_subtopics that matches the filter.
+     * @param {syllabus_subtopicsFindUniqueArgs} args - Arguments to find a Syllabus_subtopics
+     * @example
+     * // Get one Syllabus_subtopics
+     * const syllabus_subtopics = await prisma.syllabus_subtopics.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends syllabus_subtopicsFindUniqueArgs>(args: SelectSubset<T, syllabus_subtopicsFindUniqueArgs<ExtArgs>>): Prisma__syllabus_subtopicsClient<$Result.GetResult<Prisma.$syllabus_subtopicsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Syllabus_subtopics that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {syllabus_subtopicsFindUniqueOrThrowArgs} args - Arguments to find a Syllabus_subtopics
+     * @example
+     * // Get one Syllabus_subtopics
+     * const syllabus_subtopics = await prisma.syllabus_subtopics.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends syllabus_subtopicsFindUniqueOrThrowArgs>(args: SelectSubset<T, syllabus_subtopicsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__syllabus_subtopicsClient<$Result.GetResult<Prisma.$syllabus_subtopicsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Syllabus_subtopics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_subtopicsFindFirstArgs} args - Arguments to find a Syllabus_subtopics
+     * @example
+     * // Get one Syllabus_subtopics
+     * const syllabus_subtopics = await prisma.syllabus_subtopics.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends syllabus_subtopicsFindFirstArgs>(args?: SelectSubset<T, syllabus_subtopicsFindFirstArgs<ExtArgs>>): Prisma__syllabus_subtopicsClient<$Result.GetResult<Prisma.$syllabus_subtopicsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Syllabus_subtopics that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_subtopicsFindFirstOrThrowArgs} args - Arguments to find a Syllabus_subtopics
+     * @example
+     * // Get one Syllabus_subtopics
+     * const syllabus_subtopics = await prisma.syllabus_subtopics.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends syllabus_subtopicsFindFirstOrThrowArgs>(args?: SelectSubset<T, syllabus_subtopicsFindFirstOrThrowArgs<ExtArgs>>): Prisma__syllabus_subtopicsClient<$Result.GetResult<Prisma.$syllabus_subtopicsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Syllabus_subtopics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_subtopicsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Syllabus_subtopics
+     * const syllabus_subtopics = await prisma.syllabus_subtopics.findMany()
+     * 
+     * // Get first 10 Syllabus_subtopics
+     * const syllabus_subtopics = await prisma.syllabus_subtopics.findMany({ take: 10 })
+     * 
+     * // Only select the `subtopic_id`
+     * const syllabus_subtopicsWithSubtopic_idOnly = await prisma.syllabus_subtopics.findMany({ select: { subtopic_id: true } })
+     * 
+     */
+    findMany<T extends syllabus_subtopicsFindManyArgs>(args?: SelectSubset<T, syllabus_subtopicsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_subtopicsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Syllabus_subtopics.
+     * @param {syllabus_subtopicsCreateArgs} args - Arguments to create a Syllabus_subtopics.
+     * @example
+     * // Create one Syllabus_subtopics
+     * const Syllabus_subtopics = await prisma.syllabus_subtopics.create({
+     *   data: {
+     *     // ... data to create a Syllabus_subtopics
+     *   }
+     * })
+     * 
+     */
+    create<T extends syllabus_subtopicsCreateArgs>(args: SelectSubset<T, syllabus_subtopicsCreateArgs<ExtArgs>>): Prisma__syllabus_subtopicsClient<$Result.GetResult<Prisma.$syllabus_subtopicsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Syllabus_subtopics.
+     * @param {syllabus_subtopicsCreateManyArgs} args - Arguments to create many Syllabus_subtopics.
+     * @example
+     * // Create many Syllabus_subtopics
+     * const syllabus_subtopics = await prisma.syllabus_subtopics.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends syllabus_subtopicsCreateManyArgs>(args?: SelectSubset<T, syllabus_subtopicsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Syllabus_subtopics and returns the data saved in the database.
+     * @param {syllabus_subtopicsCreateManyAndReturnArgs} args - Arguments to create many Syllabus_subtopics.
+     * @example
+     * // Create many Syllabus_subtopics
+     * const syllabus_subtopics = await prisma.syllabus_subtopics.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Syllabus_subtopics and only return the `subtopic_id`
+     * const syllabus_subtopicsWithSubtopic_idOnly = await prisma.syllabus_subtopics.createManyAndReturn({ 
+     *   select: { subtopic_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends syllabus_subtopicsCreateManyAndReturnArgs>(args?: SelectSubset<T, syllabus_subtopicsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_subtopicsPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Syllabus_subtopics.
+     * @param {syllabus_subtopicsDeleteArgs} args - Arguments to delete one Syllabus_subtopics.
+     * @example
+     * // Delete one Syllabus_subtopics
+     * const Syllabus_subtopics = await prisma.syllabus_subtopics.delete({
+     *   where: {
+     *     // ... filter to delete one Syllabus_subtopics
+     *   }
+     * })
+     * 
+     */
+    delete<T extends syllabus_subtopicsDeleteArgs>(args: SelectSubset<T, syllabus_subtopicsDeleteArgs<ExtArgs>>): Prisma__syllabus_subtopicsClient<$Result.GetResult<Prisma.$syllabus_subtopicsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Syllabus_subtopics.
+     * @param {syllabus_subtopicsUpdateArgs} args - Arguments to update one Syllabus_subtopics.
+     * @example
+     * // Update one Syllabus_subtopics
+     * const syllabus_subtopics = await prisma.syllabus_subtopics.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends syllabus_subtopicsUpdateArgs>(args: SelectSubset<T, syllabus_subtopicsUpdateArgs<ExtArgs>>): Prisma__syllabus_subtopicsClient<$Result.GetResult<Prisma.$syllabus_subtopicsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Syllabus_subtopics.
+     * @param {syllabus_subtopicsDeleteManyArgs} args - Arguments to filter Syllabus_subtopics to delete.
+     * @example
+     * // Delete a few Syllabus_subtopics
+     * const { count } = await prisma.syllabus_subtopics.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends syllabus_subtopicsDeleteManyArgs>(args?: SelectSubset<T, syllabus_subtopicsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Syllabus_subtopics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_subtopicsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Syllabus_subtopics
+     * const syllabus_subtopics = await prisma.syllabus_subtopics.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends syllabus_subtopicsUpdateManyArgs>(args: SelectSubset<T, syllabus_subtopicsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Syllabus_subtopics.
+     * @param {syllabus_subtopicsUpsertArgs} args - Arguments to update or create a Syllabus_subtopics.
+     * @example
+     * // Update or create a Syllabus_subtopics
+     * const syllabus_subtopics = await prisma.syllabus_subtopics.upsert({
+     *   create: {
+     *     // ... data to create a Syllabus_subtopics
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Syllabus_subtopics we want to update
+     *   }
+     * })
+     */
+    upsert<T extends syllabus_subtopicsUpsertArgs>(args: SelectSubset<T, syllabus_subtopicsUpsertArgs<ExtArgs>>): Prisma__syllabus_subtopicsClient<$Result.GetResult<Prisma.$syllabus_subtopicsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Syllabus_subtopics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_subtopicsCountArgs} args - Arguments to filter Syllabus_subtopics to count.
+     * @example
+     * // Count the number of Syllabus_subtopics
+     * const count = await prisma.syllabus_subtopics.count({
+     *   where: {
+     *     // ... the filter for the Syllabus_subtopics we want to count
+     *   }
+     * })
+    **/
+    count<T extends syllabus_subtopicsCountArgs>(
+      args?: Subset<T, syllabus_subtopicsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Syllabus_subtopicsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Syllabus_subtopics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Syllabus_subtopicsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Syllabus_subtopicsAggregateArgs>(args: Subset<T, Syllabus_subtopicsAggregateArgs>): Prisma.PrismaPromise<GetSyllabus_subtopicsAggregateType<T>>
+
+    /**
+     * Group by Syllabus_subtopics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_subtopicsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends syllabus_subtopicsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: syllabus_subtopicsGroupByArgs['orderBy'] }
+        : { orderBy?: syllabus_subtopicsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, syllabus_subtopicsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSyllabus_subtopicsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the syllabus_subtopics model
+   */
+  readonly fields: syllabus_subtopicsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for syllabus_subtopics.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__syllabus_subtopicsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    syllabus_completions<T extends syllabus_subtopics$syllabus_completionsArgs<ExtArgs> = {}>(args?: Subset<T, syllabus_subtopics$syllabus_completionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_completionsPayload<ExtArgs>, T, "findMany"> | Null>
+    subjects<T extends SubjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubjectDefaultArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    syllabus_units<T extends syllabus_unitsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, syllabus_unitsDefaultArgs<ExtArgs>>): Prisma__syllabus_unitsClient<$Result.GetResult<Prisma.$syllabus_unitsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the syllabus_subtopics model
+   */ 
+  interface syllabus_subtopicsFieldRefs {
+    readonly subtopic_id: FieldRef<"syllabus_subtopics", 'Int'>
+    readonly unit_id: FieldRef<"syllabus_subtopics", 'Int'>
+    readonly subject_id: FieldRef<"syllabus_subtopics", 'Int'>
+    readonly subtopic_index: FieldRef<"syllabus_subtopics", 'Int'>
+    readonly title: FieldRef<"syllabus_subtopics", 'String'>
+    readonly details: FieldRef<"syllabus_subtopics", 'String'>
+    readonly extra: FieldRef<"syllabus_subtopics", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * syllabus_subtopics findUnique
+   */
+  export type syllabus_subtopicsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_subtopics
+     */
+    select?: syllabus_subtopicsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_subtopicsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_subtopics to fetch.
+     */
+    where: syllabus_subtopicsWhereUniqueInput
+  }
+
+  /**
+   * syllabus_subtopics findUniqueOrThrow
+   */
+  export type syllabus_subtopicsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_subtopics
+     */
+    select?: syllabus_subtopicsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_subtopicsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_subtopics to fetch.
+     */
+    where: syllabus_subtopicsWhereUniqueInput
+  }
+
+  /**
+   * syllabus_subtopics findFirst
+   */
+  export type syllabus_subtopicsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_subtopics
+     */
+    select?: syllabus_subtopicsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_subtopicsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_subtopics to fetch.
+     */
+    where?: syllabus_subtopicsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_subtopics to fetch.
+     */
+    orderBy?: syllabus_subtopicsOrderByWithRelationInput | syllabus_subtopicsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for syllabus_subtopics.
+     */
+    cursor?: syllabus_subtopicsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_subtopics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_subtopics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of syllabus_subtopics.
+     */
+    distinct?: Syllabus_subtopicsScalarFieldEnum | Syllabus_subtopicsScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_subtopics findFirstOrThrow
+   */
+  export type syllabus_subtopicsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_subtopics
+     */
+    select?: syllabus_subtopicsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_subtopicsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_subtopics to fetch.
+     */
+    where?: syllabus_subtopicsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_subtopics to fetch.
+     */
+    orderBy?: syllabus_subtopicsOrderByWithRelationInput | syllabus_subtopicsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for syllabus_subtopics.
+     */
+    cursor?: syllabus_subtopicsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_subtopics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_subtopics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of syllabus_subtopics.
+     */
+    distinct?: Syllabus_subtopicsScalarFieldEnum | Syllabus_subtopicsScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_subtopics findMany
+   */
+  export type syllabus_subtopicsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_subtopics
+     */
+    select?: syllabus_subtopicsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_subtopicsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_subtopics to fetch.
+     */
+    where?: syllabus_subtopicsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_subtopics to fetch.
+     */
+    orderBy?: syllabus_subtopicsOrderByWithRelationInput | syllabus_subtopicsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing syllabus_subtopics.
+     */
+    cursor?: syllabus_subtopicsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_subtopics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_subtopics.
+     */
+    skip?: number
+    distinct?: Syllabus_subtopicsScalarFieldEnum | Syllabus_subtopicsScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_subtopics create
+   */
+  export type syllabus_subtopicsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_subtopics
+     */
+    select?: syllabus_subtopicsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_subtopicsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a syllabus_subtopics.
+     */
+    data: XOR<syllabus_subtopicsCreateInput, syllabus_subtopicsUncheckedCreateInput>
+  }
+
+  /**
+   * syllabus_subtopics createMany
+   */
+  export type syllabus_subtopicsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many syllabus_subtopics.
+     */
+    data: syllabus_subtopicsCreateManyInput | syllabus_subtopicsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * syllabus_subtopics createManyAndReturn
+   */
+  export type syllabus_subtopicsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_subtopics
+     */
+    select?: syllabus_subtopicsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many syllabus_subtopics.
+     */
+    data: syllabus_subtopicsCreateManyInput | syllabus_subtopicsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_subtopicsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * syllabus_subtopics update
+   */
+  export type syllabus_subtopicsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_subtopics
+     */
+    select?: syllabus_subtopicsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_subtopicsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a syllabus_subtopics.
+     */
+    data: XOR<syllabus_subtopicsUpdateInput, syllabus_subtopicsUncheckedUpdateInput>
+    /**
+     * Choose, which syllabus_subtopics to update.
+     */
+    where: syllabus_subtopicsWhereUniqueInput
+  }
+
+  /**
+   * syllabus_subtopics updateMany
+   */
+  export type syllabus_subtopicsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update syllabus_subtopics.
+     */
+    data: XOR<syllabus_subtopicsUpdateManyMutationInput, syllabus_subtopicsUncheckedUpdateManyInput>
+    /**
+     * Filter which syllabus_subtopics to update
+     */
+    where?: syllabus_subtopicsWhereInput
+  }
+
+  /**
+   * syllabus_subtopics upsert
+   */
+  export type syllabus_subtopicsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_subtopics
+     */
+    select?: syllabus_subtopicsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_subtopicsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the syllabus_subtopics to update in case it exists.
+     */
+    where: syllabus_subtopicsWhereUniqueInput
+    /**
+     * In case the syllabus_subtopics found by the `where` argument doesn't exist, create a new syllabus_subtopics with this data.
+     */
+    create: XOR<syllabus_subtopicsCreateInput, syllabus_subtopicsUncheckedCreateInput>
+    /**
+     * In case the syllabus_subtopics was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<syllabus_subtopicsUpdateInput, syllabus_subtopicsUncheckedUpdateInput>
+  }
+
+  /**
+   * syllabus_subtopics delete
+   */
+  export type syllabus_subtopicsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_subtopics
+     */
+    select?: syllabus_subtopicsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_subtopicsInclude<ExtArgs> | null
+    /**
+     * Filter which syllabus_subtopics to delete.
+     */
+    where: syllabus_subtopicsWhereUniqueInput
+  }
+
+  /**
+   * syllabus_subtopics deleteMany
+   */
+  export type syllabus_subtopicsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which syllabus_subtopics to delete
+     */
+    where?: syllabus_subtopicsWhereInput
+  }
+
+  /**
+   * syllabus_subtopics.syllabus_completions
+   */
+  export type syllabus_subtopics$syllabus_completionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_completions
+     */
+    select?: syllabus_completionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_completionsInclude<ExtArgs> | null
+    where?: syllabus_completionsWhereInput
+    orderBy?: syllabus_completionsOrderByWithRelationInput | syllabus_completionsOrderByWithRelationInput[]
+    cursor?: syllabus_completionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Syllabus_completionsScalarFieldEnum | Syllabus_completionsScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_subtopics without action
+   */
+  export type syllabus_subtopicsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_subtopics
+     */
+    select?: syllabus_subtopicsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_subtopicsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model syllabus_units
+   */
+
+  export type AggregateSyllabus_units = {
+    _count: Syllabus_unitsCountAggregateOutputType | null
+    _avg: Syllabus_unitsAvgAggregateOutputType | null
+    _sum: Syllabus_unitsSumAggregateOutputType | null
+    _min: Syllabus_unitsMinAggregateOutputType | null
+    _max: Syllabus_unitsMaxAggregateOutputType | null
+  }
+
+  export type Syllabus_unitsAvgAggregateOutputType = {
+    unit_id: number | null
+    package_id: number | null
+    subject_id: number | null
+    unit_index: number | null
+  }
+
+  export type Syllabus_unitsSumAggregateOutputType = {
+    unit_id: number | null
+    package_id: number | null
+    subject_id: number | null
+    unit_index: number | null
+  }
+
+  export type Syllabus_unitsMinAggregateOutputType = {
+    unit_id: number | null
+    package_id: number | null
+    subject_id: number | null
+    unit_index: number | null
+    title: string | null
+    description: string | null
+  }
+
+  export type Syllabus_unitsMaxAggregateOutputType = {
+    unit_id: number | null
+    package_id: number | null
+    subject_id: number | null
+    unit_index: number | null
+    title: string | null
+    description: string | null
+  }
+
+  export type Syllabus_unitsCountAggregateOutputType = {
+    unit_id: number
+    package_id: number
+    subject_id: number
+    unit_index: number
+    title: number
+    description: number
+    _all: number
+  }
+
+
+  export type Syllabus_unitsAvgAggregateInputType = {
+    unit_id?: true
+    package_id?: true
+    subject_id?: true
+    unit_index?: true
+  }
+
+  export type Syllabus_unitsSumAggregateInputType = {
+    unit_id?: true
+    package_id?: true
+    subject_id?: true
+    unit_index?: true
+  }
+
+  export type Syllabus_unitsMinAggregateInputType = {
+    unit_id?: true
+    package_id?: true
+    subject_id?: true
+    unit_index?: true
+    title?: true
+    description?: true
+  }
+
+  export type Syllabus_unitsMaxAggregateInputType = {
+    unit_id?: true
+    package_id?: true
+    subject_id?: true
+    unit_index?: true
+    title?: true
+    description?: true
+  }
+
+  export type Syllabus_unitsCountAggregateInputType = {
+    unit_id?: true
+    package_id?: true
+    subject_id?: true
+    unit_index?: true
+    title?: true
+    description?: true
+    _all?: true
+  }
+
+  export type Syllabus_unitsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which syllabus_units to aggregate.
+     */
+    where?: syllabus_unitsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_units to fetch.
+     */
+    orderBy?: syllabus_unitsOrderByWithRelationInput | syllabus_unitsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: syllabus_unitsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_units from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_units.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned syllabus_units
+    **/
+    _count?: true | Syllabus_unitsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Syllabus_unitsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Syllabus_unitsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Syllabus_unitsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Syllabus_unitsMaxAggregateInputType
+  }
+
+  export type GetSyllabus_unitsAggregateType<T extends Syllabus_unitsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSyllabus_units]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSyllabus_units[P]>
+      : GetScalarType<T[P], AggregateSyllabus_units[P]>
+  }
+
+
+
+
+  export type syllabus_unitsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: syllabus_unitsWhereInput
+    orderBy?: syllabus_unitsOrderByWithAggregationInput | syllabus_unitsOrderByWithAggregationInput[]
+    by: Syllabus_unitsScalarFieldEnum[] | Syllabus_unitsScalarFieldEnum
+    having?: syllabus_unitsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Syllabus_unitsCountAggregateInputType | true
+    _avg?: Syllabus_unitsAvgAggregateInputType
+    _sum?: Syllabus_unitsSumAggregateInputType
+    _min?: Syllabus_unitsMinAggregateInputType
+    _max?: Syllabus_unitsMaxAggregateInputType
+  }
+
+  export type Syllabus_unitsGroupByOutputType = {
+    unit_id: number
+    package_id: number
+    subject_id: number
+    unit_index: number
+    title: string
+    description: string | null
+    _count: Syllabus_unitsCountAggregateOutputType | null
+    _avg: Syllabus_unitsAvgAggregateOutputType | null
+    _sum: Syllabus_unitsSumAggregateOutputType | null
+    _min: Syllabus_unitsMinAggregateOutputType | null
+    _max: Syllabus_unitsMaxAggregateOutputType | null
+  }
+
+  type GetSyllabus_unitsGroupByPayload<T extends syllabus_unitsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Syllabus_unitsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Syllabus_unitsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Syllabus_unitsGroupByOutputType[P]>
+            : GetScalarType<T[P], Syllabus_unitsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type syllabus_unitsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    unit_id?: boolean
+    package_id?: boolean
+    subject_id?: boolean
+    unit_index?: boolean
+    title?: boolean
+    description?: boolean
+    syllabus_subtopics?: boolean | syllabus_units$syllabus_subtopicsArgs<ExtArgs>
+    syllabus_packages?: boolean | syllabus_packagesDefaultArgs<ExtArgs>
+    subjects?: boolean | SubjectDefaultArgs<ExtArgs>
+    _count?: boolean | Syllabus_unitsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["syllabus_units"]>
+
+  export type syllabus_unitsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    unit_id?: boolean
+    package_id?: boolean
+    subject_id?: boolean
+    unit_index?: boolean
+    title?: boolean
+    description?: boolean
+    syllabus_packages?: boolean | syllabus_packagesDefaultArgs<ExtArgs>
+    subjects?: boolean | SubjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["syllabus_units"]>
+
+  export type syllabus_unitsSelectScalar = {
+    unit_id?: boolean
+    package_id?: boolean
+    subject_id?: boolean
+    unit_index?: boolean
+    title?: boolean
+    description?: boolean
+  }
+
+  export type syllabus_unitsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    syllabus_subtopics?: boolean | syllabus_units$syllabus_subtopicsArgs<ExtArgs>
+    syllabus_packages?: boolean | syllabus_packagesDefaultArgs<ExtArgs>
+    subjects?: boolean | SubjectDefaultArgs<ExtArgs>
+    _count?: boolean | Syllabus_unitsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type syllabus_unitsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    syllabus_packages?: boolean | syllabus_packagesDefaultArgs<ExtArgs>
+    subjects?: boolean | SubjectDefaultArgs<ExtArgs>
+  }
+
+  export type $syllabus_unitsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "syllabus_units"
+    objects: {
+      syllabus_subtopics: Prisma.$syllabus_subtopicsPayload<ExtArgs>[]
+      syllabus_packages: Prisma.$syllabus_packagesPayload<ExtArgs>
+      subjects: Prisma.$SubjectPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      unit_id: number
+      package_id: number
+      subject_id: number
+      unit_index: number
+      title: string
+      description: string | null
+    }, ExtArgs["result"]["syllabus_units"]>
+    composites: {}
+  }
+
+  type syllabus_unitsGetPayload<S extends boolean | null | undefined | syllabus_unitsDefaultArgs> = $Result.GetResult<Prisma.$syllabus_unitsPayload, S>
+
+  type syllabus_unitsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<syllabus_unitsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: Syllabus_unitsCountAggregateInputType | true
+    }
+
+  export interface syllabus_unitsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['syllabus_units'], meta: { name: 'syllabus_units' } }
+    /**
+     * Find zero or one Syllabus_units that matches the filter.
+     * @param {syllabus_unitsFindUniqueArgs} args - Arguments to find a Syllabus_units
+     * @example
+     * // Get one Syllabus_units
+     * const syllabus_units = await prisma.syllabus_units.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends syllabus_unitsFindUniqueArgs>(args: SelectSubset<T, syllabus_unitsFindUniqueArgs<ExtArgs>>): Prisma__syllabus_unitsClient<$Result.GetResult<Prisma.$syllabus_unitsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Syllabus_units that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {syllabus_unitsFindUniqueOrThrowArgs} args - Arguments to find a Syllabus_units
+     * @example
+     * // Get one Syllabus_units
+     * const syllabus_units = await prisma.syllabus_units.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends syllabus_unitsFindUniqueOrThrowArgs>(args: SelectSubset<T, syllabus_unitsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__syllabus_unitsClient<$Result.GetResult<Prisma.$syllabus_unitsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Syllabus_units that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_unitsFindFirstArgs} args - Arguments to find a Syllabus_units
+     * @example
+     * // Get one Syllabus_units
+     * const syllabus_units = await prisma.syllabus_units.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends syllabus_unitsFindFirstArgs>(args?: SelectSubset<T, syllabus_unitsFindFirstArgs<ExtArgs>>): Prisma__syllabus_unitsClient<$Result.GetResult<Prisma.$syllabus_unitsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Syllabus_units that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_unitsFindFirstOrThrowArgs} args - Arguments to find a Syllabus_units
+     * @example
+     * // Get one Syllabus_units
+     * const syllabus_units = await prisma.syllabus_units.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends syllabus_unitsFindFirstOrThrowArgs>(args?: SelectSubset<T, syllabus_unitsFindFirstOrThrowArgs<ExtArgs>>): Prisma__syllabus_unitsClient<$Result.GetResult<Prisma.$syllabus_unitsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Syllabus_units that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_unitsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Syllabus_units
+     * const syllabus_units = await prisma.syllabus_units.findMany()
+     * 
+     * // Get first 10 Syllabus_units
+     * const syllabus_units = await prisma.syllabus_units.findMany({ take: 10 })
+     * 
+     * // Only select the `unit_id`
+     * const syllabus_unitsWithUnit_idOnly = await prisma.syllabus_units.findMany({ select: { unit_id: true } })
+     * 
+     */
+    findMany<T extends syllabus_unitsFindManyArgs>(args?: SelectSubset<T, syllabus_unitsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_unitsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Syllabus_units.
+     * @param {syllabus_unitsCreateArgs} args - Arguments to create a Syllabus_units.
+     * @example
+     * // Create one Syllabus_units
+     * const Syllabus_units = await prisma.syllabus_units.create({
+     *   data: {
+     *     // ... data to create a Syllabus_units
+     *   }
+     * })
+     * 
+     */
+    create<T extends syllabus_unitsCreateArgs>(args: SelectSubset<T, syllabus_unitsCreateArgs<ExtArgs>>): Prisma__syllabus_unitsClient<$Result.GetResult<Prisma.$syllabus_unitsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Syllabus_units.
+     * @param {syllabus_unitsCreateManyArgs} args - Arguments to create many Syllabus_units.
+     * @example
+     * // Create many Syllabus_units
+     * const syllabus_units = await prisma.syllabus_units.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends syllabus_unitsCreateManyArgs>(args?: SelectSubset<T, syllabus_unitsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Syllabus_units and returns the data saved in the database.
+     * @param {syllabus_unitsCreateManyAndReturnArgs} args - Arguments to create many Syllabus_units.
+     * @example
+     * // Create many Syllabus_units
+     * const syllabus_units = await prisma.syllabus_units.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Syllabus_units and only return the `unit_id`
+     * const syllabus_unitsWithUnit_idOnly = await prisma.syllabus_units.createManyAndReturn({ 
+     *   select: { unit_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends syllabus_unitsCreateManyAndReturnArgs>(args?: SelectSubset<T, syllabus_unitsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_unitsPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Syllabus_units.
+     * @param {syllabus_unitsDeleteArgs} args - Arguments to delete one Syllabus_units.
+     * @example
+     * // Delete one Syllabus_units
+     * const Syllabus_units = await prisma.syllabus_units.delete({
+     *   where: {
+     *     // ... filter to delete one Syllabus_units
+     *   }
+     * })
+     * 
+     */
+    delete<T extends syllabus_unitsDeleteArgs>(args: SelectSubset<T, syllabus_unitsDeleteArgs<ExtArgs>>): Prisma__syllabus_unitsClient<$Result.GetResult<Prisma.$syllabus_unitsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Syllabus_units.
+     * @param {syllabus_unitsUpdateArgs} args - Arguments to update one Syllabus_units.
+     * @example
+     * // Update one Syllabus_units
+     * const syllabus_units = await prisma.syllabus_units.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends syllabus_unitsUpdateArgs>(args: SelectSubset<T, syllabus_unitsUpdateArgs<ExtArgs>>): Prisma__syllabus_unitsClient<$Result.GetResult<Prisma.$syllabus_unitsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Syllabus_units.
+     * @param {syllabus_unitsDeleteManyArgs} args - Arguments to filter Syllabus_units to delete.
+     * @example
+     * // Delete a few Syllabus_units
+     * const { count } = await prisma.syllabus_units.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends syllabus_unitsDeleteManyArgs>(args?: SelectSubset<T, syllabus_unitsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Syllabus_units.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_unitsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Syllabus_units
+     * const syllabus_units = await prisma.syllabus_units.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends syllabus_unitsUpdateManyArgs>(args: SelectSubset<T, syllabus_unitsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Syllabus_units.
+     * @param {syllabus_unitsUpsertArgs} args - Arguments to update or create a Syllabus_units.
+     * @example
+     * // Update or create a Syllabus_units
+     * const syllabus_units = await prisma.syllabus_units.upsert({
+     *   create: {
+     *     // ... data to create a Syllabus_units
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Syllabus_units we want to update
+     *   }
+     * })
+     */
+    upsert<T extends syllabus_unitsUpsertArgs>(args: SelectSubset<T, syllabus_unitsUpsertArgs<ExtArgs>>): Prisma__syllabus_unitsClient<$Result.GetResult<Prisma.$syllabus_unitsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Syllabus_units.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_unitsCountArgs} args - Arguments to filter Syllabus_units to count.
+     * @example
+     * // Count the number of Syllabus_units
+     * const count = await prisma.syllabus_units.count({
+     *   where: {
+     *     // ... the filter for the Syllabus_units we want to count
+     *   }
+     * })
+    **/
+    count<T extends syllabus_unitsCountArgs>(
+      args?: Subset<T, syllabus_unitsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Syllabus_unitsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Syllabus_units.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Syllabus_unitsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Syllabus_unitsAggregateArgs>(args: Subset<T, Syllabus_unitsAggregateArgs>): Prisma.PrismaPromise<GetSyllabus_unitsAggregateType<T>>
+
+    /**
+     * Group by Syllabus_units.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {syllabus_unitsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends syllabus_unitsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: syllabus_unitsGroupByArgs['orderBy'] }
+        : { orderBy?: syllabus_unitsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, syllabus_unitsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSyllabus_unitsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the syllabus_units model
+   */
+  readonly fields: syllabus_unitsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for syllabus_units.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__syllabus_unitsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    syllabus_subtopics<T extends syllabus_units$syllabus_subtopicsArgs<ExtArgs> = {}>(args?: Subset<T, syllabus_units$syllabus_subtopicsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$syllabus_subtopicsPayload<ExtArgs>, T, "findMany"> | Null>
+    syllabus_packages<T extends syllabus_packagesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, syllabus_packagesDefaultArgs<ExtArgs>>): Prisma__syllabus_packagesClient<$Result.GetResult<Prisma.$syllabus_packagesPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    subjects<T extends SubjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubjectDefaultArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the syllabus_units model
+   */ 
+  interface syllabus_unitsFieldRefs {
+    readonly unit_id: FieldRef<"syllabus_units", 'Int'>
+    readonly package_id: FieldRef<"syllabus_units", 'Int'>
+    readonly subject_id: FieldRef<"syllabus_units", 'Int'>
+    readonly unit_index: FieldRef<"syllabus_units", 'Int'>
+    readonly title: FieldRef<"syllabus_units", 'String'>
+    readonly description: FieldRef<"syllabus_units", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * syllabus_units findUnique
+   */
+  export type syllabus_unitsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_units
+     */
+    select?: syllabus_unitsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_unitsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_units to fetch.
+     */
+    where: syllabus_unitsWhereUniqueInput
+  }
+
+  /**
+   * syllabus_units findUniqueOrThrow
+   */
+  export type syllabus_unitsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_units
+     */
+    select?: syllabus_unitsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_unitsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_units to fetch.
+     */
+    where: syllabus_unitsWhereUniqueInput
+  }
+
+  /**
+   * syllabus_units findFirst
+   */
+  export type syllabus_unitsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_units
+     */
+    select?: syllabus_unitsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_unitsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_units to fetch.
+     */
+    where?: syllabus_unitsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_units to fetch.
+     */
+    orderBy?: syllabus_unitsOrderByWithRelationInput | syllabus_unitsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for syllabus_units.
+     */
+    cursor?: syllabus_unitsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_units from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_units.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of syllabus_units.
+     */
+    distinct?: Syllabus_unitsScalarFieldEnum | Syllabus_unitsScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_units findFirstOrThrow
+   */
+  export type syllabus_unitsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_units
+     */
+    select?: syllabus_unitsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_unitsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_units to fetch.
+     */
+    where?: syllabus_unitsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_units to fetch.
+     */
+    orderBy?: syllabus_unitsOrderByWithRelationInput | syllabus_unitsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for syllabus_units.
+     */
+    cursor?: syllabus_unitsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_units from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_units.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of syllabus_units.
+     */
+    distinct?: Syllabus_unitsScalarFieldEnum | Syllabus_unitsScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_units findMany
+   */
+  export type syllabus_unitsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_units
+     */
+    select?: syllabus_unitsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_unitsInclude<ExtArgs> | null
+    /**
+     * Filter, which syllabus_units to fetch.
+     */
+    where?: syllabus_unitsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of syllabus_units to fetch.
+     */
+    orderBy?: syllabus_unitsOrderByWithRelationInput | syllabus_unitsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing syllabus_units.
+     */
+    cursor?: syllabus_unitsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` syllabus_units from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` syllabus_units.
+     */
+    skip?: number
+    distinct?: Syllabus_unitsScalarFieldEnum | Syllabus_unitsScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_units create
+   */
+  export type syllabus_unitsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_units
+     */
+    select?: syllabus_unitsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_unitsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a syllabus_units.
+     */
+    data: XOR<syllabus_unitsCreateInput, syllabus_unitsUncheckedCreateInput>
+  }
+
+  /**
+   * syllabus_units createMany
+   */
+  export type syllabus_unitsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many syllabus_units.
+     */
+    data: syllabus_unitsCreateManyInput | syllabus_unitsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * syllabus_units createManyAndReturn
+   */
+  export type syllabus_unitsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_units
+     */
+    select?: syllabus_unitsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many syllabus_units.
+     */
+    data: syllabus_unitsCreateManyInput | syllabus_unitsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_unitsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * syllabus_units update
+   */
+  export type syllabus_unitsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_units
+     */
+    select?: syllabus_unitsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_unitsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a syllabus_units.
+     */
+    data: XOR<syllabus_unitsUpdateInput, syllabus_unitsUncheckedUpdateInput>
+    /**
+     * Choose, which syllabus_units to update.
+     */
+    where: syllabus_unitsWhereUniqueInput
+  }
+
+  /**
+   * syllabus_units updateMany
+   */
+  export type syllabus_unitsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update syllabus_units.
+     */
+    data: XOR<syllabus_unitsUpdateManyMutationInput, syllabus_unitsUncheckedUpdateManyInput>
+    /**
+     * Filter which syllabus_units to update
+     */
+    where?: syllabus_unitsWhereInput
+  }
+
+  /**
+   * syllabus_units upsert
+   */
+  export type syllabus_unitsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_units
+     */
+    select?: syllabus_unitsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_unitsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the syllabus_units to update in case it exists.
+     */
+    where: syllabus_unitsWhereUniqueInput
+    /**
+     * In case the syllabus_units found by the `where` argument doesn't exist, create a new syllabus_units with this data.
+     */
+    create: XOR<syllabus_unitsCreateInput, syllabus_unitsUncheckedCreateInput>
+    /**
+     * In case the syllabus_units was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<syllabus_unitsUpdateInput, syllabus_unitsUncheckedUpdateInput>
+  }
+
+  /**
+   * syllabus_units delete
+   */
+  export type syllabus_unitsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_units
+     */
+    select?: syllabus_unitsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_unitsInclude<ExtArgs> | null
+    /**
+     * Filter which syllabus_units to delete.
+     */
+    where: syllabus_unitsWhereUniqueInput
+  }
+
+  /**
+   * syllabus_units deleteMany
+   */
+  export type syllabus_unitsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which syllabus_units to delete
+     */
+    where?: syllabus_unitsWhereInput
+  }
+
+  /**
+   * syllabus_units.syllabus_subtopics
+   */
+  export type syllabus_units$syllabus_subtopicsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_subtopics
+     */
+    select?: syllabus_subtopicsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_subtopicsInclude<ExtArgs> | null
+    where?: syllabus_subtopicsWhereInput
+    orderBy?: syllabus_subtopicsOrderByWithRelationInput | syllabus_subtopicsOrderByWithRelationInput[]
+    cursor?: syllabus_subtopicsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Syllabus_subtopicsScalarFieldEnum | Syllabus_subtopicsScalarFieldEnum[]
+  }
+
+  /**
+   * syllabus_units without action
+   */
+  export type syllabus_unitsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the syllabus_units
+     */
+    select?: syllabus_unitsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: syllabus_unitsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -19032,12 +23751,72 @@ export namespace Prisma {
   export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
+  export const Syllabus_completionsScalarFieldEnum: {
+    completion_id: 'completion_id',
+    subtopic_id: 'subtopic_id',
+    faculty_id: 'faculty_id',
+    completed_at: 'completed_at'
+  };
+
+  export type Syllabus_completionsScalarFieldEnum = (typeof Syllabus_completionsScalarFieldEnum)[keyof typeof Syllabus_completionsScalarFieldEnum]
+
+
+  export const Syllabus_packagesScalarFieldEnum: {
+    package_id: 'package_id',
+    dept_id: 'dept_id',
+    semester: 'semester',
+    uploaded_by: 'uploaded_by',
+    uploaded_at: 'uploaded_at',
+    file_url: 'file_url',
+    version: 'version',
+    is_active: 'is_active',
+    notes: 'notes',
+    status: 'status',
+    error_msg: 'error_msg'
+  };
+
+  export type Syllabus_packagesScalarFieldEnum = (typeof Syllabus_packagesScalarFieldEnum)[keyof typeof Syllabus_packagesScalarFieldEnum]
+
+
+  export const Syllabus_subtopicsScalarFieldEnum: {
+    subtopic_id: 'subtopic_id',
+    unit_id: 'unit_id',
+    subject_id: 'subject_id',
+    subtopic_index: 'subtopic_index',
+    title: 'title',
+    details: 'details',
+    extra: 'extra'
+  };
+
+  export type Syllabus_subtopicsScalarFieldEnum = (typeof Syllabus_subtopicsScalarFieldEnum)[keyof typeof Syllabus_subtopicsScalarFieldEnum]
+
+
+  export const Syllabus_unitsScalarFieldEnum: {
+    unit_id: 'unit_id',
+    package_id: 'package_id',
+    subject_id: 'subject_id',
+    unit_index: 'unit_index',
+    title: 'title',
+    description: 'description'
+  };
+
+  export type Syllabus_unitsScalarFieldEnum = (typeof Syllabus_unitsScalarFieldEnum)[keyof typeof Syllabus_unitsScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -19054,6 +23833,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -19111,6 +23899,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -19138,8 +23933,8 @@ export namespace Prisma {
     is_active?: BoolNullableFilter<"User"> | boolean | null
     created_at?: DateTimeNullableFilter<"User"> | Date | string | null
     faculty?: FacultyListRelationFilter
-    students?: StudentListRelationFilter
     notifications?: NotificationListRelationFilter
+    students?: StudentListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -19150,8 +23945,8 @@ export namespace Prisma {
     is_active?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
     faculty?: FacultyOrderByRelationAggregateInput
-    students?: StudentOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
+    students?: StudentOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -19165,8 +23960,8 @@ export namespace Prisma {
     is_active?: BoolNullableFilter<"User"> | boolean | null
     created_at?: DateTimeNullableFilter<"User"> | Date | string | null
     faculty?: FacultyListRelationFilter
-    students?: StudentListRelationFilter
     notifications?: NotificationListRelationFilter
+    students?: StudentListRelationFilter
   }, "user_id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -19202,20 +23997,22 @@ export namespace Prisma {
     dept_id?: IntFilter<"Department"> | number
     dept_name?: StringFilter<"Department"> | string
     faculty?: FacultyListRelationFilter
-    students?: StudentListRelationFilter
-    subjects?: SubjectListRelationFilter
     announcements?: FacultyAnnouncementListRelationFilter
     uploaded_schedules?: UploadedScheduleListRelationFilter
+    students?: StudentListRelationFilter
+    subjects?: SubjectListRelationFilter
+    syllabus_packages?: Syllabus_packagesListRelationFilter
   }
 
   export type DepartmentOrderByWithRelationInput = {
     dept_id?: SortOrder
     dept_name?: SortOrder
     faculty?: FacultyOrderByRelationAggregateInput
-    students?: StudentOrderByRelationAggregateInput
-    subjects?: SubjectOrderByRelationAggregateInput
     announcements?: FacultyAnnouncementOrderByRelationAggregateInput
     uploaded_schedules?: UploadedScheduleOrderByRelationAggregateInput
+    students?: StudentOrderByRelationAggregateInput
+    subjects?: SubjectOrderByRelationAggregateInput
+    syllabus_packages?: syllabus_packagesOrderByRelationAggregateInput
   }
 
   export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
@@ -19225,10 +24022,11 @@ export namespace Prisma {
     OR?: DepartmentWhereInput[]
     NOT?: DepartmentWhereInput | DepartmentWhereInput[]
     faculty?: FacultyListRelationFilter
-    students?: StudentListRelationFilter
-    subjects?: SubjectListRelationFilter
     announcements?: FacultyAnnouncementListRelationFilter
     uploaded_schedules?: UploadedScheduleListRelationFilter
+    students?: StudentListRelationFilter
+    subjects?: SubjectListRelationFilter
+    syllabus_packages?: Syllabus_packagesListRelationFilter
   }, "dept_id" | "dept_name">
 
   export type DepartmentOrderByWithAggregationInput = {
@@ -19259,8 +24057,8 @@ export namespace Prisma {
     email?: StringNullableFilter<"Faculty"> | string | null
     dept_id?: IntNullableFilter<"Faculty"> | number | null
     is_timetable_admin?: BoolNullableFilter<"Faculty"> | boolean | null
-    Department?: XOR<DepartmentNullableRelationFilter, DepartmentWhereInput> | null
     attendance?: AttendanceListRelationFilter
+    Department?: XOR<DepartmentNullableRelationFilter, DepartmentWhereInput> | null
     User?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     announcements?: FacultyAnnouncementListRelationFilter
     facultyAttendance?: FacultyAttendanceListRelationFilter
@@ -19268,6 +24066,8 @@ export namespace Prisma {
     notes?: FacultyNoteListRelationFilter
     faculty_subjects?: FacultySubjectListRelationFilter
     uploaded_schedules?: UploadedScheduleListRelationFilter
+    syllabus_completions?: Syllabus_completionsListRelationFilter
+    syllabus_packages?: Syllabus_packagesListRelationFilter
   }
 
   export type FacultyOrderByWithRelationInput = {
@@ -19277,8 +24077,8 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     dept_id?: SortOrderInput | SortOrder
     is_timetable_admin?: SortOrderInput | SortOrder
-    Department?: DepartmentOrderByWithRelationInput
     attendance?: AttendanceOrderByRelationAggregateInput
+    Department?: DepartmentOrderByWithRelationInput
     User?: UserOrderByWithRelationInput
     announcements?: FacultyAnnouncementOrderByRelationAggregateInput
     facultyAttendance?: FacultyAttendanceOrderByRelationAggregateInput
@@ -19286,6 +24086,8 @@ export namespace Prisma {
     notes?: FacultyNoteOrderByRelationAggregateInput
     faculty_subjects?: FacultySubjectOrderByRelationAggregateInput
     uploaded_schedules?: UploadedScheduleOrderByRelationAggregateInput
+    syllabus_completions?: syllabus_completionsOrderByRelationAggregateInput
+    syllabus_packages?: syllabus_packagesOrderByRelationAggregateInput
   }
 
   export type FacultyWhereUniqueInput = Prisma.AtLeast<{
@@ -19298,8 +24100,8 @@ export namespace Prisma {
     email?: StringNullableFilter<"Faculty"> | string | null
     dept_id?: IntNullableFilter<"Faculty"> | number | null
     is_timetable_admin?: BoolNullableFilter<"Faculty"> | boolean | null
-    Department?: XOR<DepartmentNullableRelationFilter, DepartmentWhereInput> | null
     attendance?: AttendanceListRelationFilter
+    Department?: XOR<DepartmentNullableRelationFilter, DepartmentWhereInput> | null
     User?: XOR<UserNullableRelationFilter, UserWhereInput> | null
     announcements?: FacultyAnnouncementListRelationFilter
     facultyAttendance?: FacultyAttendanceListRelationFilter
@@ -19307,6 +24109,8 @@ export namespace Prisma {
     notes?: FacultyNoteListRelationFilter
     faculty_subjects?: FacultySubjectListRelationFilter
     uploaded_schedules?: UploadedScheduleListRelationFilter
+    syllabus_completions?: Syllabus_completionsListRelationFilter
+    syllabus_packages?: Syllabus_packagesListRelationFilter
   }, "faculty_id">
 
   export type FacultyOrderByWithAggregationInput = {
@@ -19347,9 +24151,9 @@ export namespace Prisma {
     semester?: StringNullableFilter<"Student"> | string | null
     division?: StringNullableFilter<"Student"> | string | null
     dept_id?: IntNullableFilter<"Student"> | number | null
-    Department?: XOR<DepartmentNullableRelationFilter, DepartmentWhereInput> | null
     attendance?: AttendanceListRelationFilter
     enrollments?: EnrollmentListRelationFilter
+    Department?: XOR<DepartmentNullableRelationFilter, DepartmentWhereInput> | null
     User?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }
 
@@ -19362,9 +24166,9 @@ export namespace Prisma {
     semester?: SortOrderInput | SortOrder
     division?: SortOrderInput | SortOrder
     dept_id?: SortOrderInput | SortOrder
-    Department?: DepartmentOrderByWithRelationInput
     attendance?: AttendanceOrderByRelationAggregateInput
     enrollments?: EnrollmentOrderByRelationAggregateInput
+    Department?: DepartmentOrderByWithRelationInput
     User?: UserOrderByWithRelationInput
   }
 
@@ -19380,9 +24184,9 @@ export namespace Prisma {
     semester?: StringNullableFilter<"Student"> | string | null
     division?: StringNullableFilter<"Student"> | string | null
     dept_id?: IntNullableFilter<"Student"> | number | null
-    Department?: XOR<DepartmentNullableRelationFilter, DepartmentWhereInput> | null
     attendance?: AttendanceListRelationFilter
     enrollments?: EnrollmentListRelationFilter
+    Department?: XOR<DepartmentNullableRelationFilter, DepartmentWhereInput> | null
     User?: XOR<UserNullableRelationFilter, UserWhereInput> | null
   }, "stud_id" | "roll_no">
 
@@ -19426,12 +24230,14 @@ export namespace Prisma {
     semester?: StringNullableFilter<"Subject"> | string | null
     dept_id?: IntNullableFilter<"Subject"> | number | null
     credits?: IntNullableFilter<"Subject"> | number | null
-    Department?: XOR<DepartmentNullableRelationFilter, DepartmentWhereInput> | null
     attendance?: AttendanceListRelationFilter
     enrollments?: EnrollmentListRelationFilter
     announcements?: FacultyAnnouncementListRelationFilter
-    timetable?: ScheduleListRelationFilter
     faculty_subjects?: FacultySubjectListRelationFilter
+    Department?: XOR<DepartmentNullableRelationFilter, DepartmentWhereInput> | null
+    syllabus_subtopics?: Syllabus_subtopicsListRelationFilter
+    syllabus_units?: Syllabus_unitsListRelationFilter
+    timetable?: ScheduleListRelationFilter
   }
 
   export type SubjectOrderByWithRelationInput = {
@@ -19441,12 +24247,14 @@ export namespace Prisma {
     semester?: SortOrderInput | SortOrder
     dept_id?: SortOrderInput | SortOrder
     credits?: SortOrderInput | SortOrder
-    Department?: DepartmentOrderByWithRelationInput
     attendance?: AttendanceOrderByRelationAggregateInput
     enrollments?: EnrollmentOrderByRelationAggregateInput
     announcements?: FacultyAnnouncementOrderByRelationAggregateInput
-    timetable?: ScheduleOrderByRelationAggregateInput
     faculty_subjects?: FacultySubjectOrderByRelationAggregateInput
+    Department?: DepartmentOrderByWithRelationInput
+    syllabus_subtopics?: syllabus_subtopicsOrderByRelationAggregateInput
+    syllabus_units?: syllabus_unitsOrderByRelationAggregateInput
+    timetable?: ScheduleOrderByRelationAggregateInput
   }
 
   export type SubjectWhereUniqueInput = Prisma.AtLeast<{
@@ -19459,12 +24267,14 @@ export namespace Prisma {
     semester?: StringNullableFilter<"Subject"> | string | null
     dept_id?: IntNullableFilter<"Subject"> | number | null
     credits?: IntNullableFilter<"Subject"> | number | null
-    Department?: XOR<DepartmentNullableRelationFilter, DepartmentWhereInput> | null
     attendance?: AttendanceListRelationFilter
     enrollments?: EnrollmentListRelationFilter
     announcements?: FacultyAnnouncementListRelationFilter
-    timetable?: ScheduleListRelationFilter
     faculty_subjects?: FacultySubjectListRelationFilter
+    Department?: XOR<DepartmentNullableRelationFilter, DepartmentWhereInput> | null
+    syllabus_subtopics?: Syllabus_subtopicsListRelationFilter
+    syllabus_units?: Syllabus_unitsListRelationFilter
+    timetable?: ScheduleListRelationFilter
   }, "subject_id" | "subject_code">
 
   export type SubjectOrderByWithAggregationInput = {
@@ -20182,6 +24992,296 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
   }
 
+  export type syllabus_completionsWhereInput = {
+    AND?: syllabus_completionsWhereInput | syllabus_completionsWhereInput[]
+    OR?: syllabus_completionsWhereInput[]
+    NOT?: syllabus_completionsWhereInput | syllabus_completionsWhereInput[]
+    completion_id?: IntFilter<"syllabus_completions"> | number
+    subtopic_id?: IntFilter<"syllabus_completions"> | number
+    faculty_id?: IntFilter<"syllabus_completions"> | number
+    completed_at?: DateTimeNullableFilter<"syllabus_completions"> | Date | string | null
+    faculty?: XOR<FacultyRelationFilter, FacultyWhereInput>
+    syllabus_subtopics?: XOR<Syllabus_subtopicsRelationFilter, syllabus_subtopicsWhereInput>
+  }
+
+  export type syllabus_completionsOrderByWithRelationInput = {
+    completion_id?: SortOrder
+    subtopic_id?: SortOrder
+    faculty_id?: SortOrder
+    completed_at?: SortOrderInput | SortOrder
+    faculty?: FacultyOrderByWithRelationInput
+    syllabus_subtopics?: syllabus_subtopicsOrderByWithRelationInput
+  }
+
+  export type syllabus_completionsWhereUniqueInput = Prisma.AtLeast<{
+    completion_id?: number
+    subtopic_id_faculty_id?: syllabus_completionsSubtopic_idFaculty_idCompoundUniqueInput
+    AND?: syllabus_completionsWhereInput | syllabus_completionsWhereInput[]
+    OR?: syllabus_completionsWhereInput[]
+    NOT?: syllabus_completionsWhereInput | syllabus_completionsWhereInput[]
+    subtopic_id?: IntFilter<"syllabus_completions"> | number
+    faculty_id?: IntFilter<"syllabus_completions"> | number
+    completed_at?: DateTimeNullableFilter<"syllabus_completions"> | Date | string | null
+    faculty?: XOR<FacultyRelationFilter, FacultyWhereInput>
+    syllabus_subtopics?: XOR<Syllabus_subtopicsRelationFilter, syllabus_subtopicsWhereInput>
+  }, "completion_id" | "subtopic_id_faculty_id">
+
+  export type syllabus_completionsOrderByWithAggregationInput = {
+    completion_id?: SortOrder
+    subtopic_id?: SortOrder
+    faculty_id?: SortOrder
+    completed_at?: SortOrderInput | SortOrder
+    _count?: syllabus_completionsCountOrderByAggregateInput
+    _avg?: syllabus_completionsAvgOrderByAggregateInput
+    _max?: syllabus_completionsMaxOrderByAggregateInput
+    _min?: syllabus_completionsMinOrderByAggregateInput
+    _sum?: syllabus_completionsSumOrderByAggregateInput
+  }
+
+  export type syllabus_completionsScalarWhereWithAggregatesInput = {
+    AND?: syllabus_completionsScalarWhereWithAggregatesInput | syllabus_completionsScalarWhereWithAggregatesInput[]
+    OR?: syllabus_completionsScalarWhereWithAggregatesInput[]
+    NOT?: syllabus_completionsScalarWhereWithAggregatesInput | syllabus_completionsScalarWhereWithAggregatesInput[]
+    completion_id?: IntWithAggregatesFilter<"syllabus_completions"> | number
+    subtopic_id?: IntWithAggregatesFilter<"syllabus_completions"> | number
+    faculty_id?: IntWithAggregatesFilter<"syllabus_completions"> | number
+    completed_at?: DateTimeNullableWithAggregatesFilter<"syllabus_completions"> | Date | string | null
+  }
+
+  export type syllabus_packagesWhereInput = {
+    AND?: syllabus_packagesWhereInput | syllabus_packagesWhereInput[]
+    OR?: syllabus_packagesWhereInput[]
+    NOT?: syllabus_packagesWhereInput | syllabus_packagesWhereInput[]
+    package_id?: IntFilter<"syllabus_packages"> | number
+    dept_id?: IntFilter<"syllabus_packages"> | number
+    semester?: StringFilter<"syllabus_packages"> | string
+    uploaded_by?: IntNullableFilter<"syllabus_packages"> | number | null
+    uploaded_at?: DateTimeNullableFilter<"syllabus_packages"> | Date | string | null
+    file_url?: StringFilter<"syllabus_packages"> | string
+    version?: StringNullableFilter<"syllabus_packages"> | string | null
+    is_active?: BoolNullableFilter<"syllabus_packages"> | boolean | null
+    notes?: StringNullableFilter<"syllabus_packages"> | string | null
+    status?: StringNullableFilter<"syllabus_packages"> | string | null
+    error_msg?: StringNullableFilter<"syllabus_packages"> | string | null
+    departments?: XOR<DepartmentRelationFilter, DepartmentWhereInput>
+    faculty?: XOR<FacultyNullableRelationFilter, FacultyWhereInput> | null
+    syllabus_units?: Syllabus_unitsListRelationFilter
+  }
+
+  export type syllabus_packagesOrderByWithRelationInput = {
+    package_id?: SortOrder
+    dept_id?: SortOrder
+    semester?: SortOrder
+    uploaded_by?: SortOrderInput | SortOrder
+    uploaded_at?: SortOrderInput | SortOrder
+    file_url?: SortOrder
+    version?: SortOrderInput | SortOrder
+    is_active?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    status?: SortOrderInput | SortOrder
+    error_msg?: SortOrderInput | SortOrder
+    departments?: DepartmentOrderByWithRelationInput
+    faculty?: FacultyOrderByWithRelationInput
+    syllabus_units?: syllabus_unitsOrderByRelationAggregateInput
+  }
+
+  export type syllabus_packagesWhereUniqueInput = Prisma.AtLeast<{
+    package_id?: number
+    AND?: syllabus_packagesWhereInput | syllabus_packagesWhereInput[]
+    OR?: syllabus_packagesWhereInput[]
+    NOT?: syllabus_packagesWhereInput | syllabus_packagesWhereInput[]
+    dept_id?: IntFilter<"syllabus_packages"> | number
+    semester?: StringFilter<"syllabus_packages"> | string
+    uploaded_by?: IntNullableFilter<"syllabus_packages"> | number | null
+    uploaded_at?: DateTimeNullableFilter<"syllabus_packages"> | Date | string | null
+    file_url?: StringFilter<"syllabus_packages"> | string
+    version?: StringNullableFilter<"syllabus_packages"> | string | null
+    is_active?: BoolNullableFilter<"syllabus_packages"> | boolean | null
+    notes?: StringNullableFilter<"syllabus_packages"> | string | null
+    status?: StringNullableFilter<"syllabus_packages"> | string | null
+    error_msg?: StringNullableFilter<"syllabus_packages"> | string | null
+    departments?: XOR<DepartmentRelationFilter, DepartmentWhereInput>
+    faculty?: XOR<FacultyNullableRelationFilter, FacultyWhereInput> | null
+    syllabus_units?: Syllabus_unitsListRelationFilter
+  }, "package_id">
+
+  export type syllabus_packagesOrderByWithAggregationInput = {
+    package_id?: SortOrder
+    dept_id?: SortOrder
+    semester?: SortOrder
+    uploaded_by?: SortOrderInput | SortOrder
+    uploaded_at?: SortOrderInput | SortOrder
+    file_url?: SortOrder
+    version?: SortOrderInput | SortOrder
+    is_active?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    status?: SortOrderInput | SortOrder
+    error_msg?: SortOrderInput | SortOrder
+    _count?: syllabus_packagesCountOrderByAggregateInput
+    _avg?: syllabus_packagesAvgOrderByAggregateInput
+    _max?: syllabus_packagesMaxOrderByAggregateInput
+    _min?: syllabus_packagesMinOrderByAggregateInput
+    _sum?: syllabus_packagesSumOrderByAggregateInput
+  }
+
+  export type syllabus_packagesScalarWhereWithAggregatesInput = {
+    AND?: syllabus_packagesScalarWhereWithAggregatesInput | syllabus_packagesScalarWhereWithAggregatesInput[]
+    OR?: syllabus_packagesScalarWhereWithAggregatesInput[]
+    NOT?: syllabus_packagesScalarWhereWithAggregatesInput | syllabus_packagesScalarWhereWithAggregatesInput[]
+    package_id?: IntWithAggregatesFilter<"syllabus_packages"> | number
+    dept_id?: IntWithAggregatesFilter<"syllabus_packages"> | number
+    semester?: StringWithAggregatesFilter<"syllabus_packages"> | string
+    uploaded_by?: IntNullableWithAggregatesFilter<"syllabus_packages"> | number | null
+    uploaded_at?: DateTimeNullableWithAggregatesFilter<"syllabus_packages"> | Date | string | null
+    file_url?: StringWithAggregatesFilter<"syllabus_packages"> | string
+    version?: StringNullableWithAggregatesFilter<"syllabus_packages"> | string | null
+    is_active?: BoolNullableWithAggregatesFilter<"syllabus_packages"> | boolean | null
+    notes?: StringNullableWithAggregatesFilter<"syllabus_packages"> | string | null
+    status?: StringNullableWithAggregatesFilter<"syllabus_packages"> | string | null
+    error_msg?: StringNullableWithAggregatesFilter<"syllabus_packages"> | string | null
+  }
+
+  export type syllabus_subtopicsWhereInput = {
+    AND?: syllabus_subtopicsWhereInput | syllabus_subtopicsWhereInput[]
+    OR?: syllabus_subtopicsWhereInput[]
+    NOT?: syllabus_subtopicsWhereInput | syllabus_subtopicsWhereInput[]
+    subtopic_id?: IntFilter<"syllabus_subtopics"> | number
+    unit_id?: IntFilter<"syllabus_subtopics"> | number
+    subject_id?: IntFilter<"syllabus_subtopics"> | number
+    subtopic_index?: IntFilter<"syllabus_subtopics"> | number
+    title?: StringFilter<"syllabus_subtopics"> | string
+    details?: StringNullableFilter<"syllabus_subtopics"> | string | null
+    extra?: JsonNullableFilter<"syllabus_subtopics">
+    syllabus_completions?: Syllabus_completionsListRelationFilter
+    subjects?: XOR<SubjectRelationFilter, SubjectWhereInput>
+    syllabus_units?: XOR<Syllabus_unitsRelationFilter, syllabus_unitsWhereInput>
+  }
+
+  export type syllabus_subtopicsOrderByWithRelationInput = {
+    subtopic_id?: SortOrder
+    unit_id?: SortOrder
+    subject_id?: SortOrder
+    subtopic_index?: SortOrder
+    title?: SortOrder
+    details?: SortOrderInput | SortOrder
+    extra?: SortOrderInput | SortOrder
+    syllabus_completions?: syllabus_completionsOrderByRelationAggregateInput
+    subjects?: SubjectOrderByWithRelationInput
+    syllabus_units?: syllabus_unitsOrderByWithRelationInput
+  }
+
+  export type syllabus_subtopicsWhereUniqueInput = Prisma.AtLeast<{
+    subtopic_id?: number
+    AND?: syllabus_subtopicsWhereInput | syllabus_subtopicsWhereInput[]
+    OR?: syllabus_subtopicsWhereInput[]
+    NOT?: syllabus_subtopicsWhereInput | syllabus_subtopicsWhereInput[]
+    unit_id?: IntFilter<"syllabus_subtopics"> | number
+    subject_id?: IntFilter<"syllabus_subtopics"> | number
+    subtopic_index?: IntFilter<"syllabus_subtopics"> | number
+    title?: StringFilter<"syllabus_subtopics"> | string
+    details?: StringNullableFilter<"syllabus_subtopics"> | string | null
+    extra?: JsonNullableFilter<"syllabus_subtopics">
+    syllabus_completions?: Syllabus_completionsListRelationFilter
+    subjects?: XOR<SubjectRelationFilter, SubjectWhereInput>
+    syllabus_units?: XOR<Syllabus_unitsRelationFilter, syllabus_unitsWhereInput>
+  }, "subtopic_id">
+
+  export type syllabus_subtopicsOrderByWithAggregationInput = {
+    subtopic_id?: SortOrder
+    unit_id?: SortOrder
+    subject_id?: SortOrder
+    subtopic_index?: SortOrder
+    title?: SortOrder
+    details?: SortOrderInput | SortOrder
+    extra?: SortOrderInput | SortOrder
+    _count?: syllabus_subtopicsCountOrderByAggregateInput
+    _avg?: syllabus_subtopicsAvgOrderByAggregateInput
+    _max?: syllabus_subtopicsMaxOrderByAggregateInput
+    _min?: syllabus_subtopicsMinOrderByAggregateInput
+    _sum?: syllabus_subtopicsSumOrderByAggregateInput
+  }
+
+  export type syllabus_subtopicsScalarWhereWithAggregatesInput = {
+    AND?: syllabus_subtopicsScalarWhereWithAggregatesInput | syllabus_subtopicsScalarWhereWithAggregatesInput[]
+    OR?: syllabus_subtopicsScalarWhereWithAggregatesInput[]
+    NOT?: syllabus_subtopicsScalarWhereWithAggregatesInput | syllabus_subtopicsScalarWhereWithAggregatesInput[]
+    subtopic_id?: IntWithAggregatesFilter<"syllabus_subtopics"> | number
+    unit_id?: IntWithAggregatesFilter<"syllabus_subtopics"> | number
+    subject_id?: IntWithAggregatesFilter<"syllabus_subtopics"> | number
+    subtopic_index?: IntWithAggregatesFilter<"syllabus_subtopics"> | number
+    title?: StringWithAggregatesFilter<"syllabus_subtopics"> | string
+    details?: StringNullableWithAggregatesFilter<"syllabus_subtopics"> | string | null
+    extra?: JsonNullableWithAggregatesFilter<"syllabus_subtopics">
+  }
+
+  export type syllabus_unitsWhereInput = {
+    AND?: syllabus_unitsWhereInput | syllabus_unitsWhereInput[]
+    OR?: syllabus_unitsWhereInput[]
+    NOT?: syllabus_unitsWhereInput | syllabus_unitsWhereInput[]
+    unit_id?: IntFilter<"syllabus_units"> | number
+    package_id?: IntFilter<"syllabus_units"> | number
+    subject_id?: IntFilter<"syllabus_units"> | number
+    unit_index?: IntFilter<"syllabus_units"> | number
+    title?: StringFilter<"syllabus_units"> | string
+    description?: StringNullableFilter<"syllabus_units"> | string | null
+    syllabus_subtopics?: Syllabus_subtopicsListRelationFilter
+    syllabus_packages?: XOR<Syllabus_packagesRelationFilter, syllabus_packagesWhereInput>
+    subjects?: XOR<SubjectRelationFilter, SubjectWhereInput>
+  }
+
+  export type syllabus_unitsOrderByWithRelationInput = {
+    unit_id?: SortOrder
+    package_id?: SortOrder
+    subject_id?: SortOrder
+    unit_index?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    syllabus_subtopics?: syllabus_subtopicsOrderByRelationAggregateInput
+    syllabus_packages?: syllabus_packagesOrderByWithRelationInput
+    subjects?: SubjectOrderByWithRelationInput
+  }
+
+  export type syllabus_unitsWhereUniqueInput = Prisma.AtLeast<{
+    unit_id?: number
+    AND?: syllabus_unitsWhereInput | syllabus_unitsWhereInput[]
+    OR?: syllabus_unitsWhereInput[]
+    NOT?: syllabus_unitsWhereInput | syllabus_unitsWhereInput[]
+    package_id?: IntFilter<"syllabus_units"> | number
+    subject_id?: IntFilter<"syllabus_units"> | number
+    unit_index?: IntFilter<"syllabus_units"> | number
+    title?: StringFilter<"syllabus_units"> | string
+    description?: StringNullableFilter<"syllabus_units"> | string | null
+    syllabus_subtopics?: Syllabus_subtopicsListRelationFilter
+    syllabus_packages?: XOR<Syllabus_packagesRelationFilter, syllabus_packagesWhereInput>
+    subjects?: XOR<SubjectRelationFilter, SubjectWhereInput>
+  }, "unit_id">
+
+  export type syllabus_unitsOrderByWithAggregationInput = {
+    unit_id?: SortOrder
+    package_id?: SortOrder
+    subject_id?: SortOrder
+    unit_index?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    _count?: syllabus_unitsCountOrderByAggregateInput
+    _avg?: syllabus_unitsAvgOrderByAggregateInput
+    _max?: syllabus_unitsMaxOrderByAggregateInput
+    _min?: syllabus_unitsMinOrderByAggregateInput
+    _sum?: syllabus_unitsSumOrderByAggregateInput
+  }
+
+  export type syllabus_unitsScalarWhereWithAggregatesInput = {
+    AND?: syllabus_unitsScalarWhereWithAggregatesInput | syllabus_unitsScalarWhereWithAggregatesInput[]
+    OR?: syllabus_unitsScalarWhereWithAggregatesInput[]
+    NOT?: syllabus_unitsScalarWhereWithAggregatesInput | syllabus_unitsScalarWhereWithAggregatesInput[]
+    unit_id?: IntWithAggregatesFilter<"syllabus_units"> | number
+    package_id?: IntWithAggregatesFilter<"syllabus_units"> | number
+    subject_id?: IntWithAggregatesFilter<"syllabus_units"> | number
+    unit_index?: IntWithAggregatesFilter<"syllabus_units"> | number
+    title?: StringWithAggregatesFilter<"syllabus_units"> | string
+    description?: StringNullableWithAggregatesFilter<"syllabus_units"> | string | null
+  }
+
   export type UserCreateInput = {
     email: string
     password_hash: string
@@ -20189,8 +25289,8 @@ export namespace Prisma {
     is_active?: boolean | null
     created_at?: Date | string | null
     faculty?: FacultyCreateNestedManyWithoutUserInput
-    students?: StudentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    students?: StudentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -20201,8 +25301,8 @@ export namespace Prisma {
     is_active?: boolean | null
     created_at?: Date | string | null
     faculty?: FacultyUncheckedCreateNestedManyWithoutUserInput
-    students?: StudentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    students?: StudentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -20212,8 +25312,8 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     faculty?: FacultyUpdateManyWithoutUserNestedInput
-    students?: StudentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    students?: StudentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -20224,8 +25324,8 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     faculty?: FacultyUncheckedUpdateManyWithoutUserNestedInput
-    students?: StudentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    students?: StudentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -20257,39 +25357,43 @@ export namespace Prisma {
   export type DepartmentCreateInput = {
     dept_name: string
     faculty?: FacultyCreateNestedManyWithoutDepartmentInput
-    students?: StudentCreateNestedManyWithoutDepartmentInput
-    subjects?: SubjectCreateNestedManyWithoutDepartmentInput
     announcements?: FacultyAnnouncementCreateNestedManyWithoutDepartmentInput
     uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutDepartmentInput
+    students?: StudentCreateNestedManyWithoutDepartmentInput
+    subjects?: SubjectCreateNestedManyWithoutDepartmentInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutDepartmentsInput
   }
 
   export type DepartmentUncheckedCreateInput = {
     dept_id?: number
     dept_name: string
     faculty?: FacultyUncheckedCreateNestedManyWithoutDepartmentInput
-    students?: StudentUncheckedCreateNestedManyWithoutDepartmentInput
-    subjects?: SubjectUncheckedCreateNestedManyWithoutDepartmentInput
     announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutDepartmentInput
     uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutDepartmentInput
+    students?: StudentUncheckedCreateNestedManyWithoutDepartmentInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutDepartmentInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutDepartmentsInput
   }
 
   export type DepartmentUpdateInput = {
     dept_name?: StringFieldUpdateOperationsInput | string
     faculty?: FacultyUpdateManyWithoutDepartmentNestedInput
-    students?: StudentUpdateManyWithoutDepartmentNestedInput
-    subjects?: SubjectUpdateManyWithoutDepartmentNestedInput
     announcements?: FacultyAnnouncementUpdateManyWithoutDepartmentNestedInput
     uploaded_schedules?: UploadedScheduleUpdateManyWithoutDepartmentNestedInput
+    students?: StudentUpdateManyWithoutDepartmentNestedInput
+    subjects?: SubjectUpdateManyWithoutDepartmentNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutDepartmentsNestedInput
   }
 
   export type DepartmentUncheckedUpdateInput = {
     dept_id?: IntFieldUpdateOperationsInput | number
     dept_name?: StringFieldUpdateOperationsInput | string
     faculty?: FacultyUncheckedUpdateManyWithoutDepartmentNestedInput
-    students?: StudentUncheckedUpdateManyWithoutDepartmentNestedInput
-    subjects?: SubjectUncheckedUpdateManyWithoutDepartmentNestedInput
     announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutDepartmentNestedInput
     uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutDepartmentNestedInput
+    students?: StudentUncheckedUpdateManyWithoutDepartmentNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutDepartmentNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutDepartmentsNestedInput
   }
 
   export type DepartmentCreateManyInput = {
@@ -20310,8 +25414,8 @@ export namespace Prisma {
     faculty_name: string
     email?: string | null
     is_timetable_admin?: boolean | null
-    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     attendance?: AttendanceCreateNestedManyWithoutFacultyInput
+    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     User?: UserCreateNestedOneWithoutFacultyInput
     announcements?: FacultyAnnouncementCreateNestedManyWithoutFacultyInput
     facultyAttendance?: FacultyAttendanceCreateNestedManyWithoutFacultyInput
@@ -20319,6 +25423,8 @@ export namespace Prisma {
     notes?: FacultyNoteCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyUncheckedCreateInput = {
@@ -20335,14 +25441,16 @@ export namespace Prisma {
     notes?: FacultyNoteUncheckedCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyUpdateInput = {
     faculty_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     is_timetable_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     attendance?: AttendanceUpdateManyWithoutFacultyNestedInput
+    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     User?: UserUpdateOneWithoutFacultyNestedInput
     announcements?: FacultyAnnouncementUpdateManyWithoutFacultyNestedInput
     facultyAttendance?: FacultyAttendanceUpdateManyWithoutFacultyNestedInput
@@ -20350,6 +25458,8 @@ export namespace Prisma {
     notes?: FacultyNoteUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyUncheckedUpdateInput = {
@@ -20366,6 +25476,8 @@ export namespace Prisma {
     notes?: FacultyNoteUncheckedUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyCreateManyInput = {
@@ -20398,9 +25510,9 @@ export namespace Prisma {
     email?: string | null
     semester?: string | null
     division?: string | null
-    Department?: DepartmentCreateNestedOneWithoutStudentsInput
     attendance?: AttendanceCreateNestedManyWithoutStudentInput
     enrollments?: EnrollmentCreateNestedManyWithoutStudentInput
+    Department?: DepartmentCreateNestedOneWithoutStudentsInput
     User?: UserCreateNestedOneWithoutStudentsInput
   }
 
@@ -20423,9 +25535,9 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     semester?: NullableStringFieldUpdateOperationsInput | string | null
     division?: NullableStringFieldUpdateOperationsInput | string | null
-    Department?: DepartmentUpdateOneWithoutStudentsNestedInput
     attendance?: AttendanceUpdateManyWithoutStudentNestedInput
     enrollments?: EnrollmentUpdateManyWithoutStudentNestedInput
+    Department?: DepartmentUpdateOneWithoutStudentsNestedInput
     User?: UserUpdateOneWithoutStudentsNestedInput
   }
 
@@ -20477,12 +25589,14 @@ export namespace Prisma {
     subject_name: string
     semester?: string | null
     credits?: number | null
-    Department?: DepartmentCreateNestedOneWithoutSubjectsInput
     attendance?: AttendanceCreateNestedManyWithoutSubjectInput
     enrollments?: EnrollmentCreateNestedManyWithoutSubjectInput
     announcements?: FacultyAnnouncementCreateNestedManyWithoutSubjectInput
-    timetable?: ScheduleCreateNestedManyWithoutSubjectInput
     faculty_subjects?: FacultySubjectCreateNestedManyWithoutSubjectInput
+    Department?: DepartmentCreateNestedOneWithoutSubjectsInput
+    syllabus_subtopics?: syllabus_subtopicsCreateNestedManyWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsCreateNestedManyWithoutSubjectsInput
+    timetable?: ScheduleCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateInput = {
@@ -20495,8 +25609,10 @@ export namespace Prisma {
     attendance?: AttendanceUncheckedCreateNestedManyWithoutSubjectInput
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutSubjectInput
     announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutSubjectInput
-    timetable?: ScheduleUncheckedCreateNestedManyWithoutSubjectInput
     faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutSubjectInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedCreateNestedManyWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsUncheckedCreateNestedManyWithoutSubjectsInput
+    timetable?: ScheduleUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUpdateInput = {
@@ -20504,12 +25620,14 @@ export namespace Prisma {
     subject_name?: StringFieldUpdateOperationsInput | string
     semester?: NullableStringFieldUpdateOperationsInput | string | null
     credits?: NullableIntFieldUpdateOperationsInput | number | null
-    Department?: DepartmentUpdateOneWithoutSubjectsNestedInput
     attendance?: AttendanceUpdateManyWithoutSubjectNestedInput
     enrollments?: EnrollmentUpdateManyWithoutSubjectNestedInput
     announcements?: FacultyAnnouncementUpdateManyWithoutSubjectNestedInput
-    timetable?: ScheduleUpdateManyWithoutSubjectNestedInput
     faculty_subjects?: FacultySubjectUpdateManyWithoutSubjectNestedInput
+    Department?: DepartmentUpdateOneWithoutSubjectsNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUpdateManyWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUpdateManyWithoutSubjectsNestedInput
+    timetable?: ScheduleUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateInput = {
@@ -20522,8 +25640,10 @@ export namespace Prisma {
     attendance?: AttendanceUncheckedUpdateManyWithoutSubjectNestedInput
     enrollments?: EnrollmentUncheckedUpdateManyWithoutSubjectNestedInput
     announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutSubjectNestedInput
-    timetable?: ScheduleUncheckedUpdateManyWithoutSubjectNestedInput
     faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutSubjectNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedUpdateManyWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUncheckedUpdateManyWithoutSubjectsNestedInput
+    timetable?: ScheduleUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectCreateManyInput = {
@@ -21181,6 +26301,278 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type syllabus_completionsCreateInput = {
+    completed_at?: Date | string | null
+    faculty: FacultyCreateNestedOneWithoutSyllabus_completionsInput
+    syllabus_subtopics: syllabus_subtopicsCreateNestedOneWithoutSyllabus_completionsInput
+  }
+
+  export type syllabus_completionsUncheckedCreateInput = {
+    completion_id?: number
+    subtopic_id: number
+    faculty_id: number
+    completed_at?: Date | string | null
+  }
+
+  export type syllabus_completionsUpdateInput = {
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    faculty?: FacultyUpdateOneRequiredWithoutSyllabus_completionsNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUpdateOneRequiredWithoutSyllabus_completionsNestedInput
+  }
+
+  export type syllabus_completionsUncheckedUpdateInput = {
+    completion_id?: IntFieldUpdateOperationsInput | number
+    subtopic_id?: IntFieldUpdateOperationsInput | number
+    faculty_id?: IntFieldUpdateOperationsInput | number
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type syllabus_completionsCreateManyInput = {
+    completion_id?: number
+    subtopic_id: number
+    faculty_id: number
+    completed_at?: Date | string | null
+  }
+
+  export type syllabus_completionsUpdateManyMutationInput = {
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type syllabus_completionsUncheckedUpdateManyInput = {
+    completion_id?: IntFieldUpdateOperationsInput | number
+    subtopic_id?: IntFieldUpdateOperationsInput | number
+    faculty_id?: IntFieldUpdateOperationsInput | number
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type syllabus_packagesCreateInput = {
+    semester: string
+    uploaded_at?: Date | string | null
+    file_url: string
+    version?: string | null
+    is_active?: boolean | null
+    notes?: string | null
+    status?: string | null
+    error_msg?: string | null
+    departments: DepartmentCreateNestedOneWithoutSyllabus_packagesInput
+    faculty?: FacultyCreateNestedOneWithoutSyllabus_packagesInput
+    syllabus_units?: syllabus_unitsCreateNestedManyWithoutSyllabus_packagesInput
+  }
+
+  export type syllabus_packagesUncheckedCreateInput = {
+    package_id?: number
+    dept_id: number
+    semester: string
+    uploaded_by?: number | null
+    uploaded_at?: Date | string | null
+    file_url: string
+    version?: string | null
+    is_active?: boolean | null
+    notes?: string | null
+    status?: string | null
+    error_msg?: string | null
+    syllabus_units?: syllabus_unitsUncheckedCreateNestedManyWithoutSyllabus_packagesInput
+  }
+
+  export type syllabus_packagesUpdateInput = {
+    semester?: StringFieldUpdateOperationsInput | string
+    uploaded_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    file_url?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    error_msg?: NullableStringFieldUpdateOperationsInput | string | null
+    departments?: DepartmentUpdateOneRequiredWithoutSyllabus_packagesNestedInput
+    faculty?: FacultyUpdateOneWithoutSyllabus_packagesNestedInput
+    syllabus_units?: syllabus_unitsUpdateManyWithoutSyllabus_packagesNestedInput
+  }
+
+  export type syllabus_packagesUncheckedUpdateInput = {
+    package_id?: IntFieldUpdateOperationsInput | number
+    dept_id?: IntFieldUpdateOperationsInput | number
+    semester?: StringFieldUpdateOperationsInput | string
+    uploaded_by?: NullableIntFieldUpdateOperationsInput | number | null
+    uploaded_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    file_url?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    error_msg?: NullableStringFieldUpdateOperationsInput | string | null
+    syllabus_units?: syllabus_unitsUncheckedUpdateManyWithoutSyllabus_packagesNestedInput
+  }
+
+  export type syllabus_packagesCreateManyInput = {
+    package_id?: number
+    dept_id: number
+    semester: string
+    uploaded_by?: number | null
+    uploaded_at?: Date | string | null
+    file_url: string
+    version?: string | null
+    is_active?: boolean | null
+    notes?: string | null
+    status?: string | null
+    error_msg?: string | null
+  }
+
+  export type syllabus_packagesUpdateManyMutationInput = {
+    semester?: StringFieldUpdateOperationsInput | string
+    uploaded_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    file_url?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    error_msg?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type syllabus_packagesUncheckedUpdateManyInput = {
+    package_id?: IntFieldUpdateOperationsInput | number
+    dept_id?: IntFieldUpdateOperationsInput | number
+    semester?: StringFieldUpdateOperationsInput | string
+    uploaded_by?: NullableIntFieldUpdateOperationsInput | number | null
+    uploaded_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    file_url?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    error_msg?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type syllabus_subtopicsCreateInput = {
+    subtopic_index: number
+    title: string
+    details?: string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+    syllabus_completions?: syllabus_completionsCreateNestedManyWithoutSyllabus_subtopicsInput
+    subjects: SubjectCreateNestedOneWithoutSyllabus_subtopicsInput
+    syllabus_units: syllabus_unitsCreateNestedOneWithoutSyllabus_subtopicsInput
+  }
+
+  export type syllabus_subtopicsUncheckedCreateInput = {
+    subtopic_id?: number
+    unit_id: number
+    subject_id: number
+    subtopic_index: number
+    title: string
+    details?: string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+    syllabus_completions?: syllabus_completionsUncheckedCreateNestedManyWithoutSyllabus_subtopicsInput
+  }
+
+  export type syllabus_subtopicsUpdateInput = {
+    subtopic_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+    syllabus_completions?: syllabus_completionsUpdateManyWithoutSyllabus_subtopicsNestedInput
+    subjects?: SubjectUpdateOneRequiredWithoutSyllabus_subtopicsNestedInput
+    syllabus_units?: syllabus_unitsUpdateOneRequiredWithoutSyllabus_subtopicsNestedInput
+  }
+
+  export type syllabus_subtopicsUncheckedUpdateInput = {
+    subtopic_id?: IntFieldUpdateOperationsInput | number
+    unit_id?: IntFieldUpdateOperationsInput | number
+    subject_id?: IntFieldUpdateOperationsInput | number
+    subtopic_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+    syllabus_completions?: syllabus_completionsUncheckedUpdateManyWithoutSyllabus_subtopicsNestedInput
+  }
+
+  export type syllabus_subtopicsCreateManyInput = {
+    subtopic_id?: number
+    unit_id: number
+    subject_id: number
+    subtopic_index: number
+    title: string
+    details?: string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type syllabus_subtopicsUpdateManyMutationInput = {
+    subtopic_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type syllabus_subtopicsUncheckedUpdateManyInput = {
+    subtopic_id?: IntFieldUpdateOperationsInput | number
+    unit_id?: IntFieldUpdateOperationsInput | number
+    subject_id?: IntFieldUpdateOperationsInput | number
+    subtopic_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type syllabus_unitsCreateInput = {
+    unit_index: number
+    title: string
+    description?: string | null
+    syllabus_subtopics?: syllabus_subtopicsCreateNestedManyWithoutSyllabus_unitsInput
+    syllabus_packages: syllabus_packagesCreateNestedOneWithoutSyllabus_unitsInput
+    subjects: SubjectCreateNestedOneWithoutSyllabus_unitsInput
+  }
+
+  export type syllabus_unitsUncheckedCreateInput = {
+    unit_id?: number
+    package_id: number
+    subject_id: number
+    unit_index: number
+    title: string
+    description?: string | null
+    syllabus_subtopics?: syllabus_subtopicsUncheckedCreateNestedManyWithoutSyllabus_unitsInput
+  }
+
+  export type syllabus_unitsUpdateInput = {
+    unit_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    syllabus_subtopics?: syllabus_subtopicsUpdateManyWithoutSyllabus_unitsNestedInput
+    syllabus_packages?: syllabus_packagesUpdateOneRequiredWithoutSyllabus_unitsNestedInput
+    subjects?: SubjectUpdateOneRequiredWithoutSyllabus_unitsNestedInput
+  }
+
+  export type syllabus_unitsUncheckedUpdateInput = {
+    unit_id?: IntFieldUpdateOperationsInput | number
+    package_id?: IntFieldUpdateOperationsInput | number
+    subject_id?: IntFieldUpdateOperationsInput | number
+    unit_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    syllabus_subtopics?: syllabus_subtopicsUncheckedUpdateManyWithoutSyllabus_unitsNestedInput
+  }
+
+  export type syllabus_unitsCreateManyInput = {
+    unit_id?: number
+    package_id: number
+    subject_id: number
+    unit_index: number
+    title: string
+    description?: string | null
+  }
+
+  export type syllabus_unitsUpdateManyMutationInput = {
+    unit_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type syllabus_unitsUncheckedUpdateManyInput = {
+    unit_id?: IntFieldUpdateOperationsInput | number
+    package_id?: IntFieldUpdateOperationsInput | number
+    subject_id?: IntFieldUpdateOperationsInput | number
+    unit_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -21229,16 +26621,16 @@ export namespace Prisma {
     none?: FacultyWhereInput
   }
 
-  export type StudentListRelationFilter = {
-    every?: StudentWhereInput
-    some?: StudentWhereInput
-    none?: StudentWhereInput
-  }
-
   export type NotificationListRelationFilter = {
     every?: NotificationWhereInput
     some?: NotificationWhereInput
     none?: NotificationWhereInput
+  }
+
+  export type StudentListRelationFilter = {
+    every?: StudentWhereInput
+    some?: StudentWhereInput
+    none?: StudentWhereInput
   }
 
   export type SortOrderInput = {
@@ -21250,11 +26642,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type StudentOrderByRelationAggregateInput = {
+  export type NotificationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type NotificationOrderByRelationAggregateInput = {
+  export type StudentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21349,12 +26741,6 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type SubjectListRelationFilter = {
-    every?: SubjectWhereInput
-    some?: SubjectWhereInput
-    none?: SubjectWhereInput
-  }
-
   export type FacultyAnnouncementListRelationFilter = {
     every?: FacultyAnnouncementWhereInput
     some?: FacultyAnnouncementWhereInput
@@ -21367,8 +26753,16 @@ export namespace Prisma {
     none?: UploadedScheduleWhereInput
   }
 
-  export type SubjectOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type SubjectListRelationFilter = {
+    every?: SubjectWhereInput
+    some?: SubjectWhereInput
+    none?: SubjectWhereInput
+  }
+
+  export type Syllabus_packagesListRelationFilter = {
+    every?: syllabus_packagesWhereInput
+    some?: syllabus_packagesWhereInput
+    none?: syllabus_packagesWhereInput
   }
 
   export type FacultyAnnouncementOrderByRelationAggregateInput = {
@@ -21376,6 +26770,14 @@ export namespace Prisma {
   }
 
   export type UploadedScheduleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SubjectOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type syllabus_packagesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21428,15 +26830,15 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type DepartmentNullableRelationFilter = {
-    is?: DepartmentWhereInput | null
-    isNot?: DepartmentWhereInput | null
-  }
-
   export type AttendanceListRelationFilter = {
     every?: AttendanceWhereInput
     some?: AttendanceWhereInput
     none?: AttendanceWhereInput
+  }
+
+  export type DepartmentNullableRelationFilter = {
+    is?: DepartmentWhereInput | null
+    isNot?: DepartmentWhereInput | null
   }
 
   export type UserNullableRelationFilter = {
@@ -21468,6 +26870,12 @@ export namespace Prisma {
     none?: FacultySubjectWhereInput
   }
 
+  export type Syllabus_completionsListRelationFilter = {
+    every?: syllabus_completionsWhereInput
+    some?: syllabus_completionsWhereInput
+    none?: syllabus_completionsWhereInput
+  }
+
   export type AttendanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -21485,6 +26893,10 @@ export namespace Prisma {
   }
 
   export type FacultySubjectOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type syllabus_completionsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21616,10 +27028,30 @@ export namespace Prisma {
     dept_id?: SortOrder
   }
 
+  export type Syllabus_subtopicsListRelationFilter = {
+    every?: syllabus_subtopicsWhereInput
+    some?: syllabus_subtopicsWhereInput
+    none?: syllabus_subtopicsWhereInput
+  }
+
+  export type Syllabus_unitsListRelationFilter = {
+    every?: syllabus_unitsWhereInput
+    some?: syllabus_unitsWhereInput
+    none?: syllabus_unitsWhereInput
+  }
+
   export type ScheduleListRelationFilter = {
     every?: ScheduleWhereInput
     some?: ScheduleWhereInput
     none?: ScheduleWhereInput
+  }
+
+  export type syllabus_subtopicsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type syllabus_unitsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type ScheduleOrderByRelationAggregateInput = {
@@ -22174,18 +27606,248 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type Syllabus_subtopicsRelationFilter = {
+    is?: syllabus_subtopicsWhereInput
+    isNot?: syllabus_subtopicsWhereInput
+  }
+
+  export type syllabus_completionsSubtopic_idFaculty_idCompoundUniqueInput = {
+    subtopic_id: number
+    faculty_id: number
+  }
+
+  export type syllabus_completionsCountOrderByAggregateInput = {
+    completion_id?: SortOrder
+    subtopic_id?: SortOrder
+    faculty_id?: SortOrder
+    completed_at?: SortOrder
+  }
+
+  export type syllabus_completionsAvgOrderByAggregateInput = {
+    completion_id?: SortOrder
+    subtopic_id?: SortOrder
+    faculty_id?: SortOrder
+  }
+
+  export type syllabus_completionsMaxOrderByAggregateInput = {
+    completion_id?: SortOrder
+    subtopic_id?: SortOrder
+    faculty_id?: SortOrder
+    completed_at?: SortOrder
+  }
+
+  export type syllabus_completionsMinOrderByAggregateInput = {
+    completion_id?: SortOrder
+    subtopic_id?: SortOrder
+    faculty_id?: SortOrder
+    completed_at?: SortOrder
+  }
+
+  export type syllabus_completionsSumOrderByAggregateInput = {
+    completion_id?: SortOrder
+    subtopic_id?: SortOrder
+    faculty_id?: SortOrder
+  }
+
+  export type syllabus_packagesCountOrderByAggregateInput = {
+    package_id?: SortOrder
+    dept_id?: SortOrder
+    semester?: SortOrder
+    uploaded_by?: SortOrder
+    uploaded_at?: SortOrder
+    file_url?: SortOrder
+    version?: SortOrder
+    is_active?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    error_msg?: SortOrder
+  }
+
+  export type syllabus_packagesAvgOrderByAggregateInput = {
+    package_id?: SortOrder
+    dept_id?: SortOrder
+    uploaded_by?: SortOrder
+  }
+
+  export type syllabus_packagesMaxOrderByAggregateInput = {
+    package_id?: SortOrder
+    dept_id?: SortOrder
+    semester?: SortOrder
+    uploaded_by?: SortOrder
+    uploaded_at?: SortOrder
+    file_url?: SortOrder
+    version?: SortOrder
+    is_active?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    error_msg?: SortOrder
+  }
+
+  export type syllabus_packagesMinOrderByAggregateInput = {
+    package_id?: SortOrder
+    dept_id?: SortOrder
+    semester?: SortOrder
+    uploaded_by?: SortOrder
+    uploaded_at?: SortOrder
+    file_url?: SortOrder
+    version?: SortOrder
+    is_active?: SortOrder
+    notes?: SortOrder
+    status?: SortOrder
+    error_msg?: SortOrder
+  }
+
+  export type syllabus_packagesSumOrderByAggregateInput = {
+    package_id?: SortOrder
+    dept_id?: SortOrder
+    uploaded_by?: SortOrder
+  }
+  export type JsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type Syllabus_unitsRelationFilter = {
+    is?: syllabus_unitsWhereInput
+    isNot?: syllabus_unitsWhereInput
+  }
+
+  export type syllabus_subtopicsCountOrderByAggregateInput = {
+    subtopic_id?: SortOrder
+    unit_id?: SortOrder
+    subject_id?: SortOrder
+    subtopic_index?: SortOrder
+    title?: SortOrder
+    details?: SortOrder
+    extra?: SortOrder
+  }
+
+  export type syllabus_subtopicsAvgOrderByAggregateInput = {
+    subtopic_id?: SortOrder
+    unit_id?: SortOrder
+    subject_id?: SortOrder
+    subtopic_index?: SortOrder
+  }
+
+  export type syllabus_subtopicsMaxOrderByAggregateInput = {
+    subtopic_id?: SortOrder
+    unit_id?: SortOrder
+    subject_id?: SortOrder
+    subtopic_index?: SortOrder
+    title?: SortOrder
+    details?: SortOrder
+  }
+
+  export type syllabus_subtopicsMinOrderByAggregateInput = {
+    subtopic_id?: SortOrder
+    unit_id?: SortOrder
+    subject_id?: SortOrder
+    subtopic_index?: SortOrder
+    title?: SortOrder
+    details?: SortOrder
+  }
+
+  export type syllabus_subtopicsSumOrderByAggregateInput = {
+    subtopic_id?: SortOrder
+    unit_id?: SortOrder
+    subject_id?: SortOrder
+    subtopic_index?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type Syllabus_packagesRelationFilter = {
+    is?: syllabus_packagesWhereInput
+    isNot?: syllabus_packagesWhereInput
+  }
+
+  export type syllabus_unitsCountOrderByAggregateInput = {
+    unit_id?: SortOrder
+    package_id?: SortOrder
+    subject_id?: SortOrder
+    unit_index?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+  }
+
+  export type syllabus_unitsAvgOrderByAggregateInput = {
+    unit_id?: SortOrder
+    package_id?: SortOrder
+    subject_id?: SortOrder
+    unit_index?: SortOrder
+  }
+
+  export type syllabus_unitsMaxOrderByAggregateInput = {
+    unit_id?: SortOrder
+    package_id?: SortOrder
+    subject_id?: SortOrder
+    unit_index?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+  }
+
+  export type syllabus_unitsMinOrderByAggregateInput = {
+    unit_id?: SortOrder
+    package_id?: SortOrder
+    subject_id?: SortOrder
+    unit_index?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+  }
+
+  export type syllabus_unitsSumOrderByAggregateInput = {
+    unit_id?: SortOrder
+    package_id?: SortOrder
+    subject_id?: SortOrder
+    unit_index?: SortOrder
+  }
+
   export type FacultyCreateNestedManyWithoutUserInput = {
     create?: XOR<FacultyCreateWithoutUserInput, FacultyUncheckedCreateWithoutUserInput> | FacultyCreateWithoutUserInput[] | FacultyUncheckedCreateWithoutUserInput[]
     connectOrCreate?: FacultyCreateOrConnectWithoutUserInput | FacultyCreateOrConnectWithoutUserInput[]
     createMany?: FacultyCreateManyUserInputEnvelope
     connect?: FacultyWhereUniqueInput | FacultyWhereUniqueInput[]
-  }
-
-  export type StudentCreateNestedManyWithoutUserInput = {
-    create?: XOR<StudentCreateWithoutUserInput, StudentUncheckedCreateWithoutUserInput> | StudentCreateWithoutUserInput[] | StudentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: StudentCreateOrConnectWithoutUserInput | StudentCreateOrConnectWithoutUserInput[]
-    createMany?: StudentCreateManyUserInputEnvelope
-    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
   }
 
   export type NotificationCreateNestedManyWithoutUserInput = {
@@ -22195,6 +27857,13 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
+  export type StudentCreateNestedManyWithoutUserInput = {
+    create?: XOR<StudentCreateWithoutUserInput, StudentUncheckedCreateWithoutUserInput> | StudentCreateWithoutUserInput[] | StudentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutUserInput | StudentCreateOrConnectWithoutUserInput[]
+    createMany?: StudentCreateManyUserInputEnvelope
+    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+  }
+
   export type FacultyUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<FacultyCreateWithoutUserInput, FacultyUncheckedCreateWithoutUserInput> | FacultyCreateWithoutUserInput[] | FacultyUncheckedCreateWithoutUserInput[]
     connectOrCreate?: FacultyCreateOrConnectWithoutUserInput | FacultyCreateOrConnectWithoutUserInput[]
@@ -22202,18 +27871,18 @@ export namespace Prisma {
     connect?: FacultyWhereUniqueInput | FacultyWhereUniqueInput[]
   }
 
-  export type StudentUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<StudentCreateWithoutUserInput, StudentUncheckedCreateWithoutUserInput> | StudentCreateWithoutUserInput[] | StudentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: StudentCreateOrConnectWithoutUserInput | StudentCreateOrConnectWithoutUserInput[]
-    createMany?: StudentCreateManyUserInputEnvelope
-    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-  }
-
   export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
     createMany?: NotificationCreateManyUserInputEnvelope
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type StudentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<StudentCreateWithoutUserInput, StudentUncheckedCreateWithoutUserInput> | StudentCreateWithoutUserInput[] | StudentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutUserInput | StudentCreateOrConnectWithoutUserInput[]
+    createMany?: StudentCreateManyUserInputEnvelope
+    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -22242,20 +27911,6 @@ export namespace Prisma {
     deleteMany?: FacultyScalarWhereInput | FacultyScalarWhereInput[]
   }
 
-  export type StudentUpdateManyWithoutUserNestedInput = {
-    create?: XOR<StudentCreateWithoutUserInput, StudentUncheckedCreateWithoutUserInput> | StudentCreateWithoutUserInput[] | StudentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: StudentCreateOrConnectWithoutUserInput | StudentCreateOrConnectWithoutUserInput[]
-    upsert?: StudentUpsertWithWhereUniqueWithoutUserInput | StudentUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: StudentCreateManyUserInputEnvelope
-    set?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-    disconnect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-    delete?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-    update?: StudentUpdateWithWhereUniqueWithoutUserInput | StudentUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: StudentUpdateManyWithWhereWithoutUserInput | StudentUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: StudentScalarWhereInput | StudentScalarWhereInput[]
-  }
-
   export type NotificationUpdateManyWithoutUserNestedInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
@@ -22268,6 +27923,20 @@ export namespace Prisma {
     update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type StudentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StudentCreateWithoutUserInput, StudentUncheckedCreateWithoutUserInput> | StudentCreateWithoutUserInput[] | StudentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutUserInput | StudentCreateOrConnectWithoutUserInput[]
+    upsert?: StudentUpsertWithWhereUniqueWithoutUserInput | StudentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StudentCreateManyUserInputEnvelope
+    set?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    disconnect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    delete?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    update?: StudentUpdateWithWhereUniqueWithoutUserInput | StudentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StudentUpdateManyWithWhereWithoutUserInput | StudentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StudentScalarWhereInput | StudentScalarWhereInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -22292,20 +27961,6 @@ export namespace Prisma {
     deleteMany?: FacultyScalarWhereInput | FacultyScalarWhereInput[]
   }
 
-  export type StudentUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<StudentCreateWithoutUserInput, StudentUncheckedCreateWithoutUserInput> | StudentCreateWithoutUserInput[] | StudentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: StudentCreateOrConnectWithoutUserInput | StudentCreateOrConnectWithoutUserInput[]
-    upsert?: StudentUpsertWithWhereUniqueWithoutUserInput | StudentUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: StudentCreateManyUserInputEnvelope
-    set?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-    disconnect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-    delete?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-    update?: StudentUpdateWithWhereUniqueWithoutUserInput | StudentUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: StudentUpdateManyWithWhereWithoutUserInput | StudentUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: StudentScalarWhereInput | StudentScalarWhereInput[]
-  }
-
   export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
@@ -22320,25 +27975,25 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
+  export type StudentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<StudentCreateWithoutUserInput, StudentUncheckedCreateWithoutUserInput> | StudentCreateWithoutUserInput[] | StudentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutUserInput | StudentCreateOrConnectWithoutUserInput[]
+    upsert?: StudentUpsertWithWhereUniqueWithoutUserInput | StudentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: StudentCreateManyUserInputEnvelope
+    set?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    disconnect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    delete?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    update?: StudentUpdateWithWhereUniqueWithoutUserInput | StudentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: StudentUpdateManyWithWhereWithoutUserInput | StudentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: StudentScalarWhereInput | StudentScalarWhereInput[]
+  }
+
   export type FacultyCreateNestedManyWithoutDepartmentInput = {
     create?: XOR<FacultyCreateWithoutDepartmentInput, FacultyUncheckedCreateWithoutDepartmentInput> | FacultyCreateWithoutDepartmentInput[] | FacultyUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: FacultyCreateOrConnectWithoutDepartmentInput | FacultyCreateOrConnectWithoutDepartmentInput[]
     createMany?: FacultyCreateManyDepartmentInputEnvelope
     connect?: FacultyWhereUniqueInput | FacultyWhereUniqueInput[]
-  }
-
-  export type StudentCreateNestedManyWithoutDepartmentInput = {
-    create?: XOR<StudentCreateWithoutDepartmentInput, StudentUncheckedCreateWithoutDepartmentInput> | StudentCreateWithoutDepartmentInput[] | StudentUncheckedCreateWithoutDepartmentInput[]
-    connectOrCreate?: StudentCreateOrConnectWithoutDepartmentInput | StudentCreateOrConnectWithoutDepartmentInput[]
-    createMany?: StudentCreateManyDepartmentInputEnvelope
-    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-  }
-
-  export type SubjectCreateNestedManyWithoutDepartmentInput = {
-    create?: XOR<SubjectCreateWithoutDepartmentInput, SubjectUncheckedCreateWithoutDepartmentInput> | SubjectCreateWithoutDepartmentInput[] | SubjectUncheckedCreateWithoutDepartmentInput[]
-    connectOrCreate?: SubjectCreateOrConnectWithoutDepartmentInput | SubjectCreateOrConnectWithoutDepartmentInput[]
-    createMany?: SubjectCreateManyDepartmentInputEnvelope
-    connect?: SubjectWhereUniqueInput | SubjectWhereUniqueInput[]
   }
 
   export type FacultyAnnouncementCreateNestedManyWithoutDepartmentInput = {
@@ -22355,25 +28010,32 @@ export namespace Prisma {
     connect?: UploadedScheduleWhereUniqueInput | UploadedScheduleWhereUniqueInput[]
   }
 
-  export type FacultyUncheckedCreateNestedManyWithoutDepartmentInput = {
-    create?: XOR<FacultyCreateWithoutDepartmentInput, FacultyUncheckedCreateWithoutDepartmentInput> | FacultyCreateWithoutDepartmentInput[] | FacultyUncheckedCreateWithoutDepartmentInput[]
-    connectOrCreate?: FacultyCreateOrConnectWithoutDepartmentInput | FacultyCreateOrConnectWithoutDepartmentInput[]
-    createMany?: FacultyCreateManyDepartmentInputEnvelope
-    connect?: FacultyWhereUniqueInput | FacultyWhereUniqueInput[]
-  }
-
-  export type StudentUncheckedCreateNestedManyWithoutDepartmentInput = {
+  export type StudentCreateNestedManyWithoutDepartmentInput = {
     create?: XOR<StudentCreateWithoutDepartmentInput, StudentUncheckedCreateWithoutDepartmentInput> | StudentCreateWithoutDepartmentInput[] | StudentUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: StudentCreateOrConnectWithoutDepartmentInput | StudentCreateOrConnectWithoutDepartmentInput[]
     createMany?: StudentCreateManyDepartmentInputEnvelope
     connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
   }
 
-  export type SubjectUncheckedCreateNestedManyWithoutDepartmentInput = {
+  export type SubjectCreateNestedManyWithoutDepartmentInput = {
     create?: XOR<SubjectCreateWithoutDepartmentInput, SubjectUncheckedCreateWithoutDepartmentInput> | SubjectCreateWithoutDepartmentInput[] | SubjectUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: SubjectCreateOrConnectWithoutDepartmentInput | SubjectCreateOrConnectWithoutDepartmentInput[]
     createMany?: SubjectCreateManyDepartmentInputEnvelope
     connect?: SubjectWhereUniqueInput | SubjectWhereUniqueInput[]
+  }
+
+  export type syllabus_packagesCreateNestedManyWithoutDepartmentsInput = {
+    create?: XOR<syllabus_packagesCreateWithoutDepartmentsInput, syllabus_packagesUncheckedCreateWithoutDepartmentsInput> | syllabus_packagesCreateWithoutDepartmentsInput[] | syllabus_packagesUncheckedCreateWithoutDepartmentsInput[]
+    connectOrCreate?: syllabus_packagesCreateOrConnectWithoutDepartmentsInput | syllabus_packagesCreateOrConnectWithoutDepartmentsInput[]
+    createMany?: syllabus_packagesCreateManyDepartmentsInputEnvelope
+    connect?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+  }
+
+  export type FacultyUncheckedCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<FacultyCreateWithoutDepartmentInput, FacultyUncheckedCreateWithoutDepartmentInput> | FacultyCreateWithoutDepartmentInput[] | FacultyUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: FacultyCreateOrConnectWithoutDepartmentInput | FacultyCreateOrConnectWithoutDepartmentInput[]
+    createMany?: FacultyCreateManyDepartmentInputEnvelope
+    connect?: FacultyWhereUniqueInput | FacultyWhereUniqueInput[]
   }
 
   export type FacultyAnnouncementUncheckedCreateNestedManyWithoutDepartmentInput = {
@@ -22390,6 +28052,27 @@ export namespace Prisma {
     connect?: UploadedScheduleWhereUniqueInput | UploadedScheduleWhereUniqueInput[]
   }
 
+  export type StudentUncheckedCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<StudentCreateWithoutDepartmentInput, StudentUncheckedCreateWithoutDepartmentInput> | StudentCreateWithoutDepartmentInput[] | StudentUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutDepartmentInput | StudentCreateOrConnectWithoutDepartmentInput[]
+    createMany?: StudentCreateManyDepartmentInputEnvelope
+    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+  }
+
+  export type SubjectUncheckedCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<SubjectCreateWithoutDepartmentInput, SubjectUncheckedCreateWithoutDepartmentInput> | SubjectCreateWithoutDepartmentInput[] | SubjectUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: SubjectCreateOrConnectWithoutDepartmentInput | SubjectCreateOrConnectWithoutDepartmentInput[]
+    createMany?: SubjectCreateManyDepartmentInputEnvelope
+    connect?: SubjectWhereUniqueInput | SubjectWhereUniqueInput[]
+  }
+
+  export type syllabus_packagesUncheckedCreateNestedManyWithoutDepartmentsInput = {
+    create?: XOR<syllabus_packagesCreateWithoutDepartmentsInput, syllabus_packagesUncheckedCreateWithoutDepartmentsInput> | syllabus_packagesCreateWithoutDepartmentsInput[] | syllabus_packagesUncheckedCreateWithoutDepartmentsInput[]
+    connectOrCreate?: syllabus_packagesCreateOrConnectWithoutDepartmentsInput | syllabus_packagesCreateOrConnectWithoutDepartmentsInput[]
+    createMany?: syllabus_packagesCreateManyDepartmentsInputEnvelope
+    connect?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+  }
+
   export type FacultyUpdateManyWithoutDepartmentNestedInput = {
     create?: XOR<FacultyCreateWithoutDepartmentInput, FacultyUncheckedCreateWithoutDepartmentInput> | FacultyCreateWithoutDepartmentInput[] | FacultyUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: FacultyCreateOrConnectWithoutDepartmentInput | FacultyCreateOrConnectWithoutDepartmentInput[]
@@ -22402,34 +28085,6 @@ export namespace Prisma {
     update?: FacultyUpdateWithWhereUniqueWithoutDepartmentInput | FacultyUpdateWithWhereUniqueWithoutDepartmentInput[]
     updateMany?: FacultyUpdateManyWithWhereWithoutDepartmentInput | FacultyUpdateManyWithWhereWithoutDepartmentInput[]
     deleteMany?: FacultyScalarWhereInput | FacultyScalarWhereInput[]
-  }
-
-  export type StudentUpdateManyWithoutDepartmentNestedInput = {
-    create?: XOR<StudentCreateWithoutDepartmentInput, StudentUncheckedCreateWithoutDepartmentInput> | StudentCreateWithoutDepartmentInput[] | StudentUncheckedCreateWithoutDepartmentInput[]
-    connectOrCreate?: StudentCreateOrConnectWithoutDepartmentInput | StudentCreateOrConnectWithoutDepartmentInput[]
-    upsert?: StudentUpsertWithWhereUniqueWithoutDepartmentInput | StudentUpsertWithWhereUniqueWithoutDepartmentInput[]
-    createMany?: StudentCreateManyDepartmentInputEnvelope
-    set?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-    disconnect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-    delete?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
-    update?: StudentUpdateWithWhereUniqueWithoutDepartmentInput | StudentUpdateWithWhereUniqueWithoutDepartmentInput[]
-    updateMany?: StudentUpdateManyWithWhereWithoutDepartmentInput | StudentUpdateManyWithWhereWithoutDepartmentInput[]
-    deleteMany?: StudentScalarWhereInput | StudentScalarWhereInput[]
-  }
-
-  export type SubjectUpdateManyWithoutDepartmentNestedInput = {
-    create?: XOR<SubjectCreateWithoutDepartmentInput, SubjectUncheckedCreateWithoutDepartmentInput> | SubjectCreateWithoutDepartmentInput[] | SubjectUncheckedCreateWithoutDepartmentInput[]
-    connectOrCreate?: SubjectCreateOrConnectWithoutDepartmentInput | SubjectCreateOrConnectWithoutDepartmentInput[]
-    upsert?: SubjectUpsertWithWhereUniqueWithoutDepartmentInput | SubjectUpsertWithWhereUniqueWithoutDepartmentInput[]
-    createMany?: SubjectCreateManyDepartmentInputEnvelope
-    set?: SubjectWhereUniqueInput | SubjectWhereUniqueInput[]
-    disconnect?: SubjectWhereUniqueInput | SubjectWhereUniqueInput[]
-    delete?: SubjectWhereUniqueInput | SubjectWhereUniqueInput[]
-    connect?: SubjectWhereUniqueInput | SubjectWhereUniqueInput[]
-    update?: SubjectUpdateWithWhereUniqueWithoutDepartmentInput | SubjectUpdateWithWhereUniqueWithoutDepartmentInput[]
-    updateMany?: SubjectUpdateManyWithWhereWithoutDepartmentInput | SubjectUpdateManyWithWhereWithoutDepartmentInput[]
-    deleteMany?: SubjectScalarWhereInput | SubjectScalarWhereInput[]
   }
 
   export type FacultyAnnouncementUpdateManyWithoutDepartmentNestedInput = {
@@ -22460,21 +28115,7 @@ export namespace Prisma {
     deleteMany?: UploadedScheduleScalarWhereInput | UploadedScheduleScalarWhereInput[]
   }
 
-  export type FacultyUncheckedUpdateManyWithoutDepartmentNestedInput = {
-    create?: XOR<FacultyCreateWithoutDepartmentInput, FacultyUncheckedCreateWithoutDepartmentInput> | FacultyCreateWithoutDepartmentInput[] | FacultyUncheckedCreateWithoutDepartmentInput[]
-    connectOrCreate?: FacultyCreateOrConnectWithoutDepartmentInput | FacultyCreateOrConnectWithoutDepartmentInput[]
-    upsert?: FacultyUpsertWithWhereUniqueWithoutDepartmentInput | FacultyUpsertWithWhereUniqueWithoutDepartmentInput[]
-    createMany?: FacultyCreateManyDepartmentInputEnvelope
-    set?: FacultyWhereUniqueInput | FacultyWhereUniqueInput[]
-    disconnect?: FacultyWhereUniqueInput | FacultyWhereUniqueInput[]
-    delete?: FacultyWhereUniqueInput | FacultyWhereUniqueInput[]
-    connect?: FacultyWhereUniqueInput | FacultyWhereUniqueInput[]
-    update?: FacultyUpdateWithWhereUniqueWithoutDepartmentInput | FacultyUpdateWithWhereUniqueWithoutDepartmentInput[]
-    updateMany?: FacultyUpdateManyWithWhereWithoutDepartmentInput | FacultyUpdateManyWithWhereWithoutDepartmentInput[]
-    deleteMany?: FacultyScalarWhereInput | FacultyScalarWhereInput[]
-  }
-
-  export type StudentUncheckedUpdateManyWithoutDepartmentNestedInput = {
+  export type StudentUpdateManyWithoutDepartmentNestedInput = {
     create?: XOR<StudentCreateWithoutDepartmentInput, StudentUncheckedCreateWithoutDepartmentInput> | StudentCreateWithoutDepartmentInput[] | StudentUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: StudentCreateOrConnectWithoutDepartmentInput | StudentCreateOrConnectWithoutDepartmentInput[]
     upsert?: StudentUpsertWithWhereUniqueWithoutDepartmentInput | StudentUpsertWithWhereUniqueWithoutDepartmentInput[]
@@ -22488,7 +28129,7 @@ export namespace Prisma {
     deleteMany?: StudentScalarWhereInput | StudentScalarWhereInput[]
   }
 
-  export type SubjectUncheckedUpdateManyWithoutDepartmentNestedInput = {
+  export type SubjectUpdateManyWithoutDepartmentNestedInput = {
     create?: XOR<SubjectCreateWithoutDepartmentInput, SubjectUncheckedCreateWithoutDepartmentInput> | SubjectCreateWithoutDepartmentInput[] | SubjectUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: SubjectCreateOrConnectWithoutDepartmentInput | SubjectCreateOrConnectWithoutDepartmentInput[]
     upsert?: SubjectUpsertWithWhereUniqueWithoutDepartmentInput | SubjectUpsertWithWhereUniqueWithoutDepartmentInput[]
@@ -22500,6 +28141,34 @@ export namespace Prisma {
     update?: SubjectUpdateWithWhereUniqueWithoutDepartmentInput | SubjectUpdateWithWhereUniqueWithoutDepartmentInput[]
     updateMany?: SubjectUpdateManyWithWhereWithoutDepartmentInput | SubjectUpdateManyWithWhereWithoutDepartmentInput[]
     deleteMany?: SubjectScalarWhereInput | SubjectScalarWhereInput[]
+  }
+
+  export type syllabus_packagesUpdateManyWithoutDepartmentsNestedInput = {
+    create?: XOR<syllabus_packagesCreateWithoutDepartmentsInput, syllabus_packagesUncheckedCreateWithoutDepartmentsInput> | syllabus_packagesCreateWithoutDepartmentsInput[] | syllabus_packagesUncheckedCreateWithoutDepartmentsInput[]
+    connectOrCreate?: syllabus_packagesCreateOrConnectWithoutDepartmentsInput | syllabus_packagesCreateOrConnectWithoutDepartmentsInput[]
+    upsert?: syllabus_packagesUpsertWithWhereUniqueWithoutDepartmentsInput | syllabus_packagesUpsertWithWhereUniqueWithoutDepartmentsInput[]
+    createMany?: syllabus_packagesCreateManyDepartmentsInputEnvelope
+    set?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    disconnect?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    delete?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    connect?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    update?: syllabus_packagesUpdateWithWhereUniqueWithoutDepartmentsInput | syllabus_packagesUpdateWithWhereUniqueWithoutDepartmentsInput[]
+    updateMany?: syllabus_packagesUpdateManyWithWhereWithoutDepartmentsInput | syllabus_packagesUpdateManyWithWhereWithoutDepartmentsInput[]
+    deleteMany?: syllabus_packagesScalarWhereInput | syllabus_packagesScalarWhereInput[]
+  }
+
+  export type FacultyUncheckedUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<FacultyCreateWithoutDepartmentInput, FacultyUncheckedCreateWithoutDepartmentInput> | FacultyCreateWithoutDepartmentInput[] | FacultyUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: FacultyCreateOrConnectWithoutDepartmentInput | FacultyCreateOrConnectWithoutDepartmentInput[]
+    upsert?: FacultyUpsertWithWhereUniqueWithoutDepartmentInput | FacultyUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: FacultyCreateManyDepartmentInputEnvelope
+    set?: FacultyWhereUniqueInput | FacultyWhereUniqueInput[]
+    disconnect?: FacultyWhereUniqueInput | FacultyWhereUniqueInput[]
+    delete?: FacultyWhereUniqueInput | FacultyWhereUniqueInput[]
+    connect?: FacultyWhereUniqueInput | FacultyWhereUniqueInput[]
+    update?: FacultyUpdateWithWhereUniqueWithoutDepartmentInput | FacultyUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: FacultyUpdateManyWithWhereWithoutDepartmentInput | FacultyUpdateManyWithWhereWithoutDepartmentInput[]
+    deleteMany?: FacultyScalarWhereInput | FacultyScalarWhereInput[]
   }
 
   export type FacultyAnnouncementUncheckedUpdateManyWithoutDepartmentNestedInput = {
@@ -22530,10 +28199,46 @@ export namespace Prisma {
     deleteMany?: UploadedScheduleScalarWhereInput | UploadedScheduleScalarWhereInput[]
   }
 
-  export type DepartmentCreateNestedOneWithoutFacultyInput = {
-    create?: XOR<DepartmentCreateWithoutFacultyInput, DepartmentUncheckedCreateWithoutFacultyInput>
-    connectOrCreate?: DepartmentCreateOrConnectWithoutFacultyInput
-    connect?: DepartmentWhereUniqueInput
+  export type StudentUncheckedUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<StudentCreateWithoutDepartmentInput, StudentUncheckedCreateWithoutDepartmentInput> | StudentCreateWithoutDepartmentInput[] | StudentUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: StudentCreateOrConnectWithoutDepartmentInput | StudentCreateOrConnectWithoutDepartmentInput[]
+    upsert?: StudentUpsertWithWhereUniqueWithoutDepartmentInput | StudentUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: StudentCreateManyDepartmentInputEnvelope
+    set?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    disconnect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    delete?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    connect?: StudentWhereUniqueInput | StudentWhereUniqueInput[]
+    update?: StudentUpdateWithWhereUniqueWithoutDepartmentInput | StudentUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: StudentUpdateManyWithWhereWithoutDepartmentInput | StudentUpdateManyWithWhereWithoutDepartmentInput[]
+    deleteMany?: StudentScalarWhereInput | StudentScalarWhereInput[]
+  }
+
+  export type SubjectUncheckedUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<SubjectCreateWithoutDepartmentInput, SubjectUncheckedCreateWithoutDepartmentInput> | SubjectCreateWithoutDepartmentInput[] | SubjectUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: SubjectCreateOrConnectWithoutDepartmentInput | SubjectCreateOrConnectWithoutDepartmentInput[]
+    upsert?: SubjectUpsertWithWhereUniqueWithoutDepartmentInput | SubjectUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: SubjectCreateManyDepartmentInputEnvelope
+    set?: SubjectWhereUniqueInput | SubjectWhereUniqueInput[]
+    disconnect?: SubjectWhereUniqueInput | SubjectWhereUniqueInput[]
+    delete?: SubjectWhereUniqueInput | SubjectWhereUniqueInput[]
+    connect?: SubjectWhereUniqueInput | SubjectWhereUniqueInput[]
+    update?: SubjectUpdateWithWhereUniqueWithoutDepartmentInput | SubjectUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: SubjectUpdateManyWithWhereWithoutDepartmentInput | SubjectUpdateManyWithWhereWithoutDepartmentInput[]
+    deleteMany?: SubjectScalarWhereInput | SubjectScalarWhereInput[]
+  }
+
+  export type syllabus_packagesUncheckedUpdateManyWithoutDepartmentsNestedInput = {
+    create?: XOR<syllabus_packagesCreateWithoutDepartmentsInput, syllabus_packagesUncheckedCreateWithoutDepartmentsInput> | syllabus_packagesCreateWithoutDepartmentsInput[] | syllabus_packagesUncheckedCreateWithoutDepartmentsInput[]
+    connectOrCreate?: syllabus_packagesCreateOrConnectWithoutDepartmentsInput | syllabus_packagesCreateOrConnectWithoutDepartmentsInput[]
+    upsert?: syllabus_packagesUpsertWithWhereUniqueWithoutDepartmentsInput | syllabus_packagesUpsertWithWhereUniqueWithoutDepartmentsInput[]
+    createMany?: syllabus_packagesCreateManyDepartmentsInputEnvelope
+    set?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    disconnect?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    delete?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    connect?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    update?: syllabus_packagesUpdateWithWhereUniqueWithoutDepartmentsInput | syllabus_packagesUpdateWithWhereUniqueWithoutDepartmentsInput[]
+    updateMany?: syllabus_packagesUpdateManyWithWhereWithoutDepartmentsInput | syllabus_packagesUpdateManyWithWhereWithoutDepartmentsInput[]
+    deleteMany?: syllabus_packagesScalarWhereInput | syllabus_packagesScalarWhereInput[]
   }
 
   export type AttendanceCreateNestedManyWithoutFacultyInput = {
@@ -22541,6 +28246,12 @@ export namespace Prisma {
     connectOrCreate?: AttendanceCreateOrConnectWithoutFacultyInput | AttendanceCreateOrConnectWithoutFacultyInput[]
     createMany?: AttendanceCreateManyFacultyInputEnvelope
     connect?: AttendanceWhereUniqueInput | AttendanceWhereUniqueInput[]
+  }
+
+  export type DepartmentCreateNestedOneWithoutFacultyInput = {
+    create?: XOR<DepartmentCreateWithoutFacultyInput, DepartmentUncheckedCreateWithoutFacultyInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutFacultyInput
+    connect?: DepartmentWhereUniqueInput
   }
 
   export type UserCreateNestedOneWithoutFacultyInput = {
@@ -22589,6 +28300,20 @@ export namespace Prisma {
     connectOrCreate?: UploadedScheduleCreateOrConnectWithoutFacultyInput | UploadedScheduleCreateOrConnectWithoutFacultyInput[]
     createMany?: UploadedScheduleCreateManyFacultyInputEnvelope
     connect?: UploadedScheduleWhereUniqueInput | UploadedScheduleWhereUniqueInput[]
+  }
+
+  export type syllabus_completionsCreateNestedManyWithoutFacultyInput = {
+    create?: XOR<syllabus_completionsCreateWithoutFacultyInput, syllabus_completionsUncheckedCreateWithoutFacultyInput> | syllabus_completionsCreateWithoutFacultyInput[] | syllabus_completionsUncheckedCreateWithoutFacultyInput[]
+    connectOrCreate?: syllabus_completionsCreateOrConnectWithoutFacultyInput | syllabus_completionsCreateOrConnectWithoutFacultyInput[]
+    createMany?: syllabus_completionsCreateManyFacultyInputEnvelope
+    connect?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+  }
+
+  export type syllabus_packagesCreateNestedManyWithoutFacultyInput = {
+    create?: XOR<syllabus_packagesCreateWithoutFacultyInput, syllabus_packagesUncheckedCreateWithoutFacultyInput> | syllabus_packagesCreateWithoutFacultyInput[] | syllabus_packagesUncheckedCreateWithoutFacultyInput[]
+    connectOrCreate?: syllabus_packagesCreateOrConnectWithoutFacultyInput | syllabus_packagesCreateOrConnectWithoutFacultyInput[]
+    createMany?: syllabus_packagesCreateManyFacultyInputEnvelope
+    connect?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
   }
 
   export type AttendanceUncheckedCreateNestedManyWithoutFacultyInput = {
@@ -22640,18 +28365,22 @@ export namespace Prisma {
     connect?: UploadedScheduleWhereUniqueInput | UploadedScheduleWhereUniqueInput[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+  export type syllabus_completionsUncheckedCreateNestedManyWithoutFacultyInput = {
+    create?: XOR<syllabus_completionsCreateWithoutFacultyInput, syllabus_completionsUncheckedCreateWithoutFacultyInput> | syllabus_completionsCreateWithoutFacultyInput[] | syllabus_completionsUncheckedCreateWithoutFacultyInput[]
+    connectOrCreate?: syllabus_completionsCreateOrConnectWithoutFacultyInput | syllabus_completionsCreateOrConnectWithoutFacultyInput[]
+    createMany?: syllabus_completionsCreateManyFacultyInputEnvelope
+    connect?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
   }
 
-  export type DepartmentUpdateOneWithoutFacultyNestedInput = {
-    create?: XOR<DepartmentCreateWithoutFacultyInput, DepartmentUncheckedCreateWithoutFacultyInput>
-    connectOrCreate?: DepartmentCreateOrConnectWithoutFacultyInput
-    upsert?: DepartmentUpsertWithoutFacultyInput
-    disconnect?: DepartmentWhereInput | boolean
-    delete?: DepartmentWhereInput | boolean
-    connect?: DepartmentWhereUniqueInput
-    update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutFacultyInput, DepartmentUpdateWithoutFacultyInput>, DepartmentUncheckedUpdateWithoutFacultyInput>
+  export type syllabus_packagesUncheckedCreateNestedManyWithoutFacultyInput = {
+    create?: XOR<syllabus_packagesCreateWithoutFacultyInput, syllabus_packagesUncheckedCreateWithoutFacultyInput> | syllabus_packagesCreateWithoutFacultyInput[] | syllabus_packagesUncheckedCreateWithoutFacultyInput[]
+    connectOrCreate?: syllabus_packagesCreateOrConnectWithoutFacultyInput | syllabus_packagesCreateOrConnectWithoutFacultyInput[]
+    createMany?: syllabus_packagesCreateManyFacultyInputEnvelope
+    connect?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type AttendanceUpdateManyWithoutFacultyNestedInput = {
@@ -22666,6 +28395,16 @@ export namespace Prisma {
     update?: AttendanceUpdateWithWhereUniqueWithoutFacultyInput | AttendanceUpdateWithWhereUniqueWithoutFacultyInput[]
     updateMany?: AttendanceUpdateManyWithWhereWithoutFacultyInput | AttendanceUpdateManyWithWhereWithoutFacultyInput[]
     deleteMany?: AttendanceScalarWhereInput | AttendanceScalarWhereInput[]
+  }
+
+  export type DepartmentUpdateOneWithoutFacultyNestedInput = {
+    create?: XOR<DepartmentCreateWithoutFacultyInput, DepartmentUncheckedCreateWithoutFacultyInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutFacultyInput
+    upsert?: DepartmentUpsertWithoutFacultyInput
+    disconnect?: DepartmentWhereInput | boolean
+    delete?: DepartmentWhereInput | boolean
+    connect?: DepartmentWhereUniqueInput
+    update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutFacultyInput, DepartmentUpdateWithoutFacultyInput>, DepartmentUncheckedUpdateWithoutFacultyInput>
   }
 
   export type UserUpdateOneWithoutFacultyNestedInput = {
@@ -22760,6 +28499,34 @@ export namespace Prisma {
     update?: UploadedScheduleUpdateWithWhereUniqueWithoutFacultyInput | UploadedScheduleUpdateWithWhereUniqueWithoutFacultyInput[]
     updateMany?: UploadedScheduleUpdateManyWithWhereWithoutFacultyInput | UploadedScheduleUpdateManyWithWhereWithoutFacultyInput[]
     deleteMany?: UploadedScheduleScalarWhereInput | UploadedScheduleScalarWhereInput[]
+  }
+
+  export type syllabus_completionsUpdateManyWithoutFacultyNestedInput = {
+    create?: XOR<syllabus_completionsCreateWithoutFacultyInput, syllabus_completionsUncheckedCreateWithoutFacultyInput> | syllabus_completionsCreateWithoutFacultyInput[] | syllabus_completionsUncheckedCreateWithoutFacultyInput[]
+    connectOrCreate?: syllabus_completionsCreateOrConnectWithoutFacultyInput | syllabus_completionsCreateOrConnectWithoutFacultyInput[]
+    upsert?: syllabus_completionsUpsertWithWhereUniqueWithoutFacultyInput | syllabus_completionsUpsertWithWhereUniqueWithoutFacultyInput[]
+    createMany?: syllabus_completionsCreateManyFacultyInputEnvelope
+    set?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    disconnect?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    delete?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    connect?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    update?: syllabus_completionsUpdateWithWhereUniqueWithoutFacultyInput | syllabus_completionsUpdateWithWhereUniqueWithoutFacultyInput[]
+    updateMany?: syllabus_completionsUpdateManyWithWhereWithoutFacultyInput | syllabus_completionsUpdateManyWithWhereWithoutFacultyInput[]
+    deleteMany?: syllabus_completionsScalarWhereInput | syllabus_completionsScalarWhereInput[]
+  }
+
+  export type syllabus_packagesUpdateManyWithoutFacultyNestedInput = {
+    create?: XOR<syllabus_packagesCreateWithoutFacultyInput, syllabus_packagesUncheckedCreateWithoutFacultyInput> | syllabus_packagesCreateWithoutFacultyInput[] | syllabus_packagesUncheckedCreateWithoutFacultyInput[]
+    connectOrCreate?: syllabus_packagesCreateOrConnectWithoutFacultyInput | syllabus_packagesCreateOrConnectWithoutFacultyInput[]
+    upsert?: syllabus_packagesUpsertWithWhereUniqueWithoutFacultyInput | syllabus_packagesUpsertWithWhereUniqueWithoutFacultyInput[]
+    createMany?: syllabus_packagesCreateManyFacultyInputEnvelope
+    set?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    disconnect?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    delete?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    connect?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    update?: syllabus_packagesUpdateWithWhereUniqueWithoutFacultyInput | syllabus_packagesUpdateWithWhereUniqueWithoutFacultyInput[]
+    updateMany?: syllabus_packagesUpdateManyWithWhereWithoutFacultyInput | syllabus_packagesUpdateManyWithWhereWithoutFacultyInput[]
+    deleteMany?: syllabus_packagesScalarWhereInput | syllabus_packagesScalarWhereInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -22868,10 +28635,32 @@ export namespace Prisma {
     deleteMany?: UploadedScheduleScalarWhereInput | UploadedScheduleScalarWhereInput[]
   }
 
-  export type DepartmentCreateNestedOneWithoutStudentsInput = {
-    create?: XOR<DepartmentCreateWithoutStudentsInput, DepartmentUncheckedCreateWithoutStudentsInput>
-    connectOrCreate?: DepartmentCreateOrConnectWithoutStudentsInput
-    connect?: DepartmentWhereUniqueInput
+  export type syllabus_completionsUncheckedUpdateManyWithoutFacultyNestedInput = {
+    create?: XOR<syllabus_completionsCreateWithoutFacultyInput, syllabus_completionsUncheckedCreateWithoutFacultyInput> | syllabus_completionsCreateWithoutFacultyInput[] | syllabus_completionsUncheckedCreateWithoutFacultyInput[]
+    connectOrCreate?: syllabus_completionsCreateOrConnectWithoutFacultyInput | syllabus_completionsCreateOrConnectWithoutFacultyInput[]
+    upsert?: syllabus_completionsUpsertWithWhereUniqueWithoutFacultyInput | syllabus_completionsUpsertWithWhereUniqueWithoutFacultyInput[]
+    createMany?: syllabus_completionsCreateManyFacultyInputEnvelope
+    set?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    disconnect?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    delete?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    connect?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    update?: syllabus_completionsUpdateWithWhereUniqueWithoutFacultyInput | syllabus_completionsUpdateWithWhereUniqueWithoutFacultyInput[]
+    updateMany?: syllabus_completionsUpdateManyWithWhereWithoutFacultyInput | syllabus_completionsUpdateManyWithWhereWithoutFacultyInput[]
+    deleteMany?: syllabus_completionsScalarWhereInput | syllabus_completionsScalarWhereInput[]
+  }
+
+  export type syllabus_packagesUncheckedUpdateManyWithoutFacultyNestedInput = {
+    create?: XOR<syllabus_packagesCreateWithoutFacultyInput, syllabus_packagesUncheckedCreateWithoutFacultyInput> | syllabus_packagesCreateWithoutFacultyInput[] | syllabus_packagesUncheckedCreateWithoutFacultyInput[]
+    connectOrCreate?: syllabus_packagesCreateOrConnectWithoutFacultyInput | syllabus_packagesCreateOrConnectWithoutFacultyInput[]
+    upsert?: syllabus_packagesUpsertWithWhereUniqueWithoutFacultyInput | syllabus_packagesUpsertWithWhereUniqueWithoutFacultyInput[]
+    createMany?: syllabus_packagesCreateManyFacultyInputEnvelope
+    set?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    disconnect?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    delete?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    connect?: syllabus_packagesWhereUniqueInput | syllabus_packagesWhereUniqueInput[]
+    update?: syllabus_packagesUpdateWithWhereUniqueWithoutFacultyInput | syllabus_packagesUpdateWithWhereUniqueWithoutFacultyInput[]
+    updateMany?: syllabus_packagesUpdateManyWithWhereWithoutFacultyInput | syllabus_packagesUpdateManyWithWhereWithoutFacultyInput[]
+    deleteMany?: syllabus_packagesScalarWhereInput | syllabus_packagesScalarWhereInput[]
   }
 
   export type AttendanceCreateNestedManyWithoutStudentInput = {
@@ -22886,6 +28675,12 @@ export namespace Prisma {
     connectOrCreate?: EnrollmentCreateOrConnectWithoutStudentInput | EnrollmentCreateOrConnectWithoutStudentInput[]
     createMany?: EnrollmentCreateManyStudentInputEnvelope
     connect?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
+  }
+
+  export type DepartmentCreateNestedOneWithoutStudentsInput = {
+    create?: XOR<DepartmentCreateWithoutStudentsInput, DepartmentUncheckedCreateWithoutStudentsInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutStudentsInput
+    connect?: DepartmentWhereUniqueInput
   }
 
   export type UserCreateNestedOneWithoutStudentsInput = {
@@ -22906,16 +28701,6 @@ export namespace Prisma {
     connectOrCreate?: EnrollmentCreateOrConnectWithoutStudentInput | EnrollmentCreateOrConnectWithoutStudentInput[]
     createMany?: EnrollmentCreateManyStudentInputEnvelope
     connect?: EnrollmentWhereUniqueInput | EnrollmentWhereUniqueInput[]
-  }
-
-  export type DepartmentUpdateOneWithoutStudentsNestedInput = {
-    create?: XOR<DepartmentCreateWithoutStudentsInput, DepartmentUncheckedCreateWithoutStudentsInput>
-    connectOrCreate?: DepartmentCreateOrConnectWithoutStudentsInput
-    upsert?: DepartmentUpsertWithoutStudentsInput
-    disconnect?: DepartmentWhereInput | boolean
-    delete?: DepartmentWhereInput | boolean
-    connect?: DepartmentWhereUniqueInput
-    update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutStudentsInput, DepartmentUpdateWithoutStudentsInput>, DepartmentUncheckedUpdateWithoutStudentsInput>
   }
 
   export type AttendanceUpdateManyWithoutStudentNestedInput = {
@@ -22944,6 +28729,16 @@ export namespace Prisma {
     update?: EnrollmentUpdateWithWhereUniqueWithoutStudentInput | EnrollmentUpdateWithWhereUniqueWithoutStudentInput[]
     updateMany?: EnrollmentUpdateManyWithWhereWithoutStudentInput | EnrollmentUpdateManyWithWhereWithoutStudentInput[]
     deleteMany?: EnrollmentScalarWhereInput | EnrollmentScalarWhereInput[]
+  }
+
+  export type DepartmentUpdateOneWithoutStudentsNestedInput = {
+    create?: XOR<DepartmentCreateWithoutStudentsInput, DepartmentUncheckedCreateWithoutStudentsInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutStudentsInput
+    upsert?: DepartmentUpsertWithoutStudentsInput
+    disconnect?: DepartmentWhereInput | boolean
+    delete?: DepartmentWhereInput | boolean
+    connect?: DepartmentWhereUniqueInput
+    update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutStudentsInput, DepartmentUpdateWithoutStudentsInput>, DepartmentUncheckedUpdateWithoutStudentsInput>
   }
 
   export type UserUpdateOneWithoutStudentsNestedInput = {
@@ -22984,12 +28779,6 @@ export namespace Prisma {
     deleteMany?: EnrollmentScalarWhereInput | EnrollmentScalarWhereInput[]
   }
 
-  export type DepartmentCreateNestedOneWithoutSubjectsInput = {
-    create?: XOR<DepartmentCreateWithoutSubjectsInput, DepartmentUncheckedCreateWithoutSubjectsInput>
-    connectOrCreate?: DepartmentCreateOrConnectWithoutSubjectsInput
-    connect?: DepartmentWhereUniqueInput
-  }
-
   export type AttendanceCreateNestedManyWithoutSubjectInput = {
     create?: XOR<AttendanceCreateWithoutSubjectInput, AttendanceUncheckedCreateWithoutSubjectInput> | AttendanceCreateWithoutSubjectInput[] | AttendanceUncheckedCreateWithoutSubjectInput[]
     connectOrCreate?: AttendanceCreateOrConnectWithoutSubjectInput | AttendanceCreateOrConnectWithoutSubjectInput[]
@@ -23011,18 +28800,38 @@ export namespace Prisma {
     connect?: FacultyAnnouncementWhereUniqueInput | FacultyAnnouncementWhereUniqueInput[]
   }
 
-  export type ScheduleCreateNestedManyWithoutSubjectInput = {
-    create?: XOR<ScheduleCreateWithoutSubjectInput, ScheduleUncheckedCreateWithoutSubjectInput> | ScheduleCreateWithoutSubjectInput[] | ScheduleUncheckedCreateWithoutSubjectInput[]
-    connectOrCreate?: ScheduleCreateOrConnectWithoutSubjectInput | ScheduleCreateOrConnectWithoutSubjectInput[]
-    createMany?: ScheduleCreateManySubjectInputEnvelope
-    connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
-  }
-
   export type FacultySubjectCreateNestedManyWithoutSubjectInput = {
     create?: XOR<FacultySubjectCreateWithoutSubjectInput, FacultySubjectUncheckedCreateWithoutSubjectInput> | FacultySubjectCreateWithoutSubjectInput[] | FacultySubjectUncheckedCreateWithoutSubjectInput[]
     connectOrCreate?: FacultySubjectCreateOrConnectWithoutSubjectInput | FacultySubjectCreateOrConnectWithoutSubjectInput[]
     createMany?: FacultySubjectCreateManySubjectInputEnvelope
     connect?: FacultySubjectWhereUniqueInput | FacultySubjectWhereUniqueInput[]
+  }
+
+  export type DepartmentCreateNestedOneWithoutSubjectsInput = {
+    create?: XOR<DepartmentCreateWithoutSubjectsInput, DepartmentUncheckedCreateWithoutSubjectsInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutSubjectsInput
+    connect?: DepartmentWhereUniqueInput
+  }
+
+  export type syllabus_subtopicsCreateNestedManyWithoutSubjectsInput = {
+    create?: XOR<syllabus_subtopicsCreateWithoutSubjectsInput, syllabus_subtopicsUncheckedCreateWithoutSubjectsInput> | syllabus_subtopicsCreateWithoutSubjectsInput[] | syllabus_subtopicsUncheckedCreateWithoutSubjectsInput[]
+    connectOrCreate?: syllabus_subtopicsCreateOrConnectWithoutSubjectsInput | syllabus_subtopicsCreateOrConnectWithoutSubjectsInput[]
+    createMany?: syllabus_subtopicsCreateManySubjectsInputEnvelope
+    connect?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+  }
+
+  export type syllabus_unitsCreateNestedManyWithoutSubjectsInput = {
+    create?: XOR<syllabus_unitsCreateWithoutSubjectsInput, syllabus_unitsUncheckedCreateWithoutSubjectsInput> | syllabus_unitsCreateWithoutSubjectsInput[] | syllabus_unitsUncheckedCreateWithoutSubjectsInput[]
+    connectOrCreate?: syllabus_unitsCreateOrConnectWithoutSubjectsInput | syllabus_unitsCreateOrConnectWithoutSubjectsInput[]
+    createMany?: syllabus_unitsCreateManySubjectsInputEnvelope
+    connect?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+  }
+
+  export type ScheduleCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<ScheduleCreateWithoutSubjectInput, ScheduleUncheckedCreateWithoutSubjectInput> | ScheduleCreateWithoutSubjectInput[] | ScheduleUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ScheduleCreateOrConnectWithoutSubjectInput | ScheduleCreateOrConnectWithoutSubjectInput[]
+    createMany?: ScheduleCreateManySubjectInputEnvelope
+    connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
   }
 
   export type AttendanceUncheckedCreateNestedManyWithoutSubjectInput = {
@@ -23046,13 +28855,6 @@ export namespace Prisma {
     connect?: FacultyAnnouncementWhereUniqueInput | FacultyAnnouncementWhereUniqueInput[]
   }
 
-  export type ScheduleUncheckedCreateNestedManyWithoutSubjectInput = {
-    create?: XOR<ScheduleCreateWithoutSubjectInput, ScheduleUncheckedCreateWithoutSubjectInput> | ScheduleCreateWithoutSubjectInput[] | ScheduleUncheckedCreateWithoutSubjectInput[]
-    connectOrCreate?: ScheduleCreateOrConnectWithoutSubjectInput | ScheduleCreateOrConnectWithoutSubjectInput[]
-    createMany?: ScheduleCreateManySubjectInputEnvelope
-    connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
-  }
-
   export type FacultySubjectUncheckedCreateNestedManyWithoutSubjectInput = {
     create?: XOR<FacultySubjectCreateWithoutSubjectInput, FacultySubjectUncheckedCreateWithoutSubjectInput> | FacultySubjectCreateWithoutSubjectInput[] | FacultySubjectUncheckedCreateWithoutSubjectInput[]
     connectOrCreate?: FacultySubjectCreateOrConnectWithoutSubjectInput | FacultySubjectCreateOrConnectWithoutSubjectInput[]
@@ -23060,14 +28862,25 @@ export namespace Prisma {
     connect?: FacultySubjectWhereUniqueInput | FacultySubjectWhereUniqueInput[]
   }
 
-  export type DepartmentUpdateOneWithoutSubjectsNestedInput = {
-    create?: XOR<DepartmentCreateWithoutSubjectsInput, DepartmentUncheckedCreateWithoutSubjectsInput>
-    connectOrCreate?: DepartmentCreateOrConnectWithoutSubjectsInput
-    upsert?: DepartmentUpsertWithoutSubjectsInput
-    disconnect?: DepartmentWhereInput | boolean
-    delete?: DepartmentWhereInput | boolean
-    connect?: DepartmentWhereUniqueInput
-    update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutSubjectsInput, DepartmentUpdateWithoutSubjectsInput>, DepartmentUncheckedUpdateWithoutSubjectsInput>
+  export type syllabus_subtopicsUncheckedCreateNestedManyWithoutSubjectsInput = {
+    create?: XOR<syllabus_subtopicsCreateWithoutSubjectsInput, syllabus_subtopicsUncheckedCreateWithoutSubjectsInput> | syllabus_subtopicsCreateWithoutSubjectsInput[] | syllabus_subtopicsUncheckedCreateWithoutSubjectsInput[]
+    connectOrCreate?: syllabus_subtopicsCreateOrConnectWithoutSubjectsInput | syllabus_subtopicsCreateOrConnectWithoutSubjectsInput[]
+    createMany?: syllabus_subtopicsCreateManySubjectsInputEnvelope
+    connect?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+  }
+
+  export type syllabus_unitsUncheckedCreateNestedManyWithoutSubjectsInput = {
+    create?: XOR<syllabus_unitsCreateWithoutSubjectsInput, syllabus_unitsUncheckedCreateWithoutSubjectsInput> | syllabus_unitsCreateWithoutSubjectsInput[] | syllabus_unitsUncheckedCreateWithoutSubjectsInput[]
+    connectOrCreate?: syllabus_unitsCreateOrConnectWithoutSubjectsInput | syllabus_unitsCreateOrConnectWithoutSubjectsInput[]
+    createMany?: syllabus_unitsCreateManySubjectsInputEnvelope
+    connect?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+  }
+
+  export type ScheduleUncheckedCreateNestedManyWithoutSubjectInput = {
+    create?: XOR<ScheduleCreateWithoutSubjectInput, ScheduleUncheckedCreateWithoutSubjectInput> | ScheduleCreateWithoutSubjectInput[] | ScheduleUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ScheduleCreateOrConnectWithoutSubjectInput | ScheduleCreateOrConnectWithoutSubjectInput[]
+    createMany?: ScheduleCreateManySubjectInputEnvelope
+    connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
   }
 
   export type AttendanceUpdateManyWithoutSubjectNestedInput = {
@@ -23112,20 +28925,6 @@ export namespace Prisma {
     deleteMany?: FacultyAnnouncementScalarWhereInput | FacultyAnnouncementScalarWhereInput[]
   }
 
-  export type ScheduleUpdateManyWithoutSubjectNestedInput = {
-    create?: XOR<ScheduleCreateWithoutSubjectInput, ScheduleUncheckedCreateWithoutSubjectInput> | ScheduleCreateWithoutSubjectInput[] | ScheduleUncheckedCreateWithoutSubjectInput[]
-    connectOrCreate?: ScheduleCreateOrConnectWithoutSubjectInput | ScheduleCreateOrConnectWithoutSubjectInput[]
-    upsert?: ScheduleUpsertWithWhereUniqueWithoutSubjectInput | ScheduleUpsertWithWhereUniqueWithoutSubjectInput[]
-    createMany?: ScheduleCreateManySubjectInputEnvelope
-    set?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
-    disconnect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
-    delete?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
-    connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
-    update?: ScheduleUpdateWithWhereUniqueWithoutSubjectInput | ScheduleUpdateWithWhereUniqueWithoutSubjectInput[]
-    updateMany?: ScheduleUpdateManyWithWhereWithoutSubjectInput | ScheduleUpdateManyWithWhereWithoutSubjectInput[]
-    deleteMany?: ScheduleScalarWhereInput | ScheduleScalarWhereInput[]
-  }
-
   export type FacultySubjectUpdateManyWithoutSubjectNestedInput = {
     create?: XOR<FacultySubjectCreateWithoutSubjectInput, FacultySubjectUncheckedCreateWithoutSubjectInput> | FacultySubjectCreateWithoutSubjectInput[] | FacultySubjectUncheckedCreateWithoutSubjectInput[]
     connectOrCreate?: FacultySubjectCreateOrConnectWithoutSubjectInput | FacultySubjectCreateOrConnectWithoutSubjectInput[]
@@ -23138,6 +28937,58 @@ export namespace Prisma {
     update?: FacultySubjectUpdateWithWhereUniqueWithoutSubjectInput | FacultySubjectUpdateWithWhereUniqueWithoutSubjectInput[]
     updateMany?: FacultySubjectUpdateManyWithWhereWithoutSubjectInput | FacultySubjectUpdateManyWithWhereWithoutSubjectInput[]
     deleteMany?: FacultySubjectScalarWhereInput | FacultySubjectScalarWhereInput[]
+  }
+
+  export type DepartmentUpdateOneWithoutSubjectsNestedInput = {
+    create?: XOR<DepartmentCreateWithoutSubjectsInput, DepartmentUncheckedCreateWithoutSubjectsInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutSubjectsInput
+    upsert?: DepartmentUpsertWithoutSubjectsInput
+    disconnect?: DepartmentWhereInput | boolean
+    delete?: DepartmentWhereInput | boolean
+    connect?: DepartmentWhereUniqueInput
+    update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutSubjectsInput, DepartmentUpdateWithoutSubjectsInput>, DepartmentUncheckedUpdateWithoutSubjectsInput>
+  }
+
+  export type syllabus_subtopicsUpdateManyWithoutSubjectsNestedInput = {
+    create?: XOR<syllabus_subtopicsCreateWithoutSubjectsInput, syllabus_subtopicsUncheckedCreateWithoutSubjectsInput> | syllabus_subtopicsCreateWithoutSubjectsInput[] | syllabus_subtopicsUncheckedCreateWithoutSubjectsInput[]
+    connectOrCreate?: syllabus_subtopicsCreateOrConnectWithoutSubjectsInput | syllabus_subtopicsCreateOrConnectWithoutSubjectsInput[]
+    upsert?: syllabus_subtopicsUpsertWithWhereUniqueWithoutSubjectsInput | syllabus_subtopicsUpsertWithWhereUniqueWithoutSubjectsInput[]
+    createMany?: syllabus_subtopicsCreateManySubjectsInputEnvelope
+    set?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    disconnect?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    delete?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    connect?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    update?: syllabus_subtopicsUpdateWithWhereUniqueWithoutSubjectsInput | syllabus_subtopicsUpdateWithWhereUniqueWithoutSubjectsInput[]
+    updateMany?: syllabus_subtopicsUpdateManyWithWhereWithoutSubjectsInput | syllabus_subtopicsUpdateManyWithWhereWithoutSubjectsInput[]
+    deleteMany?: syllabus_subtopicsScalarWhereInput | syllabus_subtopicsScalarWhereInput[]
+  }
+
+  export type syllabus_unitsUpdateManyWithoutSubjectsNestedInput = {
+    create?: XOR<syllabus_unitsCreateWithoutSubjectsInput, syllabus_unitsUncheckedCreateWithoutSubjectsInput> | syllabus_unitsCreateWithoutSubjectsInput[] | syllabus_unitsUncheckedCreateWithoutSubjectsInput[]
+    connectOrCreate?: syllabus_unitsCreateOrConnectWithoutSubjectsInput | syllabus_unitsCreateOrConnectWithoutSubjectsInput[]
+    upsert?: syllabus_unitsUpsertWithWhereUniqueWithoutSubjectsInput | syllabus_unitsUpsertWithWhereUniqueWithoutSubjectsInput[]
+    createMany?: syllabus_unitsCreateManySubjectsInputEnvelope
+    set?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    disconnect?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    delete?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    connect?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    update?: syllabus_unitsUpdateWithWhereUniqueWithoutSubjectsInput | syllabus_unitsUpdateWithWhereUniqueWithoutSubjectsInput[]
+    updateMany?: syllabus_unitsUpdateManyWithWhereWithoutSubjectsInput | syllabus_unitsUpdateManyWithWhereWithoutSubjectsInput[]
+    deleteMany?: syllabus_unitsScalarWhereInput | syllabus_unitsScalarWhereInput[]
+  }
+
+  export type ScheduleUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<ScheduleCreateWithoutSubjectInput, ScheduleUncheckedCreateWithoutSubjectInput> | ScheduleCreateWithoutSubjectInput[] | ScheduleUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ScheduleCreateOrConnectWithoutSubjectInput | ScheduleCreateOrConnectWithoutSubjectInput[]
+    upsert?: ScheduleUpsertWithWhereUniqueWithoutSubjectInput | ScheduleUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: ScheduleCreateManySubjectInputEnvelope
+    set?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    disconnect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    delete?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    update?: ScheduleUpdateWithWhereUniqueWithoutSubjectInput | ScheduleUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: ScheduleUpdateManyWithWhereWithoutSubjectInput | ScheduleUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: ScheduleScalarWhereInput | ScheduleScalarWhereInput[]
   }
 
   export type AttendanceUncheckedUpdateManyWithoutSubjectNestedInput = {
@@ -23182,20 +29033,6 @@ export namespace Prisma {
     deleteMany?: FacultyAnnouncementScalarWhereInput | FacultyAnnouncementScalarWhereInput[]
   }
 
-  export type ScheduleUncheckedUpdateManyWithoutSubjectNestedInput = {
-    create?: XOR<ScheduleCreateWithoutSubjectInput, ScheduleUncheckedCreateWithoutSubjectInput> | ScheduleCreateWithoutSubjectInput[] | ScheduleUncheckedCreateWithoutSubjectInput[]
-    connectOrCreate?: ScheduleCreateOrConnectWithoutSubjectInput | ScheduleCreateOrConnectWithoutSubjectInput[]
-    upsert?: ScheduleUpsertWithWhereUniqueWithoutSubjectInput | ScheduleUpsertWithWhereUniqueWithoutSubjectInput[]
-    createMany?: ScheduleCreateManySubjectInputEnvelope
-    set?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
-    disconnect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
-    delete?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
-    connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
-    update?: ScheduleUpdateWithWhereUniqueWithoutSubjectInput | ScheduleUpdateWithWhereUniqueWithoutSubjectInput[]
-    updateMany?: ScheduleUpdateManyWithWhereWithoutSubjectInput | ScheduleUpdateManyWithWhereWithoutSubjectInput[]
-    deleteMany?: ScheduleScalarWhereInput | ScheduleScalarWhereInput[]
-  }
-
   export type FacultySubjectUncheckedUpdateManyWithoutSubjectNestedInput = {
     create?: XOR<FacultySubjectCreateWithoutSubjectInput, FacultySubjectUncheckedCreateWithoutSubjectInput> | FacultySubjectCreateWithoutSubjectInput[] | FacultySubjectUncheckedCreateWithoutSubjectInput[]
     connectOrCreate?: FacultySubjectCreateOrConnectWithoutSubjectInput | FacultySubjectCreateOrConnectWithoutSubjectInput[]
@@ -23208,6 +29045,48 @@ export namespace Prisma {
     update?: FacultySubjectUpdateWithWhereUniqueWithoutSubjectInput | FacultySubjectUpdateWithWhereUniqueWithoutSubjectInput[]
     updateMany?: FacultySubjectUpdateManyWithWhereWithoutSubjectInput | FacultySubjectUpdateManyWithWhereWithoutSubjectInput[]
     deleteMany?: FacultySubjectScalarWhereInput | FacultySubjectScalarWhereInput[]
+  }
+
+  export type syllabus_subtopicsUncheckedUpdateManyWithoutSubjectsNestedInput = {
+    create?: XOR<syllabus_subtopicsCreateWithoutSubjectsInput, syllabus_subtopicsUncheckedCreateWithoutSubjectsInput> | syllabus_subtopicsCreateWithoutSubjectsInput[] | syllabus_subtopicsUncheckedCreateWithoutSubjectsInput[]
+    connectOrCreate?: syllabus_subtopicsCreateOrConnectWithoutSubjectsInput | syllabus_subtopicsCreateOrConnectWithoutSubjectsInput[]
+    upsert?: syllabus_subtopicsUpsertWithWhereUniqueWithoutSubjectsInput | syllabus_subtopicsUpsertWithWhereUniqueWithoutSubjectsInput[]
+    createMany?: syllabus_subtopicsCreateManySubjectsInputEnvelope
+    set?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    disconnect?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    delete?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    connect?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    update?: syllabus_subtopicsUpdateWithWhereUniqueWithoutSubjectsInput | syllabus_subtopicsUpdateWithWhereUniqueWithoutSubjectsInput[]
+    updateMany?: syllabus_subtopicsUpdateManyWithWhereWithoutSubjectsInput | syllabus_subtopicsUpdateManyWithWhereWithoutSubjectsInput[]
+    deleteMany?: syllabus_subtopicsScalarWhereInput | syllabus_subtopicsScalarWhereInput[]
+  }
+
+  export type syllabus_unitsUncheckedUpdateManyWithoutSubjectsNestedInput = {
+    create?: XOR<syllabus_unitsCreateWithoutSubjectsInput, syllabus_unitsUncheckedCreateWithoutSubjectsInput> | syllabus_unitsCreateWithoutSubjectsInput[] | syllabus_unitsUncheckedCreateWithoutSubjectsInput[]
+    connectOrCreate?: syllabus_unitsCreateOrConnectWithoutSubjectsInput | syllabus_unitsCreateOrConnectWithoutSubjectsInput[]
+    upsert?: syllabus_unitsUpsertWithWhereUniqueWithoutSubjectsInput | syllabus_unitsUpsertWithWhereUniqueWithoutSubjectsInput[]
+    createMany?: syllabus_unitsCreateManySubjectsInputEnvelope
+    set?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    disconnect?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    delete?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    connect?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    update?: syllabus_unitsUpdateWithWhereUniqueWithoutSubjectsInput | syllabus_unitsUpdateWithWhereUniqueWithoutSubjectsInput[]
+    updateMany?: syllabus_unitsUpdateManyWithWhereWithoutSubjectsInput | syllabus_unitsUpdateManyWithWhereWithoutSubjectsInput[]
+    deleteMany?: syllabus_unitsScalarWhereInput | syllabus_unitsScalarWhereInput[]
+  }
+
+  export type ScheduleUncheckedUpdateManyWithoutSubjectNestedInput = {
+    create?: XOR<ScheduleCreateWithoutSubjectInput, ScheduleUncheckedCreateWithoutSubjectInput> | ScheduleCreateWithoutSubjectInput[] | ScheduleUncheckedCreateWithoutSubjectInput[]
+    connectOrCreate?: ScheduleCreateOrConnectWithoutSubjectInput | ScheduleCreateOrConnectWithoutSubjectInput[]
+    upsert?: ScheduleUpsertWithWhereUniqueWithoutSubjectInput | ScheduleUpsertWithWhereUniqueWithoutSubjectInput[]
+    createMany?: ScheduleCreateManySubjectInputEnvelope
+    set?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    disconnect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    delete?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    connect?: ScheduleWhereUniqueInput | ScheduleWhereUniqueInput[]
+    update?: ScheduleUpdateWithWhereUniqueWithoutSubjectInput | ScheduleUpdateWithWhereUniqueWithoutSubjectInput[]
+    updateMany?: ScheduleUpdateManyWithWhereWithoutSubjectInput | ScheduleUpdateManyWithWhereWithoutSubjectInput[]
+    deleteMany?: ScheduleScalarWhereInput | ScheduleScalarWhereInput[]
   }
 
   export type FacultyCreateNestedOneWithoutFaculty_subjectsInput = {
@@ -23470,6 +29349,246 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsInput, UserUpdateWithoutNotificationsInput>, UserUncheckedUpdateWithoutNotificationsInput>
   }
 
+  export type FacultyCreateNestedOneWithoutSyllabus_completionsInput = {
+    create?: XOR<FacultyCreateWithoutSyllabus_completionsInput, FacultyUncheckedCreateWithoutSyllabus_completionsInput>
+    connectOrCreate?: FacultyCreateOrConnectWithoutSyllabus_completionsInput
+    connect?: FacultyWhereUniqueInput
+  }
+
+  export type syllabus_subtopicsCreateNestedOneWithoutSyllabus_completionsInput = {
+    create?: XOR<syllabus_subtopicsCreateWithoutSyllabus_completionsInput, syllabus_subtopicsUncheckedCreateWithoutSyllabus_completionsInput>
+    connectOrCreate?: syllabus_subtopicsCreateOrConnectWithoutSyllabus_completionsInput
+    connect?: syllabus_subtopicsWhereUniqueInput
+  }
+
+  export type FacultyUpdateOneRequiredWithoutSyllabus_completionsNestedInput = {
+    create?: XOR<FacultyCreateWithoutSyllabus_completionsInput, FacultyUncheckedCreateWithoutSyllabus_completionsInput>
+    connectOrCreate?: FacultyCreateOrConnectWithoutSyllabus_completionsInput
+    upsert?: FacultyUpsertWithoutSyllabus_completionsInput
+    connect?: FacultyWhereUniqueInput
+    update?: XOR<XOR<FacultyUpdateToOneWithWhereWithoutSyllabus_completionsInput, FacultyUpdateWithoutSyllabus_completionsInput>, FacultyUncheckedUpdateWithoutSyllabus_completionsInput>
+  }
+
+  export type syllabus_subtopicsUpdateOneRequiredWithoutSyllabus_completionsNestedInput = {
+    create?: XOR<syllabus_subtopicsCreateWithoutSyllabus_completionsInput, syllabus_subtopicsUncheckedCreateWithoutSyllabus_completionsInput>
+    connectOrCreate?: syllabus_subtopicsCreateOrConnectWithoutSyllabus_completionsInput
+    upsert?: syllabus_subtopicsUpsertWithoutSyllabus_completionsInput
+    connect?: syllabus_subtopicsWhereUniqueInput
+    update?: XOR<XOR<syllabus_subtopicsUpdateToOneWithWhereWithoutSyllabus_completionsInput, syllabus_subtopicsUpdateWithoutSyllabus_completionsInput>, syllabus_subtopicsUncheckedUpdateWithoutSyllabus_completionsInput>
+  }
+
+  export type DepartmentCreateNestedOneWithoutSyllabus_packagesInput = {
+    create?: XOR<DepartmentCreateWithoutSyllabus_packagesInput, DepartmentUncheckedCreateWithoutSyllabus_packagesInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutSyllabus_packagesInput
+    connect?: DepartmentWhereUniqueInput
+  }
+
+  export type FacultyCreateNestedOneWithoutSyllabus_packagesInput = {
+    create?: XOR<FacultyCreateWithoutSyllabus_packagesInput, FacultyUncheckedCreateWithoutSyllabus_packagesInput>
+    connectOrCreate?: FacultyCreateOrConnectWithoutSyllabus_packagesInput
+    connect?: FacultyWhereUniqueInput
+  }
+
+  export type syllabus_unitsCreateNestedManyWithoutSyllabus_packagesInput = {
+    create?: XOR<syllabus_unitsCreateWithoutSyllabus_packagesInput, syllabus_unitsUncheckedCreateWithoutSyllabus_packagesInput> | syllabus_unitsCreateWithoutSyllabus_packagesInput[] | syllabus_unitsUncheckedCreateWithoutSyllabus_packagesInput[]
+    connectOrCreate?: syllabus_unitsCreateOrConnectWithoutSyllabus_packagesInput | syllabus_unitsCreateOrConnectWithoutSyllabus_packagesInput[]
+    createMany?: syllabus_unitsCreateManySyllabus_packagesInputEnvelope
+    connect?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+  }
+
+  export type syllabus_unitsUncheckedCreateNestedManyWithoutSyllabus_packagesInput = {
+    create?: XOR<syllabus_unitsCreateWithoutSyllabus_packagesInput, syllabus_unitsUncheckedCreateWithoutSyllabus_packagesInput> | syllabus_unitsCreateWithoutSyllabus_packagesInput[] | syllabus_unitsUncheckedCreateWithoutSyllabus_packagesInput[]
+    connectOrCreate?: syllabus_unitsCreateOrConnectWithoutSyllabus_packagesInput | syllabus_unitsCreateOrConnectWithoutSyllabus_packagesInput[]
+    createMany?: syllabus_unitsCreateManySyllabus_packagesInputEnvelope
+    connect?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+  }
+
+  export type DepartmentUpdateOneRequiredWithoutSyllabus_packagesNestedInput = {
+    create?: XOR<DepartmentCreateWithoutSyllabus_packagesInput, DepartmentUncheckedCreateWithoutSyllabus_packagesInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutSyllabus_packagesInput
+    upsert?: DepartmentUpsertWithoutSyllabus_packagesInput
+    connect?: DepartmentWhereUniqueInput
+    update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutSyllabus_packagesInput, DepartmentUpdateWithoutSyllabus_packagesInput>, DepartmentUncheckedUpdateWithoutSyllabus_packagesInput>
+  }
+
+  export type FacultyUpdateOneWithoutSyllabus_packagesNestedInput = {
+    create?: XOR<FacultyCreateWithoutSyllabus_packagesInput, FacultyUncheckedCreateWithoutSyllabus_packagesInput>
+    connectOrCreate?: FacultyCreateOrConnectWithoutSyllabus_packagesInput
+    upsert?: FacultyUpsertWithoutSyllabus_packagesInput
+    disconnect?: FacultyWhereInput | boolean
+    delete?: FacultyWhereInput | boolean
+    connect?: FacultyWhereUniqueInput
+    update?: XOR<XOR<FacultyUpdateToOneWithWhereWithoutSyllabus_packagesInput, FacultyUpdateWithoutSyllabus_packagesInput>, FacultyUncheckedUpdateWithoutSyllabus_packagesInput>
+  }
+
+  export type syllabus_unitsUpdateManyWithoutSyllabus_packagesNestedInput = {
+    create?: XOR<syllabus_unitsCreateWithoutSyllabus_packagesInput, syllabus_unitsUncheckedCreateWithoutSyllabus_packagesInput> | syllabus_unitsCreateWithoutSyllabus_packagesInput[] | syllabus_unitsUncheckedCreateWithoutSyllabus_packagesInput[]
+    connectOrCreate?: syllabus_unitsCreateOrConnectWithoutSyllabus_packagesInput | syllabus_unitsCreateOrConnectWithoutSyllabus_packagesInput[]
+    upsert?: syllabus_unitsUpsertWithWhereUniqueWithoutSyllabus_packagesInput | syllabus_unitsUpsertWithWhereUniqueWithoutSyllabus_packagesInput[]
+    createMany?: syllabus_unitsCreateManySyllabus_packagesInputEnvelope
+    set?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    disconnect?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    delete?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    connect?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    update?: syllabus_unitsUpdateWithWhereUniqueWithoutSyllabus_packagesInput | syllabus_unitsUpdateWithWhereUniqueWithoutSyllabus_packagesInput[]
+    updateMany?: syllabus_unitsUpdateManyWithWhereWithoutSyllabus_packagesInput | syllabus_unitsUpdateManyWithWhereWithoutSyllabus_packagesInput[]
+    deleteMany?: syllabus_unitsScalarWhereInput | syllabus_unitsScalarWhereInput[]
+  }
+
+  export type syllabus_unitsUncheckedUpdateManyWithoutSyllabus_packagesNestedInput = {
+    create?: XOR<syllabus_unitsCreateWithoutSyllabus_packagesInput, syllabus_unitsUncheckedCreateWithoutSyllabus_packagesInput> | syllabus_unitsCreateWithoutSyllabus_packagesInput[] | syllabus_unitsUncheckedCreateWithoutSyllabus_packagesInput[]
+    connectOrCreate?: syllabus_unitsCreateOrConnectWithoutSyllabus_packagesInput | syllabus_unitsCreateOrConnectWithoutSyllabus_packagesInput[]
+    upsert?: syllabus_unitsUpsertWithWhereUniqueWithoutSyllabus_packagesInput | syllabus_unitsUpsertWithWhereUniqueWithoutSyllabus_packagesInput[]
+    createMany?: syllabus_unitsCreateManySyllabus_packagesInputEnvelope
+    set?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    disconnect?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    delete?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    connect?: syllabus_unitsWhereUniqueInput | syllabus_unitsWhereUniqueInput[]
+    update?: syllabus_unitsUpdateWithWhereUniqueWithoutSyllabus_packagesInput | syllabus_unitsUpdateWithWhereUniqueWithoutSyllabus_packagesInput[]
+    updateMany?: syllabus_unitsUpdateManyWithWhereWithoutSyllabus_packagesInput | syllabus_unitsUpdateManyWithWhereWithoutSyllabus_packagesInput[]
+    deleteMany?: syllabus_unitsScalarWhereInput | syllabus_unitsScalarWhereInput[]
+  }
+
+  export type syllabus_completionsCreateNestedManyWithoutSyllabus_subtopicsInput = {
+    create?: XOR<syllabus_completionsCreateWithoutSyllabus_subtopicsInput, syllabus_completionsUncheckedCreateWithoutSyllabus_subtopicsInput> | syllabus_completionsCreateWithoutSyllabus_subtopicsInput[] | syllabus_completionsUncheckedCreateWithoutSyllabus_subtopicsInput[]
+    connectOrCreate?: syllabus_completionsCreateOrConnectWithoutSyllabus_subtopicsInput | syllabus_completionsCreateOrConnectWithoutSyllabus_subtopicsInput[]
+    createMany?: syllabus_completionsCreateManySyllabus_subtopicsInputEnvelope
+    connect?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+  }
+
+  export type SubjectCreateNestedOneWithoutSyllabus_subtopicsInput = {
+    create?: XOR<SubjectCreateWithoutSyllabus_subtopicsInput, SubjectUncheckedCreateWithoutSyllabus_subtopicsInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutSyllabus_subtopicsInput
+    connect?: SubjectWhereUniqueInput
+  }
+
+  export type syllabus_unitsCreateNestedOneWithoutSyllabus_subtopicsInput = {
+    create?: XOR<syllabus_unitsCreateWithoutSyllabus_subtopicsInput, syllabus_unitsUncheckedCreateWithoutSyllabus_subtopicsInput>
+    connectOrCreate?: syllabus_unitsCreateOrConnectWithoutSyllabus_subtopicsInput
+    connect?: syllabus_unitsWhereUniqueInput
+  }
+
+  export type syllabus_completionsUncheckedCreateNestedManyWithoutSyllabus_subtopicsInput = {
+    create?: XOR<syllabus_completionsCreateWithoutSyllabus_subtopicsInput, syllabus_completionsUncheckedCreateWithoutSyllabus_subtopicsInput> | syllabus_completionsCreateWithoutSyllabus_subtopicsInput[] | syllabus_completionsUncheckedCreateWithoutSyllabus_subtopicsInput[]
+    connectOrCreate?: syllabus_completionsCreateOrConnectWithoutSyllabus_subtopicsInput | syllabus_completionsCreateOrConnectWithoutSyllabus_subtopicsInput[]
+    createMany?: syllabus_completionsCreateManySyllabus_subtopicsInputEnvelope
+    connect?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+  }
+
+  export type syllabus_completionsUpdateManyWithoutSyllabus_subtopicsNestedInput = {
+    create?: XOR<syllabus_completionsCreateWithoutSyllabus_subtopicsInput, syllabus_completionsUncheckedCreateWithoutSyllabus_subtopicsInput> | syllabus_completionsCreateWithoutSyllabus_subtopicsInput[] | syllabus_completionsUncheckedCreateWithoutSyllabus_subtopicsInput[]
+    connectOrCreate?: syllabus_completionsCreateOrConnectWithoutSyllabus_subtopicsInput | syllabus_completionsCreateOrConnectWithoutSyllabus_subtopicsInput[]
+    upsert?: syllabus_completionsUpsertWithWhereUniqueWithoutSyllabus_subtopicsInput | syllabus_completionsUpsertWithWhereUniqueWithoutSyllabus_subtopicsInput[]
+    createMany?: syllabus_completionsCreateManySyllabus_subtopicsInputEnvelope
+    set?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    disconnect?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    delete?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    connect?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    update?: syllabus_completionsUpdateWithWhereUniqueWithoutSyllabus_subtopicsInput | syllabus_completionsUpdateWithWhereUniqueWithoutSyllabus_subtopicsInput[]
+    updateMany?: syllabus_completionsUpdateManyWithWhereWithoutSyllabus_subtopicsInput | syllabus_completionsUpdateManyWithWhereWithoutSyllabus_subtopicsInput[]
+    deleteMany?: syllabus_completionsScalarWhereInput | syllabus_completionsScalarWhereInput[]
+  }
+
+  export type SubjectUpdateOneRequiredWithoutSyllabus_subtopicsNestedInput = {
+    create?: XOR<SubjectCreateWithoutSyllabus_subtopicsInput, SubjectUncheckedCreateWithoutSyllabus_subtopicsInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutSyllabus_subtopicsInput
+    upsert?: SubjectUpsertWithoutSyllabus_subtopicsInput
+    connect?: SubjectWhereUniqueInput
+    update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutSyllabus_subtopicsInput, SubjectUpdateWithoutSyllabus_subtopicsInput>, SubjectUncheckedUpdateWithoutSyllabus_subtopicsInput>
+  }
+
+  export type syllabus_unitsUpdateOneRequiredWithoutSyllabus_subtopicsNestedInput = {
+    create?: XOR<syllabus_unitsCreateWithoutSyllabus_subtopicsInput, syllabus_unitsUncheckedCreateWithoutSyllabus_subtopicsInput>
+    connectOrCreate?: syllabus_unitsCreateOrConnectWithoutSyllabus_subtopicsInput
+    upsert?: syllabus_unitsUpsertWithoutSyllabus_subtopicsInput
+    connect?: syllabus_unitsWhereUniqueInput
+    update?: XOR<XOR<syllabus_unitsUpdateToOneWithWhereWithoutSyllabus_subtopicsInput, syllabus_unitsUpdateWithoutSyllabus_subtopicsInput>, syllabus_unitsUncheckedUpdateWithoutSyllabus_subtopicsInput>
+  }
+
+  export type syllabus_completionsUncheckedUpdateManyWithoutSyllabus_subtopicsNestedInput = {
+    create?: XOR<syllabus_completionsCreateWithoutSyllabus_subtopicsInput, syllabus_completionsUncheckedCreateWithoutSyllabus_subtopicsInput> | syllabus_completionsCreateWithoutSyllabus_subtopicsInput[] | syllabus_completionsUncheckedCreateWithoutSyllabus_subtopicsInput[]
+    connectOrCreate?: syllabus_completionsCreateOrConnectWithoutSyllabus_subtopicsInput | syllabus_completionsCreateOrConnectWithoutSyllabus_subtopicsInput[]
+    upsert?: syllabus_completionsUpsertWithWhereUniqueWithoutSyllabus_subtopicsInput | syllabus_completionsUpsertWithWhereUniqueWithoutSyllabus_subtopicsInput[]
+    createMany?: syllabus_completionsCreateManySyllabus_subtopicsInputEnvelope
+    set?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    disconnect?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    delete?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    connect?: syllabus_completionsWhereUniqueInput | syllabus_completionsWhereUniqueInput[]
+    update?: syllabus_completionsUpdateWithWhereUniqueWithoutSyllabus_subtopicsInput | syllabus_completionsUpdateWithWhereUniqueWithoutSyllabus_subtopicsInput[]
+    updateMany?: syllabus_completionsUpdateManyWithWhereWithoutSyllabus_subtopicsInput | syllabus_completionsUpdateManyWithWhereWithoutSyllabus_subtopicsInput[]
+    deleteMany?: syllabus_completionsScalarWhereInput | syllabus_completionsScalarWhereInput[]
+  }
+
+  export type syllabus_subtopicsCreateNestedManyWithoutSyllabus_unitsInput = {
+    create?: XOR<syllabus_subtopicsCreateWithoutSyllabus_unitsInput, syllabus_subtopicsUncheckedCreateWithoutSyllabus_unitsInput> | syllabus_subtopicsCreateWithoutSyllabus_unitsInput[] | syllabus_subtopicsUncheckedCreateWithoutSyllabus_unitsInput[]
+    connectOrCreate?: syllabus_subtopicsCreateOrConnectWithoutSyllabus_unitsInput | syllabus_subtopicsCreateOrConnectWithoutSyllabus_unitsInput[]
+    createMany?: syllabus_subtopicsCreateManySyllabus_unitsInputEnvelope
+    connect?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+  }
+
+  export type syllabus_packagesCreateNestedOneWithoutSyllabus_unitsInput = {
+    create?: XOR<syllabus_packagesCreateWithoutSyllabus_unitsInput, syllabus_packagesUncheckedCreateWithoutSyllabus_unitsInput>
+    connectOrCreate?: syllabus_packagesCreateOrConnectWithoutSyllabus_unitsInput
+    connect?: syllabus_packagesWhereUniqueInput
+  }
+
+  export type SubjectCreateNestedOneWithoutSyllabus_unitsInput = {
+    create?: XOR<SubjectCreateWithoutSyllabus_unitsInput, SubjectUncheckedCreateWithoutSyllabus_unitsInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutSyllabus_unitsInput
+    connect?: SubjectWhereUniqueInput
+  }
+
+  export type syllabus_subtopicsUncheckedCreateNestedManyWithoutSyllabus_unitsInput = {
+    create?: XOR<syllabus_subtopicsCreateWithoutSyllabus_unitsInput, syllabus_subtopicsUncheckedCreateWithoutSyllabus_unitsInput> | syllabus_subtopicsCreateWithoutSyllabus_unitsInput[] | syllabus_subtopicsUncheckedCreateWithoutSyllabus_unitsInput[]
+    connectOrCreate?: syllabus_subtopicsCreateOrConnectWithoutSyllabus_unitsInput | syllabus_subtopicsCreateOrConnectWithoutSyllabus_unitsInput[]
+    createMany?: syllabus_subtopicsCreateManySyllabus_unitsInputEnvelope
+    connect?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+  }
+
+  export type syllabus_subtopicsUpdateManyWithoutSyllabus_unitsNestedInput = {
+    create?: XOR<syllabus_subtopicsCreateWithoutSyllabus_unitsInput, syllabus_subtopicsUncheckedCreateWithoutSyllabus_unitsInput> | syllabus_subtopicsCreateWithoutSyllabus_unitsInput[] | syllabus_subtopicsUncheckedCreateWithoutSyllabus_unitsInput[]
+    connectOrCreate?: syllabus_subtopicsCreateOrConnectWithoutSyllabus_unitsInput | syllabus_subtopicsCreateOrConnectWithoutSyllabus_unitsInput[]
+    upsert?: syllabus_subtopicsUpsertWithWhereUniqueWithoutSyllabus_unitsInput | syllabus_subtopicsUpsertWithWhereUniqueWithoutSyllabus_unitsInput[]
+    createMany?: syllabus_subtopicsCreateManySyllabus_unitsInputEnvelope
+    set?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    disconnect?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    delete?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    connect?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    update?: syllabus_subtopicsUpdateWithWhereUniqueWithoutSyllabus_unitsInput | syllabus_subtopicsUpdateWithWhereUniqueWithoutSyllabus_unitsInput[]
+    updateMany?: syllabus_subtopicsUpdateManyWithWhereWithoutSyllabus_unitsInput | syllabus_subtopicsUpdateManyWithWhereWithoutSyllabus_unitsInput[]
+    deleteMany?: syllabus_subtopicsScalarWhereInput | syllabus_subtopicsScalarWhereInput[]
+  }
+
+  export type syllabus_packagesUpdateOneRequiredWithoutSyllabus_unitsNestedInput = {
+    create?: XOR<syllabus_packagesCreateWithoutSyllabus_unitsInput, syllabus_packagesUncheckedCreateWithoutSyllabus_unitsInput>
+    connectOrCreate?: syllabus_packagesCreateOrConnectWithoutSyllabus_unitsInput
+    upsert?: syllabus_packagesUpsertWithoutSyllabus_unitsInput
+    connect?: syllabus_packagesWhereUniqueInput
+    update?: XOR<XOR<syllabus_packagesUpdateToOneWithWhereWithoutSyllabus_unitsInput, syllabus_packagesUpdateWithoutSyllabus_unitsInput>, syllabus_packagesUncheckedUpdateWithoutSyllabus_unitsInput>
+  }
+
+  export type SubjectUpdateOneRequiredWithoutSyllabus_unitsNestedInput = {
+    create?: XOR<SubjectCreateWithoutSyllabus_unitsInput, SubjectUncheckedCreateWithoutSyllabus_unitsInput>
+    connectOrCreate?: SubjectCreateOrConnectWithoutSyllabus_unitsInput
+    upsert?: SubjectUpsertWithoutSyllabus_unitsInput
+    connect?: SubjectWhereUniqueInput
+    update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutSyllabus_unitsInput, SubjectUpdateWithoutSyllabus_unitsInput>, SubjectUncheckedUpdateWithoutSyllabus_unitsInput>
+  }
+
+  export type syllabus_subtopicsUncheckedUpdateManyWithoutSyllabus_unitsNestedInput = {
+    create?: XOR<syllabus_subtopicsCreateWithoutSyllabus_unitsInput, syllabus_subtopicsUncheckedCreateWithoutSyllabus_unitsInput> | syllabus_subtopicsCreateWithoutSyllabus_unitsInput[] | syllabus_subtopicsUncheckedCreateWithoutSyllabus_unitsInput[]
+    connectOrCreate?: syllabus_subtopicsCreateOrConnectWithoutSyllabus_unitsInput | syllabus_subtopicsCreateOrConnectWithoutSyllabus_unitsInput[]
+    upsert?: syllabus_subtopicsUpsertWithWhereUniqueWithoutSyllabus_unitsInput | syllabus_subtopicsUpsertWithWhereUniqueWithoutSyllabus_unitsInput[]
+    createMany?: syllabus_subtopicsCreateManySyllabus_unitsInputEnvelope
+    set?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    disconnect?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    delete?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    connect?: syllabus_subtopicsWhereUniqueInput | syllabus_subtopicsWhereUniqueInput[]
+    update?: syllabus_subtopicsUpdateWithWhereUniqueWithoutSyllabus_unitsInput | syllabus_subtopicsUpdateWithWhereUniqueWithoutSyllabus_unitsInput[]
+    updateMany?: syllabus_subtopicsUpdateManyWithWhereWithoutSyllabus_unitsInput | syllabus_subtopicsUpdateManyWithWhereWithoutSyllabus_unitsInput[]
+    deleteMany?: syllabus_subtopicsScalarWhereInput | syllabus_subtopicsScalarWhereInput[]
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -23683,19 +29802,43 @@ export namespace Prisma {
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type FacultyCreateWithoutUserInput = {
     faculty_name: string
     email?: string | null
     is_timetable_admin?: boolean | null
-    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     attendance?: AttendanceCreateNestedManyWithoutFacultyInput
+    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     announcements?: FacultyAnnouncementCreateNestedManyWithoutFacultyInput
     facultyAttendance?: FacultyAttendanceCreateNestedManyWithoutFacultyInput
     leaves?: FacultyLeaveCreateNestedManyWithoutFacultyInput
     notes?: FacultyNoteCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyUncheckedCreateWithoutUserInput = {
@@ -23711,6 +29854,8 @@ export namespace Prisma {
     notes?: FacultyNoteUncheckedCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyCreateOrConnectWithoutUserInput = {
@@ -23720,39 +29865,6 @@ export namespace Prisma {
 
   export type FacultyCreateManyUserInputEnvelope = {
     data: FacultyCreateManyUserInput | FacultyCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type StudentCreateWithoutUserInput = {
-    roll_no: string
-    stud_name: string
-    email?: string | null
-    semester?: string | null
-    division?: string | null
-    Department?: DepartmentCreateNestedOneWithoutStudentsInput
-    attendance?: AttendanceCreateNestedManyWithoutStudentInput
-    enrollments?: EnrollmentCreateNestedManyWithoutStudentInput
-  }
-
-  export type StudentUncheckedCreateWithoutUserInput = {
-    stud_id?: number
-    roll_no: string
-    stud_name: string
-    email?: string | null
-    semester?: string | null
-    division?: string | null
-    dept_id?: number | null
-    attendance?: AttendanceUncheckedCreateNestedManyWithoutStudentInput
-    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutStudentInput
-  }
-
-  export type StudentCreateOrConnectWithoutUserInput = {
-    where: StudentWhereUniqueInput
-    create: XOR<StudentCreateWithoutUserInput, StudentUncheckedCreateWithoutUserInput>
-  }
-
-  export type StudentCreateManyUserInputEnvelope = {
-    data: StudentCreateManyUserInput | StudentCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -23783,6 +29895,39 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type StudentCreateWithoutUserInput = {
+    roll_no: string
+    stud_name: string
+    email?: string | null
+    semester?: string | null
+    division?: string | null
+    attendance?: AttendanceCreateNestedManyWithoutStudentInput
+    enrollments?: EnrollmentCreateNestedManyWithoutStudentInput
+    Department?: DepartmentCreateNestedOneWithoutStudentsInput
+  }
+
+  export type StudentUncheckedCreateWithoutUserInput = {
+    stud_id?: number
+    roll_no: string
+    stud_name: string
+    email?: string | null
+    semester?: string | null
+    division?: string | null
+    dept_id?: number | null
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutStudentInput
+    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutStudentInput
+  }
+
+  export type StudentCreateOrConnectWithoutUserInput = {
+    where: StudentWhereUniqueInput
+    create: XOR<StudentCreateWithoutUserInput, StudentUncheckedCreateWithoutUserInput>
+  }
+
+  export type StudentCreateManyUserInputEnvelope = {
+    data: StudentCreateManyUserInput | StudentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type FacultyUpsertWithWhereUniqueWithoutUserInput = {
     where: FacultyWhereUniqueInput
     update: XOR<FacultyUpdateWithoutUserInput, FacultyUncheckedUpdateWithoutUserInput>
@@ -23809,6 +29954,35 @@ export namespace Prisma {
     email?: StringNullableFilter<"Faculty"> | string | null
     dept_id?: IntNullableFilter<"Faculty"> | number | null
     is_timetable_admin?: BoolNullableFilter<"Faculty"> | boolean | null
+  }
+
+  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutUserInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type NotificationScalarWhereInput = {
+    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    OR?: NotificationScalarWhereInput[]
+    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    notification_id?: IntFilter<"Notification"> | number
+    user_id?: IntFilter<"Notification"> | number
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    type?: StringFilter<"Notification"> | string
+    is_read?: BoolFilter<"Notification"> | boolean
+    created_at?: DateTimeFilter<"Notification"> | Date | string
   }
 
   export type StudentUpsertWithWhereUniqueWithoutUserInput = {
@@ -23841,35 +30015,6 @@ export namespace Prisma {
     dept_id?: IntNullableFilter<"Student"> | number | null
   }
 
-  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
-    where: NotificationWhereUniqueInput
-    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
-    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
-  }
-
-  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
-    where: NotificationWhereUniqueInput
-    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
-  }
-
-  export type NotificationUpdateManyWithWhereWithoutUserInput = {
-    where: NotificationScalarWhereInput
-    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type NotificationScalarWhereInput = {
-    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-    OR?: NotificationScalarWhereInput[]
-    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-    notification_id?: IntFilter<"Notification"> | number
-    user_id?: IntFilter<"Notification"> | number
-    title?: StringFilter<"Notification"> | string
-    message?: StringFilter<"Notification"> | string
-    type?: StringFilter<"Notification"> | string
-    is_read?: BoolFilter<"Notification"> | boolean
-    created_at?: DateTimeFilter<"Notification"> | Date | string
-  }
-
   export type FacultyCreateWithoutDepartmentInput = {
     faculty_name: string
     email?: string | null
@@ -23882,6 +30027,8 @@ export namespace Prisma {
     notes?: FacultyNoteCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyUncheckedCreateWithoutDepartmentInput = {
@@ -23897,6 +30044,8 @@ export namespace Prisma {
     notes?: FacultyNoteUncheckedCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyCreateOrConnectWithoutDepartmentInput = {
@@ -23906,74 +30055,6 @@ export namespace Prisma {
 
   export type FacultyCreateManyDepartmentInputEnvelope = {
     data: FacultyCreateManyDepartmentInput | FacultyCreateManyDepartmentInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type StudentCreateWithoutDepartmentInput = {
-    roll_no: string
-    stud_name: string
-    email?: string | null
-    semester?: string | null
-    division?: string | null
-    attendance?: AttendanceCreateNestedManyWithoutStudentInput
-    enrollments?: EnrollmentCreateNestedManyWithoutStudentInput
-    User?: UserCreateNestedOneWithoutStudentsInput
-  }
-
-  export type StudentUncheckedCreateWithoutDepartmentInput = {
-    stud_id?: number
-    user_id?: number | null
-    roll_no: string
-    stud_name: string
-    email?: string | null
-    semester?: string | null
-    division?: string | null
-    attendance?: AttendanceUncheckedCreateNestedManyWithoutStudentInput
-    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutStudentInput
-  }
-
-  export type StudentCreateOrConnectWithoutDepartmentInput = {
-    where: StudentWhereUniqueInput
-    create: XOR<StudentCreateWithoutDepartmentInput, StudentUncheckedCreateWithoutDepartmentInput>
-  }
-
-  export type StudentCreateManyDepartmentInputEnvelope = {
-    data: StudentCreateManyDepartmentInput | StudentCreateManyDepartmentInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type SubjectCreateWithoutDepartmentInput = {
-    subject_code: string
-    subject_name: string
-    semester?: string | null
-    credits?: number | null
-    attendance?: AttendanceCreateNestedManyWithoutSubjectInput
-    enrollments?: EnrollmentCreateNestedManyWithoutSubjectInput
-    announcements?: FacultyAnnouncementCreateNestedManyWithoutSubjectInput
-    timetable?: ScheduleCreateNestedManyWithoutSubjectInput
-    faculty_subjects?: FacultySubjectCreateNestedManyWithoutSubjectInput
-  }
-
-  export type SubjectUncheckedCreateWithoutDepartmentInput = {
-    subject_id?: number
-    subject_code: string
-    subject_name: string
-    semester?: string | null
-    credits?: number | null
-    attendance?: AttendanceUncheckedCreateNestedManyWithoutSubjectInput
-    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutSubjectInput
-    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutSubjectInput
-    timetable?: ScheduleUncheckedCreateNestedManyWithoutSubjectInput
-    faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutSubjectInput
-  }
-
-  export type SubjectCreateOrConnectWithoutDepartmentInput = {
-    where: SubjectWhereUniqueInput
-    create: XOR<SubjectCreateWithoutDepartmentInput, SubjectUncheckedCreateWithoutDepartmentInput>
-  }
-
-  export type SubjectCreateManyDepartmentInputEnvelope = {
-    data: SubjectCreateManyDepartmentInput | SubjectCreateManyDepartmentInput[]
     skipDuplicates?: boolean
   }
 
@@ -24037,6 +30118,115 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type StudentCreateWithoutDepartmentInput = {
+    roll_no: string
+    stud_name: string
+    email?: string | null
+    semester?: string | null
+    division?: string | null
+    attendance?: AttendanceCreateNestedManyWithoutStudentInput
+    enrollments?: EnrollmentCreateNestedManyWithoutStudentInput
+    User?: UserCreateNestedOneWithoutStudentsInput
+  }
+
+  export type StudentUncheckedCreateWithoutDepartmentInput = {
+    stud_id?: number
+    user_id?: number | null
+    roll_no: string
+    stud_name: string
+    email?: string | null
+    semester?: string | null
+    division?: string | null
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutStudentInput
+    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutStudentInput
+  }
+
+  export type StudentCreateOrConnectWithoutDepartmentInput = {
+    where: StudentWhereUniqueInput
+    create: XOR<StudentCreateWithoutDepartmentInput, StudentUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type StudentCreateManyDepartmentInputEnvelope = {
+    data: StudentCreateManyDepartmentInput | StudentCreateManyDepartmentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SubjectCreateWithoutDepartmentInput = {
+    subject_code: string
+    subject_name: string
+    semester?: string | null
+    credits?: number | null
+    attendance?: AttendanceCreateNestedManyWithoutSubjectInput
+    enrollments?: EnrollmentCreateNestedManyWithoutSubjectInput
+    announcements?: FacultyAnnouncementCreateNestedManyWithoutSubjectInput
+    faculty_subjects?: FacultySubjectCreateNestedManyWithoutSubjectInput
+    syllabus_subtopics?: syllabus_subtopicsCreateNestedManyWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsCreateNestedManyWithoutSubjectsInput
+    timetable?: ScheduleCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateWithoutDepartmentInput = {
+    subject_id?: number
+    subject_code: string
+    subject_name: string
+    semester?: string | null
+    credits?: number | null
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutSubjectInput
+    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutSubjectInput
+    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutSubjectInput
+    faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutSubjectInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedCreateNestedManyWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsUncheckedCreateNestedManyWithoutSubjectsInput
+    timetable?: ScheduleUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectCreateOrConnectWithoutDepartmentInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutDepartmentInput, SubjectUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type SubjectCreateManyDepartmentInputEnvelope = {
+    data: SubjectCreateManyDepartmentInput | SubjectCreateManyDepartmentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type syllabus_packagesCreateWithoutDepartmentsInput = {
+    semester: string
+    uploaded_at?: Date | string | null
+    file_url: string
+    version?: string | null
+    is_active?: boolean | null
+    notes?: string | null
+    status?: string | null
+    error_msg?: string | null
+    faculty?: FacultyCreateNestedOneWithoutSyllabus_packagesInput
+    syllabus_units?: syllabus_unitsCreateNestedManyWithoutSyllabus_packagesInput
+  }
+
+  export type syllabus_packagesUncheckedCreateWithoutDepartmentsInput = {
+    package_id?: number
+    semester: string
+    uploaded_by?: number | null
+    uploaded_at?: Date | string | null
+    file_url: string
+    version?: string | null
+    is_active?: boolean | null
+    notes?: string | null
+    status?: string | null
+    error_msg?: string | null
+    syllabus_units?: syllabus_unitsUncheckedCreateNestedManyWithoutSyllabus_packagesInput
+  }
+
+  export type syllabus_packagesCreateOrConnectWithoutDepartmentsInput = {
+    where: syllabus_packagesWhereUniqueInput
+    create: XOR<syllabus_packagesCreateWithoutDepartmentsInput, syllabus_packagesUncheckedCreateWithoutDepartmentsInput>
+  }
+
+  export type syllabus_packagesCreateManyDepartmentsInputEnvelope = {
+    data: syllabus_packagesCreateManyDepartmentsInput | syllabus_packagesCreateManyDepartmentsInput[]
+    skipDuplicates?: boolean
+  }
+
   export type FacultyUpsertWithWhereUniqueWithoutDepartmentInput = {
     where: FacultyWhereUniqueInput
     update: XOR<FacultyUpdateWithoutDepartmentInput, FacultyUncheckedUpdateWithoutDepartmentInput>
@@ -24051,50 +30241,6 @@ export namespace Prisma {
   export type FacultyUpdateManyWithWhereWithoutDepartmentInput = {
     where: FacultyScalarWhereInput
     data: XOR<FacultyUpdateManyMutationInput, FacultyUncheckedUpdateManyWithoutDepartmentInput>
-  }
-
-  export type StudentUpsertWithWhereUniqueWithoutDepartmentInput = {
-    where: StudentWhereUniqueInput
-    update: XOR<StudentUpdateWithoutDepartmentInput, StudentUncheckedUpdateWithoutDepartmentInput>
-    create: XOR<StudentCreateWithoutDepartmentInput, StudentUncheckedCreateWithoutDepartmentInput>
-  }
-
-  export type StudentUpdateWithWhereUniqueWithoutDepartmentInput = {
-    where: StudentWhereUniqueInput
-    data: XOR<StudentUpdateWithoutDepartmentInput, StudentUncheckedUpdateWithoutDepartmentInput>
-  }
-
-  export type StudentUpdateManyWithWhereWithoutDepartmentInput = {
-    where: StudentScalarWhereInput
-    data: XOR<StudentUpdateManyMutationInput, StudentUncheckedUpdateManyWithoutDepartmentInput>
-  }
-
-  export type SubjectUpsertWithWhereUniqueWithoutDepartmentInput = {
-    where: SubjectWhereUniqueInput
-    update: XOR<SubjectUpdateWithoutDepartmentInput, SubjectUncheckedUpdateWithoutDepartmentInput>
-    create: XOR<SubjectCreateWithoutDepartmentInput, SubjectUncheckedCreateWithoutDepartmentInput>
-  }
-
-  export type SubjectUpdateWithWhereUniqueWithoutDepartmentInput = {
-    where: SubjectWhereUniqueInput
-    data: XOR<SubjectUpdateWithoutDepartmentInput, SubjectUncheckedUpdateWithoutDepartmentInput>
-  }
-
-  export type SubjectUpdateManyWithWhereWithoutDepartmentInput = {
-    where: SubjectScalarWhereInput
-    data: XOR<SubjectUpdateManyMutationInput, SubjectUncheckedUpdateManyWithoutDepartmentInput>
-  }
-
-  export type SubjectScalarWhereInput = {
-    AND?: SubjectScalarWhereInput | SubjectScalarWhereInput[]
-    OR?: SubjectScalarWhereInput[]
-    NOT?: SubjectScalarWhereInput | SubjectScalarWhereInput[]
-    subject_id?: IntFilter<"Subject"> | number
-    subject_code?: StringFilter<"Subject"> | string
-    subject_name?: StringFilter<"Subject"> | string
-    semester?: StringNullableFilter<"Subject"> | string | null
-    dept_id?: IntNullableFilter<"Subject"> | number | null
-    credits?: IntNullableFilter<"Subject"> | number | null
   }
 
   export type FacultyAnnouncementUpsertWithWhereUniqueWithoutDepartmentInput = {
@@ -24158,26 +30304,81 @@ export namespace Prisma {
     is_active?: BoolNullableFilter<"UploadedSchedule"> | boolean | null
   }
 
-  export type DepartmentCreateWithoutFacultyInput = {
-    dept_name: string
-    students?: StudentCreateNestedManyWithoutDepartmentInput
-    subjects?: SubjectCreateNestedManyWithoutDepartmentInput
-    announcements?: FacultyAnnouncementCreateNestedManyWithoutDepartmentInput
-    uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutDepartmentInput
+  export type StudentUpsertWithWhereUniqueWithoutDepartmentInput = {
+    where: StudentWhereUniqueInput
+    update: XOR<StudentUpdateWithoutDepartmentInput, StudentUncheckedUpdateWithoutDepartmentInput>
+    create: XOR<StudentCreateWithoutDepartmentInput, StudentUncheckedCreateWithoutDepartmentInput>
   }
 
-  export type DepartmentUncheckedCreateWithoutFacultyInput = {
-    dept_id?: number
-    dept_name: string
-    students?: StudentUncheckedCreateNestedManyWithoutDepartmentInput
-    subjects?: SubjectUncheckedCreateNestedManyWithoutDepartmentInput
-    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutDepartmentInput
-    uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutDepartmentInput
+  export type StudentUpdateWithWhereUniqueWithoutDepartmentInput = {
+    where: StudentWhereUniqueInput
+    data: XOR<StudentUpdateWithoutDepartmentInput, StudentUncheckedUpdateWithoutDepartmentInput>
   }
 
-  export type DepartmentCreateOrConnectWithoutFacultyInput = {
-    where: DepartmentWhereUniqueInput
-    create: XOR<DepartmentCreateWithoutFacultyInput, DepartmentUncheckedCreateWithoutFacultyInput>
+  export type StudentUpdateManyWithWhereWithoutDepartmentInput = {
+    where: StudentScalarWhereInput
+    data: XOR<StudentUpdateManyMutationInput, StudentUncheckedUpdateManyWithoutDepartmentInput>
+  }
+
+  export type SubjectUpsertWithWhereUniqueWithoutDepartmentInput = {
+    where: SubjectWhereUniqueInput
+    update: XOR<SubjectUpdateWithoutDepartmentInput, SubjectUncheckedUpdateWithoutDepartmentInput>
+    create: XOR<SubjectCreateWithoutDepartmentInput, SubjectUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type SubjectUpdateWithWhereUniqueWithoutDepartmentInput = {
+    where: SubjectWhereUniqueInput
+    data: XOR<SubjectUpdateWithoutDepartmentInput, SubjectUncheckedUpdateWithoutDepartmentInput>
+  }
+
+  export type SubjectUpdateManyWithWhereWithoutDepartmentInput = {
+    where: SubjectScalarWhereInput
+    data: XOR<SubjectUpdateManyMutationInput, SubjectUncheckedUpdateManyWithoutDepartmentInput>
+  }
+
+  export type SubjectScalarWhereInput = {
+    AND?: SubjectScalarWhereInput | SubjectScalarWhereInput[]
+    OR?: SubjectScalarWhereInput[]
+    NOT?: SubjectScalarWhereInput | SubjectScalarWhereInput[]
+    subject_id?: IntFilter<"Subject"> | number
+    subject_code?: StringFilter<"Subject"> | string
+    subject_name?: StringFilter<"Subject"> | string
+    semester?: StringNullableFilter<"Subject"> | string | null
+    dept_id?: IntNullableFilter<"Subject"> | number | null
+    credits?: IntNullableFilter<"Subject"> | number | null
+  }
+
+  export type syllabus_packagesUpsertWithWhereUniqueWithoutDepartmentsInput = {
+    where: syllabus_packagesWhereUniqueInput
+    update: XOR<syllabus_packagesUpdateWithoutDepartmentsInput, syllabus_packagesUncheckedUpdateWithoutDepartmentsInput>
+    create: XOR<syllabus_packagesCreateWithoutDepartmentsInput, syllabus_packagesUncheckedCreateWithoutDepartmentsInput>
+  }
+
+  export type syllabus_packagesUpdateWithWhereUniqueWithoutDepartmentsInput = {
+    where: syllabus_packagesWhereUniqueInput
+    data: XOR<syllabus_packagesUpdateWithoutDepartmentsInput, syllabus_packagesUncheckedUpdateWithoutDepartmentsInput>
+  }
+
+  export type syllabus_packagesUpdateManyWithWhereWithoutDepartmentsInput = {
+    where: syllabus_packagesScalarWhereInput
+    data: XOR<syllabus_packagesUpdateManyMutationInput, syllabus_packagesUncheckedUpdateManyWithoutDepartmentsInput>
+  }
+
+  export type syllabus_packagesScalarWhereInput = {
+    AND?: syllabus_packagesScalarWhereInput | syllabus_packagesScalarWhereInput[]
+    OR?: syllabus_packagesScalarWhereInput[]
+    NOT?: syllabus_packagesScalarWhereInput | syllabus_packagesScalarWhereInput[]
+    package_id?: IntFilter<"syllabus_packages"> | number
+    dept_id?: IntFilter<"syllabus_packages"> | number
+    semester?: StringFilter<"syllabus_packages"> | string
+    uploaded_by?: IntNullableFilter<"syllabus_packages"> | number | null
+    uploaded_at?: DateTimeNullableFilter<"syllabus_packages"> | Date | string | null
+    file_url?: StringFilter<"syllabus_packages"> | string
+    version?: StringNullableFilter<"syllabus_packages"> | string | null
+    is_active?: BoolNullableFilter<"syllabus_packages"> | boolean | null
+    notes?: StringNullableFilter<"syllabus_packages"> | string | null
+    status?: StringNullableFilter<"syllabus_packages"> | string | null
+    error_msg?: StringNullableFilter<"syllabus_packages"> | string | null
   }
 
   export type AttendanceCreateWithoutFacultyInput = {
@@ -24205,14 +30406,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DepartmentCreateWithoutFacultyInput = {
+    dept_name: string
+    announcements?: FacultyAnnouncementCreateNestedManyWithoutDepartmentInput
+    uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutDepartmentInput
+    students?: StudentCreateNestedManyWithoutDepartmentInput
+    subjects?: SubjectCreateNestedManyWithoutDepartmentInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutDepartmentsInput
+  }
+
+  export type DepartmentUncheckedCreateWithoutFacultyInput = {
+    dept_id?: number
+    dept_name: string
+    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutDepartmentInput
+    uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutDepartmentInput
+    students?: StudentUncheckedCreateNestedManyWithoutDepartmentInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutDepartmentInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutDepartmentsInput
+  }
+
+  export type DepartmentCreateOrConnectWithoutFacultyInput = {
+    where: DepartmentWhereUniqueInput
+    create: XOR<DepartmentCreateWithoutFacultyInput, DepartmentUncheckedCreateWithoutFacultyInput>
+  }
+
   export type UserCreateWithoutFacultyInput = {
     email: string
     password_hash: string
     user_type: string
     is_active?: boolean | null
     created_at?: Date | string | null
-    students?: StudentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    students?: StudentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFacultyInput = {
@@ -24222,8 +30447,8 @@ export namespace Prisma {
     user_type: string
     is_active?: boolean | null
     created_at?: Date | string | null
-    students?: StudentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    students?: StudentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFacultyInput = {
@@ -24386,32 +30611,62 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type DepartmentUpsertWithoutFacultyInput = {
-    update: XOR<DepartmentUpdateWithoutFacultyInput, DepartmentUncheckedUpdateWithoutFacultyInput>
-    create: XOR<DepartmentCreateWithoutFacultyInput, DepartmentUncheckedCreateWithoutFacultyInput>
-    where?: DepartmentWhereInput
+  export type syllabus_completionsCreateWithoutFacultyInput = {
+    completed_at?: Date | string | null
+    syllabus_subtopics: syllabus_subtopicsCreateNestedOneWithoutSyllabus_completionsInput
   }
 
-  export type DepartmentUpdateToOneWithWhereWithoutFacultyInput = {
-    where?: DepartmentWhereInput
-    data: XOR<DepartmentUpdateWithoutFacultyInput, DepartmentUncheckedUpdateWithoutFacultyInput>
+  export type syllabus_completionsUncheckedCreateWithoutFacultyInput = {
+    completion_id?: number
+    subtopic_id: number
+    completed_at?: Date | string | null
   }
 
-  export type DepartmentUpdateWithoutFacultyInput = {
-    dept_name?: StringFieldUpdateOperationsInput | string
-    students?: StudentUpdateManyWithoutDepartmentNestedInput
-    subjects?: SubjectUpdateManyWithoutDepartmentNestedInput
-    announcements?: FacultyAnnouncementUpdateManyWithoutDepartmentNestedInput
-    uploaded_schedules?: UploadedScheduleUpdateManyWithoutDepartmentNestedInput
+  export type syllabus_completionsCreateOrConnectWithoutFacultyInput = {
+    where: syllabus_completionsWhereUniqueInput
+    create: XOR<syllabus_completionsCreateWithoutFacultyInput, syllabus_completionsUncheckedCreateWithoutFacultyInput>
   }
 
-  export type DepartmentUncheckedUpdateWithoutFacultyInput = {
-    dept_id?: IntFieldUpdateOperationsInput | number
-    dept_name?: StringFieldUpdateOperationsInput | string
-    students?: StudentUncheckedUpdateManyWithoutDepartmentNestedInput
-    subjects?: SubjectUncheckedUpdateManyWithoutDepartmentNestedInput
-    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutDepartmentNestedInput
-    uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutDepartmentNestedInput
+  export type syllabus_completionsCreateManyFacultyInputEnvelope = {
+    data: syllabus_completionsCreateManyFacultyInput | syllabus_completionsCreateManyFacultyInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type syllabus_packagesCreateWithoutFacultyInput = {
+    semester: string
+    uploaded_at?: Date | string | null
+    file_url: string
+    version?: string | null
+    is_active?: boolean | null
+    notes?: string | null
+    status?: string | null
+    error_msg?: string | null
+    departments: DepartmentCreateNestedOneWithoutSyllabus_packagesInput
+    syllabus_units?: syllabus_unitsCreateNestedManyWithoutSyllabus_packagesInput
+  }
+
+  export type syllabus_packagesUncheckedCreateWithoutFacultyInput = {
+    package_id?: number
+    dept_id: number
+    semester: string
+    uploaded_at?: Date | string | null
+    file_url: string
+    version?: string | null
+    is_active?: boolean | null
+    notes?: string | null
+    status?: string | null
+    error_msg?: string | null
+    syllabus_units?: syllabus_unitsUncheckedCreateNestedManyWithoutSyllabus_packagesInput
+  }
+
+  export type syllabus_packagesCreateOrConnectWithoutFacultyInput = {
+    where: syllabus_packagesWhereUniqueInput
+    create: XOR<syllabus_packagesCreateWithoutFacultyInput, syllabus_packagesUncheckedCreateWithoutFacultyInput>
+  }
+
+  export type syllabus_packagesCreateManyFacultyInputEnvelope = {
+    data: syllabus_packagesCreateManyFacultyInput | syllabus_packagesCreateManyFacultyInput[]
+    skipDuplicates?: boolean
   }
 
   export type AttendanceUpsertWithWhereUniqueWithoutFacultyInput = {
@@ -24442,6 +30697,36 @@ export namespace Prisma {
     status?: StringFilter<"Attendance"> | string
   }
 
+  export type DepartmentUpsertWithoutFacultyInput = {
+    update: XOR<DepartmentUpdateWithoutFacultyInput, DepartmentUncheckedUpdateWithoutFacultyInput>
+    create: XOR<DepartmentCreateWithoutFacultyInput, DepartmentUncheckedCreateWithoutFacultyInput>
+    where?: DepartmentWhereInput
+  }
+
+  export type DepartmentUpdateToOneWithWhereWithoutFacultyInput = {
+    where?: DepartmentWhereInput
+    data: XOR<DepartmentUpdateWithoutFacultyInput, DepartmentUncheckedUpdateWithoutFacultyInput>
+  }
+
+  export type DepartmentUpdateWithoutFacultyInput = {
+    dept_name?: StringFieldUpdateOperationsInput | string
+    announcements?: FacultyAnnouncementUpdateManyWithoutDepartmentNestedInput
+    uploaded_schedules?: UploadedScheduleUpdateManyWithoutDepartmentNestedInput
+    students?: StudentUpdateManyWithoutDepartmentNestedInput
+    subjects?: SubjectUpdateManyWithoutDepartmentNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutDepartmentsNestedInput
+  }
+
+  export type DepartmentUncheckedUpdateWithoutFacultyInput = {
+    dept_id?: IntFieldUpdateOperationsInput | number
+    dept_name?: StringFieldUpdateOperationsInput | string
+    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutDepartmentNestedInput
+    uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutDepartmentNestedInput
+    students?: StudentUncheckedUpdateManyWithoutDepartmentNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutDepartmentNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutDepartmentsNestedInput
+  }
+
   export type UserUpsertWithoutFacultyInput = {
     update: XOR<UserUpdateWithoutFacultyInput, UserUncheckedUpdateWithoutFacultyInput>
     create: XOR<UserCreateWithoutFacultyInput, UserUncheckedCreateWithoutFacultyInput>
@@ -24459,8 +30744,8 @@ export namespace Prisma {
     user_type?: StringFieldUpdateOperationsInput | string
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    students?: StudentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    students?: StudentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFacultyInput = {
@@ -24470,8 +30755,8 @@ export namespace Prisma {
     user_type?: StringFieldUpdateOperationsInput | string
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    students?: StudentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    students?: StudentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type FacultyAnnouncementUpsertWithWhereUniqueWithoutFacultyInput = {
@@ -24615,26 +30900,46 @@ export namespace Prisma {
     data: XOR<UploadedScheduleUpdateManyMutationInput, UploadedScheduleUncheckedUpdateManyWithoutFacultyInput>
   }
 
-  export type DepartmentCreateWithoutStudentsInput = {
-    dept_name: string
-    faculty?: FacultyCreateNestedManyWithoutDepartmentInput
-    subjects?: SubjectCreateNestedManyWithoutDepartmentInput
-    announcements?: FacultyAnnouncementCreateNestedManyWithoutDepartmentInput
-    uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutDepartmentInput
+  export type syllabus_completionsUpsertWithWhereUniqueWithoutFacultyInput = {
+    where: syllabus_completionsWhereUniqueInput
+    update: XOR<syllabus_completionsUpdateWithoutFacultyInput, syllabus_completionsUncheckedUpdateWithoutFacultyInput>
+    create: XOR<syllabus_completionsCreateWithoutFacultyInput, syllabus_completionsUncheckedCreateWithoutFacultyInput>
   }
 
-  export type DepartmentUncheckedCreateWithoutStudentsInput = {
-    dept_id?: number
-    dept_name: string
-    faculty?: FacultyUncheckedCreateNestedManyWithoutDepartmentInput
-    subjects?: SubjectUncheckedCreateNestedManyWithoutDepartmentInput
-    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutDepartmentInput
-    uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutDepartmentInput
+  export type syllabus_completionsUpdateWithWhereUniqueWithoutFacultyInput = {
+    where: syllabus_completionsWhereUniqueInput
+    data: XOR<syllabus_completionsUpdateWithoutFacultyInput, syllabus_completionsUncheckedUpdateWithoutFacultyInput>
   }
 
-  export type DepartmentCreateOrConnectWithoutStudentsInput = {
-    where: DepartmentWhereUniqueInput
-    create: XOR<DepartmentCreateWithoutStudentsInput, DepartmentUncheckedCreateWithoutStudentsInput>
+  export type syllabus_completionsUpdateManyWithWhereWithoutFacultyInput = {
+    where: syllabus_completionsScalarWhereInput
+    data: XOR<syllabus_completionsUpdateManyMutationInput, syllabus_completionsUncheckedUpdateManyWithoutFacultyInput>
+  }
+
+  export type syllabus_completionsScalarWhereInput = {
+    AND?: syllabus_completionsScalarWhereInput | syllabus_completionsScalarWhereInput[]
+    OR?: syllabus_completionsScalarWhereInput[]
+    NOT?: syllabus_completionsScalarWhereInput | syllabus_completionsScalarWhereInput[]
+    completion_id?: IntFilter<"syllabus_completions"> | number
+    subtopic_id?: IntFilter<"syllabus_completions"> | number
+    faculty_id?: IntFilter<"syllabus_completions"> | number
+    completed_at?: DateTimeNullableFilter<"syllabus_completions"> | Date | string | null
+  }
+
+  export type syllabus_packagesUpsertWithWhereUniqueWithoutFacultyInput = {
+    where: syllabus_packagesWhereUniqueInput
+    update: XOR<syllabus_packagesUpdateWithoutFacultyInput, syllabus_packagesUncheckedUpdateWithoutFacultyInput>
+    create: XOR<syllabus_packagesCreateWithoutFacultyInput, syllabus_packagesUncheckedCreateWithoutFacultyInput>
+  }
+
+  export type syllabus_packagesUpdateWithWhereUniqueWithoutFacultyInput = {
+    where: syllabus_packagesWhereUniqueInput
+    data: XOR<syllabus_packagesUpdateWithoutFacultyInput, syllabus_packagesUncheckedUpdateWithoutFacultyInput>
+  }
+
+  export type syllabus_packagesUpdateManyWithWhereWithoutFacultyInput = {
+    where: syllabus_packagesScalarWhereInput
+    data: XOR<syllabus_packagesUpdateManyMutationInput, syllabus_packagesUncheckedUpdateManyWithoutFacultyInput>
   }
 
   export type AttendanceCreateWithoutStudentInput = {
@@ -24680,6 +30985,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DepartmentCreateWithoutStudentsInput = {
+    dept_name: string
+    faculty?: FacultyCreateNestedManyWithoutDepartmentInput
+    announcements?: FacultyAnnouncementCreateNestedManyWithoutDepartmentInput
+    uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutDepartmentInput
+    subjects?: SubjectCreateNestedManyWithoutDepartmentInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutDepartmentsInput
+  }
+
+  export type DepartmentUncheckedCreateWithoutStudentsInput = {
+    dept_id?: number
+    dept_name: string
+    faculty?: FacultyUncheckedCreateNestedManyWithoutDepartmentInput
+    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutDepartmentInput
+    uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutDepartmentInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutDepartmentInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutDepartmentsInput
+  }
+
+  export type DepartmentCreateOrConnectWithoutStudentsInput = {
+    where: DepartmentWhereUniqueInput
+    create: XOR<DepartmentCreateWithoutStudentsInput, DepartmentUncheckedCreateWithoutStudentsInput>
+  }
+
   export type UserCreateWithoutStudentsInput = {
     email: string
     password_hash: string
@@ -24704,34 +31033,6 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutStudentsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutStudentsInput, UserUncheckedCreateWithoutStudentsInput>
-  }
-
-  export type DepartmentUpsertWithoutStudentsInput = {
-    update: XOR<DepartmentUpdateWithoutStudentsInput, DepartmentUncheckedUpdateWithoutStudentsInput>
-    create: XOR<DepartmentCreateWithoutStudentsInput, DepartmentUncheckedCreateWithoutStudentsInput>
-    where?: DepartmentWhereInput
-  }
-
-  export type DepartmentUpdateToOneWithWhereWithoutStudentsInput = {
-    where?: DepartmentWhereInput
-    data: XOR<DepartmentUpdateWithoutStudentsInput, DepartmentUncheckedUpdateWithoutStudentsInput>
-  }
-
-  export type DepartmentUpdateWithoutStudentsInput = {
-    dept_name?: StringFieldUpdateOperationsInput | string
-    faculty?: FacultyUpdateManyWithoutDepartmentNestedInput
-    subjects?: SubjectUpdateManyWithoutDepartmentNestedInput
-    announcements?: FacultyAnnouncementUpdateManyWithoutDepartmentNestedInput
-    uploaded_schedules?: UploadedScheduleUpdateManyWithoutDepartmentNestedInput
-  }
-
-  export type DepartmentUncheckedUpdateWithoutStudentsInput = {
-    dept_id?: IntFieldUpdateOperationsInput | number
-    dept_name?: StringFieldUpdateOperationsInput | string
-    faculty?: FacultyUncheckedUpdateManyWithoutDepartmentNestedInput
-    subjects?: SubjectUncheckedUpdateManyWithoutDepartmentNestedInput
-    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutDepartmentNestedInput
-    uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
   export type AttendanceUpsertWithWhereUniqueWithoutStudentInput = {
@@ -24774,6 +31075,36 @@ export namespace Prisma {
     subject_id?: IntFilter<"Enrollment"> | number
   }
 
+  export type DepartmentUpsertWithoutStudentsInput = {
+    update: XOR<DepartmentUpdateWithoutStudentsInput, DepartmentUncheckedUpdateWithoutStudentsInput>
+    create: XOR<DepartmentCreateWithoutStudentsInput, DepartmentUncheckedCreateWithoutStudentsInput>
+    where?: DepartmentWhereInput
+  }
+
+  export type DepartmentUpdateToOneWithWhereWithoutStudentsInput = {
+    where?: DepartmentWhereInput
+    data: XOR<DepartmentUpdateWithoutStudentsInput, DepartmentUncheckedUpdateWithoutStudentsInput>
+  }
+
+  export type DepartmentUpdateWithoutStudentsInput = {
+    dept_name?: StringFieldUpdateOperationsInput | string
+    faculty?: FacultyUpdateManyWithoutDepartmentNestedInput
+    announcements?: FacultyAnnouncementUpdateManyWithoutDepartmentNestedInput
+    uploaded_schedules?: UploadedScheduleUpdateManyWithoutDepartmentNestedInput
+    subjects?: SubjectUpdateManyWithoutDepartmentNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutDepartmentsNestedInput
+  }
+
+  export type DepartmentUncheckedUpdateWithoutStudentsInput = {
+    dept_id?: IntFieldUpdateOperationsInput | number
+    dept_name?: StringFieldUpdateOperationsInput | string
+    faculty?: FacultyUncheckedUpdateManyWithoutDepartmentNestedInput
+    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutDepartmentNestedInput
+    uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutDepartmentNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutDepartmentNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutDepartmentsNestedInput
+  }
+
   export type UserUpsertWithoutStudentsInput = {
     update: XOR<UserUpdateWithoutStudentsInput, UserUncheckedUpdateWithoutStudentsInput>
     create: XOR<UserCreateWithoutStudentsInput, UserUncheckedCreateWithoutStudentsInput>
@@ -24804,28 +31135,6 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     faculty?: FacultyUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type DepartmentCreateWithoutSubjectsInput = {
-    dept_name: string
-    faculty?: FacultyCreateNestedManyWithoutDepartmentInput
-    students?: StudentCreateNestedManyWithoutDepartmentInput
-    announcements?: FacultyAnnouncementCreateNestedManyWithoutDepartmentInput
-    uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutDepartmentInput
-  }
-
-  export type DepartmentUncheckedCreateWithoutSubjectsInput = {
-    dept_id?: number
-    dept_name: string
-    faculty?: FacultyUncheckedCreateNestedManyWithoutDepartmentInput
-    students?: StudentUncheckedCreateNestedManyWithoutDepartmentInput
-    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutDepartmentInput
-    uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutDepartmentInput
-  }
-
-  export type DepartmentCreateOrConnectWithoutSubjectsInput = {
-    where: DepartmentWhereUniqueInput
-    create: XOR<DepartmentCreateWithoutSubjectsInput, DepartmentUncheckedCreateWithoutSubjectsInput>
   }
 
   export type AttendanceCreateWithoutSubjectInput = {
@@ -24902,6 +31211,104 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type FacultySubjectCreateWithoutSubjectInput = {
+    Faculty: FacultyCreateNestedOneWithoutFaculty_subjectsInput
+  }
+
+  export type FacultySubjectUncheckedCreateWithoutSubjectInput = {
+    faculty_id: number
+  }
+
+  export type FacultySubjectCreateOrConnectWithoutSubjectInput = {
+    where: FacultySubjectWhereUniqueInput
+    create: XOR<FacultySubjectCreateWithoutSubjectInput, FacultySubjectUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type FacultySubjectCreateManySubjectInputEnvelope = {
+    data: FacultySubjectCreateManySubjectInput | FacultySubjectCreateManySubjectInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DepartmentCreateWithoutSubjectsInput = {
+    dept_name: string
+    faculty?: FacultyCreateNestedManyWithoutDepartmentInput
+    announcements?: FacultyAnnouncementCreateNestedManyWithoutDepartmentInput
+    uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutDepartmentInput
+    students?: StudentCreateNestedManyWithoutDepartmentInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutDepartmentsInput
+  }
+
+  export type DepartmentUncheckedCreateWithoutSubjectsInput = {
+    dept_id?: number
+    dept_name: string
+    faculty?: FacultyUncheckedCreateNestedManyWithoutDepartmentInput
+    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutDepartmentInput
+    uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutDepartmentInput
+    students?: StudentUncheckedCreateNestedManyWithoutDepartmentInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutDepartmentsInput
+  }
+
+  export type DepartmentCreateOrConnectWithoutSubjectsInput = {
+    where: DepartmentWhereUniqueInput
+    create: XOR<DepartmentCreateWithoutSubjectsInput, DepartmentUncheckedCreateWithoutSubjectsInput>
+  }
+
+  export type syllabus_subtopicsCreateWithoutSubjectsInput = {
+    subtopic_index: number
+    title: string
+    details?: string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+    syllabus_completions?: syllabus_completionsCreateNestedManyWithoutSyllabus_subtopicsInput
+    syllabus_units: syllabus_unitsCreateNestedOneWithoutSyllabus_subtopicsInput
+  }
+
+  export type syllabus_subtopicsUncheckedCreateWithoutSubjectsInput = {
+    subtopic_id?: number
+    unit_id: number
+    subtopic_index: number
+    title: string
+    details?: string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+    syllabus_completions?: syllabus_completionsUncheckedCreateNestedManyWithoutSyllabus_subtopicsInput
+  }
+
+  export type syllabus_subtopicsCreateOrConnectWithoutSubjectsInput = {
+    where: syllabus_subtopicsWhereUniqueInput
+    create: XOR<syllabus_subtopicsCreateWithoutSubjectsInput, syllabus_subtopicsUncheckedCreateWithoutSubjectsInput>
+  }
+
+  export type syllabus_subtopicsCreateManySubjectsInputEnvelope = {
+    data: syllabus_subtopicsCreateManySubjectsInput | syllabus_subtopicsCreateManySubjectsInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type syllabus_unitsCreateWithoutSubjectsInput = {
+    unit_index: number
+    title: string
+    description?: string | null
+    syllabus_subtopics?: syllabus_subtopicsCreateNestedManyWithoutSyllabus_unitsInput
+    syllabus_packages: syllabus_packagesCreateNestedOneWithoutSyllabus_unitsInput
+  }
+
+  export type syllabus_unitsUncheckedCreateWithoutSubjectsInput = {
+    unit_id?: number
+    package_id: number
+    unit_index: number
+    title: string
+    description?: string | null
+    syllabus_subtopics?: syllabus_subtopicsUncheckedCreateNestedManyWithoutSyllabus_unitsInput
+  }
+
+  export type syllabus_unitsCreateOrConnectWithoutSubjectsInput = {
+    where: syllabus_unitsWhereUniqueInput
+    create: XOR<syllabus_unitsCreateWithoutSubjectsInput, syllabus_unitsUncheckedCreateWithoutSubjectsInput>
+  }
+
+  export type syllabus_unitsCreateManySubjectsInputEnvelope = {
+    data: syllabus_unitsCreateManySubjectsInput | syllabus_unitsCreateManySubjectsInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ScheduleCreateWithoutSubjectInput = {
     day_of_week?: number | null
     start_time?: Date | string | null
@@ -24925,52 +31332,6 @@ export namespace Prisma {
   export type ScheduleCreateManySubjectInputEnvelope = {
     data: ScheduleCreateManySubjectInput | ScheduleCreateManySubjectInput[]
     skipDuplicates?: boolean
-  }
-
-  export type FacultySubjectCreateWithoutSubjectInput = {
-    Faculty: FacultyCreateNestedOneWithoutFaculty_subjectsInput
-  }
-
-  export type FacultySubjectUncheckedCreateWithoutSubjectInput = {
-    faculty_id: number
-  }
-
-  export type FacultySubjectCreateOrConnectWithoutSubjectInput = {
-    where: FacultySubjectWhereUniqueInput
-    create: XOR<FacultySubjectCreateWithoutSubjectInput, FacultySubjectUncheckedCreateWithoutSubjectInput>
-  }
-
-  export type FacultySubjectCreateManySubjectInputEnvelope = {
-    data: FacultySubjectCreateManySubjectInput | FacultySubjectCreateManySubjectInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type DepartmentUpsertWithoutSubjectsInput = {
-    update: XOR<DepartmentUpdateWithoutSubjectsInput, DepartmentUncheckedUpdateWithoutSubjectsInput>
-    create: XOR<DepartmentCreateWithoutSubjectsInput, DepartmentUncheckedCreateWithoutSubjectsInput>
-    where?: DepartmentWhereInput
-  }
-
-  export type DepartmentUpdateToOneWithWhereWithoutSubjectsInput = {
-    where?: DepartmentWhereInput
-    data: XOR<DepartmentUpdateWithoutSubjectsInput, DepartmentUncheckedUpdateWithoutSubjectsInput>
-  }
-
-  export type DepartmentUpdateWithoutSubjectsInput = {
-    dept_name?: StringFieldUpdateOperationsInput | string
-    faculty?: FacultyUpdateManyWithoutDepartmentNestedInput
-    students?: StudentUpdateManyWithoutDepartmentNestedInput
-    announcements?: FacultyAnnouncementUpdateManyWithoutDepartmentNestedInput
-    uploaded_schedules?: UploadedScheduleUpdateManyWithoutDepartmentNestedInput
-  }
-
-  export type DepartmentUncheckedUpdateWithoutSubjectsInput = {
-    dept_id?: IntFieldUpdateOperationsInput | number
-    dept_name?: StringFieldUpdateOperationsInput | string
-    faculty?: FacultyUncheckedUpdateManyWithoutDepartmentNestedInput
-    students?: StudentUncheckedUpdateManyWithoutDepartmentNestedInput
-    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutDepartmentNestedInput
-    uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
   export type AttendanceUpsertWithWhereUniqueWithoutSubjectInput = {
@@ -25021,6 +31382,109 @@ export namespace Prisma {
     data: XOR<FacultyAnnouncementUpdateManyMutationInput, FacultyAnnouncementUncheckedUpdateManyWithoutSubjectInput>
   }
 
+  export type FacultySubjectUpsertWithWhereUniqueWithoutSubjectInput = {
+    where: FacultySubjectWhereUniqueInput
+    update: XOR<FacultySubjectUpdateWithoutSubjectInput, FacultySubjectUncheckedUpdateWithoutSubjectInput>
+    create: XOR<FacultySubjectCreateWithoutSubjectInput, FacultySubjectUncheckedCreateWithoutSubjectInput>
+  }
+
+  export type FacultySubjectUpdateWithWhereUniqueWithoutSubjectInput = {
+    where: FacultySubjectWhereUniqueInput
+    data: XOR<FacultySubjectUpdateWithoutSubjectInput, FacultySubjectUncheckedUpdateWithoutSubjectInput>
+  }
+
+  export type FacultySubjectUpdateManyWithWhereWithoutSubjectInput = {
+    where: FacultySubjectScalarWhereInput
+    data: XOR<FacultySubjectUpdateManyMutationInput, FacultySubjectUncheckedUpdateManyWithoutSubjectInput>
+  }
+
+  export type DepartmentUpsertWithoutSubjectsInput = {
+    update: XOR<DepartmentUpdateWithoutSubjectsInput, DepartmentUncheckedUpdateWithoutSubjectsInput>
+    create: XOR<DepartmentCreateWithoutSubjectsInput, DepartmentUncheckedCreateWithoutSubjectsInput>
+    where?: DepartmentWhereInput
+  }
+
+  export type DepartmentUpdateToOneWithWhereWithoutSubjectsInput = {
+    where?: DepartmentWhereInput
+    data: XOR<DepartmentUpdateWithoutSubjectsInput, DepartmentUncheckedUpdateWithoutSubjectsInput>
+  }
+
+  export type DepartmentUpdateWithoutSubjectsInput = {
+    dept_name?: StringFieldUpdateOperationsInput | string
+    faculty?: FacultyUpdateManyWithoutDepartmentNestedInput
+    announcements?: FacultyAnnouncementUpdateManyWithoutDepartmentNestedInput
+    uploaded_schedules?: UploadedScheduleUpdateManyWithoutDepartmentNestedInput
+    students?: StudentUpdateManyWithoutDepartmentNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutDepartmentsNestedInput
+  }
+
+  export type DepartmentUncheckedUpdateWithoutSubjectsInput = {
+    dept_id?: IntFieldUpdateOperationsInput | number
+    dept_name?: StringFieldUpdateOperationsInput | string
+    faculty?: FacultyUncheckedUpdateManyWithoutDepartmentNestedInput
+    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutDepartmentNestedInput
+    uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutDepartmentNestedInput
+    students?: StudentUncheckedUpdateManyWithoutDepartmentNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutDepartmentsNestedInput
+  }
+
+  export type syllabus_subtopicsUpsertWithWhereUniqueWithoutSubjectsInput = {
+    where: syllabus_subtopicsWhereUniqueInput
+    update: XOR<syllabus_subtopicsUpdateWithoutSubjectsInput, syllabus_subtopicsUncheckedUpdateWithoutSubjectsInput>
+    create: XOR<syllabus_subtopicsCreateWithoutSubjectsInput, syllabus_subtopicsUncheckedCreateWithoutSubjectsInput>
+  }
+
+  export type syllabus_subtopicsUpdateWithWhereUniqueWithoutSubjectsInput = {
+    where: syllabus_subtopicsWhereUniqueInput
+    data: XOR<syllabus_subtopicsUpdateWithoutSubjectsInput, syllabus_subtopicsUncheckedUpdateWithoutSubjectsInput>
+  }
+
+  export type syllabus_subtopicsUpdateManyWithWhereWithoutSubjectsInput = {
+    where: syllabus_subtopicsScalarWhereInput
+    data: XOR<syllabus_subtopicsUpdateManyMutationInput, syllabus_subtopicsUncheckedUpdateManyWithoutSubjectsInput>
+  }
+
+  export type syllabus_subtopicsScalarWhereInput = {
+    AND?: syllabus_subtopicsScalarWhereInput | syllabus_subtopicsScalarWhereInput[]
+    OR?: syllabus_subtopicsScalarWhereInput[]
+    NOT?: syllabus_subtopicsScalarWhereInput | syllabus_subtopicsScalarWhereInput[]
+    subtopic_id?: IntFilter<"syllabus_subtopics"> | number
+    unit_id?: IntFilter<"syllabus_subtopics"> | number
+    subject_id?: IntFilter<"syllabus_subtopics"> | number
+    subtopic_index?: IntFilter<"syllabus_subtopics"> | number
+    title?: StringFilter<"syllabus_subtopics"> | string
+    details?: StringNullableFilter<"syllabus_subtopics"> | string | null
+    extra?: JsonNullableFilter<"syllabus_subtopics">
+  }
+
+  export type syllabus_unitsUpsertWithWhereUniqueWithoutSubjectsInput = {
+    where: syllabus_unitsWhereUniqueInput
+    update: XOR<syllabus_unitsUpdateWithoutSubjectsInput, syllabus_unitsUncheckedUpdateWithoutSubjectsInput>
+    create: XOR<syllabus_unitsCreateWithoutSubjectsInput, syllabus_unitsUncheckedCreateWithoutSubjectsInput>
+  }
+
+  export type syllabus_unitsUpdateWithWhereUniqueWithoutSubjectsInput = {
+    where: syllabus_unitsWhereUniqueInput
+    data: XOR<syllabus_unitsUpdateWithoutSubjectsInput, syllabus_unitsUncheckedUpdateWithoutSubjectsInput>
+  }
+
+  export type syllabus_unitsUpdateManyWithWhereWithoutSubjectsInput = {
+    where: syllabus_unitsScalarWhereInput
+    data: XOR<syllabus_unitsUpdateManyMutationInput, syllabus_unitsUncheckedUpdateManyWithoutSubjectsInput>
+  }
+
+  export type syllabus_unitsScalarWhereInput = {
+    AND?: syllabus_unitsScalarWhereInput | syllabus_unitsScalarWhereInput[]
+    OR?: syllabus_unitsScalarWhereInput[]
+    NOT?: syllabus_unitsScalarWhereInput | syllabus_unitsScalarWhereInput[]
+    unit_id?: IntFilter<"syllabus_units"> | number
+    package_id?: IntFilter<"syllabus_units"> | number
+    subject_id?: IntFilter<"syllabus_units"> | number
+    unit_index?: IntFilter<"syllabus_units"> | number
+    title?: StringFilter<"syllabus_units"> | string
+    description?: StringNullableFilter<"syllabus_units"> | string | null
+  }
+
   export type ScheduleUpsertWithWhereUniqueWithoutSubjectInput = {
     where: ScheduleWhereUniqueInput
     update: XOR<ScheduleUpdateWithoutSubjectInput, ScheduleUncheckedUpdateWithoutSubjectInput>
@@ -25049,34 +31513,20 @@ export namespace Prisma {
     room_no?: StringNullableFilter<"Schedule"> | string | null
   }
 
-  export type FacultySubjectUpsertWithWhereUniqueWithoutSubjectInput = {
-    where: FacultySubjectWhereUniqueInput
-    update: XOR<FacultySubjectUpdateWithoutSubjectInput, FacultySubjectUncheckedUpdateWithoutSubjectInput>
-    create: XOR<FacultySubjectCreateWithoutSubjectInput, FacultySubjectUncheckedCreateWithoutSubjectInput>
-  }
-
-  export type FacultySubjectUpdateWithWhereUniqueWithoutSubjectInput = {
-    where: FacultySubjectWhereUniqueInput
-    data: XOR<FacultySubjectUpdateWithoutSubjectInput, FacultySubjectUncheckedUpdateWithoutSubjectInput>
-  }
-
-  export type FacultySubjectUpdateManyWithWhereWithoutSubjectInput = {
-    where: FacultySubjectScalarWhereInput
-    data: XOR<FacultySubjectUpdateManyMutationInput, FacultySubjectUncheckedUpdateManyWithoutSubjectInput>
-  }
-
   export type FacultyCreateWithoutFaculty_subjectsInput = {
     faculty_name: string
     email?: string | null
     is_timetable_admin?: boolean | null
-    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     attendance?: AttendanceCreateNestedManyWithoutFacultyInput
+    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     User?: UserCreateNestedOneWithoutFacultyInput
     announcements?: FacultyAnnouncementCreateNestedManyWithoutFacultyInput
     facultyAttendance?: FacultyAttendanceCreateNestedManyWithoutFacultyInput
     leaves?: FacultyLeaveCreateNestedManyWithoutFacultyInput
     notes?: FacultyNoteCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyUncheckedCreateWithoutFaculty_subjectsInput = {
@@ -25092,6 +31542,8 @@ export namespace Prisma {
     leaves?: FacultyLeaveUncheckedCreateNestedManyWithoutFacultyInput
     notes?: FacultyNoteUncheckedCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyCreateOrConnectWithoutFaculty_subjectsInput = {
@@ -25104,10 +31556,12 @@ export namespace Prisma {
     subject_name: string
     semester?: string | null
     credits?: number | null
-    Department?: DepartmentCreateNestedOneWithoutSubjectsInput
     attendance?: AttendanceCreateNestedManyWithoutSubjectInput
     enrollments?: EnrollmentCreateNestedManyWithoutSubjectInput
     announcements?: FacultyAnnouncementCreateNestedManyWithoutSubjectInput
+    Department?: DepartmentCreateNestedOneWithoutSubjectsInput
+    syllabus_subtopics?: syllabus_subtopicsCreateNestedManyWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsCreateNestedManyWithoutSubjectsInput
     timetable?: ScheduleCreateNestedManyWithoutSubjectInput
   }
 
@@ -25121,6 +31575,8 @@ export namespace Prisma {
     attendance?: AttendanceUncheckedCreateNestedManyWithoutSubjectInput
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutSubjectInput
     announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutSubjectInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedCreateNestedManyWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsUncheckedCreateNestedManyWithoutSubjectsInput
     timetable?: ScheduleUncheckedCreateNestedManyWithoutSubjectInput
   }
 
@@ -25144,14 +31600,16 @@ export namespace Prisma {
     faculty_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     is_timetable_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     attendance?: AttendanceUpdateManyWithoutFacultyNestedInput
+    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     User?: UserUpdateOneWithoutFacultyNestedInput
     announcements?: FacultyAnnouncementUpdateManyWithoutFacultyNestedInput
     facultyAttendance?: FacultyAttendanceUpdateManyWithoutFacultyNestedInput
     leaves?: FacultyLeaveUpdateManyWithoutFacultyNestedInput
     notes?: FacultyNoteUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyUncheckedUpdateWithoutFaculty_subjectsInput = {
@@ -25167,6 +31625,8 @@ export namespace Prisma {
     leaves?: FacultyLeaveUncheckedUpdateManyWithoutFacultyNestedInput
     notes?: FacultyNoteUncheckedUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutFacultyNestedInput
   }
 
   export type SubjectUpsertWithoutFaculty_subjectsInput = {
@@ -25185,10 +31645,12 @@ export namespace Prisma {
     subject_name?: StringFieldUpdateOperationsInput | string
     semester?: NullableStringFieldUpdateOperationsInput | string | null
     credits?: NullableIntFieldUpdateOperationsInput | number | null
-    Department?: DepartmentUpdateOneWithoutSubjectsNestedInput
     attendance?: AttendanceUpdateManyWithoutSubjectNestedInput
     enrollments?: EnrollmentUpdateManyWithoutSubjectNestedInput
     announcements?: FacultyAnnouncementUpdateManyWithoutSubjectNestedInput
+    Department?: DepartmentUpdateOneWithoutSubjectsNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUpdateManyWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUpdateManyWithoutSubjectsNestedInput
     timetable?: ScheduleUpdateManyWithoutSubjectNestedInput
   }
 
@@ -25202,6 +31664,8 @@ export namespace Prisma {
     attendance?: AttendanceUncheckedUpdateManyWithoutSubjectNestedInput
     enrollments?: EnrollmentUncheckedUpdateManyWithoutSubjectNestedInput
     announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutSubjectNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedUpdateManyWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUncheckedUpdateManyWithoutSubjectsNestedInput
     timetable?: ScheduleUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
@@ -25211,8 +31675,8 @@ export namespace Prisma {
     email?: string | null
     semester?: string | null
     division?: string | null
-    Department?: DepartmentCreateNestedOneWithoutStudentsInput
     attendance?: AttendanceCreateNestedManyWithoutStudentInput
+    Department?: DepartmentCreateNestedOneWithoutStudentsInput
     User?: UserCreateNestedOneWithoutStudentsInput
   }
 
@@ -25238,11 +31702,13 @@ export namespace Prisma {
     subject_name: string
     semester?: string | null
     credits?: number | null
-    Department?: DepartmentCreateNestedOneWithoutSubjectsInput
     attendance?: AttendanceCreateNestedManyWithoutSubjectInput
     announcements?: FacultyAnnouncementCreateNestedManyWithoutSubjectInput
-    timetable?: ScheduleCreateNestedManyWithoutSubjectInput
     faculty_subjects?: FacultySubjectCreateNestedManyWithoutSubjectInput
+    Department?: DepartmentCreateNestedOneWithoutSubjectsInput
+    syllabus_subtopics?: syllabus_subtopicsCreateNestedManyWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsCreateNestedManyWithoutSubjectsInput
+    timetable?: ScheduleCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutEnrollmentsInput = {
@@ -25254,8 +31720,10 @@ export namespace Prisma {
     credits?: number | null
     attendance?: AttendanceUncheckedCreateNestedManyWithoutSubjectInput
     announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutSubjectInput
-    timetable?: ScheduleUncheckedCreateNestedManyWithoutSubjectInput
     faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutSubjectInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedCreateNestedManyWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsUncheckedCreateNestedManyWithoutSubjectsInput
+    timetable?: ScheduleUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutEnrollmentsInput = {
@@ -25280,8 +31748,8 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     semester?: NullableStringFieldUpdateOperationsInput | string | null
     division?: NullableStringFieldUpdateOperationsInput | string | null
-    Department?: DepartmentUpdateOneWithoutStudentsNestedInput
     attendance?: AttendanceUpdateManyWithoutStudentNestedInput
+    Department?: DepartmentUpdateOneWithoutStudentsNestedInput
     User?: UserUpdateOneWithoutStudentsNestedInput
   }
 
@@ -25313,11 +31781,13 @@ export namespace Prisma {
     subject_name?: StringFieldUpdateOperationsInput | string
     semester?: NullableStringFieldUpdateOperationsInput | string | null
     credits?: NullableIntFieldUpdateOperationsInput | number | null
-    Department?: DepartmentUpdateOneWithoutSubjectsNestedInput
     attendance?: AttendanceUpdateManyWithoutSubjectNestedInput
     announcements?: FacultyAnnouncementUpdateManyWithoutSubjectNestedInput
-    timetable?: ScheduleUpdateManyWithoutSubjectNestedInput
     faculty_subjects?: FacultySubjectUpdateManyWithoutSubjectNestedInput
+    Department?: DepartmentUpdateOneWithoutSubjectsNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUpdateManyWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUpdateManyWithoutSubjectsNestedInput
+    timetable?: ScheduleUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutEnrollmentsInput = {
@@ -25329,8 +31799,10 @@ export namespace Prisma {
     credits?: NullableIntFieldUpdateOperationsInput | number | null
     attendance?: AttendanceUncheckedUpdateManyWithoutSubjectNestedInput
     announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutSubjectNestedInput
-    timetable?: ScheduleUncheckedUpdateManyWithoutSubjectNestedInput
     faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutSubjectNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedUpdateManyWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUncheckedUpdateManyWithoutSubjectsNestedInput
+    timetable?: ScheduleUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectCreateWithoutTimetableInput = {
@@ -25338,11 +31810,13 @@ export namespace Prisma {
     subject_name: string
     semester?: string | null
     credits?: number | null
-    Department?: DepartmentCreateNestedOneWithoutSubjectsInput
     attendance?: AttendanceCreateNestedManyWithoutSubjectInput
     enrollments?: EnrollmentCreateNestedManyWithoutSubjectInput
     announcements?: FacultyAnnouncementCreateNestedManyWithoutSubjectInput
     faculty_subjects?: FacultySubjectCreateNestedManyWithoutSubjectInput
+    Department?: DepartmentCreateNestedOneWithoutSubjectsInput
+    syllabus_subtopics?: syllabus_subtopicsCreateNestedManyWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsCreateNestedManyWithoutSubjectsInput
   }
 
   export type SubjectUncheckedCreateWithoutTimetableInput = {
@@ -25356,6 +31830,8 @@ export namespace Prisma {
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutSubjectInput
     announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutSubjectInput
     faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutSubjectInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedCreateNestedManyWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsUncheckedCreateNestedManyWithoutSubjectsInput
   }
 
   export type SubjectCreateOrConnectWithoutTimetableInput = {
@@ -25379,11 +31855,13 @@ export namespace Prisma {
     subject_name?: StringFieldUpdateOperationsInput | string
     semester?: NullableStringFieldUpdateOperationsInput | string | null
     credits?: NullableIntFieldUpdateOperationsInput | number | null
-    Department?: DepartmentUpdateOneWithoutSubjectsNestedInput
     attendance?: AttendanceUpdateManyWithoutSubjectNestedInput
     enrollments?: EnrollmentUpdateManyWithoutSubjectNestedInput
     announcements?: FacultyAnnouncementUpdateManyWithoutSubjectNestedInput
     faculty_subjects?: FacultySubjectUpdateManyWithoutSubjectNestedInput
+    Department?: DepartmentUpdateOneWithoutSubjectsNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUpdateManyWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUpdateManyWithoutSubjectsNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutTimetableInput = {
@@ -25397,23 +31875,27 @@ export namespace Prisma {
     enrollments?: EnrollmentUncheckedUpdateManyWithoutSubjectNestedInput
     announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutSubjectNestedInput
     faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutSubjectNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedUpdateManyWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUncheckedUpdateManyWithoutSubjectsNestedInput
   }
 
   export type DepartmentCreateWithoutUploaded_schedulesInput = {
     dept_name: string
     faculty?: FacultyCreateNestedManyWithoutDepartmentInput
+    announcements?: FacultyAnnouncementCreateNestedManyWithoutDepartmentInput
     students?: StudentCreateNestedManyWithoutDepartmentInput
     subjects?: SubjectCreateNestedManyWithoutDepartmentInput
-    announcements?: FacultyAnnouncementCreateNestedManyWithoutDepartmentInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutDepartmentsInput
   }
 
   export type DepartmentUncheckedCreateWithoutUploaded_schedulesInput = {
     dept_id?: number
     dept_name: string
     faculty?: FacultyUncheckedCreateNestedManyWithoutDepartmentInput
+    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutDepartmentInput
     students?: StudentUncheckedCreateNestedManyWithoutDepartmentInput
     subjects?: SubjectUncheckedCreateNestedManyWithoutDepartmentInput
-    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutDepartmentInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutDepartmentsInput
   }
 
   export type DepartmentCreateOrConnectWithoutUploaded_schedulesInput = {
@@ -25425,14 +31907,16 @@ export namespace Prisma {
     faculty_name: string
     email?: string | null
     is_timetable_admin?: boolean | null
-    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     attendance?: AttendanceCreateNestedManyWithoutFacultyInput
+    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     User?: UserCreateNestedOneWithoutFacultyInput
     announcements?: FacultyAnnouncementCreateNestedManyWithoutFacultyInput
     facultyAttendance?: FacultyAttendanceCreateNestedManyWithoutFacultyInput
     leaves?: FacultyLeaveCreateNestedManyWithoutFacultyInput
     notes?: FacultyNoteCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyUncheckedCreateWithoutUploaded_schedulesInput = {
@@ -25448,6 +31932,8 @@ export namespace Prisma {
     leaves?: FacultyLeaveUncheckedCreateNestedManyWithoutFacultyInput
     notes?: FacultyNoteUncheckedCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyCreateOrConnectWithoutUploaded_schedulesInput = {
@@ -25469,18 +31955,20 @@ export namespace Prisma {
   export type DepartmentUpdateWithoutUploaded_schedulesInput = {
     dept_name?: StringFieldUpdateOperationsInput | string
     faculty?: FacultyUpdateManyWithoutDepartmentNestedInput
+    announcements?: FacultyAnnouncementUpdateManyWithoutDepartmentNestedInput
     students?: StudentUpdateManyWithoutDepartmentNestedInput
     subjects?: SubjectUpdateManyWithoutDepartmentNestedInput
-    announcements?: FacultyAnnouncementUpdateManyWithoutDepartmentNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutDepartmentsNestedInput
   }
 
   export type DepartmentUncheckedUpdateWithoutUploaded_schedulesInput = {
     dept_id?: IntFieldUpdateOperationsInput | number
     dept_name?: StringFieldUpdateOperationsInput | string
     faculty?: FacultyUncheckedUpdateManyWithoutDepartmentNestedInput
+    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutDepartmentNestedInput
     students?: StudentUncheckedUpdateManyWithoutDepartmentNestedInput
     subjects?: SubjectUncheckedUpdateManyWithoutDepartmentNestedInput
-    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutDepartmentNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutDepartmentsNestedInput
   }
 
   export type FacultyUpsertWithoutUploaded_schedulesInput = {
@@ -25498,14 +31986,16 @@ export namespace Prisma {
     faculty_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     is_timetable_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     attendance?: AttendanceUpdateManyWithoutFacultyNestedInput
+    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     User?: UserUpdateOneWithoutFacultyNestedInput
     announcements?: FacultyAnnouncementUpdateManyWithoutFacultyNestedInput
     facultyAttendance?: FacultyAttendanceUpdateManyWithoutFacultyNestedInput
     leaves?: FacultyLeaveUpdateManyWithoutFacultyNestedInput
     notes?: FacultyNoteUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyUncheckedUpdateWithoutUploaded_schedulesInput = {
@@ -25521,6 +32011,8 @@ export namespace Prisma {
     leaves?: FacultyLeaveUncheckedUpdateManyWithoutFacultyNestedInput
     notes?: FacultyNoteUncheckedUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyCreateWithoutAttendanceInput = {
@@ -25535,6 +32027,8 @@ export namespace Prisma {
     notes?: FacultyNoteCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyUncheckedCreateWithoutAttendanceInput = {
@@ -25550,6 +32044,8 @@ export namespace Prisma {
     notes?: FacultyNoteUncheckedCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyCreateOrConnectWithoutAttendanceInput = {
@@ -25563,8 +32059,8 @@ export namespace Prisma {
     email?: string | null
     semester?: string | null
     division?: string | null
-    Department?: DepartmentCreateNestedOneWithoutStudentsInput
     enrollments?: EnrollmentCreateNestedManyWithoutStudentInput
+    Department?: DepartmentCreateNestedOneWithoutStudentsInput
     User?: UserCreateNestedOneWithoutStudentsInput
   }
 
@@ -25590,11 +32086,13 @@ export namespace Prisma {
     subject_name: string
     semester?: string | null
     credits?: number | null
-    Department?: DepartmentCreateNestedOneWithoutSubjectsInput
     enrollments?: EnrollmentCreateNestedManyWithoutSubjectInput
     announcements?: FacultyAnnouncementCreateNestedManyWithoutSubjectInput
-    timetable?: ScheduleCreateNestedManyWithoutSubjectInput
     faculty_subjects?: FacultySubjectCreateNestedManyWithoutSubjectInput
+    Department?: DepartmentCreateNestedOneWithoutSubjectsInput
+    syllabus_subtopics?: syllabus_subtopicsCreateNestedManyWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsCreateNestedManyWithoutSubjectsInput
+    timetable?: ScheduleCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutAttendanceInput = {
@@ -25606,8 +32104,10 @@ export namespace Prisma {
     credits?: number | null
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutSubjectInput
     announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutSubjectInput
-    timetable?: ScheduleUncheckedCreateNestedManyWithoutSubjectInput
     faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutSubjectInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedCreateNestedManyWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsUncheckedCreateNestedManyWithoutSubjectsInput
+    timetable?: ScheduleUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutAttendanceInput = {
@@ -25638,6 +32138,8 @@ export namespace Prisma {
     notes?: FacultyNoteUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyUncheckedUpdateWithoutAttendanceInput = {
@@ -25653,6 +32155,8 @@ export namespace Prisma {
     notes?: FacultyNoteUncheckedUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutFacultyNestedInput
   }
 
   export type StudentUpsertWithoutAttendanceInput = {
@@ -25672,8 +32176,8 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     semester?: NullableStringFieldUpdateOperationsInput | string | null
     division?: NullableStringFieldUpdateOperationsInput | string | null
-    Department?: DepartmentUpdateOneWithoutStudentsNestedInput
     enrollments?: EnrollmentUpdateManyWithoutStudentNestedInput
+    Department?: DepartmentUpdateOneWithoutStudentsNestedInput
     User?: UserUpdateOneWithoutStudentsNestedInput
   }
 
@@ -25705,11 +32209,13 @@ export namespace Prisma {
     subject_name?: StringFieldUpdateOperationsInput | string
     semester?: NullableStringFieldUpdateOperationsInput | string | null
     credits?: NullableIntFieldUpdateOperationsInput | number | null
-    Department?: DepartmentUpdateOneWithoutSubjectsNestedInput
     enrollments?: EnrollmentUpdateManyWithoutSubjectNestedInput
     announcements?: FacultyAnnouncementUpdateManyWithoutSubjectNestedInput
-    timetable?: ScheduleUpdateManyWithoutSubjectNestedInput
     faculty_subjects?: FacultySubjectUpdateManyWithoutSubjectNestedInput
+    Department?: DepartmentUpdateOneWithoutSubjectsNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUpdateManyWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUpdateManyWithoutSubjectsNestedInput
+    timetable?: ScheduleUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutAttendanceInput = {
@@ -25721,22 +32227,26 @@ export namespace Prisma {
     credits?: NullableIntFieldUpdateOperationsInput | number | null
     enrollments?: EnrollmentUncheckedUpdateManyWithoutSubjectNestedInput
     announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutSubjectNestedInput
-    timetable?: ScheduleUncheckedUpdateManyWithoutSubjectNestedInput
     faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutSubjectNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedUpdateManyWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUncheckedUpdateManyWithoutSubjectsNestedInput
+    timetable?: ScheduleUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type FacultyCreateWithoutFacultyAttendanceInput = {
     faculty_name: string
     email?: string | null
     is_timetable_admin?: boolean | null
-    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     attendance?: AttendanceCreateNestedManyWithoutFacultyInput
+    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     User?: UserCreateNestedOneWithoutFacultyInput
     announcements?: FacultyAnnouncementCreateNestedManyWithoutFacultyInput
     leaves?: FacultyLeaveCreateNestedManyWithoutFacultyInput
     notes?: FacultyNoteCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyUncheckedCreateWithoutFacultyAttendanceInput = {
@@ -25752,6 +32262,8 @@ export namespace Prisma {
     notes?: FacultyNoteUncheckedCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyCreateOrConnectWithoutFacultyAttendanceInput = {
@@ -25774,14 +32286,16 @@ export namespace Prisma {
     faculty_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     is_timetable_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     attendance?: AttendanceUpdateManyWithoutFacultyNestedInput
+    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     User?: UserUpdateOneWithoutFacultyNestedInput
     announcements?: FacultyAnnouncementUpdateManyWithoutFacultyNestedInput
     leaves?: FacultyLeaveUpdateManyWithoutFacultyNestedInput
     notes?: FacultyNoteUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyUncheckedUpdateWithoutFacultyAttendanceInput = {
@@ -25797,20 +32311,24 @@ export namespace Prisma {
     notes?: FacultyNoteUncheckedUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyCreateWithoutLeavesInput = {
     faculty_name: string
     email?: string | null
     is_timetable_admin?: boolean | null
-    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     attendance?: AttendanceCreateNestedManyWithoutFacultyInput
+    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     User?: UserCreateNestedOneWithoutFacultyInput
     announcements?: FacultyAnnouncementCreateNestedManyWithoutFacultyInput
     facultyAttendance?: FacultyAttendanceCreateNestedManyWithoutFacultyInput
     notes?: FacultyNoteCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyUncheckedCreateWithoutLeavesInput = {
@@ -25826,6 +32344,8 @@ export namespace Prisma {
     notes?: FacultyNoteUncheckedCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyCreateOrConnectWithoutLeavesInput = {
@@ -25848,14 +32368,16 @@ export namespace Prisma {
     faculty_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     is_timetable_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     attendance?: AttendanceUpdateManyWithoutFacultyNestedInput
+    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     User?: UserUpdateOneWithoutFacultyNestedInput
     announcements?: FacultyAnnouncementUpdateManyWithoutFacultyNestedInput
     facultyAttendance?: FacultyAttendanceUpdateManyWithoutFacultyNestedInput
     notes?: FacultyNoteUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyUncheckedUpdateWithoutLeavesInput = {
@@ -25871,20 +32393,24 @@ export namespace Prisma {
     notes?: FacultyNoteUncheckedUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyCreateWithoutNotesInput = {
     faculty_name: string
     email?: string | null
     is_timetable_admin?: boolean | null
-    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     attendance?: AttendanceCreateNestedManyWithoutFacultyInput
+    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     User?: UserCreateNestedOneWithoutFacultyInput
     announcements?: FacultyAnnouncementCreateNestedManyWithoutFacultyInput
     facultyAttendance?: FacultyAttendanceCreateNestedManyWithoutFacultyInput
     leaves?: FacultyLeaveCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyUncheckedCreateWithoutNotesInput = {
@@ -25900,6 +32426,8 @@ export namespace Prisma {
     leaves?: FacultyLeaveUncheckedCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyCreateOrConnectWithoutNotesInput = {
@@ -25922,14 +32450,16 @@ export namespace Prisma {
     faculty_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     is_timetable_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     attendance?: AttendanceUpdateManyWithoutFacultyNestedInput
+    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     User?: UserUpdateOneWithoutFacultyNestedInput
     announcements?: FacultyAnnouncementUpdateManyWithoutFacultyNestedInput
     facultyAttendance?: FacultyAttendanceUpdateManyWithoutFacultyNestedInput
     leaves?: FacultyLeaveUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyUncheckedUpdateWithoutNotesInput = {
@@ -25945,23 +32475,27 @@ export namespace Prisma {
     leaves?: FacultyLeaveUncheckedUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutFacultyNestedInput
   }
 
   export type DepartmentCreateWithoutAnnouncementsInput = {
     dept_name: string
     faculty?: FacultyCreateNestedManyWithoutDepartmentInput
+    uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutDepartmentInput
     students?: StudentCreateNestedManyWithoutDepartmentInput
     subjects?: SubjectCreateNestedManyWithoutDepartmentInput
-    uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutDepartmentInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutDepartmentsInput
   }
 
   export type DepartmentUncheckedCreateWithoutAnnouncementsInput = {
     dept_id?: number
     dept_name: string
     faculty?: FacultyUncheckedCreateNestedManyWithoutDepartmentInput
+    uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutDepartmentInput
     students?: StudentUncheckedCreateNestedManyWithoutDepartmentInput
     subjects?: SubjectUncheckedCreateNestedManyWithoutDepartmentInput
-    uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutDepartmentInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutDepartmentsInput
   }
 
   export type DepartmentCreateOrConnectWithoutAnnouncementsInput = {
@@ -25973,14 +32507,16 @@ export namespace Prisma {
     faculty_name: string
     email?: string | null
     is_timetable_admin?: boolean | null
-    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     attendance?: AttendanceCreateNestedManyWithoutFacultyInput
+    Department?: DepartmentCreateNestedOneWithoutFacultyInput
     User?: UserCreateNestedOneWithoutFacultyInput
     facultyAttendance?: FacultyAttendanceCreateNestedManyWithoutFacultyInput
     leaves?: FacultyLeaveCreateNestedManyWithoutFacultyInput
     notes?: FacultyNoteCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyUncheckedCreateWithoutAnnouncementsInput = {
@@ -25996,6 +32532,8 @@ export namespace Prisma {
     notes?: FacultyNoteUncheckedCreateNestedManyWithoutFacultyInput
     faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutFacultyInput
     uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutFacultyInput
   }
 
   export type FacultyCreateOrConnectWithoutAnnouncementsInput = {
@@ -26008,11 +32546,13 @@ export namespace Prisma {
     subject_name: string
     semester?: string | null
     credits?: number | null
-    Department?: DepartmentCreateNestedOneWithoutSubjectsInput
     attendance?: AttendanceCreateNestedManyWithoutSubjectInput
     enrollments?: EnrollmentCreateNestedManyWithoutSubjectInput
-    timetable?: ScheduleCreateNestedManyWithoutSubjectInput
     faculty_subjects?: FacultySubjectCreateNestedManyWithoutSubjectInput
+    Department?: DepartmentCreateNestedOneWithoutSubjectsInput
+    syllabus_subtopics?: syllabus_subtopicsCreateNestedManyWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsCreateNestedManyWithoutSubjectsInput
+    timetable?: ScheduleCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectUncheckedCreateWithoutAnnouncementsInput = {
@@ -26024,8 +32564,10 @@ export namespace Prisma {
     credits?: number | null
     attendance?: AttendanceUncheckedCreateNestedManyWithoutSubjectInput
     enrollments?: EnrollmentUncheckedCreateNestedManyWithoutSubjectInput
-    timetable?: ScheduleUncheckedCreateNestedManyWithoutSubjectInput
     faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutSubjectInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedCreateNestedManyWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsUncheckedCreateNestedManyWithoutSubjectsInput
+    timetable?: ScheduleUncheckedCreateNestedManyWithoutSubjectInput
   }
 
   export type SubjectCreateOrConnectWithoutAnnouncementsInput = {
@@ -26047,18 +32589,20 @@ export namespace Prisma {
   export type DepartmentUpdateWithoutAnnouncementsInput = {
     dept_name?: StringFieldUpdateOperationsInput | string
     faculty?: FacultyUpdateManyWithoutDepartmentNestedInput
+    uploaded_schedules?: UploadedScheduleUpdateManyWithoutDepartmentNestedInput
     students?: StudentUpdateManyWithoutDepartmentNestedInput
     subjects?: SubjectUpdateManyWithoutDepartmentNestedInput
-    uploaded_schedules?: UploadedScheduleUpdateManyWithoutDepartmentNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutDepartmentsNestedInput
   }
 
   export type DepartmentUncheckedUpdateWithoutAnnouncementsInput = {
     dept_id?: IntFieldUpdateOperationsInput | number
     dept_name?: StringFieldUpdateOperationsInput | string
     faculty?: FacultyUncheckedUpdateManyWithoutDepartmentNestedInput
+    uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutDepartmentNestedInput
     students?: StudentUncheckedUpdateManyWithoutDepartmentNestedInput
     subjects?: SubjectUncheckedUpdateManyWithoutDepartmentNestedInput
-    uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutDepartmentNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutDepartmentsNestedInput
   }
 
   export type FacultyUpsertWithoutAnnouncementsInput = {
@@ -26076,14 +32620,16 @@ export namespace Prisma {
     faculty_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     is_timetable_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     attendance?: AttendanceUpdateManyWithoutFacultyNestedInput
+    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     User?: UserUpdateOneWithoutFacultyNestedInput
     facultyAttendance?: FacultyAttendanceUpdateManyWithoutFacultyNestedInput
     leaves?: FacultyLeaveUpdateManyWithoutFacultyNestedInput
     notes?: FacultyNoteUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyUncheckedUpdateWithoutAnnouncementsInput = {
@@ -26099,6 +32645,8 @@ export namespace Prisma {
     notes?: FacultyNoteUncheckedUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutFacultyNestedInput
   }
 
   export type SubjectUpsertWithoutAnnouncementsInput = {
@@ -26117,11 +32665,13 @@ export namespace Prisma {
     subject_name?: StringFieldUpdateOperationsInput | string
     semester?: NullableStringFieldUpdateOperationsInput | string | null
     credits?: NullableIntFieldUpdateOperationsInput | number | null
-    Department?: DepartmentUpdateOneWithoutSubjectsNestedInput
     attendance?: AttendanceUpdateManyWithoutSubjectNestedInput
     enrollments?: EnrollmentUpdateManyWithoutSubjectNestedInput
-    timetable?: ScheduleUpdateManyWithoutSubjectNestedInput
     faculty_subjects?: FacultySubjectUpdateManyWithoutSubjectNestedInput
+    Department?: DepartmentUpdateOneWithoutSubjectsNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUpdateManyWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUpdateManyWithoutSubjectsNestedInput
+    timetable?: ScheduleUpdateManyWithoutSubjectNestedInput
   }
 
   export type SubjectUncheckedUpdateWithoutAnnouncementsInput = {
@@ -26133,8 +32683,10 @@ export namespace Prisma {
     credits?: NullableIntFieldUpdateOperationsInput | number | null
     attendance?: AttendanceUncheckedUpdateManyWithoutSubjectNestedInput
     enrollments?: EnrollmentUncheckedUpdateManyWithoutSubjectNestedInput
-    timetable?: ScheduleUncheckedUpdateManyWithoutSubjectNestedInput
     faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutSubjectNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedUpdateManyWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUncheckedUpdateManyWithoutSubjectsNestedInput
+    timetable?: ScheduleUncheckedUpdateManyWithoutSubjectNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -26195,12 +32747,686 @@ export namespace Prisma {
     students?: StudentUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type FacultyCreateWithoutSyllabus_completionsInput = {
+    faculty_name: string
+    email?: string | null
+    is_timetable_admin?: boolean | null
+    attendance?: AttendanceCreateNestedManyWithoutFacultyInput
+    Department?: DepartmentCreateNestedOneWithoutFacultyInput
+    User?: UserCreateNestedOneWithoutFacultyInput
+    announcements?: FacultyAnnouncementCreateNestedManyWithoutFacultyInput
+    facultyAttendance?: FacultyAttendanceCreateNestedManyWithoutFacultyInput
+    leaves?: FacultyLeaveCreateNestedManyWithoutFacultyInput
+    notes?: FacultyNoteCreateNestedManyWithoutFacultyInput
+    faculty_subjects?: FacultySubjectCreateNestedManyWithoutFacultyInput
+    uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesCreateNestedManyWithoutFacultyInput
+  }
+
+  export type FacultyUncheckedCreateWithoutSyllabus_completionsInput = {
+    faculty_id?: number
+    user_id?: number | null
+    faculty_name: string
+    email?: string | null
+    dept_id?: number | null
+    is_timetable_admin?: boolean | null
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutFacultyInput
+    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutFacultyInput
+    facultyAttendance?: FacultyAttendanceUncheckedCreateNestedManyWithoutFacultyInput
+    leaves?: FacultyLeaveUncheckedCreateNestedManyWithoutFacultyInput
+    notes?: FacultyNoteUncheckedCreateNestedManyWithoutFacultyInput
+    faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutFacultyInput
+    uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_packages?: syllabus_packagesUncheckedCreateNestedManyWithoutFacultyInput
+  }
+
+  export type FacultyCreateOrConnectWithoutSyllabus_completionsInput = {
+    where: FacultyWhereUniqueInput
+    create: XOR<FacultyCreateWithoutSyllabus_completionsInput, FacultyUncheckedCreateWithoutSyllabus_completionsInput>
+  }
+
+  export type syllabus_subtopicsCreateWithoutSyllabus_completionsInput = {
+    subtopic_index: number
+    title: string
+    details?: string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+    subjects: SubjectCreateNestedOneWithoutSyllabus_subtopicsInput
+    syllabus_units: syllabus_unitsCreateNestedOneWithoutSyllabus_subtopicsInput
+  }
+
+  export type syllabus_subtopicsUncheckedCreateWithoutSyllabus_completionsInput = {
+    subtopic_id?: number
+    unit_id: number
+    subject_id: number
+    subtopic_index: number
+    title: string
+    details?: string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type syllabus_subtopicsCreateOrConnectWithoutSyllabus_completionsInput = {
+    where: syllabus_subtopicsWhereUniqueInput
+    create: XOR<syllabus_subtopicsCreateWithoutSyllabus_completionsInput, syllabus_subtopicsUncheckedCreateWithoutSyllabus_completionsInput>
+  }
+
+  export type FacultyUpsertWithoutSyllabus_completionsInput = {
+    update: XOR<FacultyUpdateWithoutSyllabus_completionsInput, FacultyUncheckedUpdateWithoutSyllabus_completionsInput>
+    create: XOR<FacultyCreateWithoutSyllabus_completionsInput, FacultyUncheckedCreateWithoutSyllabus_completionsInput>
+    where?: FacultyWhereInput
+  }
+
+  export type FacultyUpdateToOneWithWhereWithoutSyllabus_completionsInput = {
+    where?: FacultyWhereInput
+    data: XOR<FacultyUpdateWithoutSyllabus_completionsInput, FacultyUncheckedUpdateWithoutSyllabus_completionsInput>
+  }
+
+  export type FacultyUpdateWithoutSyllabus_completionsInput = {
+    faculty_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    is_timetable_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    attendance?: AttendanceUpdateManyWithoutFacultyNestedInput
+    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
+    User?: UserUpdateOneWithoutFacultyNestedInput
+    announcements?: FacultyAnnouncementUpdateManyWithoutFacultyNestedInput
+    facultyAttendance?: FacultyAttendanceUpdateManyWithoutFacultyNestedInput
+    leaves?: FacultyLeaveUpdateManyWithoutFacultyNestedInput
+    notes?: FacultyNoteUpdateManyWithoutFacultyNestedInput
+    faculty_subjects?: FacultySubjectUpdateManyWithoutFacultyNestedInput
+    uploaded_schedules?: UploadedScheduleUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutFacultyNestedInput
+  }
+
+  export type FacultyUncheckedUpdateWithoutSyllabus_completionsInput = {
+    faculty_id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    faculty_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    dept_id?: NullableIntFieldUpdateOperationsInput | number | null
+    is_timetable_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    attendance?: AttendanceUncheckedUpdateManyWithoutFacultyNestedInput
+    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutFacultyNestedInput
+    facultyAttendance?: FacultyAttendanceUncheckedUpdateManyWithoutFacultyNestedInput
+    leaves?: FacultyLeaveUncheckedUpdateManyWithoutFacultyNestedInput
+    notes?: FacultyNoteUncheckedUpdateManyWithoutFacultyNestedInput
+    faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutFacultyNestedInput
+    uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutFacultyNestedInput
+  }
+
+  export type syllabus_subtopicsUpsertWithoutSyllabus_completionsInput = {
+    update: XOR<syllabus_subtopicsUpdateWithoutSyllabus_completionsInput, syllabus_subtopicsUncheckedUpdateWithoutSyllabus_completionsInput>
+    create: XOR<syllabus_subtopicsCreateWithoutSyllabus_completionsInput, syllabus_subtopicsUncheckedCreateWithoutSyllabus_completionsInput>
+    where?: syllabus_subtopicsWhereInput
+  }
+
+  export type syllabus_subtopicsUpdateToOneWithWhereWithoutSyllabus_completionsInput = {
+    where?: syllabus_subtopicsWhereInput
+    data: XOR<syllabus_subtopicsUpdateWithoutSyllabus_completionsInput, syllabus_subtopicsUncheckedUpdateWithoutSyllabus_completionsInput>
+  }
+
+  export type syllabus_subtopicsUpdateWithoutSyllabus_completionsInput = {
+    subtopic_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+    subjects?: SubjectUpdateOneRequiredWithoutSyllabus_subtopicsNestedInput
+    syllabus_units?: syllabus_unitsUpdateOneRequiredWithoutSyllabus_subtopicsNestedInput
+  }
+
+  export type syllabus_subtopicsUncheckedUpdateWithoutSyllabus_completionsInput = {
+    subtopic_id?: IntFieldUpdateOperationsInput | number
+    unit_id?: IntFieldUpdateOperationsInput | number
+    subject_id?: IntFieldUpdateOperationsInput | number
+    subtopic_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type DepartmentCreateWithoutSyllabus_packagesInput = {
+    dept_name: string
+    faculty?: FacultyCreateNestedManyWithoutDepartmentInput
+    announcements?: FacultyAnnouncementCreateNestedManyWithoutDepartmentInput
+    uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutDepartmentInput
+    students?: StudentCreateNestedManyWithoutDepartmentInput
+    subjects?: SubjectCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentUncheckedCreateWithoutSyllabus_packagesInput = {
+    dept_id?: number
+    dept_name: string
+    faculty?: FacultyUncheckedCreateNestedManyWithoutDepartmentInput
+    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutDepartmentInput
+    uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutDepartmentInput
+    students?: StudentUncheckedCreateNestedManyWithoutDepartmentInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentCreateOrConnectWithoutSyllabus_packagesInput = {
+    where: DepartmentWhereUniqueInput
+    create: XOR<DepartmentCreateWithoutSyllabus_packagesInput, DepartmentUncheckedCreateWithoutSyllabus_packagesInput>
+  }
+
+  export type FacultyCreateWithoutSyllabus_packagesInput = {
+    faculty_name: string
+    email?: string | null
+    is_timetable_admin?: boolean | null
+    attendance?: AttendanceCreateNestedManyWithoutFacultyInput
+    Department?: DepartmentCreateNestedOneWithoutFacultyInput
+    User?: UserCreateNestedOneWithoutFacultyInput
+    announcements?: FacultyAnnouncementCreateNestedManyWithoutFacultyInput
+    facultyAttendance?: FacultyAttendanceCreateNestedManyWithoutFacultyInput
+    leaves?: FacultyLeaveCreateNestedManyWithoutFacultyInput
+    notes?: FacultyNoteCreateNestedManyWithoutFacultyInput
+    faculty_subjects?: FacultySubjectCreateNestedManyWithoutFacultyInput
+    uploaded_schedules?: UploadedScheduleCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsCreateNestedManyWithoutFacultyInput
+  }
+
+  export type FacultyUncheckedCreateWithoutSyllabus_packagesInput = {
+    faculty_id?: number
+    user_id?: number | null
+    faculty_name: string
+    email?: string | null
+    dept_id?: number | null
+    is_timetable_admin?: boolean | null
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutFacultyInput
+    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutFacultyInput
+    facultyAttendance?: FacultyAttendanceUncheckedCreateNestedManyWithoutFacultyInput
+    leaves?: FacultyLeaveUncheckedCreateNestedManyWithoutFacultyInput
+    notes?: FacultyNoteUncheckedCreateNestedManyWithoutFacultyInput
+    faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutFacultyInput
+    uploaded_schedules?: UploadedScheduleUncheckedCreateNestedManyWithoutFacultyInput
+    syllabus_completions?: syllabus_completionsUncheckedCreateNestedManyWithoutFacultyInput
+  }
+
+  export type FacultyCreateOrConnectWithoutSyllabus_packagesInput = {
+    where: FacultyWhereUniqueInput
+    create: XOR<FacultyCreateWithoutSyllabus_packagesInput, FacultyUncheckedCreateWithoutSyllabus_packagesInput>
+  }
+
+  export type syllabus_unitsCreateWithoutSyllabus_packagesInput = {
+    unit_index: number
+    title: string
+    description?: string | null
+    syllabus_subtopics?: syllabus_subtopicsCreateNestedManyWithoutSyllabus_unitsInput
+    subjects: SubjectCreateNestedOneWithoutSyllabus_unitsInput
+  }
+
+  export type syllabus_unitsUncheckedCreateWithoutSyllabus_packagesInput = {
+    unit_id?: number
+    subject_id: number
+    unit_index: number
+    title: string
+    description?: string | null
+    syllabus_subtopics?: syllabus_subtopicsUncheckedCreateNestedManyWithoutSyllabus_unitsInput
+  }
+
+  export type syllabus_unitsCreateOrConnectWithoutSyllabus_packagesInput = {
+    where: syllabus_unitsWhereUniqueInput
+    create: XOR<syllabus_unitsCreateWithoutSyllabus_packagesInput, syllabus_unitsUncheckedCreateWithoutSyllabus_packagesInput>
+  }
+
+  export type syllabus_unitsCreateManySyllabus_packagesInputEnvelope = {
+    data: syllabus_unitsCreateManySyllabus_packagesInput | syllabus_unitsCreateManySyllabus_packagesInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DepartmentUpsertWithoutSyllabus_packagesInput = {
+    update: XOR<DepartmentUpdateWithoutSyllabus_packagesInput, DepartmentUncheckedUpdateWithoutSyllabus_packagesInput>
+    create: XOR<DepartmentCreateWithoutSyllabus_packagesInput, DepartmentUncheckedCreateWithoutSyllabus_packagesInput>
+    where?: DepartmentWhereInput
+  }
+
+  export type DepartmentUpdateToOneWithWhereWithoutSyllabus_packagesInput = {
+    where?: DepartmentWhereInput
+    data: XOR<DepartmentUpdateWithoutSyllabus_packagesInput, DepartmentUncheckedUpdateWithoutSyllabus_packagesInput>
+  }
+
+  export type DepartmentUpdateWithoutSyllabus_packagesInput = {
+    dept_name?: StringFieldUpdateOperationsInput | string
+    faculty?: FacultyUpdateManyWithoutDepartmentNestedInput
+    announcements?: FacultyAnnouncementUpdateManyWithoutDepartmentNestedInput
+    uploaded_schedules?: UploadedScheduleUpdateManyWithoutDepartmentNestedInput
+    students?: StudentUpdateManyWithoutDepartmentNestedInput
+    subjects?: SubjectUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type DepartmentUncheckedUpdateWithoutSyllabus_packagesInput = {
+    dept_id?: IntFieldUpdateOperationsInput | number
+    dept_name?: StringFieldUpdateOperationsInput | string
+    faculty?: FacultyUncheckedUpdateManyWithoutDepartmentNestedInput
+    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutDepartmentNestedInput
+    uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutDepartmentNestedInput
+    students?: StudentUncheckedUpdateManyWithoutDepartmentNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type FacultyUpsertWithoutSyllabus_packagesInput = {
+    update: XOR<FacultyUpdateWithoutSyllabus_packagesInput, FacultyUncheckedUpdateWithoutSyllabus_packagesInput>
+    create: XOR<FacultyCreateWithoutSyllabus_packagesInput, FacultyUncheckedCreateWithoutSyllabus_packagesInput>
+    where?: FacultyWhereInput
+  }
+
+  export type FacultyUpdateToOneWithWhereWithoutSyllabus_packagesInput = {
+    where?: FacultyWhereInput
+    data: XOR<FacultyUpdateWithoutSyllabus_packagesInput, FacultyUncheckedUpdateWithoutSyllabus_packagesInput>
+  }
+
+  export type FacultyUpdateWithoutSyllabus_packagesInput = {
+    faculty_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    is_timetable_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    attendance?: AttendanceUpdateManyWithoutFacultyNestedInput
+    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
+    User?: UserUpdateOneWithoutFacultyNestedInput
+    announcements?: FacultyAnnouncementUpdateManyWithoutFacultyNestedInput
+    facultyAttendance?: FacultyAttendanceUpdateManyWithoutFacultyNestedInput
+    leaves?: FacultyLeaveUpdateManyWithoutFacultyNestedInput
+    notes?: FacultyNoteUpdateManyWithoutFacultyNestedInput
+    faculty_subjects?: FacultySubjectUpdateManyWithoutFacultyNestedInput
+    uploaded_schedules?: UploadedScheduleUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUpdateManyWithoutFacultyNestedInput
+  }
+
+  export type FacultyUncheckedUpdateWithoutSyllabus_packagesInput = {
+    faculty_id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    faculty_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    dept_id?: NullableIntFieldUpdateOperationsInput | number | null
+    is_timetable_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    attendance?: AttendanceUncheckedUpdateManyWithoutFacultyNestedInput
+    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutFacultyNestedInput
+    facultyAttendance?: FacultyAttendanceUncheckedUpdateManyWithoutFacultyNestedInput
+    leaves?: FacultyLeaveUncheckedUpdateManyWithoutFacultyNestedInput
+    notes?: FacultyNoteUncheckedUpdateManyWithoutFacultyNestedInput
+    faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutFacultyNestedInput
+    uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUncheckedUpdateManyWithoutFacultyNestedInput
+  }
+
+  export type syllabus_unitsUpsertWithWhereUniqueWithoutSyllabus_packagesInput = {
+    where: syllabus_unitsWhereUniqueInput
+    update: XOR<syllabus_unitsUpdateWithoutSyllabus_packagesInput, syllabus_unitsUncheckedUpdateWithoutSyllabus_packagesInput>
+    create: XOR<syllabus_unitsCreateWithoutSyllabus_packagesInput, syllabus_unitsUncheckedCreateWithoutSyllabus_packagesInput>
+  }
+
+  export type syllabus_unitsUpdateWithWhereUniqueWithoutSyllabus_packagesInput = {
+    where: syllabus_unitsWhereUniqueInput
+    data: XOR<syllabus_unitsUpdateWithoutSyllabus_packagesInput, syllabus_unitsUncheckedUpdateWithoutSyllabus_packagesInput>
+  }
+
+  export type syllabus_unitsUpdateManyWithWhereWithoutSyllabus_packagesInput = {
+    where: syllabus_unitsScalarWhereInput
+    data: XOR<syllabus_unitsUpdateManyMutationInput, syllabus_unitsUncheckedUpdateManyWithoutSyllabus_packagesInput>
+  }
+
+  export type syllabus_completionsCreateWithoutSyllabus_subtopicsInput = {
+    completed_at?: Date | string | null
+    faculty: FacultyCreateNestedOneWithoutSyllabus_completionsInput
+  }
+
+  export type syllabus_completionsUncheckedCreateWithoutSyllabus_subtopicsInput = {
+    completion_id?: number
+    faculty_id: number
+    completed_at?: Date | string | null
+  }
+
+  export type syllabus_completionsCreateOrConnectWithoutSyllabus_subtopicsInput = {
+    where: syllabus_completionsWhereUniqueInput
+    create: XOR<syllabus_completionsCreateWithoutSyllabus_subtopicsInput, syllabus_completionsUncheckedCreateWithoutSyllabus_subtopicsInput>
+  }
+
+  export type syllabus_completionsCreateManySyllabus_subtopicsInputEnvelope = {
+    data: syllabus_completionsCreateManySyllabus_subtopicsInput | syllabus_completionsCreateManySyllabus_subtopicsInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SubjectCreateWithoutSyllabus_subtopicsInput = {
+    subject_code: string
+    subject_name: string
+    semester?: string | null
+    credits?: number | null
+    attendance?: AttendanceCreateNestedManyWithoutSubjectInput
+    enrollments?: EnrollmentCreateNestedManyWithoutSubjectInput
+    announcements?: FacultyAnnouncementCreateNestedManyWithoutSubjectInput
+    faculty_subjects?: FacultySubjectCreateNestedManyWithoutSubjectInput
+    Department?: DepartmentCreateNestedOneWithoutSubjectsInput
+    syllabus_units?: syllabus_unitsCreateNestedManyWithoutSubjectsInput
+    timetable?: ScheduleCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateWithoutSyllabus_subtopicsInput = {
+    subject_id?: number
+    subject_code: string
+    subject_name: string
+    semester?: string | null
+    dept_id?: number | null
+    credits?: number | null
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutSubjectInput
+    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutSubjectInput
+    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutSubjectInput
+    faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutSubjectInput
+    syllabus_units?: syllabus_unitsUncheckedCreateNestedManyWithoutSubjectsInput
+    timetable?: ScheduleUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectCreateOrConnectWithoutSyllabus_subtopicsInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutSyllabus_subtopicsInput, SubjectUncheckedCreateWithoutSyllabus_subtopicsInput>
+  }
+
+  export type syllabus_unitsCreateWithoutSyllabus_subtopicsInput = {
+    unit_index: number
+    title: string
+    description?: string | null
+    syllabus_packages: syllabus_packagesCreateNestedOneWithoutSyllabus_unitsInput
+    subjects: SubjectCreateNestedOneWithoutSyllabus_unitsInput
+  }
+
+  export type syllabus_unitsUncheckedCreateWithoutSyllabus_subtopicsInput = {
+    unit_id?: number
+    package_id: number
+    subject_id: number
+    unit_index: number
+    title: string
+    description?: string | null
+  }
+
+  export type syllabus_unitsCreateOrConnectWithoutSyllabus_subtopicsInput = {
+    where: syllabus_unitsWhereUniqueInput
+    create: XOR<syllabus_unitsCreateWithoutSyllabus_subtopicsInput, syllabus_unitsUncheckedCreateWithoutSyllabus_subtopicsInput>
+  }
+
+  export type syllabus_completionsUpsertWithWhereUniqueWithoutSyllabus_subtopicsInput = {
+    where: syllabus_completionsWhereUniqueInput
+    update: XOR<syllabus_completionsUpdateWithoutSyllabus_subtopicsInput, syllabus_completionsUncheckedUpdateWithoutSyllabus_subtopicsInput>
+    create: XOR<syllabus_completionsCreateWithoutSyllabus_subtopicsInput, syllabus_completionsUncheckedCreateWithoutSyllabus_subtopicsInput>
+  }
+
+  export type syllabus_completionsUpdateWithWhereUniqueWithoutSyllabus_subtopicsInput = {
+    where: syllabus_completionsWhereUniqueInput
+    data: XOR<syllabus_completionsUpdateWithoutSyllabus_subtopicsInput, syllabus_completionsUncheckedUpdateWithoutSyllabus_subtopicsInput>
+  }
+
+  export type syllabus_completionsUpdateManyWithWhereWithoutSyllabus_subtopicsInput = {
+    where: syllabus_completionsScalarWhereInput
+    data: XOR<syllabus_completionsUpdateManyMutationInput, syllabus_completionsUncheckedUpdateManyWithoutSyllabus_subtopicsInput>
+  }
+
+  export type SubjectUpsertWithoutSyllabus_subtopicsInput = {
+    update: XOR<SubjectUpdateWithoutSyllabus_subtopicsInput, SubjectUncheckedUpdateWithoutSyllabus_subtopicsInput>
+    create: XOR<SubjectCreateWithoutSyllabus_subtopicsInput, SubjectUncheckedCreateWithoutSyllabus_subtopicsInput>
+    where?: SubjectWhereInput
+  }
+
+  export type SubjectUpdateToOneWithWhereWithoutSyllabus_subtopicsInput = {
+    where?: SubjectWhereInput
+    data: XOR<SubjectUpdateWithoutSyllabus_subtopicsInput, SubjectUncheckedUpdateWithoutSyllabus_subtopicsInput>
+  }
+
+  export type SubjectUpdateWithoutSyllabus_subtopicsInput = {
+    subject_code?: StringFieldUpdateOperationsInput | string
+    subject_name?: StringFieldUpdateOperationsInput | string
+    semester?: NullableStringFieldUpdateOperationsInput | string | null
+    credits?: NullableIntFieldUpdateOperationsInput | number | null
+    attendance?: AttendanceUpdateManyWithoutSubjectNestedInput
+    enrollments?: EnrollmentUpdateManyWithoutSubjectNestedInput
+    announcements?: FacultyAnnouncementUpdateManyWithoutSubjectNestedInput
+    faculty_subjects?: FacultySubjectUpdateManyWithoutSubjectNestedInput
+    Department?: DepartmentUpdateOneWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUpdateManyWithoutSubjectsNestedInput
+    timetable?: ScheduleUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateWithoutSyllabus_subtopicsInput = {
+    subject_id?: IntFieldUpdateOperationsInput | number
+    subject_code?: StringFieldUpdateOperationsInput | string
+    subject_name?: StringFieldUpdateOperationsInput | string
+    semester?: NullableStringFieldUpdateOperationsInput | string | null
+    dept_id?: NullableIntFieldUpdateOperationsInput | number | null
+    credits?: NullableIntFieldUpdateOperationsInput | number | null
+    attendance?: AttendanceUncheckedUpdateManyWithoutSubjectNestedInput
+    enrollments?: EnrollmentUncheckedUpdateManyWithoutSubjectNestedInput
+    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutSubjectNestedInput
+    faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutSubjectNestedInput
+    syllabus_units?: syllabus_unitsUncheckedUpdateManyWithoutSubjectsNestedInput
+    timetable?: ScheduleUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type syllabus_unitsUpsertWithoutSyllabus_subtopicsInput = {
+    update: XOR<syllabus_unitsUpdateWithoutSyllabus_subtopicsInput, syllabus_unitsUncheckedUpdateWithoutSyllabus_subtopicsInput>
+    create: XOR<syllabus_unitsCreateWithoutSyllabus_subtopicsInput, syllabus_unitsUncheckedCreateWithoutSyllabus_subtopicsInput>
+    where?: syllabus_unitsWhereInput
+  }
+
+  export type syllabus_unitsUpdateToOneWithWhereWithoutSyllabus_subtopicsInput = {
+    where?: syllabus_unitsWhereInput
+    data: XOR<syllabus_unitsUpdateWithoutSyllabus_subtopicsInput, syllabus_unitsUncheckedUpdateWithoutSyllabus_subtopicsInput>
+  }
+
+  export type syllabus_unitsUpdateWithoutSyllabus_subtopicsInput = {
+    unit_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    syllabus_packages?: syllabus_packagesUpdateOneRequiredWithoutSyllabus_unitsNestedInput
+    subjects?: SubjectUpdateOneRequiredWithoutSyllabus_unitsNestedInput
+  }
+
+  export type syllabus_unitsUncheckedUpdateWithoutSyllabus_subtopicsInput = {
+    unit_id?: IntFieldUpdateOperationsInput | number
+    package_id?: IntFieldUpdateOperationsInput | number
+    subject_id?: IntFieldUpdateOperationsInput | number
+    unit_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type syllabus_subtopicsCreateWithoutSyllabus_unitsInput = {
+    subtopic_index: number
+    title: string
+    details?: string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+    syllabus_completions?: syllabus_completionsCreateNestedManyWithoutSyllabus_subtopicsInput
+    subjects: SubjectCreateNestedOneWithoutSyllabus_subtopicsInput
+  }
+
+  export type syllabus_subtopicsUncheckedCreateWithoutSyllabus_unitsInput = {
+    subtopic_id?: number
+    subject_id: number
+    subtopic_index: number
+    title: string
+    details?: string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+    syllabus_completions?: syllabus_completionsUncheckedCreateNestedManyWithoutSyllabus_subtopicsInput
+  }
+
+  export type syllabus_subtopicsCreateOrConnectWithoutSyllabus_unitsInput = {
+    where: syllabus_subtopicsWhereUniqueInput
+    create: XOR<syllabus_subtopicsCreateWithoutSyllabus_unitsInput, syllabus_subtopicsUncheckedCreateWithoutSyllabus_unitsInput>
+  }
+
+  export type syllabus_subtopicsCreateManySyllabus_unitsInputEnvelope = {
+    data: syllabus_subtopicsCreateManySyllabus_unitsInput | syllabus_subtopicsCreateManySyllabus_unitsInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type syllabus_packagesCreateWithoutSyllabus_unitsInput = {
+    semester: string
+    uploaded_at?: Date | string | null
+    file_url: string
+    version?: string | null
+    is_active?: boolean | null
+    notes?: string | null
+    status?: string | null
+    error_msg?: string | null
+    departments: DepartmentCreateNestedOneWithoutSyllabus_packagesInput
+    faculty?: FacultyCreateNestedOneWithoutSyllabus_packagesInput
+  }
+
+  export type syllabus_packagesUncheckedCreateWithoutSyllabus_unitsInput = {
+    package_id?: number
+    dept_id: number
+    semester: string
+    uploaded_by?: number | null
+    uploaded_at?: Date | string | null
+    file_url: string
+    version?: string | null
+    is_active?: boolean | null
+    notes?: string | null
+    status?: string | null
+    error_msg?: string | null
+  }
+
+  export type syllabus_packagesCreateOrConnectWithoutSyllabus_unitsInput = {
+    where: syllabus_packagesWhereUniqueInput
+    create: XOR<syllabus_packagesCreateWithoutSyllabus_unitsInput, syllabus_packagesUncheckedCreateWithoutSyllabus_unitsInput>
+  }
+
+  export type SubjectCreateWithoutSyllabus_unitsInput = {
+    subject_code: string
+    subject_name: string
+    semester?: string | null
+    credits?: number | null
+    attendance?: AttendanceCreateNestedManyWithoutSubjectInput
+    enrollments?: EnrollmentCreateNestedManyWithoutSubjectInput
+    announcements?: FacultyAnnouncementCreateNestedManyWithoutSubjectInput
+    faculty_subjects?: FacultySubjectCreateNestedManyWithoutSubjectInput
+    Department?: DepartmentCreateNestedOneWithoutSubjectsInput
+    syllabus_subtopics?: syllabus_subtopicsCreateNestedManyWithoutSubjectsInput
+    timetable?: ScheduleCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectUncheckedCreateWithoutSyllabus_unitsInput = {
+    subject_id?: number
+    subject_code: string
+    subject_name: string
+    semester?: string | null
+    dept_id?: number | null
+    credits?: number | null
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutSubjectInput
+    enrollments?: EnrollmentUncheckedCreateNestedManyWithoutSubjectInput
+    announcements?: FacultyAnnouncementUncheckedCreateNestedManyWithoutSubjectInput
+    faculty_subjects?: FacultySubjectUncheckedCreateNestedManyWithoutSubjectInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedCreateNestedManyWithoutSubjectsInput
+    timetable?: ScheduleUncheckedCreateNestedManyWithoutSubjectInput
+  }
+
+  export type SubjectCreateOrConnectWithoutSyllabus_unitsInput = {
+    where: SubjectWhereUniqueInput
+    create: XOR<SubjectCreateWithoutSyllabus_unitsInput, SubjectUncheckedCreateWithoutSyllabus_unitsInput>
+  }
+
+  export type syllabus_subtopicsUpsertWithWhereUniqueWithoutSyllabus_unitsInput = {
+    where: syllabus_subtopicsWhereUniqueInput
+    update: XOR<syllabus_subtopicsUpdateWithoutSyllabus_unitsInput, syllabus_subtopicsUncheckedUpdateWithoutSyllabus_unitsInput>
+    create: XOR<syllabus_subtopicsCreateWithoutSyllabus_unitsInput, syllabus_subtopicsUncheckedCreateWithoutSyllabus_unitsInput>
+  }
+
+  export type syllabus_subtopicsUpdateWithWhereUniqueWithoutSyllabus_unitsInput = {
+    where: syllabus_subtopicsWhereUniqueInput
+    data: XOR<syllabus_subtopicsUpdateWithoutSyllabus_unitsInput, syllabus_subtopicsUncheckedUpdateWithoutSyllabus_unitsInput>
+  }
+
+  export type syllabus_subtopicsUpdateManyWithWhereWithoutSyllabus_unitsInput = {
+    where: syllabus_subtopicsScalarWhereInput
+    data: XOR<syllabus_subtopicsUpdateManyMutationInput, syllabus_subtopicsUncheckedUpdateManyWithoutSyllabus_unitsInput>
+  }
+
+  export type syllabus_packagesUpsertWithoutSyllabus_unitsInput = {
+    update: XOR<syllabus_packagesUpdateWithoutSyllabus_unitsInput, syllabus_packagesUncheckedUpdateWithoutSyllabus_unitsInput>
+    create: XOR<syllabus_packagesCreateWithoutSyllabus_unitsInput, syllabus_packagesUncheckedCreateWithoutSyllabus_unitsInput>
+    where?: syllabus_packagesWhereInput
+  }
+
+  export type syllabus_packagesUpdateToOneWithWhereWithoutSyllabus_unitsInput = {
+    where?: syllabus_packagesWhereInput
+    data: XOR<syllabus_packagesUpdateWithoutSyllabus_unitsInput, syllabus_packagesUncheckedUpdateWithoutSyllabus_unitsInput>
+  }
+
+  export type syllabus_packagesUpdateWithoutSyllabus_unitsInput = {
+    semester?: StringFieldUpdateOperationsInput | string
+    uploaded_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    file_url?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    error_msg?: NullableStringFieldUpdateOperationsInput | string | null
+    departments?: DepartmentUpdateOneRequiredWithoutSyllabus_packagesNestedInput
+    faculty?: FacultyUpdateOneWithoutSyllabus_packagesNestedInput
+  }
+
+  export type syllabus_packagesUncheckedUpdateWithoutSyllabus_unitsInput = {
+    package_id?: IntFieldUpdateOperationsInput | number
+    dept_id?: IntFieldUpdateOperationsInput | number
+    semester?: StringFieldUpdateOperationsInput | string
+    uploaded_by?: NullableIntFieldUpdateOperationsInput | number | null
+    uploaded_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    file_url?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    error_msg?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SubjectUpsertWithoutSyllabus_unitsInput = {
+    update: XOR<SubjectUpdateWithoutSyllabus_unitsInput, SubjectUncheckedUpdateWithoutSyllabus_unitsInput>
+    create: XOR<SubjectCreateWithoutSyllabus_unitsInput, SubjectUncheckedCreateWithoutSyllabus_unitsInput>
+    where?: SubjectWhereInput
+  }
+
+  export type SubjectUpdateToOneWithWhereWithoutSyllabus_unitsInput = {
+    where?: SubjectWhereInput
+    data: XOR<SubjectUpdateWithoutSyllabus_unitsInput, SubjectUncheckedUpdateWithoutSyllabus_unitsInput>
+  }
+
+  export type SubjectUpdateWithoutSyllabus_unitsInput = {
+    subject_code?: StringFieldUpdateOperationsInput | string
+    subject_name?: StringFieldUpdateOperationsInput | string
+    semester?: NullableStringFieldUpdateOperationsInput | string | null
+    credits?: NullableIntFieldUpdateOperationsInput | number | null
+    attendance?: AttendanceUpdateManyWithoutSubjectNestedInput
+    enrollments?: EnrollmentUpdateManyWithoutSubjectNestedInput
+    announcements?: FacultyAnnouncementUpdateManyWithoutSubjectNestedInput
+    faculty_subjects?: FacultySubjectUpdateManyWithoutSubjectNestedInput
+    Department?: DepartmentUpdateOneWithoutSubjectsNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUpdateManyWithoutSubjectsNestedInput
+    timetable?: ScheduleUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateWithoutSyllabus_unitsInput = {
+    subject_id?: IntFieldUpdateOperationsInput | number
+    subject_code?: StringFieldUpdateOperationsInput | string
+    subject_name?: StringFieldUpdateOperationsInput | string
+    semester?: NullableStringFieldUpdateOperationsInput | string | null
+    dept_id?: NullableIntFieldUpdateOperationsInput | number | null
+    credits?: NullableIntFieldUpdateOperationsInput | number | null
+    attendance?: AttendanceUncheckedUpdateManyWithoutSubjectNestedInput
+    enrollments?: EnrollmentUncheckedUpdateManyWithoutSubjectNestedInput
+    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutSubjectNestedInput
+    faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutSubjectNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedUpdateManyWithoutSubjectsNestedInput
+    timetable?: ScheduleUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
   export type FacultyCreateManyUserInput = {
     faculty_id?: number
     faculty_name: string
     email?: string | null
     dept_id?: number | null
     is_timetable_admin?: boolean | null
+  }
+
+  export type NotificationCreateManyUserInput = {
+    notification_id?: number
+    title: string
+    message: string
+    type: string
+    is_read?: boolean
+    created_at?: Date | string
   }
 
   export type StudentCreateManyUserInput = {
@@ -26213,27 +33439,20 @@ export namespace Prisma {
     dept_id?: number | null
   }
 
-  export type NotificationCreateManyUserInput = {
-    notification_id?: number
-    title: string
-    message: string
-    type: string
-    is_read?: boolean
-    created_at?: Date | string
-  }
-
   export type FacultyUpdateWithoutUserInput = {
     faculty_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     is_timetable_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     attendance?: AttendanceUpdateManyWithoutFacultyNestedInput
+    Department?: DepartmentUpdateOneWithoutFacultyNestedInput
     announcements?: FacultyAnnouncementUpdateManyWithoutFacultyNestedInput
     facultyAttendance?: FacultyAttendanceUpdateManyWithoutFacultyNestedInput
     leaves?: FacultyLeaveUpdateManyWithoutFacultyNestedInput
     notes?: FacultyNoteUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyUncheckedUpdateWithoutUserInput = {
@@ -26249,6 +33468,8 @@ export namespace Prisma {
     notes?: FacultyNoteUncheckedUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyUncheckedUpdateManyWithoutUserInput = {
@@ -26257,39 +33478,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     dept_id?: NullableIntFieldUpdateOperationsInput | number | null
     is_timetable_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
-  }
-
-  export type StudentUpdateWithoutUserInput = {
-    roll_no?: StringFieldUpdateOperationsInput | string
-    stud_name?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    semester?: NullableStringFieldUpdateOperationsInput | string | null
-    division?: NullableStringFieldUpdateOperationsInput | string | null
-    Department?: DepartmentUpdateOneWithoutStudentsNestedInput
-    attendance?: AttendanceUpdateManyWithoutStudentNestedInput
-    enrollments?: EnrollmentUpdateManyWithoutStudentNestedInput
-  }
-
-  export type StudentUncheckedUpdateWithoutUserInput = {
-    stud_id?: IntFieldUpdateOperationsInput | number
-    roll_no?: StringFieldUpdateOperationsInput | string
-    stud_name?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    semester?: NullableStringFieldUpdateOperationsInput | string | null
-    division?: NullableStringFieldUpdateOperationsInput | string | null
-    dept_id?: NullableIntFieldUpdateOperationsInput | number | null
-    attendance?: AttendanceUncheckedUpdateManyWithoutStudentNestedInput
-    enrollments?: EnrollmentUncheckedUpdateManyWithoutStudentNestedInput
-  }
-
-  export type StudentUncheckedUpdateManyWithoutUserInput = {
-    stud_id?: IntFieldUpdateOperationsInput | number
-    roll_no?: StringFieldUpdateOperationsInput | string
-    stud_name?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    semester?: NullableStringFieldUpdateOperationsInput | string | null
-    division?: NullableStringFieldUpdateOperationsInput | string | null
-    dept_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type NotificationUpdateWithoutUserInput = {
@@ -26318,30 +33506,45 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type StudentUpdateWithoutUserInput = {
+    roll_no?: StringFieldUpdateOperationsInput | string
+    stud_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    semester?: NullableStringFieldUpdateOperationsInput | string | null
+    division?: NullableStringFieldUpdateOperationsInput | string | null
+    attendance?: AttendanceUpdateManyWithoutStudentNestedInput
+    enrollments?: EnrollmentUpdateManyWithoutStudentNestedInput
+    Department?: DepartmentUpdateOneWithoutStudentsNestedInput
+  }
+
+  export type StudentUncheckedUpdateWithoutUserInput = {
+    stud_id?: IntFieldUpdateOperationsInput | number
+    roll_no?: StringFieldUpdateOperationsInput | string
+    stud_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    semester?: NullableStringFieldUpdateOperationsInput | string | null
+    division?: NullableStringFieldUpdateOperationsInput | string | null
+    dept_id?: NullableIntFieldUpdateOperationsInput | number | null
+    attendance?: AttendanceUncheckedUpdateManyWithoutStudentNestedInput
+    enrollments?: EnrollmentUncheckedUpdateManyWithoutStudentNestedInput
+  }
+
+  export type StudentUncheckedUpdateManyWithoutUserInput = {
+    stud_id?: IntFieldUpdateOperationsInput | number
+    roll_no?: StringFieldUpdateOperationsInput | string
+    stud_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    semester?: NullableStringFieldUpdateOperationsInput | string | null
+    division?: NullableStringFieldUpdateOperationsInput | string | null
+    dept_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
   export type FacultyCreateManyDepartmentInput = {
     faculty_id?: number
     user_id?: number | null
     faculty_name: string
     email?: string | null
     is_timetable_admin?: boolean | null
-  }
-
-  export type StudentCreateManyDepartmentInput = {
-    stud_id?: number
-    user_id?: number | null
-    roll_no: string
-    stud_name: string
-    email?: string | null
-    semester?: string | null
-    division?: string | null
-  }
-
-  export type SubjectCreateManyDepartmentInput = {
-    subject_id?: number
-    subject_code: string
-    subject_name: string
-    semester?: string | null
-    credits?: number | null
   }
 
   export type FacultyAnnouncementCreateManyDepartmentInput = {
@@ -26365,6 +33568,37 @@ export namespace Prisma {
     is_active?: boolean | null
   }
 
+  export type StudentCreateManyDepartmentInput = {
+    stud_id?: number
+    user_id?: number | null
+    roll_no: string
+    stud_name: string
+    email?: string | null
+    semester?: string | null
+    division?: string | null
+  }
+
+  export type SubjectCreateManyDepartmentInput = {
+    subject_id?: number
+    subject_code: string
+    subject_name: string
+    semester?: string | null
+    credits?: number | null
+  }
+
+  export type syllabus_packagesCreateManyDepartmentsInput = {
+    package_id?: number
+    semester: string
+    uploaded_by?: number | null
+    uploaded_at?: Date | string | null
+    file_url: string
+    version?: string | null
+    is_active?: boolean | null
+    notes?: string | null
+    status?: string | null
+    error_msg?: string | null
+  }
+
   export type FacultyUpdateWithoutDepartmentInput = {
     faculty_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26377,6 +33611,8 @@ export namespace Prisma {
     notes?: FacultyNoteUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyUncheckedUpdateWithoutDepartmentInput = {
@@ -26392,6 +33628,8 @@ export namespace Prisma {
     notes?: FacultyNoteUncheckedUpdateManyWithoutFacultyNestedInput
     faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutFacultyNestedInput
     uploaded_schedules?: UploadedScheduleUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_completions?: syllabus_completionsUncheckedUpdateManyWithoutFacultyNestedInput
+    syllabus_packages?: syllabus_packagesUncheckedUpdateManyWithoutFacultyNestedInput
   }
 
   export type FacultyUncheckedUpdateManyWithoutDepartmentInput = {
@@ -26400,72 +33638,6 @@ export namespace Prisma {
     faculty_name?: StringFieldUpdateOperationsInput | string
     email?: NullableStringFieldUpdateOperationsInput | string | null
     is_timetable_admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
-  }
-
-  export type StudentUpdateWithoutDepartmentInput = {
-    roll_no?: StringFieldUpdateOperationsInput | string
-    stud_name?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    semester?: NullableStringFieldUpdateOperationsInput | string | null
-    division?: NullableStringFieldUpdateOperationsInput | string | null
-    attendance?: AttendanceUpdateManyWithoutStudentNestedInput
-    enrollments?: EnrollmentUpdateManyWithoutStudentNestedInput
-    User?: UserUpdateOneWithoutStudentsNestedInput
-  }
-
-  export type StudentUncheckedUpdateWithoutDepartmentInput = {
-    stud_id?: IntFieldUpdateOperationsInput | number
-    user_id?: NullableIntFieldUpdateOperationsInput | number | null
-    roll_no?: StringFieldUpdateOperationsInput | string
-    stud_name?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    semester?: NullableStringFieldUpdateOperationsInput | string | null
-    division?: NullableStringFieldUpdateOperationsInput | string | null
-    attendance?: AttendanceUncheckedUpdateManyWithoutStudentNestedInput
-    enrollments?: EnrollmentUncheckedUpdateManyWithoutStudentNestedInput
-  }
-
-  export type StudentUncheckedUpdateManyWithoutDepartmentInput = {
-    stud_id?: IntFieldUpdateOperationsInput | number
-    user_id?: NullableIntFieldUpdateOperationsInput | number | null
-    roll_no?: StringFieldUpdateOperationsInput | string
-    stud_name?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    semester?: NullableStringFieldUpdateOperationsInput | string | null
-    division?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type SubjectUpdateWithoutDepartmentInput = {
-    subject_code?: StringFieldUpdateOperationsInput | string
-    subject_name?: StringFieldUpdateOperationsInput | string
-    semester?: NullableStringFieldUpdateOperationsInput | string | null
-    credits?: NullableIntFieldUpdateOperationsInput | number | null
-    attendance?: AttendanceUpdateManyWithoutSubjectNestedInput
-    enrollments?: EnrollmentUpdateManyWithoutSubjectNestedInput
-    announcements?: FacultyAnnouncementUpdateManyWithoutSubjectNestedInput
-    timetable?: ScheduleUpdateManyWithoutSubjectNestedInput
-    faculty_subjects?: FacultySubjectUpdateManyWithoutSubjectNestedInput
-  }
-
-  export type SubjectUncheckedUpdateWithoutDepartmentInput = {
-    subject_id?: IntFieldUpdateOperationsInput | number
-    subject_code?: StringFieldUpdateOperationsInput | string
-    subject_name?: StringFieldUpdateOperationsInput | string
-    semester?: NullableStringFieldUpdateOperationsInput | string | null
-    credits?: NullableIntFieldUpdateOperationsInput | number | null
-    attendance?: AttendanceUncheckedUpdateManyWithoutSubjectNestedInput
-    enrollments?: EnrollmentUncheckedUpdateManyWithoutSubjectNestedInput
-    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutSubjectNestedInput
-    timetable?: ScheduleUncheckedUpdateManyWithoutSubjectNestedInput
-    faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutSubjectNestedInput
-  }
-
-  export type SubjectUncheckedUpdateManyWithoutDepartmentInput = {
-    subject_id?: IntFieldUpdateOperationsInput | number
-    subject_code?: StringFieldUpdateOperationsInput | string
-    subject_name?: StringFieldUpdateOperationsInput | string
-    semester?: NullableStringFieldUpdateOperationsInput | string | null
-    credits?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type FacultyAnnouncementUpdateWithoutDepartmentInput = {
@@ -26529,6 +33701,116 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
+  export type StudentUpdateWithoutDepartmentInput = {
+    roll_no?: StringFieldUpdateOperationsInput | string
+    stud_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    semester?: NullableStringFieldUpdateOperationsInput | string | null
+    division?: NullableStringFieldUpdateOperationsInput | string | null
+    attendance?: AttendanceUpdateManyWithoutStudentNestedInput
+    enrollments?: EnrollmentUpdateManyWithoutStudentNestedInput
+    User?: UserUpdateOneWithoutStudentsNestedInput
+  }
+
+  export type StudentUncheckedUpdateWithoutDepartmentInput = {
+    stud_id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    roll_no?: StringFieldUpdateOperationsInput | string
+    stud_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    semester?: NullableStringFieldUpdateOperationsInput | string | null
+    division?: NullableStringFieldUpdateOperationsInput | string | null
+    attendance?: AttendanceUncheckedUpdateManyWithoutStudentNestedInput
+    enrollments?: EnrollmentUncheckedUpdateManyWithoutStudentNestedInput
+  }
+
+  export type StudentUncheckedUpdateManyWithoutDepartmentInput = {
+    stud_id?: IntFieldUpdateOperationsInput | number
+    user_id?: NullableIntFieldUpdateOperationsInput | number | null
+    roll_no?: StringFieldUpdateOperationsInput | string
+    stud_name?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    semester?: NullableStringFieldUpdateOperationsInput | string | null
+    division?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SubjectUpdateWithoutDepartmentInput = {
+    subject_code?: StringFieldUpdateOperationsInput | string
+    subject_name?: StringFieldUpdateOperationsInput | string
+    semester?: NullableStringFieldUpdateOperationsInput | string | null
+    credits?: NullableIntFieldUpdateOperationsInput | number | null
+    attendance?: AttendanceUpdateManyWithoutSubjectNestedInput
+    enrollments?: EnrollmentUpdateManyWithoutSubjectNestedInput
+    announcements?: FacultyAnnouncementUpdateManyWithoutSubjectNestedInput
+    faculty_subjects?: FacultySubjectUpdateManyWithoutSubjectNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUpdateManyWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUpdateManyWithoutSubjectsNestedInput
+    timetable?: ScheduleUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateWithoutDepartmentInput = {
+    subject_id?: IntFieldUpdateOperationsInput | number
+    subject_code?: StringFieldUpdateOperationsInput | string
+    subject_name?: StringFieldUpdateOperationsInput | string
+    semester?: NullableStringFieldUpdateOperationsInput | string | null
+    credits?: NullableIntFieldUpdateOperationsInput | number | null
+    attendance?: AttendanceUncheckedUpdateManyWithoutSubjectNestedInput
+    enrollments?: EnrollmentUncheckedUpdateManyWithoutSubjectNestedInput
+    announcements?: FacultyAnnouncementUncheckedUpdateManyWithoutSubjectNestedInput
+    faculty_subjects?: FacultySubjectUncheckedUpdateManyWithoutSubjectNestedInput
+    syllabus_subtopics?: syllabus_subtopicsUncheckedUpdateManyWithoutSubjectsNestedInput
+    syllabus_units?: syllabus_unitsUncheckedUpdateManyWithoutSubjectsNestedInput
+    timetable?: ScheduleUncheckedUpdateManyWithoutSubjectNestedInput
+  }
+
+  export type SubjectUncheckedUpdateManyWithoutDepartmentInput = {
+    subject_id?: IntFieldUpdateOperationsInput | number
+    subject_code?: StringFieldUpdateOperationsInput | string
+    subject_name?: StringFieldUpdateOperationsInput | string
+    semester?: NullableStringFieldUpdateOperationsInput | string | null
+    credits?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type syllabus_packagesUpdateWithoutDepartmentsInput = {
+    semester?: StringFieldUpdateOperationsInput | string
+    uploaded_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    file_url?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    error_msg?: NullableStringFieldUpdateOperationsInput | string | null
+    faculty?: FacultyUpdateOneWithoutSyllabus_packagesNestedInput
+    syllabus_units?: syllabus_unitsUpdateManyWithoutSyllabus_packagesNestedInput
+  }
+
+  export type syllabus_packagesUncheckedUpdateWithoutDepartmentsInput = {
+    package_id?: IntFieldUpdateOperationsInput | number
+    semester?: StringFieldUpdateOperationsInput | string
+    uploaded_by?: NullableIntFieldUpdateOperationsInput | number | null
+    uploaded_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    file_url?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    error_msg?: NullableStringFieldUpdateOperationsInput | string | null
+    syllabus_units?: syllabus_unitsUncheckedUpdateManyWithoutSyllabus_packagesNestedInput
+  }
+
+  export type syllabus_packagesUncheckedUpdateManyWithoutDepartmentsInput = {
+    package_id?: IntFieldUpdateOperationsInput | number
+    semester?: StringFieldUpdateOperationsInput | string
+    uploaded_by?: NullableIntFieldUpdateOperationsInput | number | null
+    uploaded_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    file_url?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    error_msg?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type AttendanceCreateManyFacultyInput = {
     attendance_id?: number
     stud_id?: number | null
@@ -26585,6 +33867,25 @@ export namespace Prisma {
     file_url: string
     created_at?: Date | string | null
     is_active?: boolean | null
+  }
+
+  export type syllabus_completionsCreateManyFacultyInput = {
+    completion_id?: number
+    subtopic_id: number
+    completed_at?: Date | string | null
+  }
+
+  export type syllabus_packagesCreateManyFacultyInput = {
+    package_id?: number
+    dept_id: number
+    semester: string
+    uploaded_at?: Date | string | null
+    file_url: string
+    version?: string | null
+    is_active?: boolean | null
+    notes?: string | null
+    status?: string | null
+    error_msg?: string | null
   }
 
   export type AttendanceUpdateWithoutFacultyInput = {
@@ -26755,6 +34056,63 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
+  export type syllabus_completionsUpdateWithoutFacultyInput = {
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    syllabus_subtopics?: syllabus_subtopicsUpdateOneRequiredWithoutSyllabus_completionsNestedInput
+  }
+
+  export type syllabus_completionsUncheckedUpdateWithoutFacultyInput = {
+    completion_id?: IntFieldUpdateOperationsInput | number
+    subtopic_id?: IntFieldUpdateOperationsInput | number
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type syllabus_completionsUncheckedUpdateManyWithoutFacultyInput = {
+    completion_id?: IntFieldUpdateOperationsInput | number
+    subtopic_id?: IntFieldUpdateOperationsInput | number
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type syllabus_packagesUpdateWithoutFacultyInput = {
+    semester?: StringFieldUpdateOperationsInput | string
+    uploaded_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    file_url?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    error_msg?: NullableStringFieldUpdateOperationsInput | string | null
+    departments?: DepartmentUpdateOneRequiredWithoutSyllabus_packagesNestedInput
+    syllabus_units?: syllabus_unitsUpdateManyWithoutSyllabus_packagesNestedInput
+  }
+
+  export type syllabus_packagesUncheckedUpdateWithoutFacultyInput = {
+    package_id?: IntFieldUpdateOperationsInput | number
+    dept_id?: IntFieldUpdateOperationsInput | number
+    semester?: StringFieldUpdateOperationsInput | string
+    uploaded_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    file_url?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    error_msg?: NullableStringFieldUpdateOperationsInput | string | null
+    syllabus_units?: syllabus_unitsUncheckedUpdateManyWithoutSyllabus_packagesNestedInput
+  }
+
+  export type syllabus_packagesUncheckedUpdateManyWithoutFacultyInput = {
+    package_id?: IntFieldUpdateOperationsInput | number
+    dept_id?: IntFieldUpdateOperationsInput | number
+    semester?: StringFieldUpdateOperationsInput | string
+    uploaded_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    file_url?: StringFieldUpdateOperationsInput | string
+    version?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    error_msg?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type AttendanceCreateManyStudentInput = {
     attendance_id?: number
     subject_id?: number | null
@@ -26825,16 +34183,33 @@ export namespace Prisma {
     created_at?: Date | string | null
   }
 
+  export type FacultySubjectCreateManySubjectInput = {
+    faculty_id: number
+  }
+
+  export type syllabus_subtopicsCreateManySubjectsInput = {
+    subtopic_id?: number
+    unit_id: number
+    subtopic_index: number
+    title: string
+    details?: string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type syllabus_unitsCreateManySubjectsInput = {
+    unit_id?: number
+    package_id: number
+    unit_index: number
+    title: string
+    description?: string | null
+  }
+
   export type ScheduleCreateManySubjectInput = {
     timetable_id?: number
     day_of_week?: number | null
     start_time?: Date | string | null
     end_time?: Date | string | null
     room_no?: string | null
-  }
-
-  export type FacultySubjectCreateManySubjectInput = {
-    faculty_id: number
   }
 
   export type AttendanceUpdateWithoutSubjectInput = {
@@ -26904,6 +34279,71 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type FacultySubjectUpdateWithoutSubjectInput = {
+    Faculty?: FacultyUpdateOneRequiredWithoutFaculty_subjectsNestedInput
+  }
+
+  export type FacultySubjectUncheckedUpdateWithoutSubjectInput = {
+    faculty_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type FacultySubjectUncheckedUpdateManyWithoutSubjectInput = {
+    faculty_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type syllabus_subtopicsUpdateWithoutSubjectsInput = {
+    subtopic_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+    syllabus_completions?: syllabus_completionsUpdateManyWithoutSyllabus_subtopicsNestedInput
+    syllabus_units?: syllabus_unitsUpdateOneRequiredWithoutSyllabus_subtopicsNestedInput
+  }
+
+  export type syllabus_subtopicsUncheckedUpdateWithoutSubjectsInput = {
+    subtopic_id?: IntFieldUpdateOperationsInput | number
+    unit_id?: IntFieldUpdateOperationsInput | number
+    subtopic_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+    syllabus_completions?: syllabus_completionsUncheckedUpdateManyWithoutSyllabus_subtopicsNestedInput
+  }
+
+  export type syllabus_subtopicsUncheckedUpdateManyWithoutSubjectsInput = {
+    subtopic_id?: IntFieldUpdateOperationsInput | number
+    unit_id?: IntFieldUpdateOperationsInput | number
+    subtopic_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type syllabus_unitsUpdateWithoutSubjectsInput = {
+    unit_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    syllabus_subtopics?: syllabus_subtopicsUpdateManyWithoutSyllabus_unitsNestedInput
+    syllabus_packages?: syllabus_packagesUpdateOneRequiredWithoutSyllabus_unitsNestedInput
+  }
+
+  export type syllabus_unitsUncheckedUpdateWithoutSubjectsInput = {
+    unit_id?: IntFieldUpdateOperationsInput | number
+    package_id?: IntFieldUpdateOperationsInput | number
+    unit_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    syllabus_subtopics?: syllabus_subtopicsUncheckedUpdateManyWithoutSyllabus_unitsNestedInput
+  }
+
+  export type syllabus_unitsUncheckedUpdateManyWithoutSubjectsInput = {
+    unit_id?: IntFieldUpdateOperationsInput | number
+    package_id?: IntFieldUpdateOperationsInput | number
+    unit_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type ScheduleUpdateWithoutSubjectInput = {
     day_of_week?: NullableIntFieldUpdateOperationsInput | number | null
     start_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -26927,16 +34367,97 @@ export namespace Prisma {
     room_no?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type FacultySubjectUpdateWithoutSubjectInput = {
-    Faculty?: FacultyUpdateOneRequiredWithoutFaculty_subjectsNestedInput
+  export type syllabus_unitsCreateManySyllabus_packagesInput = {
+    unit_id?: number
+    subject_id: number
+    unit_index: number
+    title: string
+    description?: string | null
   }
 
-  export type FacultySubjectUncheckedUpdateWithoutSubjectInput = {
-    faculty_id?: IntFieldUpdateOperationsInput | number
+  export type syllabus_unitsUpdateWithoutSyllabus_packagesInput = {
+    unit_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    syllabus_subtopics?: syllabus_subtopicsUpdateManyWithoutSyllabus_unitsNestedInput
+    subjects?: SubjectUpdateOneRequiredWithoutSyllabus_unitsNestedInput
   }
 
-  export type FacultySubjectUncheckedUpdateManyWithoutSubjectInput = {
+  export type syllabus_unitsUncheckedUpdateWithoutSyllabus_packagesInput = {
+    unit_id?: IntFieldUpdateOperationsInput | number
+    subject_id?: IntFieldUpdateOperationsInput | number
+    unit_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    syllabus_subtopics?: syllabus_subtopicsUncheckedUpdateManyWithoutSyllabus_unitsNestedInput
+  }
+
+  export type syllabus_unitsUncheckedUpdateManyWithoutSyllabus_packagesInput = {
+    unit_id?: IntFieldUpdateOperationsInput | number
+    subject_id?: IntFieldUpdateOperationsInput | number
+    unit_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type syllabus_completionsCreateManySyllabus_subtopicsInput = {
+    completion_id?: number
+    faculty_id: number
+    completed_at?: Date | string | null
+  }
+
+  export type syllabus_completionsUpdateWithoutSyllabus_subtopicsInput = {
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    faculty?: FacultyUpdateOneRequiredWithoutSyllabus_completionsNestedInput
+  }
+
+  export type syllabus_completionsUncheckedUpdateWithoutSyllabus_subtopicsInput = {
+    completion_id?: IntFieldUpdateOperationsInput | number
     faculty_id?: IntFieldUpdateOperationsInput | number
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type syllabus_completionsUncheckedUpdateManyWithoutSyllabus_subtopicsInput = {
+    completion_id?: IntFieldUpdateOperationsInput | number
+    faculty_id?: IntFieldUpdateOperationsInput | number
+    completed_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type syllabus_subtopicsCreateManySyllabus_unitsInput = {
+    subtopic_id?: number
+    subject_id: number
+    subtopic_index: number
+    title: string
+    details?: string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type syllabus_subtopicsUpdateWithoutSyllabus_unitsInput = {
+    subtopic_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+    syllabus_completions?: syllabus_completionsUpdateManyWithoutSyllabus_subtopicsNestedInput
+    subjects?: SubjectUpdateOneRequiredWithoutSyllabus_subtopicsNestedInput
+  }
+
+  export type syllabus_subtopicsUncheckedUpdateWithoutSyllabus_unitsInput = {
+    subtopic_id?: IntFieldUpdateOperationsInput | number
+    subject_id?: IntFieldUpdateOperationsInput | number
+    subtopic_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
+    syllabus_completions?: syllabus_completionsUncheckedUpdateManyWithoutSyllabus_subtopicsNestedInput
+  }
+
+  export type syllabus_subtopicsUncheckedUpdateManyWithoutSyllabus_unitsInput = {
+    subtopic_id?: IntFieldUpdateOperationsInput | number
+    subject_id?: IntFieldUpdateOperationsInput | number
+    subtopic_index?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    details?: NullableStringFieldUpdateOperationsInput | string | null
+    extra?: NullableJsonNullValueInput | InputJsonValue
   }
 
 
@@ -26964,6 +34485,18 @@ export namespace Prisma {
      * @deprecated Use SubjectCountOutputTypeDefaultArgs instead
      */
     export type SubjectCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SubjectCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use Syllabus_packagesCountOutputTypeDefaultArgs instead
+     */
+    export type Syllabus_packagesCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = Syllabus_packagesCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use Syllabus_subtopicsCountOutputTypeDefaultArgs instead
+     */
+    export type Syllabus_subtopicsCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = Syllabus_subtopicsCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use Syllabus_unitsCountOutputTypeDefaultArgs instead
+     */
+    export type Syllabus_unitsCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = Syllabus_unitsCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */
@@ -27028,6 +34561,22 @@ export namespace Prisma {
      * @deprecated Use NotificationDefaultArgs instead
      */
     export type NotificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = NotificationDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use syllabus_completionsDefaultArgs instead
+     */
+    export type syllabus_completionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = syllabus_completionsDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use syllabus_packagesDefaultArgs instead
+     */
+    export type syllabus_packagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = syllabus_packagesDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use syllabus_subtopicsDefaultArgs instead
+     */
+    export type syllabus_subtopicsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = syllabus_subtopicsDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use syllabus_unitsDefaultArgs instead
+     */
+    export type syllabus_unitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = syllabus_unitsDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

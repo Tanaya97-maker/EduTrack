@@ -83,6 +83,18 @@ const apiHandler = async (req, res) => {
             case 'clear_notifications':
                 await handleClearNotifications(input, res);
                 break;
+            case 'upload_syllabus':
+                await handleUploadSyllabus(input, res);
+                break;
+            case 'insert_syllabus':
+                await handleInsertSyllabus(input, res);
+                break;
+            case 'get_syllabus_uploads':
+                await handleGetSyllabusUploads(req.query, res);
+                break;
+            case 'retry_syllabus_upload':
+                await handleRetrySyllabusUpload(input, res);
+                break;
             default:
                 res.status(400).json({ error: 'Invalid action' });
         }
@@ -555,6 +567,7 @@ async function handleGetAll(query, res) {
                 notes: await prisma.facultyNote.findMany({ orderBy: { created_at: 'desc' } }),
                 leaves: await prisma.facultyLeave.findMany({ orderBy: { created_at: 'desc' } }),
                 facultySubjects: await prisma.facultySubject.findMany(),
+                syllabusPackages: await prisma.syllabus_packages.findMany({ include: { departments: true }, orderBy: { uploaded_at: 'desc' } }),
                 stats: {
                     total_users: await prisma.user.count({ where: { is_active: true } }),
                     total_courses: await prisma.subject.count()
@@ -1136,6 +1149,121 @@ async function handleGetUploadedSchedules(query, res) {
     } catch (e) {
         console.error('Get Uploaded Schedules Error:', e);
         res.status(500).json({ error: 'Failed to fetch schedules', message: e.message });
+    }
+}
+
+async function handleUploadSyllabus(input, res) {
+    const { dept_id, semester, file_url } = input;
+    try {
+        const pkg = await prisma.syllabus_packages.create({
+            data: {
+                dept_id: safeInt(dept_id),
+                semester: semester.toString(),
+                file_url: file_url,
+                status: 'processing'
+            }
+        });
+
+        // 2. Fetch the file from Supabase and send to Zapier
+        const zapierUrl = 'https://hooks.zapier.com/hooks/catch/26644781/u0897tg/';
+
+        // Use a promise to handle the fetch/zapier flow without blocking the response
+        (async () => {
+            try {
+                // Fetch image from Supabase
+                const fileRes = await fetch(file_url);
+                if (!fileRes.ok) throw new Error(`Failed to fetch file from storage: ${fileRes.statusText}`);
+                const blob = await fileRes.blob();
+
+                // Create FormData to send actual file to Zapier
+                const formData = new FormData();
+                formData.append('file', blob, 'syllabus.pdf');
+                formData.append('package_id', pkg.package_id.toString());
+                formData.append('dept_id', dept_id.toString());
+                formData.append('semester', semester.toString());
+                formData.append('file_url', file_url);
+
+                await fetch(zapierUrl, {
+                    method: 'POST',
+                    body: formData
+                });
+            } catch (error) {
+                console.error('Zapier/Fetch error:', error);
+                await prisma.syllabus_packages.update({
+                    where: { package_id: pkg.package_id },
+                    data: { status: 'failed', error_msg: error.message }
+                });
+            }
+        })();
+
+        res.json({ message: "Syllabus processing started", package_id: pkg.package_id });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+}
+
+async function handleInsertSyllabus(input, res) {
+    const { package_id, dept_id, semester, file_url } = input;
+    try {
+        await prisma.syllabus_packages.update({
+            where: { package_id: safeInt(package_id) },
+            data: {
+                status: 'completed',
+                is_active: true
+            }
+        });
+        res.json({ success: true });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+}
+
+async function handleGetSyllabusUploads(query, res) {
+    try {
+        const uploads = await prisma.syllabus_packages.findMany({
+            include: { departments: true },
+            orderBy: { uploaded_at: 'desc' }
+        });
+        res.json(uploads);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+}
+
+async function handleRetrySyllabusUpload(input, res) {
+    const { package_id } = input;
+    try {
+        const pkg = await prisma.syllabus_packages.findUnique({
+            where: { package_id: safeInt(package_id) }
+        });
+
+        if (!pkg) return res.status(404).json({ error: 'Package not found' });
+
+        await prisma.syllabus_packages.update({
+            where: { package_id: pkg.package_id },
+            data: { status: 'processing', error_msg: null }
+        });
+
+        const zapierUrl = 'https://hooks.zapier.com/hooks/catch/26644781/u0897tg/';
+        fetch(zapierUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                package_id: pkg.package_id,
+                dept_id: pkg.dept_id,
+                semester: pkg.semester,
+                file_url: pkg.file_url
+            })
+        }).catch(async (error) => {
+            await prisma.syllabus_packages.update({
+                where: { package_id: pkg.package_id },
+                data: { status: 'failed', error_msg: error.message }
+            });
+        });
+
+        res.json({ message: "Retry started", package_id: pkg.package_id });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
     }
 }
 
